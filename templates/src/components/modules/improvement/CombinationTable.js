@@ -8,7 +8,7 @@ export default function CombinationTable({
   canSortColumns,
   selectedColumn,
 }) {
-  const { modelOverviewTableSortingInfo } = useFileData()
+  const { combinationTableSortingInfo } = useFileData()
   const columnKeys = Object.keys(data[0]).slice(1)
 
   return data.length > 0 ? (
@@ -39,7 +39,7 @@ export default function CombinationTable({
             {selected && (
               <>
                 &nbsp;
-                {modelOverviewTableSortingInfo.isAscending ? (
+                {combinationTableSortingInfo.isAscending ? (
                   <>&uarr;</>
                 ) : (
                   <>&darr;</>

@@ -8,10 +8,10 @@ export default function Improvement() {
   const {
     combinationTableData,
     isEmptyData,
-    modelOverviewTableSortingInfo,
-    setModelOverviewTableSortingInfo,
-    selectedModelOverviewTableRow,
-    setSelectedModelOverviewTableRow,
+    combinationTableSortingInfo,
+    setCombinationTableSortingInfo,
+    selectedCombinationTableRow,
+    setSelectedCombinationTableRow,
   } = useFileData()
   const { combinationData } = combinationTableData
 
@@ -35,7 +35,7 @@ export default function Improvement() {
   }, [combinationData])
 
   const sortedData = useMemo(() => {
-    const { column, isAscending } = modelOverviewTableSortingInfo
+    const { column, isAscending } = combinationTableSortingInfo
     if (!column) {
       return []
     }
@@ -46,11 +46,11 @@ export default function Improvement() {
     )
 
     if (
-      selectedModelOverviewTableRow === undefined &&
+      selectedCombinationTableRow === undefined &&
       sortedChartTableData.length > 0
     ) {
       const firstRow = sortedChartTableData[0]
-      setSelectedModelOverviewTableRow({
+      setSelectedCombinationTableRow({
         key: firstRow.key,
         combination: firstRow.combination,
         combinationDetail: firstRow.combinationDetail,
@@ -58,16 +58,16 @@ export default function Improvement() {
       })
     }
     return sortedChartTableData
-  }, [modelOverviewTableSortingInfo, data])
+  }, [combinationTableSortingInfo, data])
 
   const handleTableHeadClick = useCallback(
     columnName => {
-      setModelOverviewTableSortingInfo(prev => ({
+      setCombinationTableSortingInfo(prev => ({
         ...prev,
         column: columnName,
       }))
     },
-    [setModelOverviewTableSortingInfo]
+    [setCombinationTableSortingInfo]
   )
 
   return (
@@ -75,9 +75,9 @@ export default function Improvement() {
       {!isEmptyData({ combinationData }) && data.length > 0 && (
         <CombinationTable
           canSortColumns={combinationData.inputEvalList}
-          selectedColumn={modelOverviewTableSortingInfo.column}
+          selectedColumn={combinationTableSortingInfo.column}
           onTableHeadClick={handleTableHeadClick}
-          onTableRowClick={params => setSelectedModelOverviewTableRow(params)}
+          onTableRowClick={params => setSelectedCombinationTableRow(params)}
           data={sortedData.map(d => ({
             key: d.key,
             ...['model'].reduce(
@@ -117,7 +117,7 @@ export default function Improvement() {
               {}
             ),
           }))}
-        />
+        />          
       )}
     </Box>
   )

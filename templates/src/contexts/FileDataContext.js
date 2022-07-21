@@ -42,8 +42,8 @@ export const FileDataProvider = ({ children }) => {
   const [purposeList, setPurposeList] = useState()
   const [settingData, setSettingData] = useState({})
   const [combinationTableData, setCombinationTableData] = useState({})
-  const [modelOverviewTableSortingInfo, setModelOverviewTableSortingInfo] = useState({})
-  const [selectedModelOverviewTableRow, setSelectedModelOverviewTableRow] = useState()
+  const [combinationTableSortingInfo, setCombinationTableSortingInfo] = useState({})
+  const [selectedCombinationTableRow, setSelectedCombinationTableRow] = useState()
 
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
@@ -69,7 +69,7 @@ export const FileDataProvider = ({ children }) => {
     if (!settingValues.purpose) {
       return
     }
-    setModelOverviewTableSortingInfo(prev => ({
+    setCombinationTableSortingInfo(prev => ({
       ...prev,
       isAscending: settingValues.purpose.label === 'prediction',
     }))
@@ -103,7 +103,7 @@ export const FileDataProvider = ({ children }) => {
 
   const updateCombinationTable = useCallback(async () => {
     const combinationData = await fetchData('/combination')
-    setModelOverviewTableSortingInfo(prev => ({
+    setCombinationTableSortingInfo(prev => ({
       ...prev,
       column: combinationData.inputEvalList[0],
     }))
@@ -132,10 +132,10 @@ export const FileDataProvider = ({ children }) => {
         purposeList,
         settingData,
         combinationTableData,
-        modelOverviewTableSortingInfo,
-        setModelOverviewTableSortingInfo,
-        selectedModelOverviewTableRow,
-        setSelectedModelOverviewTableRow,
+        combinationTableSortingInfo,
+        setCombinationTableSortingInfo,
+        selectedCombinationTableRow,
+        setSelectedCombinationTableRow,
       }}
     >
       {children}
