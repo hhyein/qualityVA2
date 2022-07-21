@@ -72,53 +72,59 @@ export default function Improvement() {
 
   return (
     <Box title="improvement" style={{ overflow: 'auto' }}>
-      {!isEmptyData({ combinationData }) && data.length > 0 && (
-        <CombinationTable
-          canSortColumns={combinationData.inputEvalList}
-          selectedColumn={combinationTableSortingInfo.column}
-          onTableHeadClick={handleTableHeadClick}
-          onTableRowClick={params => setSelectedCombinationTableRow(params)}
-          data={sortedData.map(d => ({
-            key: d.key,
-            ...['model'].reduce(
-              (acc, cur) => ({
-                ...acc,
-                [cur]: d[cur],
-              }),
-              {}
-            ),
-            ...['combination', 'combinationDetail'].reduce(
-              (acc, cur) => ({
-                ...acc,
-                [cur]: (
-                  <div style={{ display: 'flex' }}>
-                    {d[cur].map(imgName => (
-                      <img
-                        src={require(`../../icons/${imgName}.png`)}
-                        alt={''}
-                        style={{ height: '25px', width: '25px' }}
-                      />
-                    ))}
-                  </div>
-                ),
-              }),
-              {}
-            ),
-            ...combinationData.inputEvalList.reduce(
-              (acc, cur, j) => ({
-                ...acc,
-                [cur]: (
-                  <HorizontalBarChart
-                    data={[d[cur]]}
-                    colorCode={['lightcoral', 'mediumturquoise', 'sienna'][j]}
-                  />
-                ),
-              }),
-              {}
-            ),
-          }))}
-        />          
-      )}
+      <div style={{
+        height: '200px',
+        overflow: 'auto',
+        border: 'none'
+      }}>
+        {!isEmptyData({ combinationData }) && data.length > 0 && (
+          <CombinationTable
+            canSortColumns={combinationData.inputEvalList}
+            selectedColumn={combinationTableSortingInfo.column}
+            onTableHeadClick={handleTableHeadClick}
+            onTableRowClick={params => setSelectedCombinationTableRow(params)}
+            data={sortedData.map(d => ({
+              key: d.key,
+              ...['model'].reduce(
+                (acc, cur) => ({
+                  ...acc,
+                  [cur]: d[cur],
+                }),
+                {}
+              ),
+              ...['combination', 'combinationDetail'].reduce(
+                (acc, cur) => ({
+                  ...acc,
+                  [cur]: (
+                    <div style={{ display: 'flex' }}>
+                      {d[cur].map(imgName => (
+                        <img
+                          src={require(`../../icons/${imgName}.png`)}
+                          alt={''}
+                          style={{ height: '25px', width: '25px' }}
+                        />
+                      ))}
+                    </div>
+                  ),
+                }),
+                {}
+              ),
+              ...combinationData.inputEvalList.reduce(
+                (acc, cur, j) => ({
+                  ...acc,
+                  [cur]: (
+                    <HorizontalBarChart
+                      data={[d[cur]]}
+                      colorCode={['lightcoral', 'mediumturquoise', 'sienna'][j]}
+                    />
+                  ),
+                }),
+                {}
+              ),
+            }))}
+          />
+        )}
+      </div>
     </Box>
   )
 }
