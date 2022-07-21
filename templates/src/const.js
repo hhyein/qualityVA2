@@ -1,23 +1,24 @@
 export const mainLayoutStyle = {
   gridGap: '10px',
-  gridTemplateColumns: '250px 400px 400px',
+  gridTemplateColumns: '250px 400px 500px 400px',
   gridTemplateRows: '80px 80px 250px 80px 80px 80px 80px',
   gridTemplateAreas: `
-    'dataset overview overview'
-    'setting overview overview'
-    'setting improvement evaluation'
-    'combination improvement evaluation'
-    'combination improvement evaluation'
-    'combination improvement evaluation'
-    'combination improvement evaluation'
+    'dataset overview overview overview'
+    'dataset overview overview overview'
+    'model-setting check improvement evaluation'
+    'model-setting check improvement evaluation'
+    'combination-setting check improvement evaluation'
+    'combination-setting check improvement evaluation'
+    'combination-setting check improvement evaluation'
   `,
 }
 
 export const boxTitles = {
   'dataset': 'dataset',
-  'setting': 'setting',
+  'model-setting': 'model-setting',
+  'combination-setting': 'combination-setting',
   'overview': 'overview',
-  'combination': 'combination',
+  'check': 'check',
   'improvement': 'improvement',
   'evaluation': 'evaluation',
 }

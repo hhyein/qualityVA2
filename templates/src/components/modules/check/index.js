@@ -4,7 +4,7 @@ import { Box } from '../../Box'
 export default function Check() {
 
   return (
-    <Box title="combination">
+    <Box title="check">
     </Box>
   )
 }

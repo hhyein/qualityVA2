@@ -4,7 +4,7 @@ import Title from '../../Title'
 import { Box } from '../../Box'
 import { useFileData } from '../../../contexts/FileDataContext'
 
-export default function Setting() {
+export default function ModelSetting() {
   const {
     isEmptyData,
     purposeList,
@@ -22,7 +22,7 @@ export default function Setting() {
 
   return (
     <Box
-      title="setting"
+      title="model-setting"
       style={{
         display: 'grid',
         overflow: 'visible',

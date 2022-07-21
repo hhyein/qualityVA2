@@ -32,7 +32,6 @@ const FileDataContext = React.createContext()
 
 export const FileDataProvider = ({ children }) => {
   const [file, setFile] = useState()
-  const [dataColumnList, setColumnList] = useState([])
   const [settingValues, setSettingValues] = useState({
     purpose: undefined,
     column: undefined,
@@ -42,6 +41,9 @@ export const FileDataProvider = ({ children }) => {
 
   const [purposeList, setPurposeList] = useState()
   const [settingData, setSettingData] = useState({})
+  const [combinationTableData, setCombinationTableData] = useState({})
+  const [modelOverviewTableSortingInfo, setModelOverviewTableSortingInfo] = useState({})
+  const [selectedModelOverviewTableRow, setSelectedModelOverviewTableRow] = useState()
 
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
@@ -67,12 +69,17 @@ export const FileDataProvider = ({ children }) => {
     if (!settingValues.purpose) {
       return
     }
+    setModelOverviewTableSortingInfo(prev => ({
+      ...prev,
+      isAscending: settingValues.purpose.label === 'prediction',
+    }))
     await postData('/setting', settingValues)
-    const { columnList, modelList, evalList } = await fetchData('/setting')
+    const { columnList, modelList, evalList, dimensionList } = await fetchData('/setting')
     setSettingData({
       columnList,
       modelList,
       evalList,
+      dimensionList,
     })
   }, [settingValues.purpose])
 
@@ -94,26 +101,41 @@ export const FileDataProvider = ({ children }) => {
     handlePurposeChange()
   }, [handlePurposeChange])
 
+  const updateCombinationTable = useCallback(async () => {
+    const combinationData = await fetchData('/combination')
+    setModelOverviewTableSortingInfo(prev => ({
+      ...prev,
+      column: combinationData.inputEvalList[0],
+    }))
+    setCombinationTableData({ combinationData })
+  }, [])
+
   useEffect(() => {
     if (!file || isEmptyData(settingValues)) {
       return
     }
+    updateCombinationTable()
   }, [
     file,
+    updateCombinationTable,
     settingValues,
   ])
 
   return (
     <FileDataContext.Provider
       value={{
-        dataColumnList,
         file,
+        isEmptyData,
         handleDrop,
         settingValues,
         setSettingValues,
         purposeList,
         settingData,
-        isEmptyData,
+        combinationTableData,
+        modelOverviewTableSortingInfo,
+        setModelOverviewTableSortingInfo,
+        selectedModelOverviewTableRow,
+        setSelectedModelOverviewTableRow,
       }}
     >
       {children}

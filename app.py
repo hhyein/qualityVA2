@@ -114,6 +114,13 @@ def setting():
     print('setting: success')
     return json.dumps({'setting': 'success'})
 
+@app.route('/combination', methods=['GET', 'POST'])
+def combinationTable():
+  with open('static/combination.json') as f:
+    combinationData = json.load(f)
+
+  return json.dumps(combinationData)
+
 if __name__ == '__main__':
   app.jinja_env.auto_reload = True
   app.config['TEMPLATES_AUTO_RELOAD'] = True
