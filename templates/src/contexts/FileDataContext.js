@@ -44,6 +44,12 @@ export const FileDataProvider = ({ children }) => {
   const [combinationTableData, setCombinationTableData] = useState({})
   const [combinationTableSortingInfo, setCombinationTableSortingInfo] = useState({})
   const [selectedCombinationTableRow, setSelectedCombinationTableRow] = useState()
+  const [combinationValue, setCombinationValue] = useState({})
+
+  // 콤비-세팅가서 value 세팅한 후에 postCombinationValue실행하면 보내질거얌
+  // const postCombinationValue = async () => {
+  //   await postData('/combinationSetting ', combinationValue);
+  // };
 
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
@@ -136,6 +142,8 @@ export const FileDataProvider = ({ children }) => {
         setCombinationTableSortingInfo,
         selectedCombinationTableRow,
         setSelectedCombinationTableRow,
+        combinationValue,
+        setCombinationValue
       }}
     >
       {children}
