@@ -1,22 +1,24 @@
 import React, { useEffect, useRef } from 'react'
+import Legend from './Legend'
+
+const colors = ['steelblue', 'darkorange', 'darkgreen']
 
 export default function DonutChart(props) {
-  const { data } = props
+  const { data, selectedLegendIdx, onLegendClick } = props
   const svgRef = useRef()
   const d3 = window.d3v4
 
   useEffect(() => {
-    d3.select('.doughnut-wrapper').selectAll('*').remove()
-    const data = { a: 20, b: 20, c: 60 }
-
-    const width = 200,
-      height = 200,
-      margin = 40
+    d3.select('.donut-wrapper').selectAll('*').remove()
+    const donutData = data[selectedLegendIdx].data
+    const width = 100,
+      height = 100,
+      margin = 20
 
     const radius = Math.min(width, height) / 2 - margin
 
     const svg = d3
-      .select('.doughnut-wrapper')
+      .select('.donut-wrapper')
       .append('svg')
       .attr('width', width)
       .attr('height', height)
@@ -25,21 +27,44 @@ export default function DonutChart(props) {
 
     const colorScale = d3
       .scaleOrdinal()
-      .domain(data)
-      .range(['steelblue', 'darkorange', 'darkgreen'])
+      .domain(donutData)
+      .range([colors[selectedLegendIdx], 'lightgray'])
 
-    const pie = d3.pie().value(d => d.value)
+    const pie = d3
+      .pie()
+      .value(d => d.value)
+      .sort(null)
 
-    const calculatedData = pie(d3.entries(data))
+    const calculatedData = pie(d3.entries(donutData))
 
     svg
       .selectAll()
       .data(calculatedData)
       .enter()
       .append('path')
-      .attr('d', d3.arc().innerRadius(100).outerRadius(radius))
+      .attr(
+        'd',
+        d3
+          .arc()
+          .innerRadius(width / 2)
+          .outerRadius(radius)
+      )
       .attr('fill', d => colorScale(d.data.key))
-  }, [data, svgRef, d3])
+  }, [data, selectedLegendIdx, svgRef, d3])
 
-  return <div className="doughnut-wrapper" />
+  return (
+    <div style={{ display: 'flex' }}>
+      <div className="donut-wrapper" />
+      <Legend
+        onLegendClick={onLegendClick}
+        dataColorInfo={data.reduce(
+          (acc, { label }, i) => ({
+            ...acc,
+            [label]: colors[i],
+          }),
+          {}
+        )}
+      />
+    </div>
+  )
 }
