@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { Box } from '../../Box'
+import { useFileData } from '../../../contexts/FileDataContext'
 import DonutChart from '../../charts/DonutChart'
 import HeatmapChart from '../../charts/HeatmapChart'
 import HistogramChart from '../../charts/HistogramChart'
@@ -11,6 +12,10 @@ const exampleDonutData = [
 ]
 
 export default function Check() {
+  const {
+    isEmptyData,
+    combinationSettingValues,
+  } = useFileData();
   const [selectedLegendIdx, setSelectedLegendIdx] = useState(0)
 
   const legendDetail = useMemo(() => {
@@ -35,15 +40,20 @@ export default function Check() {
 
   return (
     <Box title="check">
-      <DonutChart
-        data={exampleDonutData}
-        selectedLegendIdx={selectedLegendIdx}
-        onLegendClick={setSelectedLegendIdx}
-      />
-      <div style={{ border: '1px var(--grey-100) solid', padding: '8px' }}>
-        {legendDetail.text}
-      </div>
-      {legendDetail.chart}
+      {!isEmptyData({
+        // example
+        combinationSettingValues
+      }) && <>
+        <DonutChart
+          data={exampleDonutData}
+          selectedLegendIdx={selectedLegendIdx}
+          onLegendClick={setSelectedLegendIdx}
+        />
+        <div style={{ border: '1px var(--grey-100) solid', padding: '8px' }}>
+          {legendDetail.text}
+        </div>
+        {legendDetail.chart}
+      </>}
     </Box>
   )
 }

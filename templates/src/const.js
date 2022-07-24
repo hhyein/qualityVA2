@@ -1,7 +1,7 @@
 export const mainLayoutStyle = {
   gridGap: '10px',
-  gridTemplateColumns: '180px 400px 500px 400px',
-  gridTemplateRows: '80px 80px 250px 80px 80px 80px 80px',
+  gridTemplateColumns: '180px 300px 500px 400px',
+  gridTemplateRows: '30px 80px 250px 80px 80px 80px 80px',
   gridTemplateAreas: `
     'dataset overview overview overview'
     'dataset overview overview overview'

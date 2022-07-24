@@ -6,8 +6,8 @@ import { useFileData } from '../../../contexts/FileDataContext'
 
 export default function Improvement() {
   const {
-    combinationTableData,
     isEmptyData,
+    combinationTableData,
     combinationTableSortingInfo,
     setCombinationTableSortingInfo,
     selectedCombinationTableRow,
