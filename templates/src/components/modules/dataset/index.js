@@ -31,6 +31,13 @@ export default function Dataset() {
           </div>
         )}
       </Dropzone>
+      <button
+        onClick={() =>
+          window.open('https://datasetsearch.research.google.com/', '_blank')
+        }
+      >
+        url
+      </button>
     </Box>
   )
 }
