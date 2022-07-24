@@ -27,8 +27,14 @@ export default function HorizontalBarChart({ data, colorCode, type, onClick }) {
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-    var x = d3.scaleLinear().domain([0, 100]).range([0, width])
-    var y = d3.scaleBand().range([0, height])
+    var x = d3
+      .scaleLinear()
+      .domain([0, 100])
+      .range([0, width])
+
+    var y = d3
+      .scaleBand()
+      .range([0, height])
 
     var color = d3
       .scaleOrdinal()
@@ -47,7 +53,9 @@ export default function HorizontalBarChart({ data, colorCode, type, onClick }) {
       }
     })
 
-    var stackedData = d3.stack().keys(subgroups)(data)
+    var stackedData = d3
+      .stack()
+      .keys(subgroups)(data)
 
     svg
       .append("g")

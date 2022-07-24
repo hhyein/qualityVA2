@@ -8,13 +8,13 @@ export default function ModelSetting() {
   const {
     isEmptyData,
     purposeList,
-    settingData: { columnList, modelList, evalList },
-    settingValues,
-    setSettingValues,
+    modelSettingData: { columnList, modelList, evalList },
+    modelSettingValues,
+    setModelSettingValues,
   } = useFileData()
 
   const handleChange = (key, value) => {
-    setSettingValues(prev => ({
+    setModelSettingValues(prev => ({
       ...prev,
       [key]: value,
     }))
@@ -33,35 +33,35 @@ export default function ModelSetting() {
         purposeList,
       }) && (
         <>
-          <Title title="purpose of data" />
+          <Title title="purpose" />
           <Select
             options={purposeList}
-            placeholder={<div>select purpose</div>}
+            placeholder={<div>select</div>}
             onChange={v => {
               handleChange('purpose', v)
             }}
           />
-          <Title title="column to purpose" />
+          <Title title="column" />
           <Select
             options={columnList}
-            value={settingValues.column}
-            placeholder={<div>select column</div>}
+            value={modelSettingValues.column}
+            placeholder={<div>select</div>}
             onChange={v => {
               handleChange('column', v)
             }}
           />
-          <Title title="machine learning model" />
+          <Title title="model" />
           <Select
             isMulti
             options={modelList}
-            placeholder={<div>select model</div>}
+            placeholder={<div>select</div>}
             onChange={v => handleChange('model', v)}
           />
-          <Title title="evaluation method" />
+          <Title title="metric" />
           <Select
             isMulti
             options={evalList}
-            placeholder={<div>select method</div>}
+            placeholder={<div>select</div>}
             onChange={v => handleChange('eval', v)}
           />
         </>

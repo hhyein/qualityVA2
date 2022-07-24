@@ -42,12 +42,12 @@ def fileUpload():
 
   originDf = fileUploadDf.reindex(sorted(fileUploadDf.columns), axis = 1)
   originDf.to_json('static/file.json', orient = 'records', indent = 4)
-  print('fileUpload: success')
 
+  print('fileUpload: success')
   return json.dumps({'fileUpload': 'success'})
 
-@app.route('/setting', methods=['GET', 'POST'])
-def setting():
+@app.route('/modelSetting', methods=['GET', 'POST'])
+def modelSetting():
   global purpose, purposeColumn, inputModelList, inputEvalList
 
   if request.method == 'GET':
@@ -113,6 +113,14 @@ def setting():
 
     print('setting: success')
     return json.dumps({'setting': 'success'})
+
+@app.route('/combinationSetting', methods=['GET', 'POST'])
+def combinationSetting():
+  req = request.get_data().decode('utf-8')
+  req = eval(req)
+
+  print(req)
+  return json.dumps(combinationData)
 
 @app.route('/combination', methods=['GET', 'POST'])
 def combinationTable():
