@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef } from 'react'
 
 export default function DonutChart(props) {
   const { data } = props
@@ -6,52 +6,40 @@ export default function DonutChart(props) {
   const d3 = window.d3v4
 
   useEffect(() => {
-    var svg = d3.select(svgRef.current)
-    d3.select(svgRef.current).selectAll("*").remove()
+    d3.select('.doughnut-wrapper').selectAll('*').remove()
+    const data = { a: 2, b: 10, c: 5, d: 7 }
 
-    var width = 200
-    var height = 200
-    var margin = 50
-    var radius = Math.min(width, height) / 2 - margin
+    const width = 200,
+      height = 200,
+      margin = 40
 
-    svg
-      .attr("width", width)
-      .attr("height", height)
-      .append("g")
-      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    const radius = Math.min(width, height) / 2 - margin
 
-    var data = {a: 9, b: 20, c:30, d:8, e:12}
+    const svg = d3
+      .select('.doughnut-wrapper')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+      .append('g')
+      .attr('transform', `translate(${width / 2}, ${height / 2})`)
 
-    var color = d3.scaleOrdinal()
+    const colorScale = d3
+      .scaleOrdinal()
       .domain(data)
-      .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"])
+      .range(['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56'])
 
-    var pie = d3.pie()
-      .value(function(d) { 
-        return d.value; 
-      })
-    var data_ready = pie(d3.entries(data))
+    const pie = d3.pie().value(d => d.value)
+
+    const calculatedData = pie(d3.entries(data))
 
     svg
-      .selectAll('whatever')
-      .data(data_ready)
+      .selectAll()
+      .data(calculatedData)
       .enter()
       .append('path')
-      .attr('d', d3.arc()
-      .innerRadius(100)
-      .outerRadius(radius)
-      )
-      .attr('fill', function(d){ 
-        return(color(d.data.key)) 
-      })
-      .attr("stroke", "black")
-      .style("stroke-width", "2px")
-      .style("opacity", 0.7)
-  }, [data, svgRef])
+      .attr('d', d3.arc().innerRadius(100).outerRadius(radius))
+      .attr('fill', d => colorScale(d.data.key))
+  }, [data, svgRef, d3])
 
-  return (
-    <div className="svg-wrapper">
-      <svg ref={svgRef}></svg>
-    </div>
-  )
+  return <div className="doughnut-wrapper" />
 }
