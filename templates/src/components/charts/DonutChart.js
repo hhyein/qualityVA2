@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react"
 
-export default function DonutChart({ data }) {
+export default function DonutChart(props) {
+  const { data } = props
   const svgRef = useRef()
   const d3 = window.d3v4
 
