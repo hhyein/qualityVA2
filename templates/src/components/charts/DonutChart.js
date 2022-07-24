@@ -7,7 +7,7 @@ export default function DonutChart(props) {
 
   useEffect(() => {
     d3.select('.doughnut-wrapper').selectAll('*').remove()
-    const data = { a: 2, b: 10, c: 5, d: 7 }
+    const data = { a: 20, b: 20, c: 60 }
 
     const width = 200,
       height = 200,
@@ -26,7 +26,7 @@ export default function DonutChart(props) {
     const colorScale = d3
       .scaleOrdinal()
       .domain(data)
-      .range(['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56'])
+      .range(['steelblue', 'darkorange', 'darkgreen'])
 
     const pie = d3.pie().value(d => d.value)
 
