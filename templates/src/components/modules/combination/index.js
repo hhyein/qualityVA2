@@ -4,7 +4,7 @@ import CombinationTable from './CombinationTable'
 import HorizontalBarChart from '../../charts/HorizontalBarChart'
 import { useFileData } from '../../../contexts/FileDataContext'
 
-export default function Improvement() {
+export default function Combination() {
   const {
     isEmptyData,
     combinationTableData,
@@ -71,7 +71,7 @@ export default function Improvement() {
   )
 
   return (
-    <Box title="improvement" style={{ overflow: 'auto' }}>
+    <Box title="combination" style={{ overflow: 'auto' }}>
       <div style={{
         height: '200px',
         overflow: 'auto',

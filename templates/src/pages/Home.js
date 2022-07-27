@@ -1,12 +1,12 @@
 import React from 'react'
 import { mainLayoutStyle } from '../const'
 import Dataset from '../components/modules/dataset'
-import ModelSetting from '../components/modules/modelSetting'
-import CombinationSetting from '../components/modules/combinationSetting'
+import Setting from '../components/modules/setting'
+import ActionDetail from '../components/modules/actionDetail'
 import Check from '../components/modules/check'
 import Overview from '../components/modules/overview'
-import Improvement from '../components/modules/improvement'
-import Evaluation from '../components/modules/evaluation'
+import Combination from '../components/modules/combination'
+import Action from '../components/modules/action'
 import { FileDataProvider } from '../contexts/FileDataContext'
 
 const Home = () => {
@@ -14,12 +14,12 @@ const Home = () => {
     <FileDataProvider>
       <div className="main" style={mainLayoutStyle}>
         <Dataset />
-        <ModelSetting />
-        <CombinationSetting />
+        <Setting />
         <Check />
+        <Combination />
+        <Action />
+        <ActionDetail />
         <Overview />
-        <Improvement />
-        <Evaluation />
       </div>
     </FileDataProvider>
   )

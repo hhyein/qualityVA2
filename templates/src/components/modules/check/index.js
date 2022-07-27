@@ -22,17 +22,14 @@ export default function Check() {
     switch (selectedLegendIdx) {
       case 0:
         return {
-          text: 'Legend1의 텍스트',
           chart: <HeatmapChart />,
         }
       case 1:
         return {
-          text: 'Legend2의 텍스트',
           chart: <HistogramChart />,
         }
       default:
         return {
-          text: 'Legend3의 텍스트',
           chart: <HistogramChart />,
         }
     }
@@ -41,7 +38,6 @@ export default function Check() {
   return (
     <Box title="check">
       {!isEmptyData({
-        // example
         combinationSettingValues
       }) && <>
         <DonutChart
@@ -49,9 +45,6 @@ export default function Check() {
           selectedLegendIdx={selectedLegendIdx}
           onLegendClick={setSelectedLegendIdx}
         />
-        <div style={{ border: '1px var(--grey-100) solid', padding: '8px' }}>
-          {legendDetail.text}
-        </div>
         {legendDetail.chart}
       </>}
     </Box>

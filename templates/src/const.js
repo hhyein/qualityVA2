@@ -1,26 +1,26 @@
 export const mainLayoutStyle = {
   gridGap: '10px',
-  gridTemplateColumns: '180px 300px 500px 400px',
-  gridTemplateRows: '30px 80px 250px 80px 80px 80px 80px',
+  gridTemplateColumns: '200px 350px 400px 250px',
+  gridTemplateRows: '35px 40px 200px 100px 100px 150px 150px',
   gridTemplateAreas: `
-    'dataset overview overview overview'
-    'dataset overview overview overview'
-    'model-setting check improvement evaluation'
-    'model-setting check improvement evaluation'
-    'combination-setting check improvement evaluation'
-    'combination-setting check improvement evaluation'
-    'combination-setting check improvement evaluation'
+    'dataset combination action action-detail'
+    'dataset combination action action-detail'
+    'setting combination action action-detail'
+    'setting combination action action-detail'
+    'check overview overview overview'
+    'check overview overview overview'
+    'check overview overview overview'
   `,
 }
 
 export const boxTitles = {
   'dataset': 'dataset',
-  'model-setting': 'model-setting',
-  'combination-setting': 'combination-setting',
+  'setting': 'setting',
+  'action-detail': 'action-detail',
   'overview': 'overview',
   'check': 'check',
-  'improvement': 'improvement',
-  'evaluation': 'evaluation',
+  'combination': 'combination',
+  'action': 'action',
 }
 
 export const PORT = 5000

@@ -10,18 +10,6 @@ export default function Dataset() {
 
   return (
     <Box title="dataset">
-      <button
-        style={{
-          backgroundColor: 'white', border: 0, cursor: "pointer", }}
-        onClick={() =>
-          window.open('https://datasetsearch.research.google.com/', '_blank')
-        }
-      >
-        <img
-          src={require("../../icons/search.png")}
-          style={{ height: '25px', width: '25px'}}
-        />
-      </button>
       <Dropzone
         accept=".csv, application/vnd.ms-excel, text/csv"
         onDrop={handleDrop}

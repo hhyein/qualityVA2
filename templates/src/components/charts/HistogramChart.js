@@ -6,21 +6,22 @@ export default function HistogramChart(props) {
   const d3 = window.d3v4
 
   useEffect(() => {
-    var svg = d3.select(svgRef.current)
-    d3.select(svgRef.current).selectAll('*').remove()
+    d3.select('.histogram-wrapper').selectAll('*').remove()
 
-    var margin = {top: 20, right: 20, bottom: 20, left: 20},
-      width = 250 - margin.left - margin.right,
-      height = 250 - margin.top - margin.bottom;
+    const margin = {top: 20, right: 20, bottom: 20, left: 20},
+      width = 180 - margin.left - margin.right,
+      height = 180 - margin.top - margin.bottom;
 
-    svg
+      const svg = d3
+      .select('.histogram-wrapper')
+      .append('svg')
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", function(data) {
-      var x = d3.scaleLinear()
+      const x = d3.scaleLinear()
           .domain([0, 1000])
           .range([0, width])
       svg
@@ -28,13 +29,13 @@ export default function HistogramChart(props) {
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
 
-      var histogram = d3.histogram()
+      const histogram = d3.histogram()
         .value(function(d) { return d.price; })
         .domain(x.domain())
         .thresholds(x.ticks(70));
 
-      var bins = histogram(data);
-      var y = d3.scaleLinear()
+      const bins = histogram(data);
+      const y = d3.scaleLinear()
           .range([height, 0])
           .domain([0, d3.max(bins, function(d) { return d.length; })]);
       svg
@@ -70,8 +71,6 @@ export default function HistogramChart(props) {
   }, [data, svgRef])
 
   return (
-    <div className="svg-wrapper">
-      <svg ref={svgRef}></svg>
-    </div>
+    <div className="histogram-wrapper" />
   )
 }

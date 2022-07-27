@@ -6,24 +6,25 @@ export default function HeatmapChart(props) {
   const d3 = window.d3v4
 
   useEffect(() => {
-    var svg = d3.select(svgRef.current)
-    d3.select(svgRef.current).selectAll("*").remove()
+    d3.select('.heatmap-wrapper').selectAll('*').remove()
 
-    var margin = {top: 20, right: 20, bottom: 20, left: 20},
-      width = 250 - margin.left - margin.right,
-      height = 250 - margin.top - margin.bottom;
+    const margin = {top: 20, right: 20, bottom: 20, left: 20},
+      width = 180 - margin.left - margin.right,
+      height = 180 - margin.top - margin.bottom;
 
-    svg
+      const svg = d3
+      .select('.heatmap-wrapper')
+      .append('svg')
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/heatmap_data.csv", function(data) {
-      var myGroups = d3.map(data, function(d){return d.group;}).keys()
-      var myVars = d3.map(data, function(d){return d.variable;}).keys()
+      const myGroups = d3.map(data, function(d){return d.group;}).keys()
+      const myVars = d3.map(data, function(d){return d.variable;}).keys()
 
-      var x = d3.scaleBand()
+      const x = d3.scaleBand()
         .range([ 0, width ])
         .domain(myGroups)
         .padding(0.05);
@@ -33,7 +34,7 @@ export default function HeatmapChart(props) {
         .call(d3.axisBottom(x).tickSize(0))
         .select(".domain").remove()
 
-      var y = d3.scaleBand()
+      const y = d3.scaleBand()
         .range([ height, 0 ])
         .domain(myVars)
         .padding(0.05);
@@ -42,11 +43,11 @@ export default function HeatmapChart(props) {
         .call(d3.axisLeft(y).tickSize(0))
         .select(".domain").remove()
 
-      var myColor = d3.scaleSequential()
+      const myColor = d3.scaleSequential()
         .interpolator(d3.interpolateInferno)
         .domain([1, 100])
 
-      var tooltip = d3.select("#my_dataviz")
+      const tooltip = d3.select("#my_dataviz")
         .append("div")
         .style("opacity", 0)
         .attr("class", "tooltip")
@@ -56,20 +57,20 @@ export default function HeatmapChart(props) {
         .style("border-radius", "5px")
         .style("padding", "5px")
 
-      var mouseover = function(d) {
+      const mouseover = function(d) {
         tooltip
           .style("opacity", 1)
         d3.select(this)
           .style("stroke", "black")
           .style("opacity", 1)
       }
-      var mousemove = function(d) {
+      const mousemove = function(d) {
         tooltip
           .html("The exact value of<br>this cell is: " + d.value)
           .style("left", (d3.mouse(this)[0]+70) + "px")
           .style("top", (d3.mouse(this)[1]) + "px")
       }
-      var mouseleave = function(d) {
+      const mouseleave = function(d) {
         tooltip
           .style("opacity", 0)
         d3.select(this)
@@ -98,8 +99,6 @@ export default function HeatmapChart(props) {
     }, [data, svgRef])
 
   return (
-    <div className="svg-wrapper">
-      <svg ref={svgRef}></svg>
-    </div>
+    <div className="heatmap-wrapper" />
   )
 }

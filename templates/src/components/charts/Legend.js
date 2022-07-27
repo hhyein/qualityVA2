@@ -7,17 +7,15 @@ export default function Legend(props) {
   useEffect(() => {
     d3.select('.legend-wrapper').selectAll('*').remove()
 
-    const margin = { top: 10, right: 10, bottom: 10, left: 10 }
-    const width = 150
-    const height = 100
+    const width = 180
+    const height = 80
 
     const svg = d3
       .select('.legend-wrapper')
       .append('svg')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
+      .attr('width', width)
+      .attr('height', height)
       .append('g')
-      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
     Object.entries(dataColorInfo).forEach(([key, color], i) => {
       svg

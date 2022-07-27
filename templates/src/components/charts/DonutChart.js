@@ -53,8 +53,7 @@ export default function DonutChart(props) {
   }, [data, selectedLegendIdx, svgRef, d3])
 
   return (
-    <div style={{ display: 'flex' }}>
-      <div className="donut-wrapper" />
+    <div>
       <Legend
         onLegendClick={onLegendClick}
         dataColorInfo={data.reduce(
@@ -65,6 +64,7 @@ export default function DonutChart(props) {
           {}
         )}
       />
+      <div className="donut-wrapper" />
     </div>
   )
 }
