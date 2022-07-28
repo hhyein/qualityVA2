@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo } from 'react'
 import { Box } from '../../Box'
 import CombinationTable from './CombinationTable'
-import HorizontalBarChart from '../../charts/HorizontalBarChart'
 import { useFileData } from '../../../contexts/FileDataContext'
 
 export default function Combination() {
