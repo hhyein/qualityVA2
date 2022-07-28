@@ -75,7 +75,7 @@ export default function Action() {
               width: '46%',
               margin: '0 2%'
             }}>
-              <Title title="combinationData" />
+              <Title title="combination" />
               <Select
                 options={combinationList}
                 placeholder={<div>select</div>}
@@ -88,7 +88,7 @@ export default function Action() {
               width: '46%',
               margin: '0 2%'
             }}>
-              <Title title="purpose" />
+              <Title title="combinationDetail" />
               <Select
                 options={combinationDetailList}
                 placeholder={<div>select</div>}
