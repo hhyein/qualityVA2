@@ -1,32 +1,56 @@
 import React, { useEffect, useRef } from 'react'
 
-function HorizontalTreeChart(props) {
-  const { data, dataLenght } = props
+export default function TreeChart(props) {
   const svgRef = useRef()
   const d3 = window.d3v3
-
-  const leftMove = 25
   const nodeGap = 90
 
-  useEffect(() => {
-    d3.select(svgRef.current).selectAll('*').remove()
+  const data = {
+    "index": "0",
+    "state": "none",
+    "name": "start",
+    "children": [
+      {
+        "index": "1",
+        "state": "none",
+        "name": "mm",
+        "children": [
+            {
+              "index": "2",
+              "state": "none",
+              "name": "mod",
+              "children": [
+                  {
+                    "index": "3",
+                    "state": "current",
+                    "name": "locf",
+                  }
+              ]
+            }
+        ]
+      }
+    ]
+  }
 
-    var margin = { top: 0, right: 20, bottom: 10, left: leftMove },
-      width = svgRef.current.clientWidth - margin.left - margin.right,
-      height = 50 - margin.top - margin.bottom
+  useEffect(() => {
+    d3.select('.treeChart-wrapper').selectAll('*').remove()
+
+    var margin = { top: 10, right: 0, bottom: 0, left: 0 },
+      width = 50 - margin.left - margin.right,
+      height = 350 - margin.top - margin.bottom
 
     var i = 0
     var svg = d3
-      .select(svgRef.current)
+      .select('.treeChart-wrapper')
+      .append('svg')
       .attr('width', width + margin.right + margin.left)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
     var tree = d3.layout.tree().size([height, width])
-
     var diagonal = d3.svg.diagonal().projection(function (d) {
-      return [d.y, d.x]
+      return [d.x, d.y]
     })
 
     var root = data
@@ -50,7 +74,7 @@ function HorizontalTreeChart(props) {
         .append('g')
         .attr('class', 'node')
         .attr('transform', function (d) {
-          return 'translate(' + d.y + ',' + d.x + ')'
+          return 'translate(' + d.x + ',' + d.y + ')'
         })
 
       nodeEnter
@@ -80,8 +104,9 @@ function HorizontalTreeChart(props) {
         .attr('class', 'link')
         .attr('d', diagonal)
     }
-  }, [data, dataLenght])
+  }, [data, svgRef])
 
-  return <svg ref={svgRef} style={{ width: '100%', height: '100%' }}></svg>
+  return (
+    <div className="treeChart-wrapper" />
+  )
 }
-export default HorizontalTreeChart
