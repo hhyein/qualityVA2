@@ -13,12 +13,32 @@ export default function Setting() {
     setModelSettingValues,
   } = useFileData()
 
+  const [values, setValues] = React.useState(modelSettingValues);
+  React.useEffect(() => {
+    setValues(modelSettingValues);
+  }, [modelSettingValues])
+
   const handleChange = (key, value) => {
-    setModelSettingValues(prev => ({
-      ...prev,
-      [key]: value,
-    }))
+    if (key === 'purpose') {
+      setModelSettingValues({
+        purpose: value,
+        column: undefined,
+        model: undefined,
+        eval: undefined,
+      });
+    } else {
+      setValues(prev => ({
+        ...prev,
+        [key]: value,
+      }))
+    }
   }
+
+  const submitModelSetting = () => {
+    setModelSettingValues(values);
+  }
+
+
 
   return (
     <Box
@@ -32,40 +52,44 @@ export default function Setting() {
       {!isEmptyData({
         purposeList,
       }) && (
-        <>
-          <Title title="purpose" />
-          <Select
-            options={purposeList}
-            placeholder={<div>select</div>}
-            onChange={v => {
-              handleChange('purpose', v)
-            }}
-          />
-          <Title title="column" />
-          <Select
-            options={columnList}
-            value={modelSettingValues.column}
-            placeholder={<div>select</div>}
-            onChange={v => {
-              handleChange('column', v)
-            }}
-          />
-          <Title title="model" />
-          <Select
-            isMulti
-            options={modelList}
-            placeholder={<div>select</div>}
-            onChange={v => handleChange('model', v)}
-          />
-          <Title title="metric" />
-          <Select
-            isMulti
-            options={evalList}
-            placeholder={<div>select</div>}
-            onChange={v => handleChange('eval', v)}
-          />
-        </>
-      )}
+          <>
+            <Title title="purpose" />
+            <Select
+              options={purposeList}
+              placeholder={<div>select</div>}
+              onChange={v => {
+                handleChange('purpose', v)
+              }}
+            />
+            <Title title="column" />
+            <Select
+              options={columnList}
+              value={modelSettingValues.column}
+              placeholder={<div>select</div>}
+              onChange={v => {
+                handleChange('column', v)
+              }}
+            />
+            <Title title="model" />
+            <Select
+              isMulti
+              options={modelList}
+              placeholder={<div>select</div>}
+              onChange={v => handleChange('model', v)}
+            />
+            <Title title="metric" />
+            <Select
+              isMulti
+              options={evalList}
+              placeholder={<div>select</div>}
+              onChange={v => handleChange('eval', v)}
+            />
+
+            <button
+              style={{ width: '40%', margin: '6px 0 5px 60%' }}
+              onClick={submitModelSetting}>submit</button>
+          </>
+        )}
     </Box>
   )
 }
