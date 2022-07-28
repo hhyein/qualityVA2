@@ -109,18 +109,6 @@ export default function Combination() {
                 }),
                 {}
               ),
-              ...combinationData.inputEvalList.reduce(
-                (acc, cur, j) => ({
-                  ...acc,
-                  [cur]: (
-                    <HorizontalBarChart
-                      data={[d[cur]]}
-                      colorCode={['lightcoral', 'mediumturquoise', 'sienna'][j]}
-                    />
-                  ),
-                }),
-                {}
-              ),
             }))}
           />
         )}

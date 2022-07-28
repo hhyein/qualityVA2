@@ -15,7 +15,7 @@ export default function CombinationTable({
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: `auto auto auto auto repeat(${canSortColumns.length}, 1fr)`,
+        gridTemplateColumns: `auto auto auto auto`,
       }}
     >
       <div className="grid-th" />
