@@ -57,8 +57,9 @@ export default function Setting() {
               display: 'flex',
               justifyContent: 'space-between',
             }}>
-              <div style={{width: '50%'}}><input type='radio' name='data' value='data' style={{ margin: '0 10px' }}/>data</div>
-              <div style={{width: '50%'}}><input type='radio' name='model' value='model' style={{ margin: '0 10px' }}/>model</div>
+              <input type='radio' name='data' value='data'/>data
+              <input type='radio' name='model' value='model'/>model
+              <input type='radio' name='distort' value='distort'/>distort
             </div>
             <Title title="purpose" />
             <Select
