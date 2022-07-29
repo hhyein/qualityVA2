@@ -14,9 +14,49 @@ export default function Setting() {
   } = useFileData()
 
   const [values, setValues] = React.useState(modelSettingValues);
+  const [radioValue, setRadioValue] = React.useState('');
+
+  console.log(values);
+  const dataList = [
+    {
+      label: "missing",
+      value: 0
+    },
+    {
+      label: "outlier",
+      value: 1
+    },
+    {
+      label: "inconsistent",
+      value: 2
+    },
+    {
+      label: "overlap",
+      value: 3
+    }];
+  const metricList = [
+    {
+      label: "normality test",
+      value: 0
+    },
+    {
+      label: "bayesian test",
+      value: 1
+    },
+    {
+      label: "chi squared test",
+      value: 2
+    }];
+
   React.useEffect(() => {
     setValues(modelSettingValues);
   }, [modelSettingValues])
+
+  const handleChangeRadio = (e) => {
+    setRadioValue(e.target.value);
+    console.log(radioValue);
+    console.log(purposeList);
+  }
 
   const handleChange = (key, value) => {
     if (key === 'purpose') {
@@ -38,65 +78,87 @@ export default function Setting() {
     setModelSettingValues(values);
   }
 
-
-
   return (
-    <Box
-      title="setting"
-      style={{
-        display: 'grid',
-        overflow: 'visible',
-        gridGap: '5px',
-      }}
-    >
+    <Box title="setting">
       {!isEmptyData({
         purposeList,
       }) && (
-          <>
+          <React.Fragment>
             <div style={{
               display: 'flex',
               justifyContent: 'space-between',
+              height: '22px',
+              marginBottom: '5px'
             }}>
-              <input type='radio' name='data' value='data'/>data
-              <input type='radio' name='model' value='model'/>model
-              <input type='radio' name='distort' value='distort'/>distort
+              {['data', 'model', 'distort'].map((item) => (
+                <React.Fragment key={item}><input type='radio' name='radio' value={item} onClick={handleChangeRadio} />{item}</React.Fragment>
+              ))}
             </div>
-            <Title title="purpose" />
-            <Select
-              options={purposeList}
-              placeholder={<div>select</div>}
-              onChange={v => {
-                handleChange('purpose', v)
+            <div
+              style={{
+                display: 'grid',
+                overflow: 'visible',
+                gridGap: '5px',
               }}
-            />
-            <Title title="column" />
-            <Select
-              options={columnList}
-              value={modelSettingValues.column}
-              placeholder={<div>select</div>}
-              onChange={v => {
-                handleChange('column', v)
-              }}
-            />
-            <Title title="model" />
-            <Select
-              isMulti
-              options={modelList}
-              placeholder={<div>select</div>}
-              onChange={v => handleChange('model', v)}
-            />
-            <Title title="metric" />
-            <Select
-              isMulti
-              options={evalList}
-              placeholder={<div>select</div>}
-              onChange={v => handleChange('eval', v)}
-            />
-
+            >
+              {radioValue === 'data' && <>
+                <Title title="quality issue" />
+                <Select
+                  options={dataList}
+                  placeholder={<div>select</div>}
+                  // onChange={v => {
+                  //   handleChange('purpose', v)
+                  // }}
+                />
+              </>}
+              {radioValue === 'model' && <>
+                <Title title="purpose" />
+                <Select
+                  options={purposeList}
+                  placeholder={<div>select</div>}
+                  onChange={v => {
+                    handleChange('purpose', v)
+                  }}
+                />
+                <Title title="column" />
+                <Select
+                  options={columnList}
+                  value={modelSettingValues.column}
+                  placeholder={<div>select</div>}
+                  onChange={v => {
+                    handleChange('column', v)
+                  }}
+                />
+                <Title title="model" />
+                <Select
+                  isMulti
+                  options={modelList}
+                  placeholder={<div>select</div>}
+                  onChange={v => handleChange('model', v)}
+                />
+                <Title title="metric" />
+                <Select
+                  isMulti
+                  options={evalList}
+                  placeholder={<div>select</div>}
+                  onChange={v => handleChange('eval', v)}
+                />
+              </>}
+              {radioValue === 'distort' && <>
+                <Title title="metric" />
+                <Select
+                  options={metricList}
+                  placeholder={<div>select</div>}
+                  // onChange={v => {
+                  //   handleChange('purpose', v)
+                  // }}
+                />
+              </>}
+            </div>
             <button
-              style={{ width: '40%', margin: '6px 0 5px 60%' }}
+              style={{ width: '40%', margin: '0 0 0 60%', position: 'absolute', bottom: '11px', right: '10px' }}
               onClick={submitModelSetting}>submit</button>
-          </>
+          </React.Fragment>
         )}
     </Box>
   )
