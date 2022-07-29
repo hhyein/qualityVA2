@@ -53,6 +53,13 @@ export default function Setting() {
         purposeList,
       }) && (
           <>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}>
+              <div style={{width: '50%'}}><input type='radio' name='data' value='data' style={{ margin: '0 10px' }}/>data</div>
+              <div style={{width: '50%'}}><input type='radio' name='model' value='model' style={{ margin: '0 10px' }}/>model</div>
+            </div>
             <Title title="purpose" />
             <Select
               options={purposeList}
