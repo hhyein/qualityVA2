@@ -21,6 +21,7 @@ export const boxTitles = {
   'check': 'check',
   'combination': 'combination',
   'action': 'action',
+  'my-combination': 'my-combination',
 }
 
 export const PORT = 5000

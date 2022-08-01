@@ -2,6 +2,8 @@ import React, { useCallback, useMemo } from 'react'
 import { Box } from '../../Box'
 import CombinationTable from './CombinationTable'
 import { useFileData } from '../../../contexts/FileDataContext'
+import Select from 'react-select'
+import Title from '../../Title'
 
 export default function Combination() {
   const {
@@ -69,47 +71,84 @@ export default function Combination() {
     [setCombinationTableSortingInfo]
   )
 
+  const [selectList, setSelectList] = React.useState([
+    {
+      label: 'item0',
+      value: 0
+    },
+    {
+      label: 'item1',
+      value: 1
+    }
+  ])
+
   return (
     <Box title="combination" style={{ overflow: 'auto' }}>
       <div style={{
-        height: '200px',
+        height: '260px',
         overflow: 'auto',
         border: 'none'
       }}>
         {!isEmptyData({ combinationData }) && data.length > 0 && (
-          <CombinationTable
-            canSortColumns={combinationData.inputEvalList}
-            selectedColumn={combinationTableSortingInfo.column}
-            onTableHeadClick={handleTableHeadClick}
-            onTableRowClick={params => setSelectedCombinationTableRow(params)}
-            data={sortedData.map(d => ({
-              key: d.key,
-              ...['model'].reduce(
-                (acc, cur) => ({
-                  ...acc,
-                  [cur]: d[cur],
-                }),
-                {}
-              ),
-              ...['combination', 'combinationDetail'].reduce(
-                (acc, cur) => ({
-                  ...acc,
-                  [cur]: (
-                    <div style={{ display: 'flex' }}>
-                      {d[cur].map(imgName => (
-                        <img
-                          src={require(`../../icons/${imgName}.png`)}
-                          alt={''}
-                          style={{ height: '25px', width: '25px' }}
-                        />
-                      ))}
-                    </div>
-                  ),
-                }),
-                {}
-              ),
-            }))}
-          />
+          <>
+            <div style={{
+              display: 'flex',
+              marginBottom: '10px',
+            }}>
+              <div style={{
+                width: '66%',
+                margin: '0 2%'
+              }}>
+                <Title title="column to purpose" />
+                <Select
+                  options={selectList}
+                  placeholder={<div>select</div>}
+                />
+              </div>
+              <div style={{
+                width: '20%',
+                marginLeft: '4%',
+                marginTop: '20px'
+              }}>
+            <button
+              style={{ width: '70px'}}>submit</button>
+              </div>
+            </div>
+            <CombinationTable
+              canSortColumns={combinationData.inputEvalList}
+              selectedColumn={combinationTableSortingInfo.column}
+              onTableHeadClick={handleTableHeadClick}
+              onTableRowClick={params => setSelectedCombinationTableRow(params)}
+              data={sortedData.map(d => ({
+                key: d.key,
+                ...['model'].reduce(
+                  (acc, cur) => ({
+                    ...acc,
+                    [cur]: d[cur],
+                  }),
+                  {}
+                ),
+                ...['combination', 'combinationDetail'].reduce(
+                  (acc, cur) => ({
+                    ...acc,
+                    [cur]: (
+                      <div style={{ display: 'flex' }}>
+                        {d[cur].map(imgName => (
+                          <img
+                            src={require(`../../icons/${imgName}.png`)}
+                            alt={''}
+                            style={{ height: '25px', width: '25px' }}
+                          />
+                        ))}
+                      </div>
+                    ),
+                  }),
+                  {}
+                ),
+              }))}
+            />
+
+          </>
         )}
       </div>
     </Box>
