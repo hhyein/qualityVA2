@@ -11,8 +11,6 @@ export default function MyCombination({
     model: "1"
   }]
 
-  console.log(data);
-
   const columnKeys = Object.keys(data[0]).slice(1)
   const [selectList, setSelectList] = React.useState([
     {
@@ -27,26 +25,6 @@ export default function MyCombination({
 
   return data.length > 0 ? (
     <>
-      <div style={{
-        display: 'flex',
-        marginBottom: '30px'
-      }}>
-        <div style={{
-          width: '66%',
-          margin: '0 2%'
-        }}>
-          <Select
-            options={selectList}
-            placeholder={<div>select</div>}
-          />
-        </div>
-        <div style={{
-          width: '22%',
-          margin: '2% 2% 0 6%'
-        }}>
-          order: 2
-        </div>
-      </div>
       <div
         style={{
           display: 'grid',

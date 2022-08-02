@@ -83,71 +83,59 @@ export default function Combination() {
   ])
 
   return (
-    <Box title="combination" style={{ overflow: 'auto' }}>
-      <div style={{
-        height: '260px',
-        overflow: 'auto',
-        border: 'none'
-      }}>
+    <Box title="combination">
+      <div style={{ height: '260px' }}>
         {!isEmptyData({ combinationData }) && data.length > 0 && (
           <>
-            <div style={{
-              display: 'flex',
-              marginBottom: '10px',
-            }}>
-              <div style={{
-                width: '66%',
-                margin: '0 2%'
-              }}>
-                <Title title="column to purpose" />
+            <div style={{ display: 'flex', marginBottom: '10px' }}>
                 <Select
                   options={selectList}
                   placeholder={<div>select</div>}
                 />
-              </div>
-              <div style={{
-                width: '20%',
-                marginLeft: '4%',
-                marginTop: '20px'
-              }}>
-            <button
-              style={{ width: '70px'}}>submit</button>
-              </div>
+                <Select
+                  options={selectList}
+                  placeholder={<div>select</div>}
+                />
+                <Select
+                  options={selectList}
+                  placeholder={<div>select</div>}
+                />
             </div>
-            <CombinationTable
-              canSortColumns={combinationData.inputEvalList}
-              selectedColumn={combinationTableSortingInfo.column}
-              onTableHeadClick={handleTableHeadClick}
-              onTableRowClick={params => setSelectedCombinationTableRow(params)}
-              data={sortedData.map(d => ({
-                key: d.key,
-                ...['model'].reduce(
-                  (acc, cur) => ({
-                    ...acc,
-                    [cur]: d[cur],
-                  }),
-                  {}
-                ),
-                ...['combination', 'combinationDetail'].reduce(
-                  (acc, cur) => ({
-                    ...acc,
-                    [cur]: (
-                      <div style={{ display: 'flex' }}>
-                        {d[cur].map(imgName => (
-                          <img
-                            src={require(`../../icons/${imgName}.png`)}
-                            alt={''}
-                            style={{ height: '25px', width: '25px' }}
-                          />
-                        ))}
-                      </div>
-                    ),
-                  }),
-                  {}
-                ),
-              }))}
-            />
-
+            <div style={{ overflow: 'auto', height: '100%' }}>
+              <CombinationTable
+                canSortColumns={combinationData.inputEvalList}
+                selectedColumn={combinationTableSortingInfo.column}
+                onTableHeadClick={handleTableHeadClick}
+                onTableRowClick={params => setSelectedCombinationTableRow(params)}
+                data={sortedData.map(d => ({
+                  key: d.key,
+                  ...['model'].reduce(
+                    (acc, cur) => ({
+                      ...acc,
+                      [cur]: d[cur],
+                    }),
+                    {}
+                  ),
+                  ...['combination', 'combinationDetail'].reduce(
+                    (acc, cur) => ({
+                      ...acc,
+                      [cur]: (
+                        <div style={{ display: 'flex' }}>
+                          {d[cur].map(imgName => (
+                            <img
+                              src={require(`../../icons/${imgName}.png`)}
+                              alt={''}
+                              style={{ height: '25px', width: '25px' }}
+                            />
+                          ))}
+                        </div>
+                      ),
+                    }),
+                    {}
+                  ),
+                }))}
+              />
+            </div>
           </>
         )}
       </div>

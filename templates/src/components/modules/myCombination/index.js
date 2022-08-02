@@ -30,12 +30,8 @@ export default function MyCombination() {
   }, [combinationData])
 
   return (
-    <Box title="my-combination" style={{ overflow: 'auto' }}>
-      <div style={{
-        height: '130px',
-        overflow: 'auto',
-        border: 'none'
-      }}>
+    <Box title="my-combination">
+      <div style={{ height: '130px' }}>
         {!isEmptyData({ combinationData }) && data.length > 0 && (
           <MyCombinationTable />
         )}

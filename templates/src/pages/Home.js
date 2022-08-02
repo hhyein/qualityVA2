@@ -18,14 +18,7 @@ const Home = () => {
         <Setting />
         <Check />
         <Combination />
-        <div style={{
-          position: 'absolute',
-          top: '310px',
-          left: '238px',
-          width: '350px'
-        }}>
           <MyCombination />
-        </div>
         <Action />
         <ActionDetail />
         <Overview />
