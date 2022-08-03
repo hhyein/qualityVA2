@@ -38,7 +38,6 @@ export default function Action() {
   React.useEffect(() => {
     const key = selectedCombinationTableRow?.key;
       if(key) {
-        console.log(key);
         setCombinationValues();
         setCombinationList(combinationData.combinationIconList[key].map((item, idx) => {
           return {
@@ -61,8 +60,6 @@ export default function Action() {
       [key]: value,
     }))
   }
-
-  // console.log(combinationValues);
 
   return (
     <Box title="action">

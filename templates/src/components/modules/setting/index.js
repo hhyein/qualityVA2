@@ -16,7 +16,6 @@ export default function Setting() {
   const [values, setValues] = React.useState(modelSettingValues);
   const [radioValue, setRadioValue] = React.useState('');
 
-  console.log(values);
   const dataList = [
     {
       label: "missing",
@@ -54,8 +53,6 @@ export default function Setting() {
 
   const handleChangeRadio = (e) => {
     setRadioValue(e.target.value);
-    console.log(radioValue);
-    console.log(purposeList);
   }
 
   const handleChange = (key, value) => {

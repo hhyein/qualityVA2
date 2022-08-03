@@ -43,8 +43,15 @@ def fileUpload():
   originDf = fileUploadDf.reindex(sorted(fileUploadDf.columns), axis = 1)
   originDf.to_json('static/file.json', orient = 'records', indent = 4)
 
-  print('fileUpload: success')
   return json.dumps({'fileUpload': 'success'})
+
+@app.route('/dataSetting', methods=['GET', 'POST'])
+def dataSetting():
+  req = request.get_data().decode('utf-8')
+  req = eval(req)
+  print(req)
+
+  return json.dumps({'dataSetting': 'success'})
 
 @app.route('/modelSetting', methods=['GET', 'POST'])
 def modelSetting():
@@ -111,8 +118,7 @@ def modelSetting():
     for i in range(len(evalList)):
         inputEvalList.append(evalList[i]["label"])
 
-    print('setting: success')
-    return json.dumps({'setting': 'success'})
+    return json.dumps({'modelSetting': 'success'})
 
 @app.route('/combinationSetting', methods=['GET', 'POST'])
 def combinationSetting():
@@ -121,6 +127,14 @@ def combinationSetting():
 
   print(req)
   return json.dumps(combinationData)
+
+@app.route('/distortSetting', methods=['GET', 'POST'])
+def distortSetting():
+  req = request.get_data().decode('utf-8')
+  req = eval(req)
+  print(req)
+
+  return json.dumps({'distortSetting': 'success'})
 
 @app.route('/combination', methods=['GET', 'POST'])
 def combinationTable():
