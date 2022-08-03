@@ -45,6 +45,10 @@ export const FileDataProvider = ({ children }) => {
   const [combinationTableData, setCombinationTableData] = useState({})
   const [combinationTableSortingInfo, setCombinationTableSortingInfo] = useState({})
   const [selectedCombinationTableRow, setSelectedCombinationTableRow] = useState()
+  const [dateSettingValues, setDateSettingValues] = useState({})
+  const [distortSettingValues, setDistortSettingValues] = useState({})
+
+
 
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
@@ -57,9 +61,31 @@ export const FileDataProvider = ({ children }) => {
     await postData('/modelSetting', modelSettingValues)
   }, [modelSettingValues])
 
+  const handleDataSettingValuesChange = useCallback(async () => {
+    if (Object.values(dateSettingValues).some(value => value === undefined)) {
+      return
+    }
+    await postData('/dataSetting', dateSettingValues)
+  }, [dateSettingValues])
+
+  const handleDistortSettingValuesChange = useCallback(async () => {
+    if (Object.values(distortSettingValues).some(value => value === undefined)) {
+      return
+    }
+    await postData('/distortSetting', distortSettingValues)
+  }, [distortSettingValues])
+
   useEffect(() => {
     handleModelSettingValuesChange()
   }, [handleModelSettingValuesChange])
+
+  useEffect(() => {
+    handleDataSettingValuesChange()
+  }, [handleDataSettingValuesChange])
+
+  useEffect(() => {
+    handleDistortSettingValuesChange()
+  }, [handleDistortSettingValuesChange])
 
   const updatePurposeList = useCallback(async () => {
     const { purposeList } = await fetchData('/modelSetting')
@@ -148,6 +174,8 @@ export const FileDataProvider = ({ children }) => {
         setCombinationTableSortingInfo,
         selectedCombinationTableRow,
         setSelectedCombinationTableRow,
+        setDateSettingValues,
+        setDistortSettingValues
       }}
     >
       {children}

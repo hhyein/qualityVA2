@@ -11,6 +11,8 @@ export default function Setting() {
     modelSettingData: { columnList, modelList, evalList },
     modelSettingValues,
     setModelSettingValues,
+    setDateSettingValues,
+    setDistortSettingValues
   } = useFileData()
 
   const [modelValues, setModelValues] = React.useState(modelSettingValues);
@@ -54,10 +56,6 @@ export default function Setting() {
   React.useEffect(() => {
     setModelValues(modelSettingValues);
   }, [modelSettingValues])
-
-  console.log(dataValues);
-
-  console.log(modelValues);
 
   React.useEffect(() => {
     if (dataValues?.issue && dataValues?.issue.length > 0 &&
@@ -108,6 +106,8 @@ export default function Setting() {
 
   const submitModelSetting = () => {
     setModelSettingValues(modelValues);
+    setDateSettingValues(dataValues);
+    setDistortSettingValues(distortValues);
   }
 
   return (
