@@ -5,10 +5,10 @@ export default function MyCombination({
 }) {
 
   const data = [{
+    key: 97,
+    model: "knn",
     combination: '1',
     combinationDetail: '1',
-    key: 1,
-    model: "1"
   }]
 
   const columnKeys = Object.keys(data[0]).slice(1)
@@ -60,7 +60,15 @@ export default function MyCombination({
           >
             1
           </div>
-          {Object.values([1, 2, 3]).map((chart, colIdx) => (
+          {Object.values(['knn', <img
+                              src={require(`../../icons/${'transformation'}.png`)}
+                              alt={''}
+                              style={{ height: '25px', width: '25px' }}
+                            />, <img
+                            src={require(`../../icons/${'std'}.png`)}
+                            alt={''}
+                            style={{ height: '25px', width: '25px' }}
+                          />]).map((chart, colIdx) => (
             <div
               className="grid-td"
               key={`${123}${colIdx}`}
