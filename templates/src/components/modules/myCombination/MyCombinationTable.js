@@ -1,27 +1,14 @@
 import React from 'react'
 import Select from 'react-select'
 
-export default function MyCombination({
-}) {
-
+export default function MyCombination({}) {
   const data = [{
     key: 97,
     model: "knn",
     combination: '1',
     combinationDetail: '1',
   }]
-
   const columnKeys = Object.keys(data[0]).slice(1)
-  const [selectList, setSelectList] = React.useState([
-    {
-      label: 'item0',
-      value: 0
-    },
-    {
-      label: 'item1',
-      value: 1
-    }
-  ])
 
   return data.length > 0 ? (
     <>
@@ -58,7 +45,7 @@ export default function MyCombination({
               borderBottom: undefined,
             }}
           >
-            1
+          1
           </div>
           {Object.values(['knn', <img
                               src={require(`../../icons/${'transformation'}.png`)}

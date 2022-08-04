@@ -13,7 +13,7 @@ export default function Action() {
   } = useFileData();
   const { combinationData } = combinationTableData
   const [combinationList, setCombinationList] = React.useState();
-  const [combinationDetailList, setCombinationDetailList] = React.useState();
+  const [visualizationList, setVisualizationList] = React.useState();
   const [combinationValues, setCombinationValues] = React.useState();
 
   const data = useMemo(() => {
@@ -45,7 +45,7 @@ export default function Action() {
             value: idx
           }
         }))
-        setCombinationDetailList(combinationData.combinationDetailIconList[key].map((item, idx) => {
+        setVisualizationList(combinationData.combinationDetailIconList[key].map((item, idx) => {
           return {
             label: item,
             value: idx
@@ -85,12 +85,12 @@ export default function Action() {
               width: '46%',
               margin: '0 2%'
             }}>
-              <Title title="combinationDetail" />
+              <Title title="visualization" />
               <Select
-                options={combinationDetailList}
+                options={visualizationList}
                 placeholder={<div>select</div>}
                 onChange={v => {
-                  handleChange('combinationDetail', v)
+                  handleChange('visualization', v)
                 }}
               />
             </div>
