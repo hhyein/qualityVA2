@@ -54,12 +54,6 @@ export default function Action() {
           value: idx
         }
       }))
-      setVisualizationList(combinationData.combinationDetailIconList[key].map((item, idx) => {
-        return {
-          label: item,
-          value: idx
-        }
-      }))
     }
   }, [combinationData, selectedCombinationTableRow?.key])
 
