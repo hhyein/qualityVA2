@@ -35,7 +35,7 @@ export default function MyCombination({data}) {
   }, [data])
 
 
-  return dataList.length > 0 ? (
+  return dataList && dataList.length > 0 ? (
     <>
       <div
         style={{
