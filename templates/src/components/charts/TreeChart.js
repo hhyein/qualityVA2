@@ -107,6 +107,27 @@ export default function TreeChart(props) {
   }, [data, svgRef])
 
   return (
-    <div className="treeChart-wrapper" />
+    <React.Fragment>
+
+    <div style={{ display: 'grid', gridTemplateColumns: '70px 1fr 1fr 1fr'}}>
+          <p style={{margin: 0}}>action id</p>
+          <p style={{margin: 0}}>action type</p>
+          <p style={{margin: 0}}>change</p>
+          <p style={{margin: 0}}>distort</p>
+    </div>
+    <hr class="solid" />
+    <div style={{ display: 'grid', gridTemplateColumns: '70px 1fr 1fr 1fr' }}>
+          <div className="treeChart-wrapper" />
+          <div style={{ borderLeft: '4px dashed #bcbcbc' }}>{[1,2,3,4].map(item => (
+            <div style={{ borderBottom: '4px dashed #bcbcbc', height: '75px' }}>{item}</div>
+          ))}</div>
+          <div style={{ borderLeft: '4px dashed #bcbcbc' }}>{[1,2,3,4].map(item => (
+            <div style={{ borderBottom: '4px dashed #bcbcbc', height: '75px' }}>{item}</div>
+          ))}</div>
+          <div style={{ borderLeft: '4px dashed #bcbcbc', borderRight: '4px dashed #bcbcbc' }}>{[1,2,3,4].map(item => (
+            <div style={{ borderBottom: '4px dashed #bcbcbc', height: '75px' }}>{item}</div>
+          ))}</div>
+    </div>
+    </React.Fragment>
   )
 }
