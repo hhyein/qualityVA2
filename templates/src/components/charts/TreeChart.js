@@ -15,22 +15,28 @@ export default function TreeChart(props) {
         "state": "none",
         "name": "mm",
         "children": [
-            {
-              "index": "2",
-              "state": "none",
-              "name": "mod",
-              "children": [
-                  {
-                    "index": "3",
-                    "state": "current",
-                    "name": "locf",
-                  }
-              ]
-            }
+          {
+            "index": "2",
+            "state": "none",
+            "name": "mod",
+            "children": [
+              {
+                "index": "3",
+                "state": "current",
+                "name": "locf",
+              }
+            ]
+          }
         ]
       }
     ]
   }
+
+  const [actionDetailData, setActionDetailData] = React.useState({
+    type: ['t1', 't2', 't3'],
+    change: ['c1', 'c2', 'c3'],
+    distort: ['d1', 'd2', 'd3'],
+  });
 
   useEffect(() => {
     d3.select('.treeChart-wrapper').selectAll('*').remove()
@@ -109,25 +115,31 @@ export default function TreeChart(props) {
   return (
     <React.Fragment>
 
-    <div style={{ display: 'grid', gridTemplateColumns: '70px 1fr 1fr 1fr'}}>
-          <p style={{margin: 0}}>action id</p>
-          <p style={{margin: 0}}>action type</p>
-          <p style={{margin: 0}}>change</p>
-          <p style={{margin: 0}}>distort</p>
-    </div>
-    <hr class="solid" />
-    <div style={{ display: 'grid', gridTemplateColumns: '70px 1fr 1fr 1fr' }}>
-          <div className="treeChart-wrapper" />
-          <div style={{ borderLeft: '4px dashed #bcbcbc' }}>{[1,2,3,4].map(item => (
-            <div style={{ borderBottom: '4px dashed #bcbcbc', height: '75px' }}>{item}</div>
-          ))}</div>
-          <div style={{ borderLeft: '4px dashed #bcbcbc' }}>{[1,2,3,4].map(item => (
-            <div style={{ borderBottom: '4px dashed #bcbcbc', height: '75px' }}>{item}</div>
-          ))}</div>
-          <div style={{ borderLeft: '4px dashed #bcbcbc', borderRight: '4px dashed #bcbcbc' }}>{[1,2,3,4].map(item => (
-            <div style={{ borderBottom: '4px dashed #bcbcbc', height: '75px' }}>{item}</div>
-          ))}</div>
-    </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '70px 1fr 1fr 1fr' }}>
+        <p style={{ margin: 0 }}>action id</p>
+        <p style={{ margin: 0 }}>action type</p>
+        <p style={{ margin: 0 }}>change</p>
+        <p style={{ margin: 0 }}>distort</p>
+      </div>
+      <hr class="solid" />
+      <div style={{ display: 'grid', gridTemplateColumns: '70px 1fr 1fr 1fr' }}>
+        <div className="treeChart-wrapper" />
+        <div style={{ marginTop: '30px'}}>
+          {actionDetailData.type.map((item) => (
+            <div style={{ height: '100px' }}>{item}</div>
+          ))}
+        </div>
+        <div style={{ marginTop: '30px'}}>
+          {actionDetailData.change.map((item) => (
+            <div style={{ height: '100px' }}>{item}</div>
+          ))}
+        </div>
+        <div style={{ marginTop: '30px'}}>
+          {actionDetailData.distort.map((item) => (
+            <div style={{ height: '100px' }}>{item}</div>
+          ))}
+        </div>
+      </div>
     </React.Fragment>
   )
 }
