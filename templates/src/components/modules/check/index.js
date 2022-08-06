@@ -14,7 +14,7 @@ const exampleDonutData = [
 export default function Check() {
   const {
     isEmptyData,
-    combinationSettingValues,
+    combinationTableData,
   } = useFileData();
   const [selectedLegendIdx, setSelectedLegendIdx] = useState(0)
 
@@ -38,7 +38,7 @@ export default function Check() {
   return (
     <Box title="check">
       {!isEmptyData({
-        combinationSettingValues
+        combinationTableData
       }) && <>
         <DonutChart
           data={exampleDonutData}

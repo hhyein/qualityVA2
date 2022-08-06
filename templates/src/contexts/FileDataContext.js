@@ -38,8 +38,7 @@ export const FileDataProvider = ({ children }) => {
     model: undefined,
     eval: undefined,
   })
-  const [combinationSettingValues, setCombinationSettingValues] = useState()
-
+  
   const [purposeList, setPurposeList] = useState()
   const [modelSettingData, setModelSettingData] = useState({})
   const [combinationTableData, setCombinationTableData] = useState({})
@@ -120,11 +119,6 @@ export const FileDataProvider = ({ children }) => {
       formData.append('file', files[0])
       await postData('/fileUpload', formData, config)
       await updatePurposeList()
-      setCombinationSettingValues({
-        value1: 0,
-        value2: 0,
-        value3: 0
-      })
     },
     [updatePurposeList]
   )
@@ -132,10 +126,6 @@ export const FileDataProvider = ({ children }) => {
   useEffect(() => {
     handlePurposeChange()
   }, [handlePurposeChange])
-
-  const postCombinationValue = async () => {
-    await postData('/combinationSetting', combinationSettingValues);
-  };
 
   const updateCombinationTable = useCallback(async () => {
     const combinationData = await fetchData('/combination')
@@ -167,8 +157,6 @@ export const FileDataProvider = ({ children }) => {
         setModelSettingValues,
         purposeList,
         modelSettingData,
-        combinationSettingValues,
-        setCombinationSettingValues,
         combinationTableData,
         combinationTableSortingInfo,
         setCombinationTableSortingInfo,
