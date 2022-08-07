@@ -14,9 +14,11 @@ const exampleDonutData = [
 export default function Check() {
   const {
     isEmptyData,
-    combinationTableData,
+    dataSettingValues,
+    modelSettingValues,
+    distortSettingValues
   } = useFileData();
-  const [selectedLegendIdx, setSelectedLegendIdx] = useState(0)
+  const [selectedLegendIdx, setSelectedLegendIdx] = useState(0);
 
   const legendDetail = useMemo(() => {
     switch (selectedLegendIdx) {
@@ -38,7 +40,9 @@ export default function Check() {
   return (
     <Box title="check">
       {!isEmptyData({
-        combinationTableData
+        dataSettingValues,
+        modelSettingValues,
+        distortSettingValues
       }) && <>
         <DonutChart
           data={exampleDonutData}

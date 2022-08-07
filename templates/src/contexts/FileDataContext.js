@@ -44,8 +44,8 @@ export const FileDataProvider = ({ children }) => {
   const [combinationTableData, setCombinationTableData] = useState({})
   const [combinationTableSortingInfo, setCombinationTableSortingInfo] = useState({})
   const [selectedCombinationTableRow, setSelectedCombinationTableRow] = useState()
-  const [dateSettingValues, setDateSettingValues] = useState({})
-  const [distortSettingValues, setDistortSettingValues] = useState({})
+  const [dataSettingValues, setDataSettingValues] = useState()
+  const [distortSettingValues, setDistortSettingValues] = useState()
 
 
 
@@ -61,11 +61,11 @@ export const FileDataProvider = ({ children }) => {
   }, [modelSettingValues])
 
   const handleDataSettingValuesChange = useCallback(async () => {
-    if (Object.values(dateSettingValues).some(value => value === undefined)) {
+    if (Object.values(dataSettingValues).some(value => value === undefined)) {
       return
     }
-    await postData('/dataSetting', dateSettingValues)
-  }, [dateSettingValues])
+    await postData('/dataSetting', dataSettingValues)
+  }, [dataSettingValues])
 
   const handleDistortSettingValuesChange = useCallback(async () => {
     if (Object.values(distortSettingValues).some(value => value === undefined)) {
@@ -162,8 +162,10 @@ export const FileDataProvider = ({ children }) => {
         setCombinationTableSortingInfo,
         selectedCombinationTableRow,
         setSelectedCombinationTableRow,
-        setDateSettingValues,
-        setDistortSettingValues
+        setDataSettingValues,
+        dataSettingValues,
+        setDistortSettingValues,
+        distortSettingValues
       }}
     >
       {children}
