@@ -11,7 +11,7 @@ export default function Setting() {
     modelSettingData: { columnList, modelList, evalList },
     modelSettingValues,
     setModelSettingValues,
-    setDateSettingValues,
+    setDataSettingValues,
     setDistortSettingValues
   } = useFileData()
 
@@ -106,7 +106,7 @@ export default function Setting() {
 
   const submitModelSetting = () => {
     setModelSettingValues(modelValues);
-    setDateSettingValues(dataValues);
+    setDataSettingValues(dataValues);
     setDistortSettingValues(distortValues);
   }
 
