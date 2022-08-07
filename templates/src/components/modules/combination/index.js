@@ -123,122 +123,80 @@ export default function Combination() {
 
   return (
     <Box title="combination">
-      <div style={{ height: '260px' }}>
-        {!isEmptyData({ combinationData }) && data.length > 0 && (
-          <>
+      {!isEmptyData({ combinationData }) && data.length > 0 && (
+        <>
+          <div style={{
+            display: 'flex',
+            marginBottom: '5px'
+          }}>
             <div style={{
-              display: 'flex',
-              marginBottom: '5px'
+              width: '40%',
+              margin: '0 5%'
             }}>
-              <div style={{
-                width: '46%',
-                margin: '0 2%'
-              }}>
-                <Title title="max length" />
-                <Select
-                  options={lengthList}
-                  placeholder={<div>select</div>}
-                  onChange={v => {
-                    handleChange('maxLength', v)
-                  }}
-                />
-              </div>
-              <div style={{
-                width: '46%',
-                margin: '0 2%'
-              }}>
-                <Title title="action" />
-                <div class="dropdown">
-                  <button class="dropbtn">select</button>
-                  <div class="dropdown-content">
+              <Title title="max length" />
+              <Select
+                options={lengthList}
+                placeholder={<div>select</div>}
+                onChange={v => {
+                  handleChange('maxLength', v)
+                }}
+              />
+            </div>
+            <div style={{
+              width: '40%',
+            }}>
+              <Title title="action" />
+              <div class="dropdown">
+                <button class="dropbtn">select</button>
+                <div class="dropdown-content">
 
-                    {actionList && actionList.map((item, idx) => (
-                      <div style={{ display: 'flex', height: '25px' }} >
-                        {item.label}
-                        <input style={{ width: '15px' }} type="checkbox" id="scales" name="scales" checked={checkedList.includes(idx)} onChange={() => handleCheckBox(idx)} />
-                      </div>
-                    ))}
-                  </div>
+                  {actionList && actionList.map((item, idx) => (
+                    <div style={{ display: 'flex', height: '25px' }} >
+                      {item.label}
+                      <input style={{ width: '15px' }} type="checkbox" id="scales" name="scales" checked={checkedList.includes(idx)} onChange={() => handleCheckBox(idx)} />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-            <div style={{ overflow: 'auto', height: '100%' }}>
-              <CombinationTable
-                canSortColumns={combinationData.inputEvalList}
-                selectedColumn={combinationTableSortingInfo.column}
-                onTableHeadClick={handleTableHeadClick}
-                onTableRowClick={params => setSelectedCombinationTableRow(params)}
-                data={sortedData.map(d => ({
-                  key: d.key,
-                  ...['model'].reduce(
-                    (acc, cur) => ({
-                      ...acc,
-                      [cur]: d[cur],
-                    }),
-                    {}
-                  ),
-                  ...['combination', 'combinationDetail'].reduce(
-                    (acc, cur) => ({
-                      ...acc,
-                      [cur]: (
-                        <div style={{ display: 'flex' }}>
-                          {d[cur].map(imgName => (
-                            <img
-                              src={require(`../../icons/${imgName}.png`)}
-                              alt={''}
-                              style={{ height: '25px', width: '25px' }}
-                            />
-                          ))}
-                        </div>
-                      ),
-                    }),
-                    {}
-                  ),
-                }))}
-              />
-            </div>
-          </>
-        )}
-      </div>
-      <style jsx>{`
-      .dropbtn {
-        background-color: #eee;
-        width: 142px;
-        height: 38px;
-        color: gray;
-        border: none;
-      }
-      .dropdown {
-        position: relative;
-        display: inline-block;
-      }
-      .dropdown-content {
-        overflow: auto;
-        display: none;
-        position: absolute;
-        background-color: #f1f1f1;
-        width: 142px;
-        height: 300px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        z-index: 1;
-      }
-      .dropdown-content div {
-        color: black;
-        // height: 38px;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-      }
-      .dropdown-content div:hover {
-        background-color: #ddd;
-      }
-      .dropdown:hover .dropdown-content {
-        display: block;
-      }
-      .dropdown:hover .dropbtn {
-        background-color: #ddd;
-      }
-        `}</style>
+          </div>
+          <div style={{ overflow: 'auto', height: '85%' }}>
+            <CombinationTable
+              canSortColumns={combinationData.inputEvalList}
+              selectedColumn={combinationTableSortingInfo.column}
+              onTableHeadClick={handleTableHeadClick}
+              onTableRowClick={params => setSelectedCombinationTableRow(params)}
+              data={sortedData.map(d => ({
+                key: d.key,
+                ...['model'].reduce(
+                  (acc, cur) => ({
+                    ...acc,
+                    [cur]: d[cur],
+                  }),
+                  {}
+                ),
+                ...['combination', 'combinationDetail'].reduce(
+                  (acc, cur) => ({
+                    ...acc,
+                    [cur]: (
+                      <div style={{ display: 'flex' }}>
+                        {d[cur].map(imgName => (
+                          <img
+                            src={require(`../../icons/${imgName}.png`)}
+                            alt={''}
+                            style={{ height: '25px', width: '25px' }}
+                          />
+                        ))}
+                      </div>
+                    ),
+                  }),
+                  {}
+                ),
+              }))}
+            />
+          </div>
+        </>
+      )}
     </Box>
   )
 }

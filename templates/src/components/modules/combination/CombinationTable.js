@@ -11,8 +11,6 @@ export default function CombinationTable({
   const { combinationTableSortingInfo } = useFileData()
   const columnKeys = Object.keys(data[0]).slice(1)
 
-  console.log(data);
-
   return data.length > 0 ? (
     <div
       style={{

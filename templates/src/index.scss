@@ -134,3 +134,45 @@ table th,
     margin: 0 0 0 0;
   }
 }
+
+.dropbtn {
+  background-color: #eee;
+  width: 125px;
+  height: 35px;
+  color: gray;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  overflow: auto;
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  width: 142px;
+  height: 300px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+.dropdown-content div {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content div:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #ddd;
+}

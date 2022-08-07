@@ -22,8 +22,15 @@ export default function TreeChart(props) {
             "children": [
               {
                 "index": "3",
-                "state": "current",
+                "state": "none",
                 "name": "locf",
+                "children": [
+                  {
+                    "index": "4",
+                    "state": "current",
+                    "name": "min",
+                  }
+                ]
               }
             ]
           }
@@ -33,9 +40,8 @@ export default function TreeChart(props) {
   }
 
   const [actionDetailData, setActionDetailData] = React.useState({
-    type: ['t1', 't2', 't3'],
-    change: ['c1', 'c2', 'c3'],
-    distort: ['d1', 'd2', 'd3'],
+    change: ['c1', 'c2', 'c3', 'c4'],
+    distort: ['d1', 'd2', 'd3', 'd4'],
   });
 
   useEffect(() => {
@@ -102,7 +108,7 @@ export default function TreeChart(props) {
           return d.index
         })
 
-      var link = svg
+      svg
         .selectAll('path.link')
         .data(links)
         .enter()
@@ -114,29 +120,22 @@ export default function TreeChart(props) {
 
   return (
     <React.Fragment>
-
-      <div style={{ display: 'grid', gridTemplateColumns: '70px 1fr 1fr 1fr' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '70px 1fr 1fr' }}>
         <p style={{ margin: 0 }}>action id</p>
-        <p style={{ margin: 0 }}>action type</p>
         <p style={{ margin: 0 }}>change</p>
         <p style={{ margin: 0 }}>distort</p>
       </div>
       <hr class="solid" />
-      <div style={{ display: 'grid', gridTemplateColumns: '70px 1fr 1fr 1fr' }}>
+      <div style={{ overflow: 'auto', height: '85%', display: 'grid', gridTemplateColumns: '70px 1fr 1fr' }}>
         <div className="treeChart-wrapper" />
-        <div style={{ marginTop: '30px'}}>
-          {actionDetailData.type.map((item) => (
-            <div style={{ height: '100px' }}>{item}</div>
-          ))}
-        </div>
-        <div style={{ marginTop: '30px'}}>
+        <div>
           {actionDetailData.change.map((item) => (
-            <div style={{ height: '100px' }}>{item}</div>
+            <div style={{ height: '90px' }}>{item}</div>
           ))}
         </div>
-        <div style={{ marginTop: '30px'}}>
+        <div>
           {actionDetailData.distort.map((item) => (
-            <div style={{ height: '100px' }}>{item}</div>
+            <div style={{ height: '90px' }}>{item}</div>
           ))}
         </div>
       </div>

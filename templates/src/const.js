@@ -1,12 +1,12 @@
 export const mainLayoutStyle = {
   gridGap: '10px',
-  gridTemplateColumns: '220px 330px 400px 250px',
-  gridTemplateRows: '35px 40px 260px 100px 100px 150px 150px',
+  gridTemplateColumns: '220px 330px 400px 245px',
+  gridTemplateRows: '80px 20px 30px 300px 100px 150px 150px',
   gridTemplateAreas: `
-    'dataset combination action action-detail'
-    'dataset combination action action-detail'
+    'dataset combination action my-combination'
+    'setting combination action my-combination'
+    'setting combination action my-combination'
     'setting combination action action-detail'
-    'setting my-combination action action-detail'
     'check overview overview overview'
     'check overview overview overview'
     'check overview overview overview'

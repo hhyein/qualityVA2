@@ -7,13 +7,6 @@ export default function MyCombination({data}) {
   React.useEffect(() => {
     setDataList(data.map(d => ({
       key: d.key,
-      ...['model'].reduce(
-        (acc, cur) => ({
-          ...acc,
-          [cur]: d[cur],
-        }),
-        {}
-      ),
       ...['combination', 'combinationDetail'].reduce(
         (acc, cur) => ({
           ...acc,
@@ -40,7 +33,7 @@ export default function MyCombination({data}) {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: `auto auto auto auto`,
+          gridTemplateColumns: `auto auto auto`,
         }}
       >
         <div className="grid-th" />
