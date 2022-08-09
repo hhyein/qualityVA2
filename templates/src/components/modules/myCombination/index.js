@@ -21,7 +21,29 @@ export default function MyCombination() {
     <Box title="my-combination">
       <div style={{ height: '130px' }}>
         {!isEmptyData({ combinationData }) && data.length > 0 && (
-          <MyCombinationTable data={data} />
+          <>
+          <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              height: '22px',
+              marginBottom: '5px',
+            }}>
+              {['knn', 'lr', 'svm'].map((item) => (
+                <div key={item}>
+                  <input
+                    type='radio'
+                    name='radio'
+                    value={item}
+                    style={{ marginRight: '15px'}}
+                    // onClick={handleChangeRadio}
+                    // checked={radioValue === item} 
+                    />
+                  {item}
+                </div>
+              ))}
+            </div>
+            <MyCombinationTable data={data} />
+          </>
         )}
       </div>
     </Box>

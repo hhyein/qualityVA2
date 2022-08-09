@@ -51,7 +51,7 @@ export default function Action() {
   }, [combinationData])
 
   React.useEffect(() => {
-    if(radioValue === 'new') {
+    if (radioValue === 'new') {
       setCombinationList(['transformation', 'missing', 'outlier', 'inconsistent'].map((item, idx) => {
         return {
           label: item,
@@ -78,17 +78,17 @@ export default function Action() {
         label: "HeatmapChart",
         value: 0
       }]);
-    } else if (combinationValues?.label === 'missing'){
+    } else if (combinationValues?.label === 'missing') {
       setVisualizationList([{
         label: "HistogramChart",
         value: 0
       }]);
-    } else if (combinationValues?.label === 'outlier'){
+    } else if (combinationValues?.label === 'outlier') {
       setVisualizationList([{
         label: "scatter plot",
         value: 0
       }]);
-    } else if (combinationValues?.label === 'inconsistent'){
+    } else if (combinationValues?.label === 'inconsistent') {
       setVisualizationList([{
         label: "line chart",
         value: 0
@@ -109,24 +109,24 @@ export default function Action() {
       {!isEmptyData({ combinationData }) && data.length > 0 && (
         <React.Fragment>
           <div style={{
-              display: 'flex',
-              height: '20px',
-              marginBottom: '5px',
-            }}>
-              {['combination', 'new'].map((item) => (
-                <div key={item} style={{width: '50%', display: 'flex', alignItems: 'center' }}>
-                  <input
-                    type='radio'
-                    name='radio'
-                    value={item}
-                    style={{marginRight: '15px' }}
-                    onClick={handleChangeRadio}
-                    checked={radioValue === item} 
-                    />
-                  {item}
-                </div>
-              ))}
-            </div>
+            display: 'flex',
+            height: '20px',
+            marginBottom: '5px',
+          }}>
+            {['combination', 'new'].map((item) => (
+              <div key={item} style={{ width: '50%', display: 'flex', alignItems: 'center' }}>
+                <input
+                  type='radio'
+                  name='radio'
+                  value={item}
+                  style={{ marginRight: '15px' }}
+                  onClick={handleChangeRadio}
+                  checked={radioValue === item}
+                />
+                {item}
+              </div>
+            ))}
+          </div>
           <div style={{
             display: 'flex',
           }}>
