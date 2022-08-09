@@ -87,8 +87,8 @@ export default function Action() {
             display: 'flex',
           }}>
             <div style={{
-              width: '46%',
-              margin: '0 2%'
+              width: '40%',
+              margin: '0 5%'
             }}>
               <Title title="combination" />
               <Select
@@ -101,8 +101,7 @@ export default function Action() {
               />
             </div>
             <div style={{
-              width: '46%',
-              margin: '0 2%'
+              width: '40%',
             }}>
               <React.Fragment>
                 <Title title="visualization" />

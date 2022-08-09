@@ -12,13 +12,13 @@ export default function HeatmapChart(props) {
       width = 180 - margin.left - margin.right,
       height = 180 - margin.top - margin.bottom;
 
-      const svg = d3
-      .select('.heatmap-wrapper')
-      .append('svg')
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    const svg = d3
+    .select('.heatmap-wrapper')
+    .append('svg')
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/heatmap_data.csv", function(data) {
       const myGroups = d3.map(data, function(d){return d.group;}).keys()
