@@ -7,6 +7,7 @@ export default function CombinationTable({
   onTableHeadClick,
   canSortColumns,
   selectedColumn,
+  selectedKey,
 }) {
   const { combinationTableSortingInfo } = useFileData()
   const columnKeys = Object.keys(data[0]).slice(1)
@@ -61,6 +62,8 @@ export default function CombinationTable({
               style={{
                 fontWeight: 'bold',
                 borderBottom: isLastRow ? 'none' : undefined,
+                backgroundColor: selectedKey === key ? '#eee' : undefined,
+                cursor: 'pointer'
               }}
               onClick={onClick}
             >
@@ -75,6 +78,8 @@ export default function CombinationTable({
                   borderRight:
                     colIdx === columnKeys.length - 1 ? 'none' : undefined,
                   borderBottom: isLastRow ? 'none' : undefined,
+                  backgroundColor: selectedKey === key ? '#eee' : undefined,
+                  cursor: 'pointer'
                 }}
               >
                 {chart}

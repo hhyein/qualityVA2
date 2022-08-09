@@ -12,7 +12,7 @@ export default function Combination() {
     combinationTableSortingInfo,
     setCombinationTableSortingInfo,
     selectedCombinationTableRow,
-    setSelectedCombinationTableRow,
+    setSelectedCombinationTableRow
   } = useFileData()
   const { combinationData } = combinationTableData
 
@@ -120,7 +120,6 @@ export default function Combination() {
     }
   };
 
-
   return (
     <Box title="combination">
       {!isEmptyData({ combinationData }) && data.length > 0 && (
@@ -166,6 +165,7 @@ export default function Combination() {
               selectedColumn={combinationTableSortingInfo.column}
               onTableHeadClick={handleTableHeadClick}
               onTableRowClick={params => setSelectedCombinationTableRow(params)}
+              selectedKey={selectedCombinationTableRow?.key}
               data={sortedData.map(d => ({
                 key: d.key,
                 ...['model'].reduce(

@@ -47,8 +47,6 @@ export const FileDataProvider = ({ children }) => {
   const [dataSettingValues, setDataSettingValues] = useState()
   const [distortSettingValues, setDistortSettingValues] = useState()
 
-
-
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
   }

@@ -6,12 +6,13 @@ import { useFileData } from '../../../contexts/FileDataContext'
 import Correlogram from '../../charts/Correlogram'
 import HeatmapChart from '../../charts/HeatmapChart'
 import HistogramChart from '../../charts/HistogramChart'
+import LineChart from '../../charts/LineChart'
 
 export default function Action() {
   const {
     isEmptyData,
     combinationTableData,
-    selectedCombinationTableRow,
+    selectedCombinationTableRow
   } = useFileData();
   const { combinationData } = combinationTableData
   const [combinationList, setCombinationList] = React.useState();
@@ -24,6 +25,11 @@ export default function Action() {
     label: "HistogramChart",
     value: 0
   });
+
+  const [radioValue, setRadioValue] = React.useState('combination');
+  const handleChangeRadio = (e) => {
+    setRadioValue(e.target.value);
+  }
 
   const data = useMemo(() => {
     if (!combinationData) {
@@ -45,27 +51,46 @@ export default function Action() {
   }, [combinationData])
 
   React.useEffect(() => {
-    const key = selectedCombinationTableRow?.key;
-    if (key) {
-      setCombinationValues();
-      setCombinationList(combinationData.combinationIconList[key].map((item, idx) => {
+    if(radioValue === 'new') {
+      setCombinationList(['transformation', 'missing', 'outlier', 'inconsistent'].map((item, idx) => {
         return {
           label: item,
           value: idx
         }
       }))
+    } else {
+      const key = selectedCombinationTableRow?.key;
+      if (key) {
+        setCombinationValues();
+        setCombinationList(combinationData.combinationIconList[key].map((item, idx) => {
+          return {
+            label: item,
+            value: idx
+          }
+        }))
+      }
     }
-  }, [combinationData, selectedCombinationTableRow?.key])
+  }, [combinationData, selectedCombinationTableRow?.key, radioValue])
 
   React.useEffect(() => {
-    if (combinationValues?.label === 'missing') {
+    if (combinationValues?.label === 'transformation') {
       setVisualizationList([{
         label: "HeatmapChart",
         value: 0
       }]);
-    } else {
+    } else if (combinationValues?.label === 'missing'){
       setVisualizationList([{
         label: "HistogramChart",
+        value: 0
+      }]);
+    } else if (combinationValues?.label === 'outlier'){
+      setVisualizationList([{
+        label: "scatter plot",
+        value: 0
+      }]);
+    } else if (combinationValues?.label === 'inconsistent'){
+      setVisualizationList([{
+        label: "line chart",
         value: 0
       }]);
     }
@@ -83,6 +108,25 @@ export default function Action() {
     <Box title="action">
       {!isEmptyData({ combinationData }) && data.length > 0 && (
         <React.Fragment>
+          <div style={{
+              display: 'flex',
+              height: '20px',
+              marginBottom: '5px',
+            }}>
+              {['combination', 'new'].map((item) => (
+                <div key={item} style={{width: '50%', display: 'flex', alignItems: 'center' }}>
+                  <input
+                    type='radio'
+                    name='radio'
+                    value={item}
+                    style={{marginRight: '15px' }}
+                    onClick={handleChangeRadio}
+                    checked={radioValue === item} 
+                    />
+                  {item}
+                </div>
+              ))}
+            </div>
           <div style={{
             display: 'flex',
           }}>
@@ -116,11 +160,10 @@ export default function Action() {
               </React.Fragment>
             </div>
           </div>
-          {visualizationValues?.label === 'HeatmapChart'
-            ? <Correlogram />
-            // <HeatmapChart /> 
-            : <HistogramChart />
-          }
+          {visualizationValues?.label === 'HeatmapChart' && <Correlogram />}
+          {visualizationValues?.label === 'HistogramChart' && <HistogramChart />}
+          {visualizationValues?.label === 'scatter plot' && <Correlogram />}
+          {visualizationValues?.label === 'line chart' && <LineChart />}
         </React.Fragment>
       )}
     </Box>
