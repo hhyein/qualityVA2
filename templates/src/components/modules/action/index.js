@@ -4,7 +4,6 @@ import Title from '../../Title'
 import { Box } from "../../Box"
 import { useFileData } from '../../../contexts/FileDataContext'
 import Correlogram from '../../charts/Correlogram'
-import HeatmapChart from '../../charts/HeatmapChart'
 import HistogramChart from '../../charts/HistogramChart'
 import LineChart from '../../charts/LineChart'
 
