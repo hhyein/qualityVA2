@@ -39,8 +39,6 @@ export default function ActionDetail() {
     }
   }, [myCombinationRadioValue])
 
-  console.log(changeData);
-
   const data = useMemo(() => {
     if (!combinationData) {
       return []

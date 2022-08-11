@@ -11,7 +11,9 @@ export default function Action() {
   const {
     isEmptyData,
     combinationTableData,
-    selectedCombinationTableRow
+    selectedCombinationTableRow,
+    setMyCombinationData,
+    myCombinationData
   } = useFileData();
   const { combinationData } = combinationTableData
   const [combinationList, setCombinationList] = React.useState();
@@ -57,10 +59,12 @@ export default function Action() {
           value: idx
         }
       }))
+      setMyCombinationData('transformation');
     } else {
       const key = selectedCombinationTableRow?.key;
       if (key) {
         setCombinationValues();
+        setMyCombinationData();
         setCombinationList(combinationData.combinationIconList[key].map((item, idx) => {
           return {
             label: item,
@@ -92,6 +96,9 @@ export default function Action() {
         label: "line chart",
         value: 0
       }]);
+    }
+    if(radioValue === 'new') {
+      setMyCombinationData(combinationValues.label);
     }
   }, [combinationValues])
 

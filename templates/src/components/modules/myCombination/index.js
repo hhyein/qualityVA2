@@ -8,19 +8,37 @@ export default function MyCombination() {
     isEmptyData,
     combinationTableData,
     myCombinationRadioValue,
-    setMyCombinationRadioValue
+    setMyCombinationRadioValue,
+    myCombinationData
   } = useFileData()
   const { combinationData } = combinationTableData
   const handleChangeRadio = (e) => {
     setMyCombinationRadioValue(e.target.value);
   }
 
-  const data = [{
-    key: 1,
-    combination: ['transformation'],
-    combinationDetail: ['mm', 'std'],
-  },
-]
+  const [data, setData] = React.useState();
+
+  React.useEffect(() => {
+    if(myCombinationData) {
+      let newData;
+      if(myCombinationData === 'outlier' || myCombinationData === 'inconsistent') {
+        newData = ['transformation', 'missing', myCombinationData];
+      } else {
+        newData = ['transformation', 'missing'];
+      }
+      setData([{
+        key: 1,
+        combination: newData,
+        combinationDetail: ['mm', 'std', 'my']
+      }]);
+    } else {
+      setData([{
+        key: 1,
+        combination: ['transformation', 'missing'],
+        combinationDetail: ['mm', 'std'],
+      }]);
+    }
+  }, [myCombinationData])
 
   return (
     <Box title="my-combination">
