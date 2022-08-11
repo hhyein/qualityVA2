@@ -8,9 +8,30 @@ export default function CombinationTable({
   canSortColumns,
   selectedColumn,
   selectedKey,
+  lengthValues,
+  checkedList,
+  filterList
 }) {
   const { combinationTableSortingInfo } = useFileData()
   const columnKeys = Object.keys(data[0]).slice(1)
+
+  const isVisibleLength = (idx) => {
+    if(!lengthValues) {
+      return true;
+    }
+    if(lengthValues?.label >= filterList[idx].combination.length) {
+      return true;
+    }
+    return false;
+  }
+  
+  const isVisibleImg = (idx) => {
+    const len = filterList[idx].combinationDetail.filter((item) => checkedList.includes(item)).length;
+    if(len === filterList[idx].combinationDetail.length) {
+      return true;
+    }
+    return false;
+  }
 
   return data.length > 0 ? (
     <div
@@ -57,34 +78,38 @@ export default function CombinationTable({
           onTableRowClick({ key, combination, combinationDetail })
         return (
           <React.Fragment key={key}>
-            <div
-              className="grid-td"
-              style={{
-                fontWeight: 'bold',
-                borderBottom: isLastRow ? 'none' : undefined,
-                backgroundColor: selectedKey === key ? '#eee' : undefined,
-                cursor: 'pointer'
-              }}
-              onClick={onClick}
-            >
-              {key}
-            </div>
-            {Object.values(others).map((chart, colIdx) => (
+            {isVisibleLength(rowIdx) && isVisibleImg(rowIdx) && <>
               <div
                 className="grid-td"
-                key={`${key}${colIdx}`}
-                onClick={onClick}
                 style={{
-                  borderRight:
-                    colIdx === columnKeys.length - 1 ? 'none' : undefined,
+                  fontWeight: 'bold',
                   borderBottom: isLastRow ? 'none' : undefined,
                   backgroundColor: selectedKey === key ? '#eee' : undefined,
                   cursor: 'pointer'
                 }}
+                onClick={onClick}
               >
-                {chart}
+                {key}
               </div>
-            ))}
+              {Object.values(others).map((chart, colIdx) => (
+                <div
+                  className="grid-td"
+                  key={`${key}${colIdx}`}
+                  onClick={onClick}
+                  style={{
+                    borderRight:
+                      colIdx === columnKeys.length - 1 ? 'none' : undefined,
+                    borderBottom: isLastRow ? 'none' : undefined,
+                    backgroundColor: selectedKey === key ? '#eee' : undefined,
+                    cursor: 'pointer'
+                  }}
+                >
+                  {chart}
+                </div>
+              ))}
+            </>
+            }
+
           </React.Fragment>
         )
       })}

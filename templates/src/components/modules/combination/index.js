@@ -19,13 +19,13 @@ export default function Combination() {
   const [lengthList, setLengthList] = React.useState();
   const [lengthValues, setLengthValues] = React.useState();
   const [actionList, setActionList] = React.useState();
-  const [actionValues, setActionValues] = React.useState();
   const [checkedList, setCheckList] = React.useState();
+  const imgNameList = ['', 'em', 'knn', 'lof', 'max', 'med', 'men', 'min', 'mod', 'rem', 'log', 'mbs', 'mm', 'rob', 'sqt', 'std'];
 
   React.useEffect(() => {
     setLengthList(Array.from({ length: 11 }, (_, i) => ({ label: i, value: i })));
-    setCheckList(Array.from({ length: 15 }, (_, i) => i));
-    const imgList = ['', 'em', 'knn', 'lof', 'max', 'med', 'men', 'min', 'mod', 'rem', 'log', 'mbs', 'mm', 'rob', 'sqt', 'std'].reduce(
+    setCheckList(imgNameList);
+    const imgList = imgNameList.reduce(
       (acc, cur) => ({
         ...acc,
         [cur]: (
@@ -105,18 +105,14 @@ export default function Combination() {
   )
 
   const handleChange = (key, value) => {
-    if (key === 'maxLength') {
-      setLengthValues(value);
-    } else {
-      setActionValues(value);
-    }
+    setLengthValues(value);
   }
 
-  const handleCheckBox = (checkId) => {
-    if (!checkedList.includes(checkId)) {
-      setCheckList([...checkedList, checkId]);
+  const handleCheckBox = (checkName) => {
+    if (!checkedList.includes(checkName)) {
+      setCheckList([...checkedList, checkName]);
     } else {
-      setCheckList(checkedList.filter((checkedId) => checkedId !== checkId));
+      setCheckList(checkedList.filter((item) => item !== checkName));
     }
   };
 
@@ -152,7 +148,7 @@ export default function Combination() {
                   {actionList && actionList.map((item, idx) => (
                     <div style={{ display: 'flex', height: '25px' }} >
                       {item.label}
-                      <input style={{ width: '15px' }} type="checkbox" id="scales" name="scales" checked={checkedList.includes(idx)} onChange={() => handleCheckBox(idx)} />
+                      <input style={{ width: '15px' }} type="checkbox" id="scales" name="scales" checked={checkedList.includes(imgNameList[idx + 1])} onChange={() => handleCheckBox(imgNameList[idx + 1])} />
                     </div>
                   ))}
                 </div>
@@ -166,6 +162,8 @@ export default function Combination() {
               onTableHeadClick={handleTableHeadClick}
               onTableRowClick={params => setSelectedCombinationTableRow(params)}
               selectedKey={selectedCombinationTableRow?.key}
+              lengthValues={lengthValues}
+              checkedList={checkedList}
               data={sortedData.map(d => ({
                 key: d.key,
                 ...['model'].reduce(
@@ -193,6 +191,13 @@ export default function Combination() {
                   {}
                 ),
               }))}
+              filterList={sortedData.map((item) => (
+                {
+                  key: item.key,
+                  combination: item.combination,
+                  combinationDetail: item.combinationDetail,
+                }
+              ))}
             />
           </div>
         </>
