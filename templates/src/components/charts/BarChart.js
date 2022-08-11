@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react'
 
 export default function BarChart(props) {
-  // const { data } = props
+  const { data } = props
   const svgRef = useRef()
   const d3 = window.d3v4
 
-  const data = [{'group': 'banana', 'Nitrogen': 10, 'normal': 5, 'stress': 15}]
+  // const data = [{'group': 'banana', 'Nitrogen': 10, 'normal': 5, 'stress': 15}]
 
   useEffect(() => {
     d3.select('.bar-wrapper').selectAll('*').remove()

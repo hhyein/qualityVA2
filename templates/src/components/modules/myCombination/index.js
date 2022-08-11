@@ -7,8 +7,13 @@ export default function MyCombination() {
   const {
     isEmptyData,
     combinationTableData,
+    myCombinationRadioValue,
+    setMyCombinationRadioValue
   } = useFileData()
   const { combinationData } = combinationTableData
+  const handleChangeRadio = (e) => {
+    setMyCombinationRadioValue(e.target.value);
+  }
 
   const data = [{
     key: 1,
@@ -35,8 +40,8 @@ export default function MyCombination() {
                     name='radio'
                     value={item}
                     style={{ marginRight: '15px'}}
-                    // onClick={handleChangeRadio}
-                    // checked={radioValue === item} 
+                    onClick={handleChangeRadio}
+                    checked={myCombinationRadioValue === item} 
                     />
                   {item}
                 </div>
