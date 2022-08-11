@@ -64,7 +64,6 @@ export default function ActionDetail() {
     <Box title="action-detail">
       {!isEmptyData({ combinationData }) && data.length > 0 && (
         <React.Fragment>
-          {/* <BarChart data={[changeData[1]]} /> */}
           <div style={{ display: 'grid', gridTemplateColumns: '70px 1fr 1fr', textAlign: 'center', paddingRight: '15px' }}>
             <p style={{ margin: 0 }}>action id</p>
             <p style={{ margin: 0 }}>change</p>
@@ -76,7 +75,7 @@ export default function ActionDetail() {
             <div>
               {changeData.map((item) => (
                 <div style={{ height: '90px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  {item?.group}
+                   <BarChart data={[item]} />
                 </div>
               ))}
             </div>
