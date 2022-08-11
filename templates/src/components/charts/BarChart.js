@@ -5,22 +5,19 @@ export default function BarChart(props) {
   const svgRef = useRef()
   const d3 = window.d3v4
 
-  // const data = [{'group': 'banana', 'Nitrogen': 10, 'normal': 5, 'stress': 15}]
-
   useEffect(() => {
-    d3.select('.bar-wrapper').selectAll('*').remove()
+    const svg = d3.select(svgRef.current)
+    d3.select(svgRef.current).selectAll('*').remove()
 
-    const margin = {top: 20, right: 20, bottom: 20, left: 20},
-      width = 150 - margin.left - margin.right,
-      height = 150 - margin.top - margin.bottom;
+    const margin = {top: 20, right: 0, bottom: 20, left: 0},
+      width = 50 - margin.left - margin.right,
+      height = 80 - margin.top - margin.bottom;
 
-    const svg = d3
-    .select('.bar-wrapper')
-    .append('svg')
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    svg
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     const subgroups = ['group', 'Nitrogen', 'normal', 'stress']
     const groups = ['banana']
@@ -30,7 +27,8 @@ export default function BarChart(props) {
       .domain(groups)
       .range([0, width])
       .padding([0.2])
-    svg.append("g")
+    svg
+      .append("g")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x));
 
@@ -71,6 +69,6 @@ export default function BarChart(props) {
     }, [data, svgRef])
 
   return (
-    <div className="bar-wrapper" />
+    <svg ref={svgRef}></svg>
   )
 }
