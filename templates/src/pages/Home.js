@@ -2,12 +2,12 @@ import React from 'react'
 import { mainLayoutStyle } from '../const'
 import Dataset from '../components/modules/dataset'
 import Setting from '../components/modules/setting'
-import ActionDetail from '../components/modules/actionDetail'
 import Check from '../components/modules/check'
-import Overview from '../components/modules/overview'
+import Change from '../components/modules/change'
 import Combination from '../components/modules/combination'
-import MyCombination from '../components/modules/myCombination'
 import Action from '../components/modules/action'
+import MyCombination from '../components/modules/myCombination'
+import ActionDetail from '../components/modules/actionDetail'
 import { FileDataProvider } from '../contexts/FileDataContext'
 
 const Home = () => {
@@ -17,11 +17,11 @@ const Home = () => {
         <Dataset />
         <Setting />
         <Check />
+        <Change />
         <Combination />
-          <MyCombination />
+        <MyCombination />
         <Action />
         <ActionDetail />
-        <Overview />
       </div>
     </FileDataProvider>
   )

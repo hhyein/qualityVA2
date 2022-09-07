@@ -9,8 +9,8 @@ export default function Correlogram(props) {
     d3.select('.correlogram-wrapper').selectAll('*').remove()
 
     const margin = {top: 20, right: 20, bottom: 20, left: 20},
-      width = 350 - margin.left - margin.right,
-      height = 350 - margin.top - margin.bottom
+      width = 300 - margin.left - margin.right,
+      height = 300 - margin.top - margin.bottom
 
     const svg = d3
       .select('.correlogram-wrapper')

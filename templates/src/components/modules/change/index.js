@@ -1,9 +1,9 @@
 import React from "react"
 import { Box } from "../../Box"
 
-export default function Overview() {
+export default function Change() {
   return (
-    <Box title="overview">
+    <Box title="change">
     </Box>
   )
 }
