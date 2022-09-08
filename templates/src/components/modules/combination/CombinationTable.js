@@ -13,7 +13,7 @@ export default function CombinationTable({
   filterList
 }) {
   const { combinationTableSortingInfo } = useFileData()
-  const columnKeys = Object.keys(data[0]).slice(1)
+  const columnKeys = ['idx', ...Object.keys(data[0]).slice(1)];
 
   const isVisibleLength = (idx) => {
     if(!lengthValues) {
@@ -40,7 +40,6 @@ export default function CombinationTable({
         gridTemplateColumns: `auto auto auto auto`,
       }}
     >
-      <div className="grid-th" />
       {columnKeys.map((key, i) => {
         const isSortButton = canSortColumns.includes(key)
         const selected = selectedColumn === key
