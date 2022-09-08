@@ -20,7 +20,7 @@ export default function Combination() {
   const [lengthValues, setLengthValues] = React.useState();
   const [actionList, setActionList] = React.useState();
   const [checkedList, setCheckList] = React.useState();
-  const imgNameList = ['', 'em', 'knn', 'lof', 'max', 'med', 'men', 'min', 'mod', 'rem', 'log', 'mbs', 'mm', 'rob', 'sqt', 'std'];
+  const imgNameList = ['', 'em', 'lof', 'max', 'med', 'men', 'min', 'mod', 'rem', 'log', 'mbs', 'mm', 'rob', 'sqt', 'std'];
 
   React.useEffect(() => {
     setLengthList(Array.from({ length: 11 }, (_, i) => ({ label: i, value: i })));
