@@ -1,7 +1,7 @@
 export const mainLayoutStyle = {
   gridGap: '10px',
-  gridTemplateColumns: '220px 100px 330px 250px',
-  gridTemplateRows: '80px 20px 30px 300px 150px 150px 100px',
+  gridTemplateColumns: '220px 100px 350px 280px',
+  gridTemplateRows: '80px 20px 30px 250px 130px 150px 100px',
   gridTemplateAreas: `
     'dataset check check change'
     'setting check check change'
