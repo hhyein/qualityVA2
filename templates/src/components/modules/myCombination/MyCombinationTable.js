@@ -3,6 +3,8 @@ import React from 'react'
 export default function MyCombination({data}) {
   const columnKeys = Object.keys(data[0]).slice(1)
   const [dataList, setDataList] = React.useState();
+
+  console.log(dataList);
   
   React.useEffect(() => {
     setDataList(data.map(d => ({

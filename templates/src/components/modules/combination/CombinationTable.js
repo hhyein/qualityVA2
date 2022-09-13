@@ -15,6 +15,8 @@ export default function CombinationTable({
   const { combinationTableSortingInfo } = useFileData()
   const columnKeys = ['idx', ...Object.keys(data[0]).slice(1)];
 
+  console.log(data);
+  
   const isVisibleLength = (idx) => {
     if(!lengthValues) {
       return true;
