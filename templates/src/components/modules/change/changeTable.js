@@ -6,75 +6,75 @@ export default function ChangeTable() {
   const {
     file
   } = useFileData();
-  const colors = ['steelblue', 'darkorange', 'darkgreen']
-  const data = [
-    { label: 'missing', data: { a: 20, b: 80 } },
-    { label: 'outlier', data: { a: 20, b: 80 } },
-    { label: 'inconsistent', data: { a: 60, b: 40 } },
-  ];
 
-  const [legend, setLegend] = useState(0);
-  const [columnKeys, setColumnKeys] = useState([]);
-  // const columnKeys = ['idx', 'idx', 'idx', 'idx', 'idx'];
-  const columnData = ['idx', 'idx', 'idx', 'idx', 'idx'];
+  const [columnDatas, setcolumnDatas] = useState([]);
   const fileReader = new FileReader();
 
   React.useEffect(() => {
     if (file) {
       fileReader.onload = (e) => {
         const csvOutput = e.target.result;
-        // console.log(csvOutput);
         const code = csvOutput.toString().split('\r\n');
-        setColumnKeys(code[0].split(","));
-        console.log(code[0].split(","));
+        const codeData = [];
+        for (let i = 0; i < code.length; i++) {
+          codeData.push(code[i].split(","));
+        }
+        setcolumnDatas(codeData);
       };
       fileReader.readAsText(file);
     }
   }, [file])
 
 
-  return columnKeys.length > 0 ? (
-    <>
+  return columnDatas.length > 0 ? (
+    <div style={{
+      overflow: 'scroll',
+      maxWidth: '300px',
+      maxHeight: '280px',
+    }}>
       <div style={{
-        display: 'flex',
-        // overflow: 'scroll',
-        // maxWidth: '300px',
+        display: 'grid',
+        gridTemplateColumns: 'auto auto auto auto auto auto auto auto auto auto auto auto auto'
+        // gridTemplateColumns: `110px 55px 35px 95px 70px 35px 80px 80px 140px 95px 110px 55px 90px`,
       }}>
-      {columnKeys.map((key, i) => {
-        return (
-          <div
-          className="grid-th"
-          key={i}
-          style={{
-            // width: '160px',
-            cursor: 'default',
-            background: undefined,
-            textAlign: 'center',
-            fontWeight: 'bold',
-            borderRight: i === columnKeys.length - 1 ? 'none' : undefined,
-          }}
-        >
-          {key}
-        </div>
-        )
-      })}
+        {columnDatas.map((columnData, rowIdx) => {
+          return (
+            <React.Fragment key={`col${rowIdx}`}>
+              {columnData.map((data, idx) => {
+                return (
+                  <React.Fragment key={idx}>
+                    {rowIdx === 0
+                      ? <div
+                        className="grid-th"
+                        key={idx}
+                        style={{
+                          // width: '160px',
+                          cursor: 'default',
+                          background: undefined,
+                          textAlign: 'center',
+                          fontWeight: 'bold',
+                          borderRight: idx === data.length - 1 ? 'none' : undefined,
+                        }}
+                      >
+                        {data}
+                      </div>
+                      : <div
+                        className="grid-td"
+                        key={idx}
+                      >
+                        {data}
+                      </div>
+                    }
+
+                  </React.Fragment>
+                )
+              })}
+            </React.Fragment>
+          )
+        })}
       </div>
-      <div style={{
-        display: 'flex',
-      }}>
-      {columnData.map((data, rowIdx) => {
-        return (
-          <React.Fragment key={data}>
-              <div
-                className="grid-td"
-              >
-                {data}
-              </div>
-          </React.Fragment>
-        )
-      })}
-      </div>
-    </>
+
+    </div>
   ) : (
     <></>
   )

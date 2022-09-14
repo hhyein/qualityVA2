@@ -12,7 +12,7 @@ export default function Change() {
     distortSettingValues
   } = useFileData();
 
-  const [ready, setReady] = useState(true);
+  const [ready, setReady] = useState(false);
   const [legend, setLegend] = useState(0);
   const colors = ['steelblue', 'darkorange', 'darkgreen']
   const data = [
