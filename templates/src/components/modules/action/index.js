@@ -13,7 +13,7 @@ export default function Action() {
     combinationTableData,
     selectedCombinationTableRow,
     setMyCombinationData,
-    myCombinationData
+    modelSettingData: { columnList },
   } = useFileData();
   const { combinationData } = combinationTableData
   const [combinationList, setCombinationList] = React.useState();
@@ -21,11 +21,13 @@ export default function Action() {
     label: "transformation",
     value: 0
   });
-  const [visualizationList, setVisualizationList] = React.useState();
-  const [visualizationValues, setVisualizationValues] = React.useState({
-    label: "HistogramChart",
-    value: 0
-  });
+  // const [visualizationList, setVisualizationList] = React.useState();
+  // const [visualizationValues, setVisualizationValues] = React.useState({
+  //   label: "HistogramChart",
+  //   value: 0
+  // });
+
+  const [columnValues, setColumnValues] = React.useState();
 
   const [radioValue, setRadioValue] = React.useState('combination');
   const handleChangeRadio = (e) => {
@@ -76,28 +78,28 @@ export default function Action() {
   }, [combinationData, selectedCombinationTableRow?.key, radioValue])
 
   React.useEffect(() => {
-    if (combinationValues?.label === 'transformation') {
-      setVisualizationList([{
-        label: "HeatmapChart",
-        value: 0
-      }]);
-    } else if (combinationValues?.label === 'missing') {
-      setVisualizationList([{
-        label: "HistogramChart",
-        value: 0
-      }]);
-    } else if (combinationValues?.label === 'outlier') {
-      setVisualizationList([{
-        label: "scatter plot",
-        value: 0
-      }]);
-    } else if (combinationValues?.label === 'inconsistent') {
-      setVisualizationList([{
-        label: "line chart",
-        value: 0
-      }]);
-    }
-    if(radioValue === 'new') {
+    // if (combinationValues?.label === 'transformation') {
+    //   setVisualizationList([{
+    //     label: "HeatmapChart",
+    //     value: 0
+    //   }]);
+    // } else if (combinationValues?.label === 'missing') {
+    //   setVisualizationList([{
+    //     label: "HistogramChart",
+    //     value: 0
+    //   }]);
+    // } else if (combinationValues?.label === 'outlier') {
+    //   setVisualizationList([{
+    //     label: "scatter plot",
+    //     value: 0
+    //   }]);
+    // } else if (combinationValues?.label === 'inconsistent') {
+    //   setVisualizationList([{
+    //     label: "line chart",
+    //     value: 0
+    //   }]);
+    // }
+    if (radioValue === 'new') {
       setMyCombinationData(combinationValues.label);
     }
   }, [combinationValues])
@@ -106,7 +108,11 @@ export default function Action() {
     if (key === 'combination') {
       setCombinationValues(value);
     } else {
-      setVisualizationValues(value);
+      setColumnValues(prev => ({
+        ...prev,
+        [key]: value,
+      }))
+      // setVisualizationValues(value);
     }
   }
 
@@ -137,8 +143,8 @@ export default function Action() {
             display: 'flex',
           }}>
             <div style={{
-              width: '40%',
-              margin: '0 5%'
+              width: '47.5%',
+              marginRight: '5%'
             }}>
               <Title title="combination" />
               <Select
@@ -151,6 +157,23 @@ export default function Action() {
               />
             </div>
             <div style={{
+              width: '47.5%',
+            }}>
+              <React.Fragment>
+                <Title title="column" />
+                <Select
+                  isMulti
+                  options={columnList}
+                  placeholder={<div>select</div>}
+                  defaultValue={columnValues}
+                  onChange={v => {
+                    handleChange('column', v)
+                  }}
+                />
+              </React.Fragment>
+            </div>
+
+            {/* <div style={{
               width: '40%',
             }}>
               <React.Fragment>
@@ -164,12 +187,12 @@ export default function Action() {
                   }}
                 />
               </React.Fragment>
-            </div>
+            </div> */}
           </div>
-          {visualizationValues?.label === 'HeatmapChart' && <Correlogram />}
+          {/* {visualizationValues?.label === 'HeatmapChart' && <Correlogram />}
           {visualizationValues?.label === 'HistogramChart' && <HistogramChart />}
           {visualizationValues?.label === 'scatter plot' && <Correlogram />}
-          {visualizationValues?.label === 'line chart' && <LineChart />}
+          {visualizationValues?.label === 'line chart' && <LineChart />} */}
         </React.Fragment>
       )}
     </Box>
