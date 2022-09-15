@@ -6,15 +6,14 @@ import DonutChart from '../../charts/DonutChart'
 import HeatmapChart from '../../charts/HeatmapChart'
 import HistogramChart from '../../charts/HistogramChart'
 import CheckTable from './checkTable'
-
+import LineChart from '../../charts/LineChart'
+import RaderChart from '../../charts/RaderChart'
 
 const checkDonutData = [
   { label: 0, color: 'steelblue', data: { a: 20, b: 80 } },
   { label: 1, color: 'darkorange', data: { a: 20, b: 80 } },
   { label: 2, color: 'darkgreen', data: { a: 60, b: 40 } },
 ]
-// const exampleDonutData = [{ a: 20, b: 80 }, { a: 20, b: 80 }, { a: 60, b: 40 }]
-// const exampleDonutColors = ['steelblue', 'darkorange', 'darkgreen']
 
 export default function Check() {
   const {
@@ -60,47 +59,49 @@ export default function Check() {
         modelSettingValues,
         distortSettingValues
       }) && <>
-          <Legend
-            onLegendClick={setSelectedLegendIdx}
-            dataColorInfo={legendData}
-          />
-
           <div style={{ display: 'flex' }}>
-            {checkDonutData.map((donutData, idx) => (
-              <div key={idx} style={{margin: '0 25px 0 5px'}}>
-                <DonutChart
-                  data={donutData.data}
-                  color={donutData.color}
-                  idx={idx}
-                />
+            <div style={{ width: '350px' }}>
+              <Legend
+                onLegendClick={setSelectedLegendIdx}
+                dataColorInfo={legendData}
+              />
+              <div style={{ display: 'flex' }}>
+                {checkDonutData.map((donutData, idx) => (
+                  <div key={idx} style={{margin: '0 30px 0 0'}}>
+                    <DonutChart
+                      data={donutData.data}
+                      color={donutData.color}
+                      idx={idx}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-
-          <div style={{
-            display: 'flex',
-            height: '20px',
-            marginBottom: '5px',
-            width: '300px'
-          }}>
-            {['visualization', 'table'].map((item) => (
-              <div key={item} style={{ width: '50%', display: 'flex', alignItems: 'center' }}>
-                <input
-                  type='radio'
-                  name='radio'
-                  value={item}
-                  style={{ marginRight: '15px' }}
-                  onClick={handleChangeRadio}
-                  checked={radioValue === item}
-                />
-                {item}
+              <div style={{ display: 'flex', marginTop: '5px' }}>
+                {['visualization', 'table'].map((item) => (
+                  <div key={item} style={{ width: '45%', display: 'flex', alignItems: 'center' }}>
+                    <input
+                      type='radio'
+                      name='radio'
+                      value={item}
+                      style={{ marginRight: '15px' }}
+                      onClick={handleChangeRadio}
+                      checked={radioValue === item}
+                    />
+                    {item}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+              {radioValue === 'visualization' && detailChart.chart}
+              {radioValue === 'table' && <CheckTable colorIdx={selectedLegendIdx} />}
+            </div>
 
-          <div style={{ display: 'flex' }}>
-            {radioValue === 'visualization' && detailChart.chart}
-            {radioValue === 'table' && <CheckTable colorIdx={selectedLegendIdx} />}
+            <div>
+              <div>model table</div>
+              <div style={{ display: 'flex' }}>
+                <LineChart />
+                <RaderChart />
+              </div>
+            </div>
           </div>
         </>}
     </Box>

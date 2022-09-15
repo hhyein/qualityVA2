@@ -4,9 +4,8 @@ import { useFileData } from '../../../contexts/FileDataContext'
 export default function CheckTable(props) {
   const { colorIdx } = props;
   const colorData = ['steelblue', 'darkorange', 'darkgreen'];
-
   const point = {x: 1, y : 1};
-
+  
   const {
     file
   } = useFileData();
@@ -32,8 +31,9 @@ export default function CheckTable(props) {
   return columnDatas.length > 0 ? (
     <div style={{
       overflow: 'scroll',
-      maxWidth: '300px',
-      maxHeight: '180px',
+      marginTop: '5px',
+      maxWidth: '330px',
+      maxHeight: '230px',
     }}>
       <div style={{
         display: 'grid',

@@ -9,10 +9,10 @@ export default function HistogramChart(props) {
     d3.select('.histogram-wrapper').selectAll('*').remove()
 
     const margin = {top: 20, right: 20, bottom: 20, left: 20},
-      width = 250 - margin.left - margin.right,
-      height = 250 - margin.top - margin.bottom;
+      width = 200 - margin.left - margin.right,
+      height = 200 - margin.top - margin.bottom;
 
-      const svg = d3
+    const svg = d3
       .select('.histogram-wrapper')
       .append('svg')
       .attr("width", width + margin.left + margin.right)
