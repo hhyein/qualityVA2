@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import Legend from '../../charts/Legend'
 import { useFileData } from '../../../contexts/FileDataContext'
 
-export default function ChangeTable() {
+export default function CheckTable() {
   const {
     file
   } = useFileData();
@@ -25,17 +24,15 @@ export default function ChangeTable() {
     }
   }, [file])
 
-
   return columnDatas.length > 0 ? (
     <div style={{
       overflow: 'scroll',
       maxWidth: '300px',
-      maxHeight: '280px',
+      maxHeight: '180px',
     }}>
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'auto auto auto auto auto auto auto auto auto auto auto auto auto'
-        // gridTemplateColumns: `110px 55px 35px 95px 70px 35px 80px 80px 140px 95px 110px 55px 90px`,
       }}>
         {columnDatas.map((columnData, rowIdx) => {
           return (
@@ -48,7 +45,6 @@ export default function ChangeTable() {
                         className="grid-th"
                         key={idx}
                         style={{
-                          // width: '160px',
                           cursor: 'default',
                           background: undefined,
                           textAlign: 'center',

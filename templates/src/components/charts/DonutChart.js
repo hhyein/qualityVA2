@@ -1,18 +1,15 @@
 import React, { useEffect, useRef } from 'react'
-import Legend from './Legend'
-
-const colors = ['steelblue', 'darkorange', 'darkgreen']
 
 export default function DonutChart(props) {
-  const { data, selectedLegendIdx, onLegendClick } = props
+  const { data, color } = props
   const svgRef = useRef()
   const d3 = window.d3v4
 
   useEffect(() => {
     d3.select('.donut-wrapper').selectAll('*').remove()
-    const donutData = data[selectedLegendIdx].data
-    const width = 100,
-      height = 100,
+    
+    const width = 70,
+      height = 70,
       margin = 20
 
     const radius = Math.min(width, height) / 2 - margin
@@ -27,15 +24,15 @@ export default function DonutChart(props) {
 
     const colorScale = d3
       .scaleOrdinal()
-      .domain(donutData)
-      .range([colors[selectedLegendIdx], 'lightgray'])
+      .domain(data)
+      .range([color, 'lightgray'])
 
     const pie = d3
       .pie()
       .value(d => d.value)
       .sort(null)
 
-    const calculatedData = pie(d3.entries(donutData))
+    const calculatedData = pie(d3.entries(data))
 
     svg
       .selectAll()
@@ -50,21 +47,9 @@ export default function DonutChart(props) {
           .outerRadius(radius)
       )
       .attr('fill', d => colorScale(d.data.key))
-  }, [data, selectedLegendIdx, svgRef, d3])
+  }, [data, color, svgRef, d3])
 
   return (
-    <div>
-      <Legend
-        onLegendClick={onLegendClick}
-        dataColorInfo={data.reduce(
-          (acc, { label }, i) => ({
-            ...acc,
-            [label]: colors[i],
-          }),
-          {}
-        )}
-      />
       <div className="donut-wrapper" />
-    </div>
   )
 }

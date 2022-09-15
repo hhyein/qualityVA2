@@ -1,15 +1,14 @@
 import React, { useMemo, useState } from 'react'
 import { Box } from '../../Box'
 import { useFileData } from '../../../contexts/FileDataContext'
+import Legend from '../../charts/Legend'
 import DonutChart from '../../charts/DonutChart'
 import HeatmapChart from '../../charts/HeatmapChart'
 import HistogramChart from '../../charts/HistogramChart'
+import CheckTable from './checkTable'
 
-const exampleDonutData = [
-  { label: 'missing', data: { a: 20, b: 80 } },
-  { label: 'outlier', data: { a: 20, b: 80 } },
-  { label: 'inconsistent', data: { a: 60, b: 40 } },
-]
+const exampleDonutData = [{ a: 20, b: 80 }, { a: 20, b: 80 }, { a: 60, b: 40 }]
+const exampleDonutColors = ['steelblue', 'darkorange', 'darkgreen']
 
 export default function Check() {
   const {
@@ -17,11 +16,11 @@ export default function Check() {
     dataSettingValues,
     modelSettingValues,
     distortSettingValues
-  } = useFileData();
-  const [selectedLegendIdx, setSelectedLegendIdx] = useState(0);
+  } = useFileData()
 
-  const legendDetail = useMemo(() => {
-    switch (selectedLegendIdx) {
+  const [selectedDonutIdx, setSelectedDonutIdx] = useState(0)
+  const detailChart = useMemo(() => {
+    switch (selectedDonutIdx) {
       case 0:
         return {
           chart: <HeatmapChart />,
@@ -35,7 +34,7 @@ export default function Check() {
           chart: <HistogramChart />,
         }
     }
-  }, [selectedLegendIdx])
+  }, [selectedDonutIdx])
 
   return (
     <Box title="check">
@@ -44,12 +43,16 @@ export default function Check() {
         modelSettingValues,
         distortSettingValues
       }) && <>
+        <Legend />
         <DonutChart
-          data={exampleDonutData}
-          selectedLegendIdx={selectedLegendIdx}
-          onLegendClick={setSelectedLegendIdx}
+          data={exampleDonutData[0]}
+          color={exampleDonutColors[0]}
         />
-        {legendDetail.chart}
+        
+        <div style={{ display: 'flex' }}>
+          {detailChart.chart}
+          <CheckTable />
+        </div>
       </>}
     </Box>
   )

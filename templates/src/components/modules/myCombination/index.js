@@ -7,15 +7,9 @@ export default function MyCombination() {
   const {
     isEmptyData,
     combinationTableData,
-    myCombinationRadioValue,
-    setMyCombinationRadioValue,
     myCombinationData
   } = useFileData()
   const { combinationData } = combinationTableData
-  const handleChangeRadio = (e) => {
-    setMyCombinationRadioValue(e.target.value);
-  }
-
   const [data, setData] = React.useState();
 
   React.useEffect(() => {
@@ -42,33 +36,9 @@ export default function MyCombination() {
 
   return (
     <Box title="my-combination">
-      <div style={{ height: '130px' }}>
-        {!isEmptyData({ combinationData }) && data.length > 0 && (
-          <>
-          <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              height: '22px',
-              marginBottom: '5px',
-            }}>
-              {['knn', 'lr', 'svm'].map((item) => (
-                <div key={item}>
-                  <input
-                    type='radio'
-                    name='radio'
-                    value={item}
-                    style={{ marginRight: '15px'}}
-                    onClick={handleChangeRadio}
-                    checked={myCombinationRadioValue === item} 
-                    />
-                  {item}
-                </div>
-              ))}
-            </div>
-            <MyCombinationTable data={data} />
-          </>
-        )}
-      </div>
+      {!isEmptyData({ combinationData }) && data.length > 0 && (
+        <MyCombinationTable data={data} />
+      )}
     </Box>
   )
 }
