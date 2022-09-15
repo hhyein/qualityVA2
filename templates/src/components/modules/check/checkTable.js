@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import { useFileData } from '../../../contexts/FileDataContext'
 
-export default function CheckTable() {
+export default function CheckTable(props) {
+  const { colorIdx } = props;
+  const colorData = ['steelblue', 'darkorange', 'darkgreen'];
+
+  const point = {x: 1, y : 1};
+
   const {
     file
   } = useFileData();
@@ -56,6 +61,7 @@ export default function CheckTable() {
                       </div>
                       : <div
                         className="grid-td"
+                        style={point.x === rowIdx && point.y === idx ? { backgroundColor: colorData[colorIdx] } : undefined}
                         key={idx}
                       >
                         {data}

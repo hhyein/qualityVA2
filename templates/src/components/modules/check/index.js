@@ -8,7 +8,7 @@ import HistogramChart from '../../charts/HistogramChart'
 import CheckTable from './checkTable'
 
 
-const exampleDonutData = [
+const checkDonutData = [
   { label: 0, color: 'steelblue', data: { a: 20, b: 80 } },
   { label: 1, color: 'darkorange', data: { a: 20, b: 80 } },
   { label: 2, color: 'darkgreen', data: { a: 60, b: 40 } },
@@ -25,6 +25,10 @@ export default function Check() {
   } = useFileData()
 
   const [selectedLegendIdx, setSelectedLegendIdx] = useState(0)
+  const [radioValue, setRadioValue] = React.useState('visualization');
+  const handleChangeRadio = (e) => {
+    setRadioValue(e.target.value);
+  }
 
   const legendData = [
     { text: 'missing', color: 'steelblue' },
@@ -62,7 +66,7 @@ export default function Check() {
           />
 
           <div style={{ display: 'flex' }}>
-            {exampleDonutData.map((donutData, idx) => (
+            {checkDonutData.map((donutData, idx) => (
               <div key={idx} style={{margin: '0 25px 0 5px'}}>
                 <DonutChart
                   data={donutData.data}
@@ -73,9 +77,30 @@ export default function Check() {
             ))}
           </div>
 
+          <div style={{
+            display: 'flex',
+            height: '20px',
+            marginBottom: '5px',
+            width: '300px'
+          }}>
+            {['visualization', 'table'].map((item) => (
+              <div key={item} style={{ width: '50%', display: 'flex', alignItems: 'center' }}>
+                <input
+                  type='radio'
+                  name='radio'
+                  value={item}
+                  style={{ marginRight: '15px' }}
+                  onClick={handleChangeRadio}
+                  checked={radioValue === item}
+                />
+                {item}
+              </div>
+            ))}
+          </div>
+
           <div style={{ display: 'flex' }}>
-            {detailChart.chart}
-            <CheckTable />
+            {radioValue === 'visualization' && detailChart.chart}
+            {radioValue === 'table' && <CheckTable colorIdx={selectedLegendIdx} />}
           </div>
         </>}
     </Box>
