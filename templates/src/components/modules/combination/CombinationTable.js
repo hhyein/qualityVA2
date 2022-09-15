@@ -72,9 +72,8 @@ export default function CombinationTable({
       })}
       {data.map(({ key, ...others }, rowIdx) => {
         const isLastRow = rowIdx === data.length - 1
-        const { combination, combinationDetail } = others
         const onClick = () =>
-          onTableRowClick({ key, combination, combinationDetail })
+          onTableRowClick(filterList[rowIdx])
         return (
           <React.Fragment key={key}>
             {isVisibleLength(rowIdx) && isVisibleImg(rowIdx) && <>

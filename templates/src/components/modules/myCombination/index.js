@@ -7,32 +7,31 @@ export default function MyCombination() {
   const {
     isEmptyData,
     combinationTableData,
-    myCombinationData
+    myCombinationData,
+    selectedCombinationTableRow
   } = useFileData()
   const { combinationData } = combinationTableData
   const [data, setData] = React.useState();
+
+  console.log(selectedCombinationTableRow);
 
   React.useEffect(() => {
     if(myCombinationData) {
       let newData;
       if(myCombinationData === 'outlier' || myCombinationData === 'inconsistent') {
-        newData = ['transformation', 'missing', myCombinationData];
+        newData = [...selectedCombinationTableRow.combination, myCombinationData];
       } else {
-        newData = ['transformation', 'missing'];
+        newData = selectedCombinationTableRow.combination;
       }
       setData([{
-        key: 1,
+        key: selectedCombinationTableRow.key,
         combination: newData,
-        combinationDetail: ['mm', 'std', 'my']
+        combinationDetail: [...selectedCombinationTableRow.combinationDetail, 'my']
       }]);
     } else {
-      setData([{
-        key: 1,
-        combination: ['transformation', 'missing'],
-        combinationDetail: ['mm', 'std'],
-      }]);
+      setData([selectedCombinationTableRow]);
     }
-  }, [myCombinationData])
+  }, [myCombinationData, selectedCombinationTableRow])
 
   return (
     <Box title="my-combination">
