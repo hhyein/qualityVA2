@@ -7,8 +7,14 @@ import HeatmapChart from '../../charts/HeatmapChart'
 import HistogramChart from '../../charts/HistogramChart'
 import CheckTable from './checkTable'
 
-const exampleDonutData = [{ a: 20, b: 80 }, { a: 20, b: 80 }, { a: 60, b: 40 }]
-const exampleDonutColors = ['steelblue', 'darkorange', 'darkgreen']
+
+const exampleDonutData = [
+  { label: 0, color: 'steelblue', data: { a: 20, b: 80 } },
+  { label: 1, color: 'darkorange', data: { a: 20, b: 80 } },
+  { label: 2, color: 'darkgreen', data: { a: 60, b: 40 } },
+]
+// const exampleDonutData = [{ a: 20, b: 80 }, { a: 20, b: 80 }, { a: 60, b: 40 }]
+// const exampleDonutColors = ['steelblue', 'darkorange', 'darkgreen']
 
 export default function Check() {
   const {
@@ -18,9 +24,16 @@ export default function Check() {
     distortSettingValues
   } = useFileData()
 
-  const [selectedDonutIdx, setSelectedDonutIdx] = useState(0)
+  const [selectedLegendIdx, setSelectedLegendIdx] = useState(0)
+
+  const legendData = [
+    { text: 'missing', color: 'steelblue' },
+    { text: 'outlier', color: 'darkorange' },
+    { text: 'inconsistent', color: 'darkgreen' },
+  ]
+
   const detailChart = useMemo(() => {
-    switch (selectedDonutIdx) {
+    switch (selectedLegendIdx) {
       case 0:
         return {
           chart: <HeatmapChart />,
@@ -34,7 +47,7 @@ export default function Check() {
           chart: <HistogramChart />,
         }
     }
-  }, [selectedDonutIdx])
+  }, [selectedLegendIdx])
 
   return (
     <Box title="check">
@@ -43,17 +56,28 @@ export default function Check() {
         modelSettingValues,
         distortSettingValues
       }) && <>
-        <Legend />
-        <DonutChart
-          data={exampleDonutData[0]}
-          color={exampleDonutColors[0]}
-        />
-        
-        <div style={{ display: 'flex' }}>
-          {detailChart.chart}
-          <CheckTable />
-        </div>
-      </>}
+          <Legend
+            onLegendClick={setSelectedLegendIdx}
+            dataColorInfo={legendData}
+          />
+
+          <div style={{ display: 'flex' }}>
+            {exampleDonutData.map((donutData, idx) => (
+              <div key={idx} style={{margin: '0 25px 0 5px'}}>
+                <DonutChart
+                  data={donutData.data}
+                  color={donutData.color}
+                  idx={idx}
+                />
+              </div>
+            ))}
+          </div>
+
+          <div style={{ display: 'flex' }}>
+            {detailChart.chart}
+            <CheckTable />
+          </div>
+        </>}
     </Box>
   )
 }
