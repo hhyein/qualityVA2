@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React from 'react'
 import { Box } from '../../Box'
 import MyCombinationTable from './MyCombinationTable'
 import { useFileData } from '../../../contexts/FileDataContext'
@@ -12,10 +12,12 @@ export default function MyCombination() {
   } = useFileData()
   const { combinationData } = combinationTableData
   const [data, setData] = React.useState();
-
-  console.log(selectedCombinationTableRow);
+  const [dataSetting, setDataSetting] = React.useState(false);
 
   React.useEffect(() => {
+    if(!selectedCombinationTableRow) {
+      return;
+    }
     if(myCombinationData) {
       let newData;
       if(myCombinationData === 'outlier' || myCombinationData === 'inconsistent') {
@@ -31,11 +33,12 @@ export default function MyCombination() {
     } else {
       setData([selectedCombinationTableRow]);
     }
+    setDataSetting(true);
   }, [myCombinationData, selectedCombinationTableRow])
 
   return (
     <Box title="my-combination">
-      {!isEmptyData({ combinationData }) && data.length > 0 && (
+      {!isEmptyData({ combinationData }) && dataSetting && (
         <MyCombinationTable data={data} />
       )}
     </Box>

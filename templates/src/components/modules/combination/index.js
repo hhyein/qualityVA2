@@ -87,12 +87,11 @@ export default function Combination() {
       setSelectedCombinationTableRow({
         key: firstRow.key,
         combination: firstRow.combination,
-        combinationDetail: firstRow.combinationDetail,
-        model: firstRow.model,
+        combinationDetail: firstRow.combinationDetail
       })
     }
     return sortedChartTableData
-  }, [combinationTableSortingInfo, data])
+  }, [combinationTableSortingInfo, data, selectedCombinationTableRow, setSelectedCombinationTableRow])
 
   const handleTableHeadClick = useCallback(
     columnName => {
