@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import { Box } from '../../Box'
 import { useFileData } from '../../../contexts/FileDataContext'
+import TreeChart from '../../charts/TreeChart'
 import Legend from '../../charts/Legend'
 import DonutChart from '../../charts/DonutChart'
 import HeatmapChart from '../../charts/HeatmapChart'
@@ -60,6 +61,7 @@ export default function Check() {
         distortSettingValues
       }) && <>
           <div style={{ display: 'flex' }}>
+            <TreeChart />
             <div style={{ width: '350px' }}>
               <Legend
                 onLegendClick={setSelectedLegendIdx}
