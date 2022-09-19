@@ -13,8 +13,8 @@ export default function Legend(props) {
   useEffect(() => {
     d3.select('.legend-wrapper').selectAll('*').remove()
 
-    const width = 500
-    const height = 30
+    const width = 200
+    const height = 20
 
     const svg = d3
       .select('.legend-wrapper')
@@ -26,17 +26,17 @@ export default function Legend(props) {
     Object.entries(dataColorInfo).forEach(([idx, data], i) => {
       svg
         .append('circle')
-        .attr('cx', 10  + i * 100)
-        .attr('cy', 15)
-        .attr('r', 6)
+        .attr('cx', 5  + i * 59)
+        .attr('cy', 5)
+        .attr('r', 5)
         .style('fill', data.color)
       svg
         .append('text')
-        .attr('x', 20  + i * 100)
-        .attr('y', 15)
+        .attr('x', 12  + i * 59)
+        .attr('y', 5)
         .text(data.text)
         .style('cursor', 'pointer')
-        .style('font-size', '15px')
+        .style('font-size', '13px')
         .attr('alignment-baseline', 'middle')
         .on('click', () => {
           onLegendClick(i)

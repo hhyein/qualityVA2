@@ -21,10 +21,11 @@ export default function Check() {
     isEmptyData,
     dataSettingValues,
     modelSettingValues,
-    distortSettingValues
+    distortSettingValues,
+    selectedLegendIdx,
+    setSelectedLegendIdx
   } = useFileData()
 
-  const [selectedLegendIdx, setSelectedLegendIdx] = useState(0)
   const [radioValue, setRadioValue] = React.useState('visualization');
   const handleChangeRadio = (e) => {
     setRadioValue(e.target.value);
@@ -63,7 +64,7 @@ export default function Check() {
           <div style={{ display: 'flex' }}>
             <TreeChart />
             <div style={{ width: '350px' }}>
-              <Legend
+              {/* <Legend
                 onLegendClick={setSelectedLegendIdx}
                 dataColorInfo={legendData}
               />
@@ -77,7 +78,7 @@ export default function Check() {
                     />
                   </div>
                 ))}
-              </div>
+              </div> */}
               <div style={{ display: 'flex', marginTop: '5px' }}>
                 {['visualization', 'table'].map((item) => (
                   <div key={item} style={{ width: '45%', display: 'flex', alignItems: 'center' }}>

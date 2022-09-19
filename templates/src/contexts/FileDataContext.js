@@ -48,6 +48,7 @@ export const FileDataProvider = ({ children }) => {
   const [distortSettingValues, setDistortSettingValues] = useState()
   const [myCombinationRadioValue, setMyCombinationRadioValue] = React.useState('knn');
   const [myCombinationData, setMyCombinationData] = React.useState();
+  const [selectedLegendIdx, setSelectedLegendIdx] = useState(0)
 
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
@@ -170,6 +171,8 @@ export const FileDataProvider = ({ children }) => {
         myCombinationRadioValue,
         setMyCombinationData,
         myCombinationData,
+        selectedLegendIdx,
+        setSelectedLegendIdx
       }}
     >
       {children}

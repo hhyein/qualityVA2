@@ -8,9 +8,9 @@ export default function DonutChart(props) {
   useEffect(() => {
     d3.select(`.donut-wrapper-${idx}`).selectAll('*').remove()
     
-    const width = 70,
-      height = 70,
-      margin = 20
+    const width = 50,
+      height = 50,
+      margin = 15
 
     const radius = Math.min(width, height) / 2 - margin
 
