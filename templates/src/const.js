@@ -8,8 +8,8 @@ export const mainLayoutStyle = {
     'setting check check check check'
     'setting check check check check'
     'summary column-summary column-summary effect change'
-    'row-summary combination combination action change'
-    'row-summary combination combination action change'
+    'row-summary table table action change'
+    'row-summary table table action change'
     'row-summary my-combination my-combination my-combination change'
   `,
 }
@@ -22,7 +22,8 @@ export const boxTitles = {
   'column-summary': 'column-summary',
   'check': 'check',
   'effect': 'effect',
-  'combination': 'combination',
+  'table': 'table',
+  // 'combination': 'combination',
   'action': 'action',
   'my-combination': 'my-combination',
   'change': 'change'

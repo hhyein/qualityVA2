@@ -3,6 +3,7 @@ import Select from 'react-select'
 import Title from '../../Title'
 import { Box } from "../../Box"
 import { useFileData } from '../../../contexts/FileDataContext'
+import Combination from './combination'
 import Correlogram from '../../charts/Correlogram'
 import HistogramChart from '../../charts/HistogramChart'
 import LineChart from '../../charts/LineChart'
@@ -16,8 +17,8 @@ export default function Action() {
     modelSettingData: { columnList },
   } = useFileData();
   const { combinationData } = combinationTableData
-  const [combinationList, setCombinationList] = React.useState();
-  const [combinationValues, setCombinationValues] = React.useState({
+  const [actionList, setActionList] = React.useState();
+  const [actionValues, setActionValues] = React.useState({
     label: "transformation",
     value: 0
   });
@@ -29,7 +30,7 @@ export default function Action() {
 
   const [columnValues, setColumnValues] = React.useState();
 
-  const [radioValue, setRadioValue] = React.useState('combination');
+  const [radioValue, setRadioValue] = React.useState('recommend');
   const handleChangeRadio = (e) => {
     setRadioValue(e.target.value);
   }
@@ -55,7 +56,7 @@ export default function Action() {
 
   React.useEffect(() => {
     if (radioValue === 'new') {
-      setCombinationList(['transformation', 'missing', 'outlier', 'inconsistent'].map((item, idx) => {
+      setActionList(['transformation', 'missing', 'outlier', 'inconsistent'].map((item, idx) => {
         return {
           label: item,
           value: idx
@@ -65,9 +66,9 @@ export default function Action() {
     } else {
       const key = selectedCombinationTableRow?.key;
       if (key) {
-        setCombinationValues();
+        setActionValues();
         setMyCombinationData();
-        setCombinationList(combinationData.combinationIconList[key].map((item, idx) => {
+        setActionList(combinationData.combinationIconList[key].map((item, idx) => {
           return {
             label: item,
             value: idx
@@ -100,13 +101,13 @@ export default function Action() {
     //   }]);
     // }
     if (radioValue === 'new') {
-      setMyCombinationData(combinationValues.label);
+      setMyCombinationData(actionValues.label);
     }
-  }, [combinationValues])
+  }, [actionValues])
 
   const handleChange = (key, value) => {
     if (key === 'combination') {
-      setCombinationValues(value);
+      setActionValues(value);
     } else {
       setColumnValues(prev => ({
         ...prev,
@@ -125,7 +126,7 @@ export default function Action() {
             height: '20px',
             marginBottom: '5px',
           }}>
-            {['combination', 'new'].map((item) => (
+            {['recommend', 'new'].map((item) => (
               <div key={item} style={{ width: '50%', display: 'flex', alignItems: 'center' }}>
                 <input
                   type='radio'
@@ -139,41 +140,43 @@ export default function Action() {
               </div>
             ))}
           </div>
-          <div style={{
-            display: 'flex',
-          }}>
+          {radioValue === 'recommend' && <Combination />}
+          {radioValue === 'new' &&
             <div style={{
-              width: '47.5%',
-              marginRight: '5%'
+              display: 'flex',
             }}>
-              <Title title="combination" />
-              <Select
-                options={combinationList}
-                placeholder={<div>select</div>}
-                defaultValue={combinationValues}
-                onChange={v => {
-                  handleChange('combination', v)
-                }}
-              />
-            </div>
-            <div style={{
-              width: '47.5%',
-            }}>
-              <React.Fragment>
-                <Title title="column" />
+              <div style={{
+                width: '47.5%',
+                marginRight: '5%'
+              }}>
+                <Title title="action" />
                 <Select
-                  isMulti
-                  options={columnList}
+                  options={actionList}
                   placeholder={<div>select</div>}
-                  defaultValue={columnValues}
+                  defaultValue={actionValues}
                   onChange={v => {
-                    handleChange('column', v)
+                    handleChange('action', v)
                   }}
                 />
-              </React.Fragment>
-            </div>
+              </div>
+              <div style={{
+                width: '47.5%',
+              }}>
+                <React.Fragment>
+                  <Title title="actionDetail" />
+                  <Select
+                    isMulti
+                    options={columnList}
+                    placeholder={<div>select</div>}
+                    defaultValue={columnValues}
+                    onChange={v => {
+                      handleChange('column', v)
+                    }}
+                  />
+                </React.Fragment>
+              </div>
 
-            {/* <div style={{
+              {/* <div style={{
               width: '40%',
             }}>
               <React.Fragment>
@@ -188,7 +191,8 @@ export default function Action() {
                 />
               </React.Fragment>
             </div> */}
-          </div>
+            </div>
+          }
           {/* {visualizationValues?.label === 'HeatmapChart' && <Correlogram />}
           {visualizationValues?.label === 'HistogramChart' && <HistogramChart />}
           {visualizationValues?.label === 'scatter plot' && <Correlogram />}

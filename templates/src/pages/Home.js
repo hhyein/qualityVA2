@@ -11,6 +11,7 @@ import Combination from '../components/modules/combination'
 import Action from '../components/modules/action'
 import MyCombination from '../components/modules/myCombination'
 import Change from '../components/modules/change'
+import Table from '../components/modules/table'
 import { FileDataProvider } from '../contexts/FileDataContext'
 
 const Home = () => {
@@ -24,7 +25,8 @@ const Home = () => {
         <ColumnSummary />
         <Check />
         <Effect />
-        <Combination />
+        {/* <Combination /> */}
+        <Table />
         <Action />
         <MyCombination />
         <Change />

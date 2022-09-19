@@ -11,9 +11,9 @@ const checkDonutData = [
 ]
 
 const legendData = [
-  { text: 'missing', color: 'steelblue' },
-  { text: 'outlier', color: 'darkorange' },
-  { text: 'inconsistent', color: 'darkgreen' },
+  { label: 0, text: 'missing', color: 'steelblue' },
+  { label: 1, text: 'outlier', color: 'darkorange' },
+  { llabel: 2,text: 'inconsistent', color: 'darkgreen' },
 ]
 
 export default function Summary() {
@@ -22,7 +22,7 @@ export default function Summary() {
     dataSettingValues,
     modelSettingValues,
     distortSettingValues,
-    setSelectedLegendIdx
+    setSelectedLegendIdx,
   } = useFileData()
 
   return (

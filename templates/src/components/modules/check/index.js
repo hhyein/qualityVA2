@@ -2,19 +2,12 @@ import React, { useMemo, useState } from 'react'
 import { Box } from '../../Box'
 import { useFileData } from '../../../contexts/FileDataContext'
 import TreeChart from '../../charts/TreeChart'
-import Legend from '../../charts/Legend'
-import DonutChart from '../../charts/DonutChart'
 import HeatmapChart from '../../charts/HeatmapChart'
 import HistogramChart from '../../charts/HistogramChart'
-import CheckTable from './checkTable'
 import LineChart from '../../charts/LineChart'
 import RaderChart from '../../charts/RaderChart'
-
-const checkDonutData = [
-  { label: 0, color: 'steelblue', data: { a: 20, b: 80 } },
-  { label: 1, color: 'darkorange', data: { a: 20, b: 80 } },
-  { label: 2, color: 'darkgreen', data: { a: 60, b: 40 } },
-]
+import Select from 'react-select'
+import Title from '../../Title'
 
 export default function Check() {
   const {
@@ -22,28 +15,59 @@ export default function Check() {
     dataSettingValues,
     modelSettingValues,
     distortSettingValues,
-    selectedLegendIdx,
-    setSelectedLegendIdx
   } = useFileData()
 
-  const [radioValue, setRadioValue] = React.useState('visualization');
-  const handleChangeRadio = (e) => {
-    setRadioValue(e.target.value);
-  }
-
-  const legendData = [
-    { text: 'missing', color: 'steelblue' },
-    { text: 'outlier', color: 'darkorange' },
-    { text: 'inconsistent', color: 'darkgreen' },
+  const metricList = [
+    { label: 'missing', value: 0},
+    { label: 'outlier', value: 1},
+    { label: 'inconsistent', value: 2},
   ]
 
+  const [metricValues, setMetricValues] = React.useState({
+    label: "missing",
+    value: 0
+  });
+
+  const [visualizationList, setVisualizationList] = React.useState();
+  const [visualizationValues, setVisualizationValues] = React.useState({
+    label: "HeatmapChart",
+    value: 0
+  });
+
+  React.useEffect(() => {
+    if (metricValues?.label === 'missing') {
+      setVisualizationList([{
+        label: "HeatmapChart",
+        value: 0
+      }]);
+    } else if (metricValues?.label === 'outlier') {
+      setVisualizationList([{
+        label: "HistogramChart",
+        value: 0
+      }]);
+    } else if (metricValues?.label === 'inconsistent') {
+      setVisualizationList([{
+        label: "HistogramChart",
+        value: 0
+      }]);
+    }
+  }, [metricValues])
+
+  const handleChange = (key, value) => {
+    if (key === 'metric') {
+      setMetricValues(value);
+    } else {
+      setVisualizationValues(value);
+    }
+  }
+
   const detailChart = useMemo(() => {
-    switch (selectedLegendIdx) {
-      case 0:
+    switch (visualizationValues?.label) {
+      case "HeatmapChart":
         return {
           chart: <HeatmapChart />,
         }
-      case 1:
+      case "HistogramChart":
         return {
           chart: <HistogramChart />,
         }
@@ -52,7 +76,7 @@ export default function Check() {
           chart: <HistogramChart />,
         }
     }
-  }, [selectedLegendIdx])
+  }, [visualizationValues])
 
   return (
     <Box title="check">
@@ -63,39 +87,41 @@ export default function Check() {
       }) && <>
           <div style={{ display: 'flex' }}>
             <TreeChart />
-            <div style={{ width: '350px' }}>
-              {/* <Legend
-                onLegendClick={setSelectedLegendIdx}
-                dataColorInfo={legendData}
-              />
-              <div style={{ display: 'flex' }}>
-                {checkDonutData.map((donutData, idx) => (
-                  <div key={idx} style={{margin: '0 30px 0 0'}}>
-                    <DonutChart
-                      data={donutData.data}
-                      color={donutData.color}
-                      idx={idx}
+            <div style={{ width: '300px', margin: '0 25px 0 5px' }}>
+              <div style={{
+                display: 'flex',
+              }}>
+                <div style={{
+                  width: '47.5%',
+                  marginRight: '5%'
+                }}>
+                  <Title title="metric" />
+                  <Select
+                    options={metricList}
+                    placeholder={<div>select</div>}
+                    defaultValue={metricValues}
+                    onChange={v => {
+                      handleChange('metric', v)
+                    }}
+                  />
+                </div>
+                <div style={{
+                  width: '47.5%',
+                }}>
+                  <React.Fragment>
+                    <Title title="visualization" />
+                    <Select
+                      options={visualizationList}
+                      placeholder={<div>select</div>}
+                      defaultValue={visualizationValues}
+                      onChange={v => {
+                        handleChange('visualization', v)
+                      }}
                     />
-                  </div>
-                ))}
-              </div> */}
-              <div style={{ display: 'flex', marginTop: '5px' }}>
-                {['visualization', 'table'].map((item) => (
-                  <div key={item} style={{ width: '45%', display: 'flex', alignItems: 'center' }}>
-                    <input
-                      type='radio'
-                      name='radio'
-                      value={item}
-                      style={{ marginRight: '15px' }}
-                      onClick={handleChangeRadio}
-                      checked={radioValue === item}
-                    />
-                    {item}
-                  </div>
-                ))}
+                  </React.Fragment>
+                </div>
               </div>
-              {radioValue === 'visualization' && detailChart.chart}
-              {radioValue === 'table' && <CheckTable colorIdx={selectedLegendIdx} />}
+              {detailChart.chart}
             </div>
 
             <div>
