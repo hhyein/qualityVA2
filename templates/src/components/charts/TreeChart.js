@@ -44,7 +44,7 @@ export default function TreeChart(props) {
 
     var margin = { top: 10, right: 0, bottom: 0, left: 0 },
       width = 50 - margin.left - margin.right,
-      height = 350 - margin.top - margin.bottom
+      height = 360 + margin.top + margin.bottom
 
     var i = 0
     var svg = d3
