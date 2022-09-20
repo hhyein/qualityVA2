@@ -45,6 +45,73 @@ def fileUpload():
 
   return json.dumps({'fileUpload': 'success'})
 
+@app.route('/setting', methods=['GET', 'POST'])
+def setting():
+  global purpose, purposeColumn, inputModelList, inputEvalList
+
+  if request.method == 'GET':
+    with open('static/file.json', 'r', encoding = 'utf-8') as f:
+      data = json.load(f) 
+
+    originDf = pd.DataFrame(data)
+
+    purposeList = []
+    tmpList = ['prediction', 'classification']
+    for i in range(len(tmpList)):
+      purposeList.append({'label': tmpList[i], 'value': i})      
+
+    columnList = []
+    tmpList = list(originDf.columns)
+    for i in range(len(tmpList)):
+      columnList.append({'label': tmpList[i], 'value': i})
+
+    modelList = []
+    if purpose == 'prediction':
+      tmpList = ['lr', 'knn', 'nb', 'dt', 'svm', 'rbfsvm', 'gpc', 'mlp', 'ridge', 'rf',
+                'qda', 'ada', 'gbc', 'lda', 'et', 'xgboost', 'lightgbm', 'catboost']
+    
+    else:
+      tmpList = ['lr', 'knn', 'nb', 'dt', 'svm', 'ridge', 'rf', 'qda', 'ada',
+                  'gbc', 'lda', 'et', 'xgboost', 'lightgbm', 'catboost']
+    for i in range(len(tmpList)):
+      modelList.append({'label': tmpList[i], 'value': i})
+
+    evalList = []
+    if purpose == 'prediction':
+      tmpList = ['MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE', 'TT']
+    
+    else:
+      tmpList = ['Accuracy', 'AUC', 'Recall', 'Precision', 'F1', 'Kappa', 'MCC', 'TT']
+    for i in range(len(tmpList)):
+      evalList.append({'label': tmpList[i], 'value': i})
+
+    response = {}
+    response['purposeList'] = purposeList
+    response['columnList'] = columnList
+    response['modelList'] = modelList
+    response['evalList'] = evalList
+    
+    return json.dumps(response)
+
+  if request.method == 'POST':
+    req = request.get_data().decode('utf-8')
+    req = eval(req)
+
+    purpose = req["purpose"]["label"]
+    purposeColumn = req["column"]["label"]
+    modelList = req["model"]
+    evalList = req["eval"]
+
+    inputModelList = []
+    for i in range(len(modelList)):
+        inputModelList.append(modelList[i]["label"])
+
+    inputEvalList = []
+    for i in range(len(evalList)):
+        inputEvalList.append(evalList[i]["label"])
+
+    return json.dumps({'setting': 'success'})
+
 @app.route('/dataSetting', methods=['GET', 'POST'])
 def dataSetting():
   req = request.get_data().decode('utf-8')
@@ -119,14 +186,6 @@ def modelSetting():
         inputEvalList.append(evalList[i]["label"])
 
     return json.dumps({'modelSetting': 'success'})
-
-@app.route('/combinationSetting', methods=['GET', 'POST'])
-def combinationSetting():
-  req = request.get_data().decode('utf-8')
-  req = eval(req)
-
-  print(req)
-  return json.dumps(combinationData)
 
 @app.route('/distortSetting', methods=['GET', 'POST'])
 def distortSetting():
