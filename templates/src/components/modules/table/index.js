@@ -9,7 +9,7 @@ export default function Table() {
     settingValues
   } = useFileData()
 
-  const colorData = ['steelblue', 'darkorange', 'darkgreen'];
+  const colorData = ['steelblue', 'darkorange', 'darkgreen', 'red', 'purple'];
   const point = { x: 1, y: 1 };
 
   const {
