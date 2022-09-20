@@ -86,9 +86,6 @@ export default function Check() {
         distortSettingValues
       }) && <>
           <div style={{ display: 'flex', height: '370px' }}>
-            <div style={{ overflowY: 'scroll' }}>
-              <TreeChart />
-            </div>
             <div style={{ width: '300px', margin: '0 25px 0 5px' }}>
               <div style={{
                 display: 'flex',
@@ -127,11 +124,13 @@ export default function Check() {
             </div>
 
             <div>
-              <div>model table</div>
               <div style={{ display: 'flex' }}>
                 <LineChart />
                 <RaderChart />
               </div>
+            </div>
+            <div style={{ overflowY: 'scroll' }}>
+              <TreeChart />
             </div>
           </div>
         </>}

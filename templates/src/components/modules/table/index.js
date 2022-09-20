@@ -1,8 +1,6 @@
 import React, { useCallback, useMemo } from 'react'
 import { Box } from '../../Box'
 import { useFileData } from '../../../contexts/FileDataContext'
-import Select from 'react-select'
-import Title from '../../Title'
 
 export default function Table() {
   const {
@@ -50,7 +48,7 @@ export default function Table() {
             overflow: 'scroll',
             marginTop: '5px',
             maxWidth: '450px',
-            maxHeight: '230px',
+            maxHeight: '330px',
           }}>
             <div style={{
               display: 'grid',

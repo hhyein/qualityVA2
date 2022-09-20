@@ -4,9 +4,6 @@ import Title from '../../Title'
 import { Box } from "../../Box"
 import { useFileData } from '../../../contexts/FileDataContext'
 import Combination from './combination'
-import Correlogram from '../../charts/Correlogram'
-import HistogramChart from '../../charts/HistogramChart'
-import LineChart from '../../charts/LineChart'
 
 export default function Action() {
   const {
@@ -22,11 +19,6 @@ export default function Action() {
     label: "transformation",
     value: 0
   });
-  // const [visualizationList, setVisualizationList] = React.useState();
-  // const [visualizationValues, setVisualizationValues] = React.useState({
-  //   label: "HistogramChart",
-  //   value: 0
-  // });
 
   const [columnValues, setColumnValues] = React.useState();
 
@@ -79,27 +71,6 @@ export default function Action() {
   }, [combinationData, selectedCombinationTableRow?.key, radioValue])
 
   React.useEffect(() => {
-    // if (combinationValues?.label === 'transformation') {
-    //   setVisualizationList([{
-    //     label: "HeatmapChart",
-    //     value: 0
-    //   }]);
-    // } else if (combinationValues?.label === 'missing') {
-    //   setVisualizationList([{
-    //     label: "HistogramChart",
-    //     value: 0
-    //   }]);
-    // } else if (combinationValues?.label === 'outlier') {
-    //   setVisualizationList([{
-    //     label: "scatter plot",
-    //     value: 0
-    //   }]);
-    // } else if (combinationValues?.label === 'inconsistent') {
-    //   setVisualizationList([{
-    //     label: "line chart",
-    //     value: 0
-    //   }]);
-    // }
     if (radioValue === 'new') {
       setMyCombinationData(actionValues.label);
     }
@@ -113,7 +84,6 @@ export default function Action() {
         ...prev,
         [key]: value,
       }))
-      // setVisualizationValues(value);
     }
   }
 
@@ -127,12 +97,12 @@ export default function Action() {
             marginBottom: '5px',
           }}>
             {['recommend', 'new'].map((item) => (
-              <div key={item} style={{ width: '50%', display: 'flex', alignItems: 'center' }}>
+              <div key={item} style={{ display: 'flex', alignItems: 'center' }}>
                 <input
                   type='radio'
                   name='radio'
                   value={item}
-                  style={{ marginRight: '15px' }}
+                  style={{ marginRight: '10px' }}
                   onClick={handleChangeRadio}
                   checked={radioValue === item}
                 />
@@ -144,10 +114,11 @@ export default function Action() {
           {radioValue === 'new' &&
             <div style={{
               display: 'flex',
+              marginBottom: '5px',
             }}>
               <div style={{
                 width: '47.5%',
-                marginRight: '5%'
+                margin: '0 5%'
               }}>
                 <Title title="action" />
                 <Select
@@ -175,28 +146,8 @@ export default function Action() {
                   />
                 </React.Fragment>
               </div>
-
-              {/* <div style={{
-              width: '40%',
-            }}>
-              <React.Fragment>
-                <Title title="visualization" />
-                <Select
-                  options={visualizationList}
-                  placeholder={<div>select</div>}
-                  defaultValue={visualizationValues}
-                  onChange={v => {
-                    handleChange('visualization', v)
-                  }}
-                />
-              </React.Fragment>
-            </div> */}
             </div>
           }
-          {/* {visualizationValues?.label === 'HeatmapChart' && <Correlogram />}
-          {visualizationValues?.label === 'HistogramChart' && <HistogramChart />}
-          {visualizationValues?.label === 'scatter plot' && <Correlogram />}
-          {visualizationValues?.label === 'line chart' && <LineChart />} */}
         </React.Fragment>
       )}
     </Box>

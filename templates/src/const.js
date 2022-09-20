@@ -1,7 +1,7 @@
 export const mainLayoutStyle = {
   gridGap: '10px',
-  gridTemplateColumns: '220px 100px 350px 280px 200px',
-  gridTemplateRows: '80px 20px 30px 250px 100px 110px 150px 100px',
+  gridTemplateColumns: '220px 120px 350px 330px 180px',
+  gridTemplateRows: '80px 20px 30px 250px 115px 110px 150px 100px',
   gridTemplateAreas: `
     'dataset check check check check'
     'setting check check check check'
@@ -10,7 +10,7 @@ export const mainLayoutStyle = {
     'summary column-summary column-summary effect change'
     'row-summary table table action change'
     'row-summary table table action change'
-    'row-summary my-combination my-combination my-combination change'
+    'row-summary table table my-combination change'
   `,
 }
 
@@ -23,7 +23,6 @@ export const boxTitles = {
   'check': 'check',
   'effect': 'effect',
   'table': 'table',
-  // 'combination': 'combination',
   'action': 'action',
   'my-combination': 'my-combination',
   'change': 'change'
