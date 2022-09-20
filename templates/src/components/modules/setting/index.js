@@ -9,36 +9,13 @@ export default function Setting() {
     isEmptyData,
     purposeList,
     modelSettingData: { columnList, modelList, evalList },
-    modelSettingValues,
-    setModelSettingValues,
-    setDataSettingValues,
-    setDistortSettingValues
+    settingValues,
+    setSettingValues
   } = useFileData()
 
-  const [modelValues, setModelValues] = React.useState(modelSettingValues);
-  const [dataValues, setDataValues] = React.useState();
-  const [distortValues, setDistortValues] = React.useState();
-  const [radioValue, setRadioValue] = React.useState('data');
-
+  const [values, setValues] = React.useState(settingValues);
   const [buttonActive, setButtonActive] = React.useState(false);
 
-  const dataList = [
-    {
-      label: "missing",
-      value: 0
-    },
-    {
-      label: "outlier",
-      value: 1
-    },
-    {
-      label: "inconsistent",
-      value: 2
-    },
-    {
-      label: "overlap",
-      value: 3
-    }];
   const metricList = [
     {
       label: "normality test",
@@ -54,60 +31,40 @@ export default function Setting() {
     }];
 
   React.useEffect(() => {
-    setModelValues(modelSettingValues);
-  }, [modelSettingValues])
+    setValues(settingValues);
+  }, [setSettingValues, settingValues])
 
   React.useEffect(() => {
-    if (dataValues?.issue && dataValues?.issue.length > 0 &&
-      modelValues?.column &&
-      modelValues?.eval && modelValues.eval.length > 0 &&
-      modelValues?.model && modelValues.model.length > 0 &&
-      modelValues?.purpose &&
-      distortValues?.metric) {
+    if (
+      values?.column &&
+      values?.eval && values.eval.length > 0 &&
+      values?.model && values.model.length > 0 &&
+      values?.purpose &&
+      values?.metric) {
       setButtonActive(true);
     } else {
       setButtonActive(false);
     }
-  }, [modelValues, dataValues, distortValues])
-
-  const handleChangeRadio = (e) => {
-    setRadioValue(e.target.value);
-  }
+  }, [values])
 
   const handleChange = (key, value) => {
     if (key === 'purpose') {
-      setModelSettingValues({
+      setSettingValues({
         purpose: value,
         column: undefined,
         model: undefined,
         eval: undefined,
       });
     } else {
-      setModelValues(prev => ({
+      setValues(prev => ({
         ...prev,
         [key]: value,
       }))
     }
   }
 
-  const handleDataChange = (key, value) => {
-    setDataValues(prev => ({
-      ...prev,
-      [key]: value,
-    }))
-  }
-
-  const handleDistortChange = (key, value) => {
-    setDistortValues(prev => ({
-      ...prev,
-      [key]: value,
-    }))
-  }
-
-  const submitModelSetting = () => {
-    setModelSettingValues(modelValues);
-    setDataSettingValues(dataValues);
-    setDistortSettingValues(distortValues);
+  const submitSetting = () => {
+    setSettingValues(values);
   }
 
   return (
@@ -116,24 +73,6 @@ export default function Setting() {
         purposeList,
       }) && (
           <React.Fragment>
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              height: '22px',
-              marginBottom: '5px',
-            }}>
-              {['data', 'model', 'distort'].map((item) => (
-                <React.Fragment key={item}>
-                  <input
-                    type='radio'
-                    name='radio'
-                    value={item}
-                    onClick={handleChangeRadio}
-                    checked={radioValue === item} />
-                  {item}
-                </React.Fragment>
-              ))}
-            </div>
             <div
               style={{
                 display: 'grid',
@@ -141,24 +80,11 @@ export default function Setting() {
                 gridGap: '5px',
               }}
             >
-              {radioValue === 'data' && <>
-                <Title title="quality issue" />
-                <Select
-                  isMulti
-                  options={dataList}
-                  placeholder={<div>select</div>}
-                  defaultValue={dataValues?.issue ? dataValues.issue : undefined}
-                  onChange={v => {
-                    handleDataChange('issue', v)
-                  }}
-                />
-              </>}
-              {radioValue === 'model' && <>
-                <Title title="purpose" />
+              <Title title="purpose" />
                 <Select
                   options={purposeList}
                   placeholder={<div>select</div>}
-                  defaultValue={modelValues?.purpose ? modelValues.purpose : undefined}
+                  defaultValue={values?.purpose ? values.purpose : undefined}
                   onChange={v => {
                     handleChange('purpose', v)
                   }}
@@ -166,9 +92,9 @@ export default function Setting() {
                 <Title title="column" />
                 <Select
                   options={columnList}
-                  value={modelSettingValues.column}
+                  value={settingValues.column}
                   placeholder={<div>select</div>}
-                  defaultValue={modelValues?.column ? modelValues.column : undefined}
+                  defaultValue={values?.column ? values.column : undefined}
                   onChange={v => {
                     handleChange('column', v)
                   }}
@@ -178,7 +104,7 @@ export default function Setting() {
                   isMulti
                   options={modelList}
                   placeholder={<div>select</div>}
-                  defaultValue={modelValues?.model ? modelValues.model : undefined}
+                  defaultValue={values?.model ? values.model : undefined}
                   onChange={v => handleChange('model', v)}
                 />
                 <Title title="eval" />
@@ -186,26 +112,23 @@ export default function Setting() {
                   isMulti
                   options={evalList}
                   placeholder={<div>select</div>}
-                  defaultValue={modelValues?.eval ? modelValues.eval : undefined}
+                  defaultValue={values?.eval ? values.eval : undefined}
                   onChange={v => handleChange('eval', v)}
                 />
-              </>}
-              {radioValue === 'distort' && <>
                 <Title title="metric" />
                 <Select
                   options={metricList}
                   placeholder={<div>select</div>}
-                  defaultValue={distortValues?.metric ? distortValues.metric : undefined}
+                  defaultValue={values?.metric ? values.metric : undefined}
                   onChange={v => {
-                    handleDistortChange('metric', v)
+                    handleChange('metric', v)
                   }}
                 />
-              </>}
             </div>
             <button
               disabled={buttonActive ? false : true}
               style={{ width: '40%', margin: '5px 0 0 60%' }}
-              onClick={submitModelSetting}>submit</button>
+              onClick={submitSetting}>submit</button>
           </React.Fragment>
         )}
     </Box>

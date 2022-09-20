@@ -19,19 +19,15 @@ const legendData = [
 export default function Summary() {
   const {
     isEmptyData,
-    dataSettingValues,
-    modelSettingValues,
-    distortSettingValues,
+    settingValues,
     setSelectedLegendIdx,
   } = useFileData()
 
   return (
     <Box title="summary">
       {!isEmptyData({
-        dataSettingValues,
-        modelSettingValues,
-        distortSettingValues
-      }) && <>
+       settingValues
+      }) && settingValues.model && <>
           <div style={{ width: '200px' }}>
             <Legend
               onLegendClick={setSelectedLegendIdx}

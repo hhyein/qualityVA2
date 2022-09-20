@@ -6,10 +6,7 @@ export default function Table() {
   const {
     isEmptyData,
     selectedLegendIdx,
-    dataSettingValues,
-    modelSettingValues,
-    distortSettingValues
-
+    settingValues
   } = useFileData()
 
   const colorData = ['steelblue', 'darkorange', 'darkgreen'];
@@ -40,10 +37,8 @@ export default function Table() {
   return (
     <Box title="table">
       {!isEmptyData({
-        dataSettingValues,
-        modelSettingValues,
-        distortSettingValues
-      }) && columnDatas.length > 0 && (
+        settingValues
+      }) && settingValues.model && columnDatas.length > 0 && (
           <div style={{
             overflow: 'scroll',
             marginTop: '5px',

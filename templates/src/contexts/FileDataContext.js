@@ -31,76 +31,52 @@ const postData = async (route, params, config) => {
 const FileDataContext = React.createContext()
 
 export const FileDataProvider = ({ children }) => {
-  const [file, setFile] = useState()
-  const [modelSettingValues, setModelSettingValues] = useState({
+  const [file, setFile] = useState()  
+  const [settingValues, setSettingValues] = useState({
     purpose: undefined,
     column: undefined,
     model: undefined,
     eval: undefined,
+    metric: undefined
   })
-  
+
   const [purposeList, setPurposeList] = useState()
   const [modelSettingData, setModelSettingData] = useState({})
   const [combinationTableData, setCombinationTableData] = useState({})
   const [combinationTableSortingInfo, setCombinationTableSortingInfo] = useState({})
   const [selectedCombinationTableRow, setSelectedCombinationTableRow] = useState()
-  const [dataSettingValues, setDataSettingValues] = useState()
-  const [distortSettingValues, setDistortSettingValues] = useState()
   const [myCombinationRadioValue, setMyCombinationRadioValue] = React.useState('knn');
   const [myCombinationData, setMyCombinationData] = React.useState();
   const [selectedLegendIdx, setSelectedLegendIdx] = useState(0)
-
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
   }
 
-  const handleModelSettingValuesChange = useCallback(async () => {
-    if (Object.values(modelSettingValues).some(value => value === undefined)) {
+  const handleSettingValuesChange = useCallback(async () => {
+    if (Object.values(settingValues).some(value => value === undefined)) {
       return
     }
-    await postData('/modelSetting', modelSettingValues)
-  }, [modelSettingValues])
-
-  const handleDataSettingValuesChange = useCallback(async () => {
-    if (Object.values(dataSettingValues).some(value => value === undefined)) {
-      return
-    }
-    await postData('/dataSetting', dataSettingValues)
-  }, [dataSettingValues])
-
-  const handleDistortSettingValuesChange = useCallback(async () => {
-    if (Object.values(distortSettingValues).some(value => value === undefined)) {
-      return
-    }
-    await postData('/distortSetting', distortSettingValues)
-  }, [distortSettingValues])
+    await postData('/setting', settingValues)
+  }, [settingValues])
 
   useEffect(() => {
-    handleModelSettingValuesChange()
-  }, [handleModelSettingValuesChange])
-
-  useEffect(() => {
-    handleDataSettingValuesChange()
-  }, [handleDataSettingValuesChange])
-
-  useEffect(() => {
-    handleDistortSettingValuesChange()
-  }, [handleDistortSettingValuesChange])
+    handleSettingValuesChange()
+  }, [handleSettingValuesChange])
 
   const updatePurposeList = useCallback(async () => {
-    const { purposeList } = await fetchData('/modelSetting')
+    const { purposeList } = await fetchData('/setting')
     setPurposeList(purposeList)
   }, [])
 
   const handlePurposeChange = useCallback(async () => {
-    if (!modelSettingValues.purpose) {
+    if (!settingValues.purpose) {
       return
     }
     setCombinationTableSortingInfo(prev => ({
       ...prev,
-      isAscending: modelSettingValues.purpose.label === 'prediction',
+      isAscending: settingValues.purpose.label === 'prediction',
     }))
-    await postData('/modelSetting', modelSettingValues)
+    await postData('/setting', settingValues)
     const { columnList, modelList, evalList, dimensionList } = await fetchData('/modelSetting')
     setModelSettingData({
       columnList,
@@ -108,7 +84,7 @@ export const FileDataProvider = ({ children }) => {
       evalList,
       dimensionList,
     })
-  }, [modelSettingValues.purpose])
+  }, [settingValues.purpose])
 
   const handleDrop = useCallback(
     async files => {
@@ -138,14 +114,14 @@ export const FileDataProvider = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    if (!file || isEmptyData(modelSettingValues)) {
+    if (!file || isEmptyData(settingValues)) {
       return
     }
     updateCombinationTable()
   }, [
     file,
     updateCombinationTable,
-    modelSettingValues,
+    settingValues,
   ])
 
   return (
@@ -154,8 +130,6 @@ export const FileDataProvider = ({ children }) => {
         file,
         isEmptyData,
         handleDrop,
-        modelSettingValues,
-        setModelSettingValues,
         purposeList,
         modelSettingData,
         combinationTableData,
@@ -163,10 +137,8 @@ export const FileDataProvider = ({ children }) => {
         setCombinationTableSortingInfo,
         selectedCombinationTableRow,
         setSelectedCombinationTableRow,
-        setDataSettingValues,
-        dataSettingValues,
-        setDistortSettingValues,
-        distortSettingValues,
+        setSettingValues,
+        settingValues,
         setMyCombinationRadioValue,
         myCombinationRadioValue,
         setMyCombinationData,

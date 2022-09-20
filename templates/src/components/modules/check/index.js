@@ -12,9 +12,7 @@ import Title from '../../Title'
 export default function Check() {
   const {
     isEmptyData,
-    dataSettingValues,
-    modelSettingValues,
-    distortSettingValues,
+    settingValues,
   } = useFileData()
 
   const metricList = [
@@ -81,10 +79,8 @@ export default function Check() {
   return (
     <Box title="check">
       {!isEmptyData({
-        dataSettingValues,
-        modelSettingValues,
-        distortSettingValues
-      }) && <>
+        settingValues
+      }) && settingValues.model && <>
           <div style={{ display: 'flex', height: '370px' }}>
             <div style={{ width: '300px', margin: '0 25px 0 5px' }}>
               <div style={{
