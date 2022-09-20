@@ -47,7 +47,7 @@ export default function Table() {
           <div style={{
             overflow: 'scroll',
             marginTop: '5px',
-            maxWidth: '450px',
+            maxWidth: '460px',
             maxHeight: '330px',
           }}>
             <div style={{
