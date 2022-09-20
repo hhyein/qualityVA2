@@ -8,6 +8,7 @@ import LineChart from '../../charts/LineChart'
 import RaderChart from '../../charts/RaderChart'
 import Select from 'react-select'
 import Title from '../../Title'
+import CheckTable from './checkTable'
 
 export default function Check() {
   const {
@@ -118,15 +119,15 @@ export default function Check() {
               </div>
               {detailChart.chart}
             </div>
-
-            <div>
-              <div style={{ display: 'flex' }}>
-                <LineChart />
-                <RaderChart />
-              </div>
-            </div>
+            <CheckTable />
             <div style={{ overflowY: 'scroll' }}>
               <TreeChart />
+            </div>
+            <div>
+              <div style={{ display: 'flex' }}>
+                {/* <LineChart /> */}
+                <RaderChart />
+              </div>
             </div>
           </div>
         </>}
