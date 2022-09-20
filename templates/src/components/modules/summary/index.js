@@ -5,19 +5,19 @@ import Legend from '../../charts/Legend'
 import DonutChart from '../../charts/DonutChart'
 
 const checkDonutData = [
-  { label: 0, color: 'steelblue', data: { a: 20, b: 80 } },
-  { label: 1, color: 'darkorange', data: { a: 20, b: 80 } },
-  { label: 2, color: 'darkgreen', data: { a: 60, b: 40 } },
-  { label: 3, color: 'red', data: { a: 60, b: 40 } },
-  { label: 4, color: 'purple', data: { a: 60, b: 40 } },
+  { label: 0, color: 'darkorange', data: { a: 20, b: 80 } },
+  { label: 1, color: 'steelblue', data: { a: 20, b: 80 } },
+  { label: 2, color: 'yellowgreen', data: { a: 60, b: 40 } },
+  { label: 3, color: 'lightcoral', data: { a: 60, b: 40 } },
+  { label: 4, color: 'darkgray', data: { a: 60, b: 40 } },
 ]
 
 const legendData = [
-  { label: 0, text: 'missing', color: 'steelblue' },
-  { label: 1, text: 'outlier', color: 'darkorange' },
-  { label: 2, text: 'inconsistent', color: 'darkgreen' },
-  { label: 3, text: 'similarity', color: 'red' },
-  { label: 4, text: 'dependency', color: 'purple' },
+  { label: 0, text: 'missing', color: 'darkorange' },
+  { label: 1, text: 'outlier', color: 'steelblue' },
+  { label: 2, text: 'inconsistent', color: 'yellowgreen' },
+  { label: 3, text: 'similarity', color: 'lightcoral' },
+  { label: 4, text: 'dependency', color: 'darkgray' },
 ]
 
 export default function Summary() {
