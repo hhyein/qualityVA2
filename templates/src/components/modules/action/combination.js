@@ -124,8 +124,8 @@ export default function Combination() {
             marginBottom: '5px'
           }}>
             <div style={{
-              width: '47.5%',
-              margin: '0 5%'
+              width: '45%',
+              margin: '0 2.5%'
             }}>
               <Title title="length" />
               <Select
@@ -137,10 +137,11 @@ export default function Combination() {
               />
             </div>
             <div style={{
-              width: '47.5%',
+              width: '45%',
+              margin: '0 2.5%',
             }}>
               <Title title="action" />
-              <div class="dropdown">
+              <div class="dropdown" style={{ marginLeft: '10px' }} >
                 <button class="dropbtn">select</button>
                 <div class="dropdown-content">
 
@@ -154,7 +155,7 @@ export default function Combination() {
               </div>
             </div>
           </div>
-          <div style={{ overflow: 'auto', height: '60%', width: '95%' }}>
+          <div style={{ overflow: 'auto', height: '60%' }}>
             <CombinationTable
               canSortColumns={combinationData.inputEvalList}
               selectedColumn={combinationTableSortingInfo.column}

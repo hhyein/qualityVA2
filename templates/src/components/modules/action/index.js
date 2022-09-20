@@ -97,7 +97,7 @@ export default function Action() {
             marginBottom: '5px',
           }}>
             {['recommend', 'new'].map((item) => (
-              <div key={item} style={{ display: 'flex', alignItems: 'center' }}>
+              <div key={item} style={{ display: 'flex', alignItems: 'center', width: '50%' }}>
                 <input
                   type='radio'
                   name='radio'
