@@ -42,20 +42,27 @@ export default function HeatmapChart(props) {
         toolbar: {
           show: false
         },
-      animations: {
+        animations: {
+          enabled: false
+        },
+        height: 230,
+        type: 'heatmap'
+      },
+      dataLabels: {
         enabled: false
       },
-      height: 230,
-      type: 'heatmap',
-    },
-    dataLabels: {
-      enabled: false
-    },
-    xaxis: {
-      type: 'category',
-      categories: ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10']
-    },
-    colors: ["#008FFB"]
+      xaxis: {
+        categories: ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10'],
+        tooltip: {
+          enabled: false
+        }
+      },
+      tooltip: {
+        x: {
+          show: true
+        }
+      },
+      colors: ["#6c757d"]
     };
 
     var chart = new ApexCharts(document.querySelector(".heatmap-wrapper"), options);

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React from 'react'
 import { Box } from '../../Box'
 import { useFileData } from '../../../contexts/FileDataContext'
 
@@ -42,7 +42,7 @@ export default function Table() {
           <div style={{
             overflow: 'scroll',
             marginTop: '5px',
-            maxWidth: '460px',
+            maxWidth: '530px',
             maxHeight: '330px',
           }}>
             <div style={{
