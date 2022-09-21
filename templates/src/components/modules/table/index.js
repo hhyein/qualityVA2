@@ -64,7 +64,6 @@ export default function Table() {
                                 background: undefined,
                                 textAlign: 'center',
                                 fontWeight: 'bold',
-                                // borderRight: idx === data.length - 1 ? 'none' : undefined,
                               }}
                             >
                               {data}

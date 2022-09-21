@@ -13,9 +13,9 @@ const checkDonutData = [
 ]
 
 const legendData = [
-  { label: 0, text: 'missing', color: 'darkorange' },
-  { label: 1, text: 'outlier', color: 'steelblue' },
-  { label: 2, text: 'inconsistent', color: 'yellowgreen' },
+  { label: 0, text: 'completeness', color: 'darkorange' },
+  { label: 1, text: 'accuracy', color: 'steelblue' },
+  { label: 2, text: 'consistency', color: 'yellowgreen' },
   { label: 3, text: 'similarity', color: 'lightcoral' },
   { label: 4, text: 'dependency', color: 'darkgray' },
 ]

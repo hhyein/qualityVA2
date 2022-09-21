@@ -5,13 +5,13 @@ export default function checkTable() {
 
   const data = [
     ['Model', 'Acc', 'Pre', 'Rec', 'AUC'],
-    ['Lx', '2.43', '5.64', '3.06', '1.04'],
-    ['KNN', '2.43', '5.64', '3.06', '1.04'],
+    ['LR', '2.43', '5.64', '3.06', '1.04'],
+    ['NB', '2.43', '5.64', '3.06', '1.04'],
+    ['DT', '2.43', '5.64', '3.06', '1.04'],
     ['SVM', '2.43', '5.64', '3.06', '1.04'],
-    ['DF', '2.43', '5.64', '3.06', '1.04'],
-    ['RF', '2.43', '5.64', '3.06', '1.04'],
-    ['ARt', '2.43', '5.64', '3.06', '1.04'],
-    ['CB', '2.43', '5.64', '3.06', '1.04'],
+    ['RBFSVM', '2.43', '5.64', '3.06', '1.04'],
+    ['GPC', '2.43', '5.64', '3.06', '1.04'],
+    ['MLP', '2.43', '5.64', '3.06', '1.04'],
   ];
 
   const colorData = ['', 'darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'darkgray', 'lightblue', 'lightgreen'];
@@ -43,7 +43,6 @@ export default function checkTable() {
                           textAlign: 'center',
                           fontWeight: 'bold',
                           borderRight: 'none',
-                          // borderTop: '1px solid',
                           height: '20px',
                         }}
                       >

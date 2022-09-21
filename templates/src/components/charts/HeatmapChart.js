@@ -1,102 +1,67 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
+import ApexCharts from 'apexcharts'
 
 export default function HeatmapChart(props) {
   const { data } = props
-  const svgRef = useRef()
   const d3 = window.d3v4
 
   useEffect(() => {
     d3.select('.heatmap-wrapper').selectAll('*').remove()
 
-    const margin = {top: 20, right: 20, bottom: 20, left: 20},
-      width = 200 - margin.left - margin.right,
-      height = 200 - margin.top - margin.bottom;
+    var options = {
+      series: [{
+        name: 'r1',
+        data: [0, 47, 66, 23, 34, 17, 88, 46, 48, 23]
+        },
+        {
+          name: 'r2',
+          data: [9, 73, 48, 76, 67, 7, 49, 11, 78, 42]
+        },
+        {
+          name: 'r3',
+          data: [51, 70, 56, 31, 34, 24, 32, 58, 33, 4]
+        },
+        {
+          name: 'r4',
+          data: [8, 90, 39, 63, 16, 49, 90, 17, 62, 36]
+        },
+        {
+          name: 'r5',
+          data: [58, 34, 22, 46, 47, 9, 89, 31, 69, 24]
+        },
+        {
+          name: 'r6',
+          data: [72, 78, 67, 50, 75, 48, 27, 31, 28, 40]
+        },
+        {
+          name: 'r7',
+          data: [40, 85, 11, 38, 26, 37, 22, 33, 64, 85]
+        }
+      ],
+      chart: {
+        toolbar: {
+          show: false
+        },
+      animations: {
+        enabled: false
+      },
+      height: 230,
+      type: 'heatmap',
+    },
+    dataLabels: {
+      enabled: false
+    },
+    xaxis: {
+      type: 'category',
+      categories: ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10']
+    },
+    colors: ["#008FFB"]
+    };
 
-    const svg = d3
-      .select('.heatmap-wrapper')
-      .append('svg')
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    var chart = new ApexCharts(document.querySelector(".heatmap-wrapper"), options);
+    chart.render();
 
-    d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/heatmap_data.csv", function(data) {
-      const myGroups = d3.map(data, function(d){return d.group;}).keys()
-      const myVars = d3.map(data, function(d){return d.variable;}).keys()
-
-      const x = d3.scaleBand()
-        .range([ 0, width ])
-        .domain(myGroups)
-        .padding(0.05);
-      svg.append("g")
-        .style("font-size", 15)
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x).tickSize(0))
-        .select(".domain").remove()
-
-      const y = d3.scaleBand()
-        .range([ height, 0 ])
-        .domain(myVars)
-        .padding(0.05);
-      svg.append("g")
-        .style("font-size", 15)
-        .call(d3.axisLeft(y).tickSize(0))
-        .select(".domain").remove()
-
-      const myColor = d3.scaleSequential()
-        .interpolator(d3.interpolateInferno)
-        .domain([1, 100])
-
-      const tooltip = d3.select("#my_dataviz")
-        .append("div")
-        .style("opacity", 0)
-        .attr("class", "tooltip")
-        .style("background-color", "white")
-        .style("border", "solid")
-        .style("border-width", "2px")
-        .style("border-radius", "5px")
-        .style("padding", "5px")
-
-      const mouseover = function(d) {
-        tooltip
-          .style("opacity", 1)
-        d3.select(this)
-          .style("stroke", "black")
-          .style("opacity", 1)
-      }
-      const mousemove = function(d) {
-        tooltip
-          .html("The exact value of<br>this cell is: " + d.value)
-          .style("left", (d3.mouse(this)[0]+70) + "px")
-          .style("top", (d3.mouse(this)[1]) + "px")
-      }
-      const mouseleave = function(d) {
-        tooltip
-          .style("opacity", 0)
-        d3.select(this)
-          .style("stroke", "none")
-          .style("opacity", 0.8)
-      }
-
-      svg.selectAll()
-        .data(data, function(d) {return d.group+':'+d.variable;})
-        .enter()
-        .append("rect")
-          .attr("x", function(d) { return x(d.group) })
-          .attr("y", function(d) { return y(d.variable) })
-          .attr("rx", 4)
-          .attr("ry", 4)
-          .attr("width", x.bandwidth() )
-          .attr("height", y.bandwidth() )
-          .style("fill", function(d) { return myColor(d.value)} )
-          .style("stroke-width", 4)
-          .style("stroke", "none")
-          .style("opacity", 0.8)
-        .on("mouseover", mouseover)
-        .on("mousemove", mousemove)
-        .on("mouseleave", mouseleave)
-    })
-    }, [data, svgRef])
+    }, [data])
 
   return (
     <div className="heatmap-wrapper" />

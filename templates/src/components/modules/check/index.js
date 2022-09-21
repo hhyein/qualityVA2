@@ -4,7 +4,6 @@ import { useFileData } from '../../../contexts/FileDataContext'
 import TreeChart from '../../charts/TreeChart'
 import HeatmapChart from '../../charts/HeatmapChart'
 import HistogramChart from '../../charts/HistogramChart'
-import LineChart from '../../charts/LineChart'
 import RaderChart from '../../charts/RaderChart'
 import Select from 'react-select'
 import Title from '../../Title'
@@ -17,13 +16,15 @@ export default function Check() {
   } = useFileData()
 
   const metricList = [
-    { label: 'missing', value: 0},
-    { label: 'outlier', value: 1},
-    { label: 'inconsistent', value: 2},
+    { label: 'completeness', value: 0},
+    { label: 'accuracy', value: 1},
+    { label: 'consistency', value: 2},
+    { label: 'similarity', value: 3},
+    { label: 'dependency', value: 4},
   ]
 
   const [metricValues, setMetricValues] = React.useState({
-    label: "missing",
+    label: "completeness",
     value: 0
   });
 
@@ -34,17 +35,17 @@ export default function Check() {
   });
 
   React.useEffect(() => {
-    if (metricValues?.label === 'missing') {
+    if (metricValues?.label === 'completeness') {
       setVisualizationList([{
         label: "HeatmapChart",
         value: 0
       }]);
-    } else if (metricValues?.label === 'outlier') {
+    } else if (metricValues?.label === 'accuracy') {
       setVisualizationList([{
         label: "HistogramChart",
         value: 0
       }]);
-    } else if (metricValues?.label === 'inconsistent') {
+    } else if (metricValues?.label === 'consistency') {
       setVisualizationList([{
         label: "HistogramChart",
         value: 0
@@ -120,14 +121,11 @@ export default function Check() {
               {detailChart.chart}
             </div>
             <CheckTable />
-            <div style={{ overflowY: 'scroll' }}>
-              <TreeChart />
-            </div>
-            <div>
-              <div style={{ display: 'flex' }}>
-                {/* <LineChart /> */}
-                <RaderChart />
-              </div>
+            <div style={{ display: 'flex' }}>
+              <RaderChart />
+              {/* <div style={{ overflowY: 'scroll' }}>
+                <TreeChart />
+              </div> */}
             </div>
           </div>
         </>}
