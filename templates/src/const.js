@@ -7,10 +7,10 @@ export const mainLayoutStyle = {
     'setting check check check check'
     'setting check check check check'
     'setting check check check check'
-    'summary column-summary column-summary effect change'
+    'summary column-summary column-summary effect my-combination'
     'row-summary table table action change'
     'row-summary table table action change'
-    'row-summary table table my-combination change'
+    'row-summary table table action change'
   `,
 }
 

@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo } from 'react'
-import { Box } from '../../Box'
 import CombinationTable from './CombinationTable'
 import { useFileData } from '../../../contexts/FileDataContext'
 import Select from 'react-select'
@@ -155,7 +154,7 @@ export default function Combination() {
               </div>
             </div>
           </div>
-          <div style={{ overflow: 'auto', height: '60%' }}>
+          <div style={{ overflow: 'auto', height: '75%' }}>
             <CombinationTable
               canSortColumns={combinationData.inputEvalList}
               selectedColumn={combinationTableSortingInfo.column}
