@@ -16,15 +16,11 @@ export default function Change() {
       {!isEmptyData({
         settingValues
       }) && settingValues.model && <>
-        <div style={{ padding: '0 10px', fontSize: '15px' }}>
-          <Title title="count" />
-        </div>
+       <Title title="count" />
         <div style={{ height: '170px' }}>
           <BarChart />
         </div>
-        <div style={{ padding: '5px 10px 0 10px', fontSize: '15px' }}>
-          <Title title="distort" />
-        </div>
+        <Title title="distort" />
         <div style={{ position: 'relative', bottom: '20px' }}>
           <DensityChart />
         </div>

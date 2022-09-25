@@ -20,7 +20,7 @@ export default function checkTable() {
     <div style={{
       // overflow: 'scroll',
       marginTop: '5px',
-      width: '385px',
+      width: '250px',
       height: '300px',
     }}>
       <div style={{
