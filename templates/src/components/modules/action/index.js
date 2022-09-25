@@ -3,7 +3,7 @@ import Select from 'react-select'
 import Title from '../../Title'
 import { Box } from "../../Box"
 import { useFileData } from '../../../contexts/FileDataContext'
-import Combination from './Combination'
+import Combination from './combination'
 
 export default function Action() {
   const {

@@ -32,17 +32,19 @@ export default function MyCombination({data}) {
     <>
       <div
         style={{
+          width: '160px',
           display: 'grid',
-          gridTemplateColumns: `auto auto auto`,
+          gridTemplateColumns: `auto auto`,
         }}
       >
-        <div className="grid-th" />
         {columnKeys.map((key, i) => {
           return (
             <div
               className="grid-th"
               key={key}
               style={{
+                fontSize: '10px',
+                padding: '6px 4px',
                 cursor: 'default',
                 background: undefined,
                 textAlign: 'center',
@@ -59,15 +61,6 @@ export default function MyCombination({data}) {
           const isLastRow = rowIdx === dataList.length - 1
           return (
             <React.Fragment key={key}>
-              <div
-                className="grid-td"
-                style={{
-                  fontWeight: 'bold',
-                  borderBottom: isLastRow ? 'none' : undefined,
-                }}
-              >
-                {key}
-              </div>
               {Object.values(others).map((chart, colIdx) => (
                 <div
                   className="grid-td"
