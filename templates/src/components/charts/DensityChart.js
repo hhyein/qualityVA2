@@ -23,7 +23,7 @@ export default function DensityChart(props) {
         animations: {
           enabled: false
         },
-        height: 150,
+        height: 130,
         type: 'area'
       },
       dataLabels: {

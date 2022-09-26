@@ -9,7 +9,7 @@ export default function Table() {
     settingValues
   } = useFileData()
 
-  const colorData = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'darkgray'];
+  const colorData = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue'];
   const point = { x: 1, y: 1 };
 
   const {
@@ -35,15 +35,14 @@ export default function Table() {
   }, [file])
 
   return (
-    <Box title="table">
+    <>
       {!isEmptyData({
         settingValues
       }) && settingValues.model && columnDatas.length > 0 && (
           <div style={{
             overflow: 'scroll',
-            marginTop: '5px',
-            maxWidth: '530px',
-            maxHeight: '330px',
+            width: '550px',
+            height: '380px',
           }}>
             <div style={{
               display: 'grid',
@@ -86,6 +85,6 @@ export default function Table() {
             </div>
           </div>
         )}
-    </Box>
+    </>
   )
 }

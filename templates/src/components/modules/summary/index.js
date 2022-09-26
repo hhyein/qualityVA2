@@ -9,7 +9,7 @@ const checkDonutData = [
   { label: 1, color: 'steelblue', data: { a: 20, b: 80 } },
   { label: 2, color: 'yellowgreen', data: { a: 60, b: 40 } },
   { label: 3, color: 'lightcoral', data: { a: 60, b: 40 } },
-  { label: 4, color: 'darkgray', data: { a: 60, b: 40 } },
+  { label: 4, color: 'cadetblue', data: { a: 60, b: 40 } },
 ]
 
 const legendData = [
@@ -17,7 +17,7 @@ const legendData = [
   { label: 1, text: 'accuracy', color: 'steelblue' },
   { label: 2, text: 'consistency', color: 'yellowgreen' },
   { label: 3, text: 'similarity', color: 'lightcoral' },
-  { label: 4, text: 'dependency', color: 'darkgray' },
+  { label: 4, text: 'dependency', color: 'cadetblue' },
 ]
 
 export default function Summary() {
@@ -51,7 +51,6 @@ export default function Summary() {
             </div>
           </div>
         </>
-
       }
     </Box>
   )

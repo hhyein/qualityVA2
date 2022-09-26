@@ -24,15 +24,7 @@ export default function BarChart(props) {
           enabled: false
         },
         type: 'bar',
-        height: 180
-      },
-      plotOptions: {
-        bar: {
-          horizontal: true,
-          dataLabels: {
-            position: 'top',
-          },
-        }
+        height: 170
       },
       dataLabels: {
         enabled: false
@@ -50,16 +42,7 @@ export default function BarChart(props) {
         categories: ['row', 'column', 'instance']
       },
       legend: {
-        position: 'top',
-        markers: {
-          radius: 10
-        },
-        onItemClick: {
-          toggleDataSeries: false
-        },
-        onItemHover: {
-          highlightDataSeries: false
-        }
+        show: false
       }
     };
 

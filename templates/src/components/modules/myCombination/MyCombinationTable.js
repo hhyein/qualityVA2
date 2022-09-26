@@ -27,7 +27,6 @@ export default function MyCombination({data}) {
     })));
   }, [data])
 
-
   return dataList && dataList.length > 0 ? (
     <>
       <div

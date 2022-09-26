@@ -16,7 +16,7 @@ export default function Change() {
       {!isEmptyData({
         settingValues
       }) && settingValues.model && <>
-       <Title title="count" />
+        <Title title="count" />
         <div style={{ height: '170px' }}>
           <BarChart />
         </div>

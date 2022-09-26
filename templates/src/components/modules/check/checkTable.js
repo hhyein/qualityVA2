@@ -1,5 +1,4 @@
 import React from 'react'
-import { useFileData } from '../../../contexts/FileDataContext'
 
 export default function checkTable() {
 
@@ -13,7 +12,7 @@ export default function checkTable() {
     ['GPC', '2.43', '5.64', '3.06', '1.04', '3.06', '1.04'],
   ];
 
-  const colorData = ['', 'darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'darkgray', 'lightblue'];
+  const colorData = ['', 'darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue', 'lightblue'];
 
   return data.length > 0 && (
     <div style={{
