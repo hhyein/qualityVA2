@@ -1,27 +1,23 @@
 import React, { useMemo } from 'react'
-import Select from 'react-select'
-import Title from '../../Title'
 import { Box } from "../../Box"
 import { useFileData } from '../../../contexts/FileDataContext'
-import Combination from './combination'
+import Recommend from './Recommend'
+import New from './New'
 
 export default function Action() {
   const {
     isEmptyData,
     combinationTableData,
     selectedCombinationTableRow,
-    setMyCombinationData,
-    modelSettingData: { columnList },
+    setMyCombinationData
   } = useFileData();
+
   const { combinationData } = combinationTableData
   const [actionList, setActionList] = React.useState();
   const [actionValues, setActionValues] = React.useState({
     label: "transformation",
     value: 0
   });
-
-  const [columnValues, setColumnValues] = React.useState();
-
   const [radioValue, setRadioValue] = React.useState('recommend');
   const handleChangeRadio = (e) => {
     setRadioValue(e.target.value);
@@ -76,17 +72,6 @@ export default function Action() {
     }
   }, [actionValues])
 
-  const handleChange = (key, value) => {
-    if (key === 'combination') {
-      setActionValues(value);
-    } else {
-      setColumnValues(prev => ({
-        ...prev,
-        [key]: value,
-      }))
-    }
-  }
-
   return (
     <Box title="action">
       {!isEmptyData({ combinationData }) && data.length > 0 && (
@@ -110,44 +95,8 @@ export default function Action() {
               </div>
             ))}
           </div>
-          {radioValue === 'recommend' && <Combination />}
-          {radioValue === 'new' &&
-            <div style={{
-              display: 'flex',
-              marginBottom: '5px',
-            }}>
-              <div style={{
-                width: '47.5%',
-                margin: '0 5%'
-              }}>
-                <Title title="action" />
-                <Select
-                  options={actionList}
-                  placeholder={<div>select</div>}
-                  defaultValue={actionValues}
-                  onChange={v => {
-                    handleChange('action', v)
-                  }}
-                />
-              </div>
-              <div style={{
-                width: '47.5%',
-              }}>
-                <React.Fragment>
-                  <Title title="actionDetail" />
-                  <Select
-                    isMulti
-                    options={columnList}
-                    placeholder={<div>select</div>}
-                    defaultValue={columnValues}
-                    onChange={v => {
-                      handleChange('column', v)
-                    }}
-                  />
-                </React.Fragment>
-              </div>
-            </div>
-          }
+          {radioValue === 'recommend' && <Recommend />}
+          {radioValue === 'new' && <New />}
         </React.Fragment>
       )}
     </Box>

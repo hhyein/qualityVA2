@@ -6,7 +6,6 @@ import Title from '../../Title'
 
 export default function Combination() {
   const {
-    isEmptyData,
     combinationTableData,
     combinationTableSortingInfo,
     setCombinationTableSortingInfo,
@@ -116,91 +115,87 @@ export default function Combination() {
 
   return (
     <React.Fragment>
-      {!isEmptyData({ combinationData }) && data.length > 0 && (
-        <>
-          <div style={{
-            display: 'flex',
-            marginBottom: '5px'
-          }}>
-            <div style={{
-              width: '45%',
-              margin: '0 2.5%'
-            }}>
-              <Title title="length" />
-              <Select
-                options={lengthList}
-                placeholder={<div>select</div>}
-                onChange={v => {
-                  handleChange('maxLength', v)
-                }}
-              />
-            </div>
-            <div style={{
-              width: '45%',
-              margin: '0 2.5%',
-            }}>
-              <Title title="action" />
-              <div class="dropdown" style={{ marginLeft: '10px' }} >
-                <button class="dropbtn">select</button>
-                <div class="dropdown-content">
+      <div style={{
+        display: 'flex',
+        marginBottom: '5px'
+      }}>
+        <div style={{
+          width: '45%',
+          margin: '0 2.5%'
+        }}>
+          <Title title="length" />
+          <Select
+            options={lengthList}
+            placeholder={<div>select</div>}
+            onChange={v => {
+              handleChange('maxLength', v)
+            }}
+          />
+        </div>
+        <div style={{
+          width: '45%',
+          margin: '0 2.5%',
+        }}>
+          <Title title="action" />
+          <div class="dropdown" style={{ marginLeft: '10px' }} >
+            <button class="dropbtn">select</button>
+            <div class="dropdown-content">
 
-                  {actionList && actionList.map((item, idx) => (
-                    <div style={{ display: 'flex', height: '25px' }} >
-                      {item.label}
-                      <input style={{ width: '15px' }} type="checkbox" id="scales" name="scales" checked={checkedList.includes(imgNameList[idx + 1])} onChange={() => handleCheckBox(imgNameList[idx + 1])} />
-                    </div>
-                  ))}
+              {actionList && actionList.map((item, idx) => (
+                <div style={{ display: 'flex', height: '25px' }} >
+                  {item.label}
+                  <input style={{ width: '15px' }} type="checkbox" id="scales" name="scales" checked={checkedList.includes(imgNameList[idx + 1])} onChange={() => handleCheckBox(imgNameList[idx + 1])} />
                 </div>
-              </div>
+              ))}
             </div>
           </div>
-          <div style={{ overflow: 'auto', height: '75%' }}>
-            <CombinationTable
-              canSortColumns={combinationData.inputEvalList}
-              selectedColumn={combinationTableSortingInfo.column}
-              onTableHeadClick={handleTableHeadClick}
-              onTableRowClick={params => setSelectedCombinationTableRow(params)}
-              selectedKey={selectedCombinationTableRow?.key}
-              lengthValues={lengthValues}
-              checkedList={checkedList}
-              data={sortedData.map(d => ({
-                key: d.key,
-                ...['model'].reduce(
-                  (acc, cur) => ({
-                    ...acc,
-                    [cur]: d[cur],
-                  }),
-                  {}
+        </div>
+      </div>
+      <div style={{ overflow: 'auto', height: '75%' }}>
+        <CombinationTable
+          canSortColumns={combinationData.inputEvalList}
+          selectedColumn={combinationTableSortingInfo.column}
+          onTableHeadClick={handleTableHeadClick}
+          onTableRowClick={params => setSelectedCombinationTableRow(params)}
+          selectedKey={selectedCombinationTableRow?.key}
+          lengthValues={lengthValues}
+          checkedList={checkedList}
+          data={sortedData.map(d => ({
+            key: d.key,
+            ...['model'].reduce(
+              (acc, cur) => ({
+                ...acc,
+                [cur]: d[cur],
+              }),
+              {}
+            ),
+            ...['combination', 'combinationDetail'].reduce(
+              (acc, cur) => ({
+                ...acc,
+                [cur]: (
+                  <div style={{ display: 'flex' }}>
+                    {d[cur].map(imgName => (
+                      <img
+                        src={require(`../../icons/${imgName}.png`)}
+                        alt={''}
+                        style={{ height: '25px', width: '25px' }}
+                      />
+                    ))}
+                  </div>
                 ),
-                ...['combination', 'combinationDetail'].reduce(
-                  (acc, cur) => ({
-                    ...acc,
-                    [cur]: (
-                      <div style={{ display: 'flex' }}>
-                        {d[cur].map(imgName => (
-                          <img
-                            src={require(`../../icons/${imgName}.png`)}
-                            alt={''}
-                            style={{ height: '25px', width: '25px' }}
-                          />
-                        ))}
-                      </div>
-                    ),
-                  }),
-                  {}
-                ),
-              }))}
-              filterList={sortedData.map((item) => (
-                {
-                  key: item.key,
-                  combination: item.combination,
-                  combinationDetail: item.combinationDetail,
-                }
-              ))}
-            />
-          </div>
-        </>
-      )}
+              }),
+              {}
+            ),
+          }))}
+          filterList={sortedData.map((item) => (
+            {
+              key: item.key,
+              combination: item.combination,
+              combinationDetail: item.combinationDetail,
+            }
+          ))}
+        />
+      </div>
     </React.Fragment>
   )
 }

@@ -20,8 +20,8 @@ export default function RaderChart(props) {
         animations: {
           enabled: false
         },
-        width: 260,
-        height: 300,
+        width: 200,
+        height: 230,
         type: 'radar',
     },
     xaxis: {

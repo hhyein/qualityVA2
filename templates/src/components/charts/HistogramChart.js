@@ -20,6 +20,7 @@ export default function HistogramChart(props) {
         animations: {
           enabled: false
         },
+        width: 220,
         height: 230,
         type: 'bar',
       },
