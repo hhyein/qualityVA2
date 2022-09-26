@@ -38,7 +38,7 @@ export default function Table() {
     <>
       {!isEmptyData({
         settingValues
-      }) && settingValues.model && columnDatas.length > 0 && (
+      }) && settingValues.model && columnDatas.length > 0 ? (
           <div style={{
             overflow: 'scroll',
             width: '550px',
@@ -84,7 +84,8 @@ export default function Table() {
               })}
             </div>
           </div>
-        )}
+        ) : <Box title="table"/>
+      }
     </>
   )
 }

@@ -146,6 +146,6 @@ export default function RowSummaryChart(props) {
     }, [data])
 
   return (
-    <div className="row-wrapper" />
+    <div className="row-wrapper" style={{ position: 'relative', bottom: 15 }} />
   )
 }

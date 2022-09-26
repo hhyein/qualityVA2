@@ -79,6 +79,6 @@ export default function ColumnSummaryChart(props) {
     }, [data])
 
   return (
-    <div className="column-wrapper" />
+    <div className="column-wrapper" style={{ position: 'relative', bottom: 20 }} />
   )
 }

@@ -46,6 +46,6 @@ export default function RangeChart(props) {
     }, [data])
 
   return (
-    <div className="range-wrapper" />
+    <div className="range-wrapper" style={{ position: 'relative', bottom: 15 }} />
   )
 }
