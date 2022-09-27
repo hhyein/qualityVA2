@@ -1,21 +1,21 @@
 import React, { useEffect, useRef } from 'react'
 
 export default function DonutChart(props) {
-  const { data, color } = props.donutData
+  const { data, color, label } = props.donutData
   const svgRef = useRef()
   const d3 = window.d3v4
 
   useEffect(() => {
-    d3.select(`.donut-wrapper`).selectAll('*').remove()
+    d3.select(`.donut-wrapper-${label}`).selectAll('*').remove()
     
-    const width = 70,
-      height = 70,
-      margin = 20
+    const width = 60,
+      height = 60,
+      margin = 19
 
     const radius = Math.min(width, height) / 2 - margin
 
     const svg = d3
-      .select(`.donut-wrapper`)
+      .select(`.donut-wrapper-${label}`)
       .append('svg')
       .attr('width', width)
       .attr('height', height)
@@ -51,6 +51,6 @@ export default function DonutChart(props) {
   }, [data, color, svgRef, d3])
 
   return (
-      <div className={`donut-wrapper`} />
+      <div className={`donut-wrapper-${label}`} />
   )
 }

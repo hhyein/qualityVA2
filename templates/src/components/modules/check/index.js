@@ -43,7 +43,7 @@ export default function Check() {
     setSelectedLegendIdx,
   } = useFileData()
 
-  const [donutData, setDonutData] = useState();
+  // const [donutData, setDonutData] = useState();
   const [metricValues, setMetricValues] = React.useState({
     label: "completeness",
     value: 0
@@ -52,7 +52,7 @@ export default function Check() {
 
 
   React.useEffect(() => {
-    setDonutData(checkDonutData[selectedLegendIdx])
+    // setDonutData(checkDonutData[selectedLegendIdx])
     setMetricValues(metricList[selectedLegendIdx])
   }, [selectedLegendIdx])
 
@@ -71,7 +71,10 @@ export default function Check() {
       case "HeatmapChart":
         return <HeatmapChart />
       case "HistogramChart":
-        return <HistogramChart />
+        return <div style={{
+          position: 'relative',
+          top: 11
+        }}><HistogramChart /></div>
       case "BoxplotChart":
         return <BoxplotChart />
       case "ScatterChart":
@@ -86,20 +89,30 @@ export default function Check() {
       {!isEmptyData({
         settingValues
       }) && settingValues.model && <>
-          <div style={{ width: '200px', display: 'flex' }}>
-            <Legend
-              onLegendClick={setSelectedLegendIdx}
-              dataColorInfo={legendData}
-            />
-            <div style={{ margin: '0 15px' }}>
-              <DonutChart
-                donutData={donutData}
-              />
-            </div>
-          </div>
-          <div style={{ display: 'flex', height: '230px' }}>
+          <div style={{ display: 'flex', height: '250px' }}>
             <div>
+              <div style={{ width: '200px', display: 'flex' }}>
+                <Legend
+                  onLegendClick={setSelectedLegendIdx}
+                  dataColorInfo={legendData}
+                />
+                {checkDonutData.map((donutData, idx) => (
+                  <div style={{ margin: '5px 3px 0' }} key={idx}>
+                    <DonutChart
+                      idx={idx}
+                      donutData={donutData}
+                    />
+                  </div>
+                ))}
+                {/* <div style={{ margin: '0 15px' }}>
+                  <DonutChart
+                    donutData={donutData}
+                  />
+                </div> */}
+              </div>
               <div style={{
+                position: 'relative',
+                bottom: 25,
                 display: 'grid',
                 gridTemplateColumns: visualizationList.length >= 2 ? 'auto auto' : 'auto'
               }}>
