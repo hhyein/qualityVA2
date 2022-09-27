@@ -43,7 +43,6 @@ export default function Check() {
     setSelectedLegendIdx,
   } = useFileData()
 
-  // const [donutData, setDonutData] = useState();
   const [metricValues, setMetricValues] = React.useState({
     label: "completeness",
     value: 0
@@ -52,7 +51,6 @@ export default function Check() {
 
 
   React.useEffect(() => {
-    // setDonutData(checkDonutData[selectedLegendIdx])
     setMetricValues(metricList[selectedLegendIdx])
   }, [selectedLegendIdx])
 
@@ -99,16 +97,10 @@ export default function Check() {
                 {checkDonutData.map((donutData, idx) => (
                   <div style={{ margin: '5px 3px 0' }} key={idx}>
                     <DonutChart
-                      idx={idx}
                       donutData={donutData}
                     />
                   </div>
                 ))}
-                {/* <div style={{ margin: '0 15px' }}>
-                  <DonutChart
-                    donutData={donutData}
-                  />
-                </div> */}
               </div>
               <div style={{
                 position: 'relative',
