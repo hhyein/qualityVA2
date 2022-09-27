@@ -45,7 +45,6 @@ export default function HeatmapChart(props) {
         animations: {
           enabled: false
         },
-        width: 220,
         height: 230,
         type: 'heatmap'
       },

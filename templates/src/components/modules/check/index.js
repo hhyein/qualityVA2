@@ -71,7 +71,7 @@ export default function Check() {
       case "HistogramChart":
         return <div style={{
           position: 'relative',
-          top: 11
+          top: 10
         }}><HistogramChart /></div>
       case "BoxplotChart":
         return <BoxplotChart />

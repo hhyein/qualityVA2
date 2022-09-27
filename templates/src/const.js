@@ -7,19 +7,16 @@ export const mainLayoutStyle = {
     'setting check check check check'
     'setting check check check check'
     'setting check check check check'
-    'summary column-summary column-summary effect my-combination'
-    'row-summary table table action change'
-    'row-summary table table action change'
-    'row-summary table table action change'
+    'table table table effect my-combination'
+    'table table table action change'
+    'table table table action change'
+    'table table table action change'
   `,
 }
 
 export const boxTitles = {
   'dataset': 'dataset',
   'setting': 'setting',
-  'summary': 'summary',
-  'row-summary': 'row-summary',
-  'column-summary': 'column-summary',
   'check': 'check',
   'effect': 'effect',
   'table': 'table',

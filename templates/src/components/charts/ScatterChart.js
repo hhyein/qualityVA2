@@ -29,7 +29,7 @@ export default function ScatterChart(props) {
       animations: {
         enabled: false
       },
-      height: 230,
+      height: 220,
       type: 'scatter',
       zoom: {
         enabled: true,

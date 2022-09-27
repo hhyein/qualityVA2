@@ -98,7 +98,8 @@ export default function RowSummaryChart(props) {
         animations: {
           enabled: false
         },
-        height: 350,
+        width: 150,
+        height: 430,
         type: 'heatmap',
       },
       dataLabels: {
@@ -132,11 +133,6 @@ export default function RowSummaryChart(props) {
       },
       tooltip: {
         enabled: false
-      },
-      grid: {
-        padding: {
-          right: 20
-        }
       }
     };
 
@@ -146,6 +142,6 @@ export default function RowSummaryChart(props) {
     }, [data])
 
   return (
-    <div className="row-wrapper" style={{ position: 'relative', bottom: 15 }} />
+    <div className="row-wrapper" />
   )
 }

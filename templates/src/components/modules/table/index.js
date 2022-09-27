@@ -1,6 +1,8 @@
 import React from 'react'
 import { Box } from '../../Box'
 import { useFileData } from '../../../contexts/FileDataContext'
+import RowSummaryChart from '../../charts/RowSummaryChart'
+import ColumnSummaryChart from '../../charts/ColumnSummaryChart'
 
 export default function Table() {
   const {
@@ -39,53 +41,62 @@ export default function Table() {
       {!isEmptyData({
         settingValues
       }) && settingValues.model && columnDatas.length > 0 ? (
-          <div style={{
-            overflow: 'scroll',
-            width: '550px',
-            height: '380px',
-          }}>
+      <>
+        <RowSummaryChart />
+        <div style={{ display: 'flex' }} >
+          <div>
+            <ColumnSummaryChart />
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'auto auto auto auto auto auto auto auto auto auto auto auto auto'
+              overflow: 'scroll',
+              width: '550px',
+              height: '380px',
             }}>
-              {columnDatas.map((columnData, rowIdx) => {
-                return (
-                  <React.Fragment key={`col${rowIdx}`}>
-                    {columnData.map((data, idx) => {
-                      return (
-                        <React.Fragment key={idx}>
-                          {rowIdx === 0
-                            ? <div
-                              className="grid-th"
-                              key={idx}
-                              style={{
-                                cursor: 'default',
-                                background: undefined,
-                                textAlign: 'center',
-                                fontWeight: 'bold',
-                              }}
-                            >
-                              {data}
-                            </div>
-                            : <div
-                              className="grid-td"
-                              style={point.x === rowIdx && point.y === idx ? { backgroundColor: colorData[selectedLegendIdx] } : undefined}
-                              key={idx}
-                            >
-                              {data}
-                            </div>
-                          }
-
-                        </React.Fragment>
-                      )
-                    })}
-                  </React.Fragment>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'auto auto auto auto auto auto auto auto auto auto auto auto auto'
+              }}>
+                {columnDatas.map((columnData, rowIdx) => {
+                  return (
+                    <React.Fragment key={`col${rowIdx}`}>
+                      {columnData.map((data, idx) => {
+                        return (
+                          <React.Fragment key={idx}>
+                            {rowIdx === 0
+                              ? <div
+                                className="grid-th"
+                                key={idx}
+                                style={{
+                                  cursor: 'default',
+                                  background: undefined,
+                                  textAlign: 'center',
+                                  fontWeight: 'bold',
+                                }}
+                              >
+                                {data}
+                              </div>
+                              : <div
+                                className="grid-td"
+                                style={point.x === rowIdx && point.y === idx ? { backgroundColor: colorData[selectedLegendIdx] } : undefined}
+                                key={idx}
+                              >
+                                {data}
+                              </div>
+                            }
+                          </React.Fragment>
+                        )
+                      })}
+                    </React.Fragment>
+                    )
+                  }
                 )
-              })}
+              }
+              </div>
             </div>
           </div>
-        ) : <Box title="table"/>
-      }
+        </div>
+      </>
+      ) : <Box title="table"/>
+    }
     </>
   )
 }

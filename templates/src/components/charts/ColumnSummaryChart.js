@@ -38,6 +38,7 @@ export default function ColumnSummaryChart(props) {
         animations: {
           enabled: false
         },
+        width: 590,
         height: 100,
         type: 'heatmap',
       },
@@ -79,6 +80,6 @@ export default function ColumnSummaryChart(props) {
     }, [data])
 
   return (
-    <div className="column-wrapper" style={{ position: 'relative', bottom: 20 }} />
+    <div className="column-wrapper" />
   )
 }
