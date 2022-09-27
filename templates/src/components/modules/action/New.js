@@ -2,6 +2,8 @@ import React, { useMemo } from 'react'
 import Select from 'react-select'
 import Title from '../../Title'
 import { useFileData } from '../../../contexts/FileDataContext'
+import ColumnHistogramChart from '../../charts/ColumnHistogramChart'
+import ColumnBoxplotChart from '../../charts/ColumnBoxplotChart'
 
 export default function Action() {
   const {
@@ -39,10 +41,9 @@ export default function Action() {
 
   return (
       <React.Fragment>
-        <div style={{
-          display: 'flex',
-          marginBottom: '5px',
-        }}>
+        <ColumnBoxplotChart />
+        <ColumnHistogramChart />
+        <div style={{ display: 'flex', position: 'relative', bottom: 60 }}>
           <div style={{
             width: '47.5%',
             margin: '0 5%'
@@ -57,9 +58,7 @@ export default function Action() {
               }}
             />
           </div>
-          <div style={{
-            width: '47.5%',
-          }}>
+          <div style={{ width: '47.5%' }}>
             <React.Fragment>
               <Title title="actionDetail" />
               <Select
