@@ -71,7 +71,7 @@ export default function Check() {
       case "HistogramChart":
         return <div style={{
           position: 'relative',
-          top: 10
+          top: 11
         }}><HistogramChart /></div>
       case "BoxplotChart":
         return <BoxplotChart />
@@ -88,8 +88,27 @@ export default function Check() {
         settingValues
       }) && settingValues.model && <>
           <div style={{ display: 'flex', height: '250px' }}>
-            <div>
-              <div style={{ width: '200px', display: 'flex' }}>
+            <div style={{ width: '440px' }}>
+              <div style={{
+                position: 'absolute',
+                top: 58,
+                left: 0,
+                display: 'grid',
+                gridTemplateColumns: visualizationList.length >= 2 ? 'auto auto' : 'auto'
+              }}>
+                {visualizationList.map((chart, idx) => {
+                  return (
+                    <div key={idx} class='chart' style={visualizationList.length >= 2 ? { width: 220, height: 230 } : { width: 440, height: 230 }} >
+                      {chartData(chart)}
+                    </div>
+                  )
+                })}
+              </div>
+              <div style={{ 
+                width: '200px', 
+                display: 'flex',
+                position: 'absolute' 
+                }}>
                 <Legend
                   onLegendClick={setSelectedLegendIdx}
                   dataColorInfo={legendData}
@@ -101,20 +120,6 @@ export default function Check() {
                     />
                   </div>
                 ))}
-              </div>
-              <div style={{
-                position: 'relative',
-                bottom: 25,
-                display: 'grid',
-                gridTemplateColumns: visualizationList.length >= 2 ? 'auto auto' : 'auto'
-              }}>
-                {visualizationList.map((chart, idx) => {
-                  return (
-                    <div key={idx} style={visualizationList.length >= 2 ? { width: 220, height: 230 } : { width: 440, height: 230 }} >
-                      {chartData(chart)}
-                    </div>
-                  )
-                })}
               </div>
             </div>
             <CheckTable />
