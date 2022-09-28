@@ -98,8 +98,8 @@ export default function RowSummaryChart(props) {
         animations: {
           enabled: false
         },
-        width: 150,
-        height: 430,
+        width: 100,
+        height: 490,
         type: 'heatmap',
       },
       dataLabels: {

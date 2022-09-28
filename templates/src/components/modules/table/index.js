@@ -41,15 +41,21 @@ export default function Table() {
       {!isEmptyData({
         settingValues
       }) && settingValues.model && columnDatas.length > 0 ? (
-      <>
-        <RowSummaryChart />
-        <div style={{ display: 'flex' }} >
+        <div style={{ display: 'flex', width: '780', height: '505', marginTop: -30 }}>
+          <div style={{ marginLeft: -25 }}>
+            <div style={{ height: 65 }} />
+            <RowSummaryChart />
+          </div>
           <div>
-            <ColumnSummaryChart />
+            <div style={{ marginLeft: -30 }}>
+              <ColumnSummaryChart />
+            </div>
             <div style={{
               overflow: 'scroll',
-              width: '550px',
-              height: '380px',
+              marginLeft: -10,
+              marginTop: -20,
+              width: '715px',
+              height: '440px',
             }}>
               <div style={{
                 display: 'grid',
@@ -86,17 +92,16 @@ export default function Table() {
                         )
                       })}
                     </React.Fragment>
-                    )
-                  }
+                  )
+                }
                 )
-              }
+                }
               </div>
             </div>
           </div>
         </div>
-      </>
-      ) : <Box title="table"/>
-    }
+      ) : <Box title="table" />
+      }
     </>
   )
 }

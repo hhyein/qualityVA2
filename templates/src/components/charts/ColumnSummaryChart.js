@@ -38,7 +38,7 @@ export default function ColumnSummaryChart(props) {
         animations: {
           enabled: false
         },
-        width: 590,
+        width: 755,
         height: 100,
         type: 'heatmap',
       },
