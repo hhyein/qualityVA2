@@ -41,9 +41,9 @@ export default function Table() {
       {!isEmptyData({
         settingValues
       }) && settingValues.model && columnDatas.length > 0 ? (
-        <div style={{ display: 'flex', width: '780', height: '505', marginTop: -30 }}>
-          <div style={{ marginLeft: -25 }}>
-            <div style={{ height: 65 }} />
+        <div style={{ display: 'flex', marginTop: -30, marginLeft: -25 }}>
+          <div>
+            <div style={{ marginTop: 30, height: 65 }} />
             <RowSummaryChart />
           </div>
           <div>
@@ -51,7 +51,7 @@ export default function Table() {
               <ColumnSummaryChart />
             </div>
             <div style={{
-              overflow: 'scroll',
+              overflowY: 'scroll',
               marginLeft: -10,
               marginTop: -20,
               width: '715px',
@@ -77,9 +77,9 @@ export default function Table() {
                                   textAlign: 'center',
                                   fontWeight: 'bold',
                                 }}
-                              >
-                                {data}
-                              </div>
+                                >
+                                  {data.slice(0, 5)}
+                                </div>
                               : <div
                                 className="grid-td"
                                 style={point.x === rowIdx && point.y === idx ? { backgroundColor: colorData[selectedLegendIdx] } : undefined}
