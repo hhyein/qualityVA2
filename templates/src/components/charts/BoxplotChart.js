@@ -42,6 +42,7 @@ export default function BoxplotChart(props) {
         animations: {
           enabled: false
         },
+        width: 280,
         height: 220,
         type: 'boxPlot'
       },

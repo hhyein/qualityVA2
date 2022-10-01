@@ -6,7 +6,7 @@ export default function ScatterChart(props) {
   const d3 = window.d3v4
 
   useEffect(() => {
-    d3.select('.scatter-wrapper').selectAll('*').remove()
+    d3.select('.rowScatter-wrapper').selectAll('*').remove()
 
     var options = {
       series: [{
@@ -29,8 +29,7 @@ export default function ScatterChart(props) {
         animations: {
           enabled: false
         },
-        width: 180,
-        height: 125,
+        height: 230,
         type: 'scatter',
         zoom: {
           enabled: true,
@@ -40,9 +39,6 @@ export default function ScatterChart(props) {
       markers: {
         size: [4, 4]
       },
-      legend: {
-        show: false
-      },
       xaxis: {
         tickAmount: 5
       },
@@ -51,12 +47,12 @@ export default function ScatterChart(props) {
       }
     };
 
-    var chart = new ApexCharts(document.querySelector(".scatter-wrapper"), options);
+    var chart = new ApexCharts(document.querySelector(".rowScatter-wrapper"), options);
     chart.render();
 
     }, [data])
 
   return (
-    <div className="scatter-wrapper" />
+    <div className="rowScatter-wrapper" />
   )
 }

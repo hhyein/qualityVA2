@@ -1,9 +1,10 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import Select from 'react-select'
 import Title from '../../Title'
 import { useFileData } from '../../../contexts/FileDataContext'
 import ColumnHistogramChart from '../../charts/ColumnHistogramChart'
 import ColumnBoxplotChart from '../../charts/ColumnBoxplotChart'
+import RowScatterChart from '../../charts/RowScatterChart'
 
 export default function Action() {
   const {
@@ -43,6 +44,7 @@ export default function Action() {
       <React.Fragment>
         <ColumnBoxplotChart />
         <ColumnHistogramChart />
+        {/* <RowScatterChart /> */}
         <div style={{ display: 'flex', position: 'relative', bottom: 60 }}>
           <div style={{
             width: '47.5%',
