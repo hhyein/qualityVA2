@@ -54,7 +54,7 @@ export default function Table() {
               overflowY: 'scroll',
               marginLeft: -10,
               marginTop: -20,
-              width: '715px',
+              width: '710px',
               height: '440px',
             }}>
               <div style={{
@@ -72,6 +72,7 @@ export default function Table() {
                                 className="grid-th"
                                 key={idx}
                                 style={{
+                                  width: '40px',
                                   cursor: 'default',
                                   background: undefined,
                                   textAlign: 'center',
@@ -85,7 +86,7 @@ export default function Table() {
                                 style={point.x === rowIdx && point.y === idx ? { backgroundColor: colorData[selectedLegendIdx] } : undefined}
                                 key={idx}
                               >
-                                {data}
+                                {data.slice(0, 5)}
                               </div>
                             }
                           </React.Fragment>
