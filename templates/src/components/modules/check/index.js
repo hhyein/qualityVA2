@@ -137,7 +137,7 @@ export default function Check() {
           </div>
         </div>
 
-      case "ScatterChart":
+      case "BoxplotChart":
         return <div style={{ display: 'flex' }}>
           <BoxplotChart />
           <div>
@@ -160,7 +160,7 @@ export default function Check() {
           </div>
         </div>
 
-        case "BoxplotChart":
+        case "ScatterChart":
           return <div style={{ display: 'flex' }}>
             <div style={{ width: 100, height: 175, marginTop: 30, marginLeft: 10, marginRight: 10 }}>
               <Title title="column" />
