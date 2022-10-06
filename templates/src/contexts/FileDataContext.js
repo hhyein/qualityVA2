@@ -124,9 +124,6 @@ export const FileDataProvider = ({ children }) => {
     settingValues,
   ])
 
-  const donutChartData = fetchData('/donutChart')
-  console.log(donutChartData)
-
   return (
     <FileDataContext.Provider
       value={{
