@@ -15,14 +15,14 @@ export const mainLayoutStyle = {
 }
 
 export const boxTitles = {
-  'dataset': 'dataset',
-  'setting': 'setting',
-  'check': 'check',
-  'effect': 'effect',
+  'dataset': 'data upload',
+  'setting': 'system setting',
+  'check': 'data quality assessment',
+  'effect': 'quality impact by action',
   'table': 'table',
-  'action': 'action',
-  'my-combination': 'my-combination',
-  'change': 'change'
+  'action': 'data quality improvement',
+  'my-combination': 'my combination',
+  'change': 'data change'
 }
 
 export const PORT = 5000

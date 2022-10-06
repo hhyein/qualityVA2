@@ -124,7 +124,7 @@ export default function Combination() {
           margin: '0 2.5%'
         }}>
           <Title title="length" />
-          <Select
+          <Select className="select"
             options={lengthList}
             placeholder={<div>select</div>}
             onChange={v => {

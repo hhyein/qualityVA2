@@ -63,7 +63,7 @@ export default function HeatmapChart(props) {
           show: true
         }
       },
-      colors: ["#6c757d"]
+      colors: ["#6C757D"]
     };
 
     var chart = new ApexCharts(document.querySelector(".heatmap-wrapper"), options);

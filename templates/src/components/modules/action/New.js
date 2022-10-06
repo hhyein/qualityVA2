@@ -12,13 +12,6 @@ export default function Action() {
       value: idx
     }
   });
-  
-  // const [actionList, setActionList] = React.useState(['remove', 'missing', 'outlier', 'inconsistent', 'transformation'].map((item, idx) => {
-  //   return {
-  //     label: item,
-  //     value: idx
-  //   }
-  // }));
 
   const [actionValues, setActionValues] = React.useState({
     label: "remove",
@@ -67,7 +60,7 @@ export default function Action() {
             margin: '0 5%'
           }}>
             <Title title="action" />
-            <Select
+            <Select className="select"
               options={actionList}
               placeholder={<div>select</div>}
               defaultValue={actionValues}
@@ -80,7 +73,7 @@ export default function Action() {
             {actionValues?.label !== 'remove' && 
               <React.Fragment>
               <Title title="actionDetail" />
-              <Select
+              <Select className="select"
                 options={actionDetailList}
                 placeholder={<div>select</div>}
                 defaultValue={actionDetailValues}

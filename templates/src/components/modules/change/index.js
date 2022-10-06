@@ -17,7 +17,7 @@ export default function Change() {
         settingValues
       }) && settingValues.model && <>
         <Title title="count" />
-        <div style={{ height: '170px' }}>
+        <div style={{ position: 'relative', bottom: '10px', height: '150px' }}>
           <BarChart />
         </div>
         <Title title="distort" />

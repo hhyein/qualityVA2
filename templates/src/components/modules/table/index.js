@@ -101,6 +101,7 @@ export default function Table() {
                       {columnData.map((data, idx) => {
                         const rowNumber = Math.floor(idx / columnList.length);
                         const columnNumber = idx % columnList.length;
+
                         return (
                           <React.Fragment key={idx}>
                             {rowNumber === 0

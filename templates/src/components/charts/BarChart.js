@@ -24,7 +24,7 @@ export default function BarChart(props) {
           enabled: false
         },
         type: 'bar',
-        height: 170
+        height: 180
       },
       dataLabels: {
         enabled: false
@@ -43,7 +43,8 @@ export default function BarChart(props) {
       },
       legend: {
         show: false
-      }
+      },
+      colors: ["#6C757D", "#1E90FF"]
     };
 
     var chart = new ApexCharts(document.querySelector(".bar-wrapper"), options);

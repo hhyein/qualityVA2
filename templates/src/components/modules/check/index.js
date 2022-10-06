@@ -83,17 +83,17 @@ export default function Check() {
         return <div style={{ display: 'flex' }}>
           <HeatmapChart />
           <div style={{ position: 'relative', right: 10 }}>
-            <div style={{ width: 165, height: 95, border: '1px solid #999999', marginTop: 30 }}>
-              <div style={{ position: 'absolute', top: 20, left: 10, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
-              <div style={{ marginTop: 15 }}>
+            <div style={{ width: 165, height: 95, border: '2px solid #999999', marginTop: 30 }}>
+              <div style={{ position: 'absolute', top: 20, left: 10, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
+              <div style={{ marginTop: 10 }}>
                 <p>row index</p>
                 <p>column name</p>
                 <p>quality issue cnt</p>
               </div>
             </div>
-            <div style={{ width: 165, height: 65, border: '1px solid #999999', marginTop: 15 }}>
-              <div style={{ position: 'absolute', top: 130, left: 10, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>quality issue</div>
-              <div style={{ marginTop: 15, display: 'flex' }}>
+            <div style={{ width: 165, height: 60, border: '2px solid #999999', marginTop: 15 }}>
+              <div style={{ position: 'absolute', top: 135, left: 10, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>quality issue</div>
+              <div style={{ marginTop: 10, display: 'flex' }}>
                 <p>row index</p>
                 <p>value</p>
               </div>
@@ -110,14 +110,14 @@ export default function Check() {
                 margin: '0 5%'
               }}>
                 <Title title="column" />
-                <Select
+                <Select className="select"
                   options={columnList}
                   placeholder={<div>select</div>}
                 />
               </div>
               <div style={{ width: '45%' }}>
                 <Title title="outlier" />
-                <Select
+                <Select className="select"
                   placeholder={<div>select</div>}
                 />
               </div>
@@ -127,16 +127,16 @@ export default function Check() {
             </div>
           </div>
           <div>
-            <div style={{ width: 175, height: 95, border: '1px solid #999999', marginTop: 30 }}>
-              <div style={{ position: 'absolute', top: 20, left: 270, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
-              <div style={{ marginTop: 15 }}>
+            <div style={{ width: 175, height: 95, border: '2px solid #999999', marginTop: 30 }}>
+              <div style={{ position: 'absolute', top: 20, left: 270, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
+              <div style={{ marginTop: 10 }}>
                 <p>outlier standard</p>
                 <p>quality issue cnt</p>
               </div>
             </div>
-            <div style={{ width: 175, height: 65, border: '1px solid #999999', marginTop: 15 }}>
-              <div style={{ position: 'absolute', top: 130, left: 270, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>quality issue</div>
-              <div style={{ marginTop: 15, display: 'flex' }}>
+            <div style={{ width: 175, height: 60, border: '2px solid #999999', marginTop: 15 }}>
+              <div style={{ position: 'absolute', top: 135, left: 270, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>quality issue</div>
+              <div style={{ marginTop: 10, display: 'flex' }}>
                 <p>row index</p>
                 <p>value</p>
               </div>
@@ -148,17 +148,17 @@ export default function Check() {
         return <div style={{ display: 'flex' }}>
           <BoxplotChart />
           <div>
-            <div style={{ width: 155, height: 80, border: '1px solid #999999', marginTop: 30 }}>
-              <div style={{ position: 'absolute', top: 20, left: 290, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
-              <div style={{ marginTop: 15 }}>
+            <div style={{ width: 155, height: 80, border: '2px solid #999999', marginTop: 30 }}>
+              <div style={{ position: 'absolute', top: 20, left: 290, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
+              <div style={{ marginTop: 10 }}>
                 <p>column name</p>
                 <p>mix</p>
                 <p>max</p>
               </div>
             </div>
-            <div style={{ width: 155, height: 80, border: '1px solid #999999', marginTop: 15 }}>
-              <div style={{ position: 'absolute', top: 115, left: 290, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>quality issue</div>
-              <div style={{ marginTop: 15 }}>
+            <div style={{ width: 155, height: 75, border: '2px solid #999999', marginTop: 15 }}>
+              <div style={{ position: 'absolute', top: 120, left: 290, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>quality issue</div>
+              <div style={{ marginTop: 10 }}>
                 <p>column name</p>
                 <p>minDiff</p>
                 <p>maxDiff</p>
@@ -169,24 +169,24 @@ export default function Check() {
 
       case "ScatterChart":
         return <div style={{ display: 'flex' }}>
-          <div style={{ width: 100, height: 175, marginTop: 20, marginLeft: 10, marginRight: 10 }}>
+          <div style={{ width: 100, height: 175, marginTop: 25, marginLeft: 10, marginRight: 10 }}>
             <Title title="column" />
-            <Select
+            <Select className="select"
               options={columnList}
               placeholder={<div>select</div>}
             />
             <Title title="correlation" />
-            <Select
+            <Select className="select"
               placeholder={<div>select</div>}
             />
             <Title title="threshold" />
-            <Select
+            <Select className="select"
               placeholder={<div>select</div>}
             />
           </div>
-          <div style={{ width: 315, height: 165, border: '1px solid #999999', marginTop: 30 }}>
-            <div style={{ position: 'absolute', top: 30, left: 130, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information & quality issue</div>
-            <div style={{ marginTop: 15 }}>
+          <div style={{ width: 315, height: 175, border: '2px solid #999999', marginTop: 30 }}>
+            <div style={{ position: 'absolute', top: 20, left: 130, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information & quality issue</div>
+            <div style={{ marginTop: 10 }}>
               <p>column name</p>
               <p>correlation</p>
             </div>
@@ -245,7 +245,9 @@ export default function Check() {
               checkTableData={checkTableData}
               setCheckTableData={setCheckTableData} />
             <div style={{ display: 'flex' }}>
-              <RaderChart data={checkTableData.data} />
+              <div style={{ position: 'relative', top: '20px' }}>
+                <RaderChart data={checkTableData.data} />
+              </div>
               <div style={{ overflowY: 'scroll' }}>
                 <TreeChart />
               </div>

@@ -81,7 +81,7 @@ export default function Setting() {
               }}
             >
               <Title title="purpose" />
-                <Select
+                <Select className="select"
                   options={purposeList}
                   placeholder={<div>select</div>}
                   defaultValue={values?.purpose ? values.purpose : undefined}
@@ -90,7 +90,7 @@ export default function Setting() {
                   }}
                 />
                 <Title title="column" />
-                <Select
+                <Select className="select"
                   options={columnList}
                   value={settingValues.column}
                   placeholder={<div>select</div>}
@@ -100,7 +100,7 @@ export default function Setting() {
                   }}
                 />
                 <Title title="model" />
-                <Select
+                <Select className="select"
                   isMulti
                   options={modelList}
                   placeholder={<div>select</div>}
@@ -108,7 +108,7 @@ export default function Setting() {
                   onChange={v => handleChange('model', v)}
                 />
                 <Title title="eval" />
-                <Select
+                <Select className="select"
                   isMulti
                   options={evalList}
                   placeholder={<div>select</div>}
@@ -116,7 +116,7 @@ export default function Setting() {
                   onChange={v => handleChange('eval', v)}
                 />
                 <Title title="metric" />
-                <Select
+                <Select className="select"
                   options={metricList}
                   placeholder={<div>select</div>}
                   defaultValue={values?.metric ? values.metric : undefined}

@@ -23,10 +23,11 @@ export default function RaderChart(props) {
         width: 200,
         height: 230,
         type: 'radar',
-    },
-    xaxis: {
-      categories: ['MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE']
-    }
+      },
+      xaxis: {
+        categories: ['MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE']
+      },
+      colors: ['#FF8C00'],
     };
 
     var chart = new ApexCharts(document.querySelector(".radar-wrapper"), options);

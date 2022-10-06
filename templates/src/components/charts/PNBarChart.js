@@ -22,7 +22,7 @@ export default function BarChart(props) {
         },
         type: 'bar',
         width: 130,
-        height: 145
+        height: 155
       },
       plotOptions: {
         bar: {
