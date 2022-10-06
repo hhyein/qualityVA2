@@ -60,7 +60,7 @@ def setting():
       purposeList.append({'label': tmpList[i], 'value': i})      
 
     columnList = []
-    tmpList = originDf.columns.tolist()
+    tmpList = list(originDf.columns)
     for i in range(len(tmpList)):
       columnList.append({'label': tmpList[i], 'value': i})
 
@@ -115,9 +115,9 @@ def setting():
 def donutChart():
   originDf = pd.read_csv('static/' + fileName + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
-  totalNum = len(originDf) * len(originDf.columns.tolist())
+  totalNum = len(originDf) * len(list(originDf.columns))
 
-  mis = sum(originDf.isnull().sum().values.tolist())
+  mis = sum(list(originDf.isnull().sum().values))
   misRate = round((mis/totalNum) * 100)
   
   tmpList = []
@@ -136,13 +136,14 @@ def donutChart():
   for column in originDf:
     df = originDf[column].dropna()
     df = pd.DataFrame(pd.to_numeric(df, errors = 'coerce'))
-    tmpList.append(df.isnull().sum().values[0].tolist())
+    tmpList.append(list(df.isnull().sum().values[0]))
   inc = sum(tmpList)
   incRate = round((inc/totalNum) * 100)
 
   ##### sim, dep
   simRate = round(60)
   depRate = round(60)
+  #####
 
   rateList = [misRate, outRate, incRate, simRate, depRate]
   colorList = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue']
@@ -155,6 +156,36 @@ def donutChart():
   response['donutChartData'] = dataList
 
   return json.dumps(response)
+
+@app.route('/tablePoint', methods=['GET', 'POST'])
+def tablePoint():
+  originDf = pd.read_csv('static/' + fileName + '.csv')
+  originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
+  columnList = list(originDf.columns)
+  
+  misPointList = []
+  for column in columnList:
+    misRowIdxList = list(originDf[originDf[column].isnull()].index)
+
+    for row in misRowIdxList:
+      misPointList.append({'x': misRowIdxList.index(row), 'y': columnList.index(column)})
+
+  ##### acc, con
+  accPointList = []
+  conPointList = []
+
+  response = {}
+  response['comPointList'] = misPointList
+
+  return json.dumps(response)
+
+@app.route('/rowSummary', methods=['GET', 'POST'])
+def rowSummary():
+  return
+
+@app.route('/columnSummary', methods=['GET', 'POST'])
+def columnSummary():
+  return
 
 @app.route('/combination', methods=['GET', 'POST'])
 def combinationTable():
