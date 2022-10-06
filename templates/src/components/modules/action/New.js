@@ -1,42 +1,58 @@
 import React from 'react'
 import Select from 'react-select'
 import Title from '../../Title'
-import { useFileData } from '../../../contexts/FileDataContext'
 import ColumnHistogramChart from '../../charts/ColumnHistogramChart'
 import ColumnBoxplotChart from '../../charts/ColumnBoxplotChart'
-import RowScatterChart from '../../charts/RowScatterChart'
 
 export default function Action() {
-  const {
-    setMyCombinationData,
-    modelSettingData: { columnList },
-  } = useFileData();
+
+  const actionList = ['remove', 'missing', 'outlier', 'inconsistent', 'transformation'].map((item, idx) => {
+    return {
+      label: item,
+      value: idx
+    }
+  });
   
-  const [actionList, setActionList] = React.useState();
+  // const [actionList, setActionList] = React.useState(['remove', 'missing', 'outlier', 'inconsistent', 'transformation'].map((item, idx) => {
+  //   return {
+  //     label: item,
+  //     value: idx
+  //   }
+  // }));
+
   const [actionValues, setActionValues] = React.useState({
-    label: "transformation",
+    label: "remove",
     value: 0
   });
-  const [columnValues, setColumnValues] = React.useState();
+
+  const [actionDetailList, setActionDetailList] = React.useState();
+  const [actionDetailValues, setActionDetailValues] = React.useState();
 
   React.useEffect(() => {
-    setActionList(['transformation', 'missing', 'outlier', 'inconsistent'].map((item, idx) => {
-      return {
-        label: item,
-        value: idx
-      }
-    }))
-    setMyCombinationData(actionValues.label);
+    if(actionValues?.label === 'transformation') {
+      setActionDetailValues();
+      setActionDetailList(['log', 'mbs', 'mm', 'rob', 'sqt', 'std'].map((item, idx) => {
+        return {
+          label: item,
+          value: idx
+        }
+      }));
+    } else {
+      setActionDetailValues();
+      setActionDetailList(['em', 'lof', 'max', 'med', 'men', 'min', 'mod', 'rem'].map((item, idx) => {
+        return {
+          label: item,
+          value: idx
+        }
+      }));
+    }
   }, [actionValues])
 
   const handleChange = (key, value) => {
-    if (key === 'combination') {
+    if (key === 'action') {
       setActionValues(value);
     } else {
-      setColumnValues(prev => ({
-        ...prev,
-        [key]: value,
-      }))
+      setActionDetailValues(value);
     }
   }
 
@@ -60,19 +76,20 @@ export default function Action() {
               }}
             />
           </div>
-          <div style={{ width: '47.5%' }}>
-            <React.Fragment>
+          <div style={{ width: '47.5%' }} >
+            {actionValues?.label !== 'remove' && 
+              <React.Fragment>
               <Title title="actionDetail" />
               <Select
-                isMulti
-                options={columnList}
+                options={actionDetailList}
                 placeholder={<div>select</div>}
-                defaultValue={columnValues}
+                defaultValue={actionDetailValues}
                 onChange={v => {
-                  handleChange('column', v)
+                  handleChange('actionDetail', v)
                 }}
               />
             </React.Fragment>
+            }
           </div>
         </div>
       </React.Fragment>

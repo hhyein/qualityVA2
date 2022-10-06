@@ -72,6 +72,11 @@ export default function Check() {
     }
   }, [metricValues])
 
+  const [checkTableData, setCheckTableData] = React.useState({
+    key: 1,
+    data: ['2.43', '5.64', '3.06', '1.04', '3.06', '1.04']
+  });
+
   const chartData = (value) => {
     switch (value) {
       case "HeatmapChart":
@@ -103,7 +108,7 @@ export default function Check() {
               <div style={{
                 width: '45%',
                 margin: '0 5%'
-                }}>
+              }}>
                 <Title title="column" />
                 <Select
                   options={columnList}
@@ -162,37 +167,37 @@ export default function Check() {
           </div>
         </div>
 
-        case "ScatterChart":
-          return <div style={{ display: 'flex' }}>
-            <div style={{ width: 100, height: 175, marginTop: 20, marginLeft: 10, marginRight: 10 }}>
-              <Title title="column" />
-              <Select
-                options={columnList}
-                placeholder={<div>select</div>}
-              />
-              <Title title="correlation" />
-              <Select
-                placeholder={<div>select</div>}
-              />
-              <Title title="threshold" />
-              <Select
-                placeholder={<div>select</div>}
-              />
+      case "ScatterChart":
+        return <div style={{ display: 'flex' }}>
+          <div style={{ width: 100, height: 175, marginTop: 20, marginLeft: 10, marginRight: 10 }}>
+            <Title title="column" />
+            <Select
+              options={columnList}
+              placeholder={<div>select</div>}
+            />
+            <Title title="correlation" />
+            <Select
+              placeholder={<div>select</div>}
+            />
+            <Title title="threshold" />
+            <Select
+              placeholder={<div>select</div>}
+            />
+          </div>
+          <div style={{ width: 315, height: 165, border: '1px solid #999999', marginTop: 30 }}>
+            <div style={{ position: 'absolute', top: 30, left: 130, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information & quality issue</div>
+            <div style={{ marginTop: 15 }}>
+              <p>column name</p>
+              <p>correlation</p>
             </div>
-            <div style={{ width: 315, height: 165, border: '1px solid #999999', marginTop: 30 }}>
-              <div style={{ position: 'absolute', top: 30, left: 130, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information & quality issue</div>
-              <div style={{ marginTop: 15 }}>
-                <p>column name</p>
-                <p>correlation</p>
-              </div>
-              <div style={{ display: 'flex', position: 'relative', bottom: 15 }}>
-                <PNBarChart />
-                <div style={{ position: 'relative', right: 10 }}>
-                  <ScatterChart />
-                </div>
+            <div style={{ display: 'flex', position: 'relative', bottom: 15 }}>
+              <PNBarChart />
+              <div style={{ position: 'relative', right: 10 }}>
+                <ScatterChart />
               </div>
             </div>
           </div>
+        </div>
 
       default:
         return
@@ -206,10 +211,10 @@ export default function Check() {
       }) && settingValues.model && <>
           <div style={{ display: 'flex', height: '250px' }}>
             <div style={{ width: '440px' }}>
-              <div style={{ 
-                width: '200px', 
+              <div style={{
+                width: '200px',
                 display: 'flex'
-                }}>
+              }}>
                 <Legend
                   onLegendClick={setSelectedLegendIdx}
                   dataColorInfo={legendData}
@@ -236,9 +241,11 @@ export default function Check() {
                 })}
               </div>
             </div>
-            <CheckTable />
+            <CheckTable
+              checkTableData={checkTableData}
+              setCheckTableData={setCheckTableData} />
             <div style={{ display: 'flex' }}>
-              <RaderChart />
+              <RaderChart data={checkTableData.data} />
               <div style={{ overflowY: 'scroll' }}>
                 <TreeChart />
               </div>

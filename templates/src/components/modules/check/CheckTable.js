@@ -1,6 +1,8 @@
 import React from 'react'
 
-export default function checkTable() {
+export default function checkTable(props) {
+
+  const { checkTableData, setCheckTableData } = props
 
   const data = [
     ['Model', 'MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE'],
@@ -13,6 +15,13 @@ export default function checkTable() {
   ];
 
   const colorData = ['', 'darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue', 'lightblue'];
+
+  const handleTableClick = (idx) => {
+    setCheckTableData({
+      key: idx,
+      data: data[idx].splice(1)
+    });
+  }
 
   return data.length > 0 && (
     <div style={{
@@ -28,6 +37,7 @@ export default function checkTable() {
           return (
             <React.Fragment key={`col${rowIdx}`}>
               {columnData.map((data, idx) => {
+                const onClick = () => handleTableClick(rowIdx)
                 return (
                   <React.Fragment key={idx}>
                     {rowIdx === 0
@@ -47,19 +57,23 @@ export default function checkTable() {
                       </div>
                       : <div
                         className="grid-td"
+                        onClick={onClick}
                         style={{
                           borderRight: 'none',
                           height: '20px',
+                          cursor: 'pointer',
+                          backgroundColor: checkTableData.key === rowIdx ? '#eee' : undefined,
                         }}
                         key={idx}
                       >
                         {idx === 0
-                          ? <div style={{
-                            backgroundColor: colorData[rowIdx],
-                            padding: '2px 8px',
-                            borderRadius: '3px',
-                            color: 'white'
-                          }}>{data}</div>
+                          ? <div
+                            style={{
+                              backgroundColor: colorData[rowIdx],
+                              padding: '2px 8px',
+                              borderRadius: '3px',
+                              color: 'white'
+                            }}>{data}</div>
                           : data
                         }
                       </div>

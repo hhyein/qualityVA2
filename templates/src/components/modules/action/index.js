@@ -13,11 +13,6 @@ export default function Action() {
   } = useFileData();
 
   const { combinationData } = combinationTableData
-  const [actionList, setActionList] = React.useState();
-  const [actionValues, setActionValues] = React.useState({
-    label: "transformation",
-    value: 0
-  });
   const [radioValue, setRadioValue] = React.useState('recommend');
   const handleChangeRadio = (e) => {
     setRadioValue(e.target.value);
@@ -44,33 +39,14 @@ export default function Action() {
 
   React.useEffect(() => {
     if (radioValue === 'new') {
-      setActionList(['transformation', 'missing', 'outlier', 'inconsistent'].map((item, idx) => {
-        return {
-          label: item,
-          value: idx
-        }
-      }))
       setMyCombinationData('transformation');
     } else {
       const key = selectedCombinationTableRow?.key;
       if (key) {
-        setActionValues();
         setMyCombinationData();
-        setActionList(combinationData.combinationIconList[key].map((item, idx) => {
-          return {
-            label: item,
-            value: idx
-          }
-        }))
       }
     }
-  }, [combinationData, selectedCombinationTableRow?.key, radioValue])
-
-  React.useEffect(() => {
-    if (radioValue === 'new') {
-      setMyCombinationData(actionValues.label);
-    }
-  }, [actionValues])
+  }, [combinationData, selectedCombinationTableRow?.key, radioValue, setMyCombinationData])
 
   return (
     <Box title="action">
