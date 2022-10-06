@@ -8,10 +8,7 @@ export default function DonutChart(props) {
   useEffect(() => {
     d3.select(`.donut-wrapper-${label}`).selectAll('*').remove()
     
-    const width = 60,
-      height = 60,
-      margin = 19
-
+    const width = 60, height = 60, margin = 20
     const radius = Math.min(width, height) / 2 - margin
 
     const svg = d3
@@ -40,15 +37,13 @@ export default function DonutChart(props) {
       .data(calculatedData)
       .enter()
       .append('path')
-      .attr(
-        'd',
-        d3
-          .arc()
-          .innerRadius(width / 2)
-          .outerRadius(radius)
+      .attr('d', d3
+        .arc()
+        .innerRadius(width / 2)
+        .outerRadius(radius)
       )
       .attr('fill', d => colorScale(d.data.key))
-  }, [data, color, svgRef, d3])
+  }, [data, color, label, svgRef, d3])
 
   return (
       <div className={`donut-wrapper-${label}`} />

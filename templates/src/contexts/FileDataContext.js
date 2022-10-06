@@ -39,7 +39,6 @@ export const FileDataProvider = ({ children }) => {
     eval: undefined,
     metric: undefined
   })
-
   const [purposeList, setPurposeList] = useState()
   const [modelSettingData, setModelSettingData] = useState({})
   const [combinationTableData, setCombinationTableData] = useState({})
@@ -48,6 +47,7 @@ export const FileDataProvider = ({ children }) => {
   const [myCombinationRadioValue, setMyCombinationRadioValue] = React.useState('knn');
   const [myCombinationData, setMyCombinationData] = React.useState();
   const [selectedLegendIdx, setSelectedLegendIdx] = useState(0)
+  
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
   }
@@ -77,7 +77,7 @@ export const FileDataProvider = ({ children }) => {
       isAscending: settingValues.purpose.label === 'prediction',
     }))
     await postData('/setting', settingValues)
-    const { columnList, modelList, evalList, dimensionList } = await fetchData('/modelSetting')
+    const { columnList, modelList, evalList, dimensionList } = await fetchData('/setting')
     setModelSettingData({
       columnList,
       modelList,
@@ -85,6 +85,10 @@ export const FileDataProvider = ({ children }) => {
       dimensionList,
     })
   }, [settingValues.purpose])
+
+  useEffect(() => {
+    handlePurposeChange()
+  }, [handlePurposeChange])
 
   const handleDrop = useCallback(
     async files => {
@@ -99,10 +103,6 @@ export const FileDataProvider = ({ children }) => {
     },
     [updatePurposeList]
   )
-
-  useEffect(() => {
-    handlePurposeChange()
-  }, [handlePurposeChange])
 
   const updateCombinationTable = useCallback(async () => {
     const combinationData = await fetchData('/combination')
@@ -123,6 +123,9 @@ export const FileDataProvider = ({ children }) => {
     updateCombinationTable,
     settingValues,
   ])
+
+  const donutChartData = fetchData('/donutChart')
+  console.log(donutChartData)
 
   return (
     <FileDataContext.Provider

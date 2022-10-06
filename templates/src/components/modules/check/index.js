@@ -14,12 +14,14 @@ import RaderChart from '../../charts/RaderChart'
 import TreeChart from '../../charts/TreeChart'
 import CheckTable from './CheckTable'
 
+// api: /donutChart
+// data: {'donutChartData': [{'label': 0, 'color': 'darkorange', 'data': {'issue': 1, 'normal': 99}}, {'label': 1, 'color': 'steelblue', 'data': {'issue': 1, 'normal': 99}}, {'label': 2, 'color': 'yellowgreen', 'data': {'issue': 0, 'normal': 100}}, {'label': 3, 'color': 'lightcoral', 'data': {'issue': 60, 'normal': 40}}, {'label': 4, 'color': 'cadetblue', 'data': {'issue': 60, 'normal': 40}}]}
 const checkDonutData = [
-  { label: 0, color: 'darkorange', data: { a: 20, b: 80 } },
-  { label: 1, color: 'steelblue', data: { a: 20, b: 80 } },
-  { label: 2, color: 'yellowgreen', data: { a: 60, b: 40 } },
-  { label: 3, color: 'lightcoral', data: { a: 60, b: 40 } },
-  { label: 4, color: 'cadetblue', data: { a: 60, b: 40 } },
+  { label: 0, color: 'darkorange', data: { issue: 20, normal: 80 } },
+  { label: 1, color: 'steelblue', data: { issue: 20, normal: 80 } },
+  { label: 2, color: 'yellowgreen', data: { issue: 60, normal: 40 } },
+  { label: 3, color: 'lightcoral', data: { issue: 60, normal: 40 } },
+  { label: 4, color: 'cadetblue', data: { issue: 60, normal: 40 } },
 ]
 
 const legendData = [
@@ -76,7 +78,7 @@ export default function Check() {
         return <div style={{ display: 'flex' }}>
           <HeatmapChart />
           <div style={{ position: 'relative', right: 10 }}>
-            <div style={{ width: 162, height: 95, border: '1px solid #999999', marginTop: 30 }}>
+            <div style={{ width: 165, height: 95, border: '1px solid #999999', marginTop: 30 }}>
               <div style={{ position: 'absolute', top: 20, left: 10, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
               <div style={{ marginTop: 15 }}>
                 <p>row index</p>
@@ -84,7 +86,7 @@ export default function Check() {
                 <p>quality issue cnt</p>
               </div>
             </div>
-            <div style={{ width: 162, height: 65, border: '1px solid #999999', marginTop: 15 }}>
+            <div style={{ width: 165, height: 65, border: '1px solid #999999', marginTop: 15 }}>
               <div style={{ position: 'absolute', top: 130, left: 10, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>quality issue</div>
               <div style={{ marginTop: 15, display: 'flex' }}>
                 <p>row index</p>
@@ -120,14 +122,14 @@ export default function Check() {
             </div>
           </div>
           <div>
-            <div style={{ width: 170, height: 95, border: '1px solid #999999', marginTop: 30 }}>
+            <div style={{ width: 175, height: 95, border: '1px solid #999999', marginTop: 30 }}>
               <div style={{ position: 'absolute', top: 20, left: 270, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
               <div style={{ marginTop: 15 }}>
                 <p>outlier standard</p>
                 <p>quality issue cnt</p>
               </div>
             </div>
-            <div style={{ width: 170, height: 65, border: '1px solid #999999', marginTop: 15 }}>
+            <div style={{ width: 175, height: 65, border: '1px solid #999999', marginTop: 15 }}>
               <div style={{ position: 'absolute', top: 130, left: 270, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>quality issue</div>
               <div style={{ marginTop: 15, display: 'flex' }}>
                 <p>row index</p>
@@ -141,7 +143,7 @@ export default function Check() {
         return <div style={{ display: 'flex' }}>
           <BoxplotChart />
           <div>
-            <div style={{ width: 152, height: 80, border: '1px solid #999999', marginTop: 30 }}>
+            <div style={{ width: 155, height: 80, border: '1px solid #999999', marginTop: 30 }}>
               <div style={{ position: 'absolute', top: 20, left: 290, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
               <div style={{ marginTop: 15 }}>
                 <p>column name</p>
@@ -149,7 +151,7 @@ export default function Check() {
                 <p>max</p>
               </div>
             </div>
-            <div style={{ width: 152, height: 80, border: '1px solid #999999', marginTop: 15 }}>
+            <div style={{ width: 155, height: 80, border: '1px solid #999999', marginTop: 15 }}>
               <div style={{ position: 'absolute', top: 115, left: 290, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>quality issue</div>
               <div style={{ marginTop: 15 }}>
                 <p>column name</p>
@@ -162,7 +164,7 @@ export default function Check() {
 
         case "ScatterChart":
           return <div style={{ display: 'flex' }}>
-            <div style={{ width: 100, height: 175, marginTop: 30, marginLeft: 10, marginRight: 10 }}>
+            <div style={{ width: 100, height: 175, marginTop: 20, marginLeft: 10, marginRight: 10 }}>
               <Title title="column" />
               <Select
                 options={columnList}
@@ -177,7 +179,7 @@ export default function Check() {
                 placeholder={<div>select</div>}
               />
             </div>
-            <div style={{ width: 310, height: 165, border: '1px solid #999999', marginTop: 40 }}>
+            <div style={{ width: 315, height: 165, border: '1px solid #999999', marginTop: 30 }}>
               <div style={{ position: 'absolute', top: 30, left: 130, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information & quality issue</div>
               <div style={{ marginTop: 15 }}>
                 <p>column name</p>

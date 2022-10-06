@@ -14,14 +14,15 @@ from io import StringIO
 from scipy import stats
 from collections import Counter
 
-import module.imputation as imputation
+import module.main as main
 import module.tree as tree
 
 app = Flask(__name__)
 CORS(app)
 
+fileName = 'wine'
 purpose = ''
-purposeColumn = ''
+column = ''
 inputModelList = []
 inputEvalList = []
 
@@ -47,21 +48,19 @@ def fileUpload():
 
 @app.route('/setting', methods=['GET', 'POST'])
 def setting():
-  global purpose, purposeColumn, inputModelList, inputEvalList
+  global purpose, column, inputModelList, inputEvalList
+
+  originDf = pd.read_csv('static/' + fileName + '.csv')
+  originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
 
   if request.method == 'GET':
-    with open('static/file.json', 'r', encoding = 'utf-8') as f:
-      data = json.load(f) 
-
-    originDf = pd.DataFrame(data)
-
     purposeList = []
     tmpList = ['prediction', 'classification']
     for i in range(len(tmpList)):
       purposeList.append({'label': tmpList[i], 'value': i})      
 
     columnList = []
-    tmpList = list(originDf.columns)
+    tmpList = originDf.columns.tolist()
     for i in range(len(tmpList)):
       columnList.append({'label': tmpList[i], 'value': i})
 
@@ -98,102 +97,64 @@ def setting():
     req = eval(req)
 
     purpose = req["purpose"]["label"]
-    purposeColumn = req["column"]["label"]
+    column = req["column"]["label"]
     modelList = req["model"]
     evalList = req["eval"]
 
     inputModelList = []
     for i in range(len(modelList)):
-        inputModelList.append(modelList[i]["label"])
+      inputModelList.append(modelList[i]["label"])
 
     inputEvalList = []
     for i in range(len(evalList)):
-        inputEvalList.append(evalList[i]["label"])
+      inputEvalList.append(evalList[i]["label"])
 
     return json.dumps({'setting': 'success'})
 
-@app.route('/dataSetting', methods=['GET', 'POST'])
-def dataSetting():
-  req = request.get_data().decode('utf-8')
-  req = eval(req)
-  print(req)
+@app.route('/donutChart', methods=['GET', 'POST'])
+def donutChart():
+  originDf = pd.read_csv('static/' + fileName + '.csv')
+  originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
+  totalNum = len(originDf) * len(originDf.columns.tolist())
 
-  return json.dumps({'dataSetting': 'success'})
+  mis = sum(originDf.isnull().sum().values.tolist())
+  misRate = round((mis/totalNum) * 100)
+  
+  tmpList = []
+  for column in originDf:
+    df = pd.DataFrame(pd.to_numeric(originDf[column], errors = 'coerce'))
+    df = df.dropna()
 
-@app.route('/modelSetting', methods=['GET', 'POST'])
-def modelSetting():
-  global purpose, purposeColumn, inputModelList, inputEvalList
+    lower, upper = main.lower_upper(df[column])
+    data1 = df[df[column] > upper]
+    data2 = df[df[column] < lower]
+    tmpList.append(data1.shape[0] + data2.shape[0])
+  out = sum(tmpList)
+  outRate = round((out/totalNum) * 100)
 
-  if request.method == 'GET':
-    with open('static/file.json', 'r', encoding = 'utf-8') as f:
-      data = json.load(f) 
+  tmpList = []
+  for column in originDf:
+    df = originDf[column].dropna()
+    df = pd.DataFrame(pd.to_numeric(df, errors = 'coerce'))
+    tmpList.append(df.isnull().sum().values[0].tolist())
+  inc = sum(tmpList)
+  incRate = round((inc/totalNum) * 100)
 
-    originDf = pd.DataFrame(data)
+  ##### sim, dep
+  simRate = round(60)
+  depRate = round(60)
 
-    purposeList = []
-    tmpList = ['prediction', 'classification']
-    for i in range(len(tmpList)):
-      purposeList.append({'label': tmpList[i], 'value': i})      
+  rateList = [misRate, outRate, incRate, simRate, depRate]
+  colorList = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue']
 
-    columnList = []
-    tmpList = list(originDf.columns)
-    for i in range(len(tmpList)):
-      columnList.append({'label': tmpList[i], 'value': i})
+  dataList = []
+  for i in range(0, 5):
+    dataList.append({'label': i, 'color': colorList[i], 'data': {'issue': rateList[i], 'normal': 100 - rateList[i]}})
 
-    modelList = []
-    if purpose == 'prediction':
-      tmpList = ['lr', 'knn', 'nb', 'dt', 'svm', 'rbfsvm', 'gpc', 'mlp', 'ridge', 'rf',
-                'qda', 'ada', 'gbc', 'lda', 'et', 'xgboost', 'lightgbm', 'catboost']
-    
-    else:
-      tmpList = ['lr', 'knn', 'nb', 'dt', 'svm', 'ridge', 'rf', 'qda', 'ada',
-                  'gbc', 'lda', 'et', 'xgboost', 'lightgbm', 'catboost']
-    for i in range(len(tmpList)):
-      modelList.append({'label': tmpList[i], 'value': i})
+  response = {}
+  response['donutChartData'] = dataList
 
-    evalList = []
-    if purpose == 'prediction':
-      tmpList = ['MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE', 'TT']
-    
-    else:
-      tmpList = ['Accuracy', 'AUC', 'Recall', 'Precision', 'F1', 'Kappa', 'MCC', 'TT']
-    for i in range(len(tmpList)):
-      evalList.append({'label': tmpList[i], 'value': i})
-
-    response = {}
-    response['purposeList'] = purposeList
-    response['columnList'] = columnList
-    response['modelList'] = modelList
-    response['evalList'] = evalList
-    
-    return json.dumps(response)
-
-  if request.method == 'POST':
-    req = request.get_data().decode('utf-8')
-    req = eval(req)
-
-    purpose = req["purpose"]["label"]
-    purposeColumn = req["column"]["label"]
-    modelList = req["model"]
-    evalList = req["eval"]
-
-    inputModelList = []
-    for i in range(len(modelList)):
-        inputModelList.append(modelList[i]["label"])
-
-    inputEvalList = []
-    for i in range(len(evalList)):
-        inputEvalList.append(evalList[i]["label"])
-
-    return json.dumps({'modelSetting': 'success'})
-
-@app.route('/distortSetting', methods=['GET', 'POST'])
-def distortSetting():
-  req = request.get_data().decode('utf-8')
-  req = eval(req)
-  print(req)
-
-  return json.dumps({'distortSetting': 'success'})
+  return json.dumps(response)
 
 @app.route('/combination', methods=['GET', 'POST'])
 def combinationTable():
