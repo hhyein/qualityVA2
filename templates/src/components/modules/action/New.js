@@ -48,9 +48,6 @@ export default function Action() {
     }
   }, [actionValues])
 
-  console.log(actionDetailValues);
-
-
   const handleChange = (key, value) => {
     if (key === 'action') {
       setActionValues(value);

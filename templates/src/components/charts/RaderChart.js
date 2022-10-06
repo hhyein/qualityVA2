@@ -11,7 +11,7 @@ export default function RaderChart(props) {
     var options = {
       series: [{
         name: 'Series 1',
-        data: [80, 50, 30, 40, 100, 20],
+        data: data,
       }],
       chart: {
         toolbar: {
@@ -25,14 +25,14 @@ export default function RaderChart(props) {
         type: 'radar',
     },
     xaxis: {
-      categories: ['MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE', 'TT']
+      categories: ['MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE']
     }
     };
 
     var chart = new ApexCharts(document.querySelector(".radar-wrapper"), options);
     chart.render();
   
-    }, [data])
+    }, [d3, data])
 
   return (
     <div className="radar-wrapper" />
