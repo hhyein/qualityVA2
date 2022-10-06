@@ -8,11 +8,33 @@ export default function Table() {
   const {
     isEmptyData,
     selectedLegendIdx,
+    modelSettingData: { columnList },
     settingValues
   } = useFileData()
 
-  const colorData = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue'];
-  const point = { x: 1, y: 1 };
+  const pointData = {
+    com: {
+      color: 'darkorange',
+      points: [{ x: 1, y: 1 }, { x: 2, y: 1 }, { x: 3, y: 1 }, { x: 4, y: 1 }, { x: 5, y: 1 }],
+    },
+    acc: {
+      color: 'steelblue',
+      points: [{ x: 4, y: 5 }],
+    },
+    con: {
+      color: 'yellowgreen',
+      points: [{ x: 1, y: 4 }],
+    },
+    sim: {
+      color: 'lightcoral',
+      points: [],
+    },
+    dep: {
+      color: 'cadetblue',
+      points: [],
+    }
+  };
+  const [colorData, setColorData] = React.useState({});
 
   const {
     file
@@ -20,6 +42,19 @@ export default function Table() {
 
   const [columnDatas, setcolumnDatas] = React.useState([]);
   const fileReader = new FileReader();
+
+  React.useEffect(() => {
+    const colorData = {};
+    for (let key in pointData) {
+      const color = pointData[key]['color'];
+      for (let point of pointData[key]['points']) {
+        if (colorData[point.x] === undefined)
+          colorData[point.x] = {};
+        colorData[point.x][point.y] = color;
+      }
+    }
+    setColorData(colorData);
+  }, []);
 
   React.useEffect(() => {
     if (file) {
@@ -34,7 +69,7 @@ export default function Table() {
       };
       fileReader.readAsText(file);
     }
-  }, [file])
+  }, [file]);
 
   return (
     <>
@@ -65,9 +100,12 @@ export default function Table() {
                   return (
                     <React.Fragment key={`col${rowIdx}`}>
                       {columnData.map((data, idx) => {
+                        const rowNumber = Math.floor(idx / columnList.length);
+                        const columnNumber = idx % columnList.length;
+
                         return (
                           <React.Fragment key={idx}>
-                            {rowIdx === 0
+                            {rowNumber === 0
                               ? <div
                                 className="grid-th"
                                 key={idx}
@@ -83,7 +121,7 @@ export default function Table() {
                                 </div>
                               : <div
                                 className="grid-td"
-                                style={point.x === rowIdx && point.y === idx ? { backgroundColor: colorData[selectedLegendIdx] } : undefined}
+                                style={{backgroundColor: colorData[rowNumber] ? colorData[rowNumber][columnNumber] : "none"}}
                                 key={idx}
                               >
                                 {data.slice(0, 5)}
