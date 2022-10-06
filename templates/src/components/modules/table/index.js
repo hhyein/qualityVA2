@@ -7,7 +7,6 @@ import ColumnSummaryChart from '../../charts/ColumnSummaryChart'
 export default function Table() {
   const {
     isEmptyData,
-    selectedLegendIdx,
     modelSettingData: { columnList },
     settingValues
   } = useFileData()
@@ -102,7 +101,6 @@ export default function Table() {
                       {columnData.map((data, idx) => {
                         const rowNumber = Math.floor(idx / columnList.length);
                         const columnNumber = idx % columnList.length;
-
                         return (
                           <React.Fragment key={idx}>
                             {rowNumber === 0

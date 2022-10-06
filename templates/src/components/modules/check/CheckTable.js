@@ -42,7 +42,7 @@ export default function checkTable(props) {
                   <React.Fragment key={idx}>
                     {rowIdx === 0
                       ? <div
-                        className="grid-td"
+                        className="grid-th"
                         key={idx}
                         style={{
                           cursor: 'default',

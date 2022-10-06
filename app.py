@@ -179,10 +179,6 @@ def tablePoint():
 
   return json.dumps(response)
 
-@app.route('/rowSummary', methods=['GET', 'POST'])
-def rowSummary():
-  return
-
 @app.route('/columnSummary', methods=['GET', 'POST'])
 def columnSummary():
   return
