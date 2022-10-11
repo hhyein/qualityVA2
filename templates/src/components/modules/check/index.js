@@ -212,22 +212,6 @@ export default function Check() {
           <div style={{ display: 'flex', height: '250px' }}>
             <div style={{ width: '440px' }}>
               <div style={{
-                width: '200px',
-                display: 'flex'
-              }}>
-                <Legend
-                  onLegendClick={setSelectedLegendIdx}
-                  dataColorInfo={legendData}
-                />
-                {checkDonutData.map((donutData, idx) => (
-                  <div style={{ margin: '5px 3px 0' }} key={idx}>
-                    <DonutChart
-                      donutData={donutData}
-                    />
-                  </div>
-                ))}
-              </div>
-              <div style={{
                 position: 'absolute',
                 top: 60,
                 left: 0,
@@ -241,6 +225,25 @@ export default function Check() {
                 })}
               </div>
             </div>
+            <div style={{
+                width: '200px',
+                display: 'flex',
+                position: 'absolute',
+                top: 10,
+                left: 10,
+              }}>
+                <Legend
+                  onLegendClick={setSelectedLegendIdx}
+                  dataColorInfo={legendData}
+                />
+                {checkDonutData.map((donutData, idx) => (
+                  <div style={{ margin: '5px 3px 0' }} key={idx}>
+                    <DonutChart
+                      donutData={donutData}
+                    />
+                  </div>
+                ))}
+              </div>
             <CheckTable
               checkTableData={checkTableData}
               setCheckTableData={setCheckTableData} />
