@@ -17,11 +17,11 @@ export default function Change() {
         settingValues
       }) && settingValues.model && <>
         <Title title="count" />
-        <div style={{ position: 'relative', bottom: '10px', height: '150px' }}>
+        <div style={{ position: 'relative', bottom: '10px', height: '130px' }}>
           <BarChart />
         </div>
         <Title title="distort" />
-        <div style={{ position: 'relative', bottom: '20px' }}>
+        <div style={{ position: 'relative', bottom: '15px' }}>
           <DensityChart />
         </div>
       </>}

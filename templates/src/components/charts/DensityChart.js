@@ -23,7 +23,7 @@ export default function DensityChart(props) {
         animations: {
           enabled: false
         },
-        height: 170,
+        height: 155,
         type: 'area'
       },
       dataLabels: {
@@ -44,7 +44,10 @@ export default function DensityChart(props) {
       legend: {
         show: false
       },
-      colors: ["#6C757D", "#1E90FF"]
+      stroke: {
+        width: 2
+      },
+      colors: ["#cccccc", "#6C757D"]
     };
 
     var chart = new ApexCharts(document.querySelector(".density-wrapper"), options);

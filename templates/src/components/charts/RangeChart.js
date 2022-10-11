@@ -32,12 +32,9 @@ export default function RangeChart(props) {
           enabled: false
         },
         type: 'rangeBar',
-        height: 90
+        height: 135
       },
-      yaxis: {
-        tickAmount: 2
-      },
-      colors: ["#6c757d"]
+      colors: ["#6C757D"]
     };
 
     var chart = new ApexCharts(document.querySelector(".range-wrapper"), options);

@@ -13,27 +13,40 @@ export default function Table() {
 
   const pointData = {
     com: {
-      color: 'darkorange',
+      rColor: 255,
+      gColor: 140,
+      bColor: 0,
       points: [{ x: 1, y: 1 }, { x: 2, y: 1 }, { x: 3, y: 1 }, { x: 4, y: 1 }, { x: 5, y: 1 }],
     },
     acc: {
-      color: 'steelblue',
+      rColor: 70,
+      gColor: 130,
+      bColor: 180,
       points: [{ x: 4, y: 5 }],
     },
     con: {
-      color: 'yellowgreen',
+      rColor: 154,
+      gColor: 205,
+      bColor: 50,
       points: [{ x: 1, y: 4 }],
     },
     sim: {
-      color: 'lightcoral',
+      rColor: 240,
+      gColor: 128,
+      bColor: 128,
       points: [],
     },
     dep: {
-      color: 'cadetblue',
+      rColor: 95,
+      gColor: 158,
+      bColor: 160,
       points: [],
     }
   };
-  const [colorData, setColorData] = React.useState({});
+
+  const [rColorData, setrColorData] = React.useState({});
+  const [gColorData, setgColorData] = React.useState({});
+  const [bColorData, setbColorData] = React.useState({});
 
   const {
     file
@@ -43,16 +56,33 @@ export default function Table() {
   const fileReader = new FileReader();
 
   React.useEffect(() => {
-    const colorData = {};
+    const rColorData = {};
+    const gColorData = {};
+    const bColorData = {};
+
     for (let key in pointData) {
-      const color = pointData[key]['color'];
+      const rColor = pointData[key]['rColor'];
+      const gColor = pointData[key]['gColor'];
+      const bColor = pointData[key]['bColor'];
+
       for (let point of pointData[key]['points']) {
-        if (colorData[point.x] === undefined)
-          colorData[point.x] = {};
-        colorData[point.x][point.y] = color;
+        if (rColorData[point.x] === undefined)
+          rColorData[point.x] = {};
+        rColorData[point.x][point.y] = rColor;
+
+        if (gColorData[point.x] === undefined)
+          gColorData[point.x] = {};
+        gColorData[point.x][point.y] = gColor;
+
+        if (bColorData[point.x] === undefined)
+          bColorData[point.x] = {};
+        bColorData[point.x][point.y] = bColor;
       }
     }
-    setColorData(colorData);
+
+    setrColorData(rColorData);
+    setgColorData(gColorData);
+    setbColorData(bColorData);
   }, []);
 
   React.useEffect(() => {
@@ -120,7 +150,7 @@ export default function Table() {
                                 </div>
                               : <div
                                 className="grid-td"
-                                style={{backgroundColor: colorData[rowNumber] ? colorData[rowNumber][columnNumber] : "none"}}
+                                style={{backgroundColor: rColorData[rowNumber] ? `rgba(${rColorData[rowNumber][columnNumber]}, ${gColorData[rowNumber][columnNumber]}, ${bColorData[rowNumber][columnNumber]}, 0.5)` : "none"}}
                                 key={idx}
                               >
                                 {data.slice(0, 5)}

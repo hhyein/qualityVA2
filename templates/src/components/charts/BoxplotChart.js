@@ -59,7 +59,7 @@ export default function BoxplotChart(props) {
         }
       },
       stroke: {
-        colors: ['#6c757d']
+        colors: ['#6C757D']
       }
     };
 

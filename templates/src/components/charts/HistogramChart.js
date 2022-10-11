@@ -30,7 +30,7 @@ export default function HistogramChart(props) {
       xaxis: {
         categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
       },
-      colors: ["#6c757d"]
+      colors: ["#6C757D"]
     };
 
     var chart = new ApexCharts(document.querySelector(".histogram-wrapper"), options);
