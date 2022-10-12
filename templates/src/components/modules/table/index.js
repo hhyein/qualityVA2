@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from '../../Box'
 import { useFileData } from '../../../contexts/FileDataContext'
-import RowSummaryChart from '../../charts/RowSummaryChart'
+import RowSummaryChartD3 from '../../charts/RowSummaryChartD3'
 import ColumnSummaryChart from '../../charts/ColumnSummaryChart'
 
 export default function Table() {
@@ -140,9 +140,8 @@ export default function Table() {
         settingValues
       }) && settingValues.model && columnDatas.length > 0 ? (
         <div style={{ display: 'flex', marginTop: -30, marginLeft: -25 }}>
-          <div>
-            <div style={{ marginTop: 30, height: 65 }} />
-            <RowSummaryChart />
+          <div style={{ marginTop: 95 }}>
+            <RowSummaryChartD3 />
           </div>
           <div>
             <div style={{ marginLeft: -30 }}>
