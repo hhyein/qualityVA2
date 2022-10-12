@@ -55,6 +55,8 @@ export default function Table() {
   const [columnDatas, setcolumnDatas] = React.useState([]);
   const fileReader = new FileReader();
 
+  const [gridData, setGridData] = React.useState('');
+
   React.useEffect(() => {
     const rColorData = {};
     const gColorData = {};
@@ -68,15 +70,15 @@ export default function Table() {
       for (let point of pointData[key]['points']) {
         if (rColorData[point.x] === undefined)
           rColorData[point.x] = {};
-        rColorData[point.x][point.y] = rColor;
+        rColorData[point.x][point.y+1] = rColor;
 
         if (gColorData[point.x] === undefined)
           gColorData[point.x] = {};
-        gColorData[point.x][point.y] = gColor;
+        gColorData[point.x][point.y+1] = gColor;
 
         if (bColorData[point.x] === undefined)
           bColorData[point.x] = {};
-        bColorData[point.x][point.y] = bColor;
+        bColorData[point.x][point.y+1] = bColor;
       }
     }
 
@@ -91,9 +93,15 @@ export default function Table() {
         const csvOutput = e.target.result;
         const code = csvOutput.toString().split('\r\n');
         const codeData = [];
-        for (let i = 0; i < code.length; i++) {
+        for (let i = 0; i < code.length-1; i++) {
           codeData.push(code[i].split(","));
         }
+        codeData[0].unshift('idx');
+        for(let i=1;i<codeData.length;i++) {
+          codeData[i].unshift(`${i}`);
+        }
+        const columnWidth = 685/(codeData[0].length);
+        setGridData(Array.from({length: codeData[0].length }, () => `${columnWidth}px`).join(" "));
         setcolumnDatas(codeData);
       };
       fileReader.readAsText(file);
@@ -123,7 +131,7 @@ export default function Table() {
             }}>
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'auto auto auto auto auto auto auto auto auto auto auto auto auto'
+                gridTemplateColumns: gridData
               }}>
                 {columnDatas.map((columnData, rowIdx) => {
                   return (
@@ -139,7 +147,7 @@ export default function Table() {
                                 className="grid-th"
                                 key={idx}
                                 style={{
-                                  width: '40px',
+                                  // width: '40px',
                                   cursor: 'default',
                                   background: undefined,
                                   textAlign: 'center',
