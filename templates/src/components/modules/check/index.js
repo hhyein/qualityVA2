@@ -40,6 +40,23 @@ const metricList = [
   { label: 'dependency', value: 4 },
 ]
 
+const outlierList = [
+  { label: 'statical based', value: 0 },
+  { label: 'ML based', value: 1 }
+];
+
+const correlationList = [
+  { label: 'person', value: 0 },
+  { label: 'kendall', value: 1 },
+  { label: 'spearman', value: 2 }
+];
+
+const thresholdList = [
+  { label: 0.1, value: 0 },
+  { label: 0.5, value: 1 },
+  { label: 1, value: 2 }
+];
+
 export default function Check() {
   const {
     isEmptyData,
@@ -118,6 +135,7 @@ export default function Check() {
               <div style={{ width: '45%' }}>
                 <Title title="outlier" />
                 <Select className="select"
+                  options={outlierList}
                   placeholder={<div>select</div>}
                 />
               </div>
@@ -177,10 +195,12 @@ export default function Check() {
             />
             <Title title="correlation" />
             <Select className="select"
+              options={correlationList}
               placeholder={<div>select</div>}
             />
             <Title title="threshold" />
             <Select className="select"
+              options={thresholdList}
               placeholder={<div>select</div>}
             />
           </div>
@@ -226,24 +246,24 @@ export default function Check() {
               </div>
             </div>
             <div style={{
-                width: '200px',
-                display: 'flex',
-                position: 'absolute',
-                top: 10,
-                left: 10,
-              }}>
-                <Legend
-                  onLegendClick={setSelectedLegendIdx}
-                  dataColorInfo={legendData}
-                />
-                {checkDonutData.map((donutData, idx) => (
-                  <div style={{ margin: '5px 3px 0' }} key={idx}>
-                    <DonutChart
-                      donutData={donutData}
-                    />
-                  </div>
-                ))}
-              </div>
+              width: '200px',
+              display: 'flex',
+              position: 'absolute',
+              top: 10,
+              left: 10,
+            }}>
+              <Legend
+                onLegendClick={setSelectedLegendIdx}
+                dataColorInfo={legendData}
+              />
+              {checkDonutData.map((donutData, idx) => (
+                <div style={{ margin: '5px 3px 0' }} key={idx}>
+                  <DonutChart
+                    donutData={donutData}
+                  />
+                </div>
+              ))}
+            </div>
             <CheckTable
               checkTableData={checkTableData}
               setCheckTableData={setCheckTableData} />
