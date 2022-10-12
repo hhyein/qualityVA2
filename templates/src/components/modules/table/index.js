@@ -121,16 +121,12 @@ export default function Table() {
     }
   }, [file]);
 
-  // rColorData[rowNumber] ? `rgba(${rColorData[rowNumber][columnNumber]}, ${gColorData[rowNumber][columnNumber]}, ${bColorData[rowNumber][columnNumber]}, 0.5)` : 
-
   const getBgColor = (rowNumber, columnNumber) => {
-    // 선택된 테이블 요소
     if((checkTableData.key === 'row' && checkTableData.data === rowNumber) || (checkTableData.key === 'col' && checkTableData.data === columnNumber)) {
-      // 원래 포인트색을 가지고 있었음
       if(columnNumber > 0 && rColorData[rowNumber] && rColorData[rowNumber][columnNumber]) {
         return `rgba(${rColorData[rowNumber][columnNumber]}, ${gColorData[rowNumber][columnNumber]}, ${bColorData[rowNumber][columnNumber]}, 0.7)`;
       }
-      return '#ddd';
+      return '#eee';
     }
     if(columnNumber > 0 && rColorData[rowNumber] && rColorData[rowNumber][columnNumber]) {
       return `rgba(${rColorData[rowNumber][columnNumber]}, ${gColorData[rowNumber][columnNumber]}, ${bColorData[rowNumber][columnNumber]}, 0.5)`;
@@ -179,9 +175,7 @@ export default function Table() {
                                 key={idx}
                                 onClick={idx > 0 ? onClickCol : undefined}
                                 style={{
-                                  // width: '40px',
                                   cursor: idx > 0 ? 'pointer' : 'default',
-                                  // cursor: 'default',
                                   background: getBgColor(rowNumber, columnNumber),
                                   textAlign: 'center',
                                   fontWeight: 'bold',
