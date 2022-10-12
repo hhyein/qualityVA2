@@ -57,6 +57,19 @@ export default function Table() {
 
   const [gridData, setGridData] = React.useState('');
 
+  const [checkTableData, setCheckTableData] = React.useState({
+    key: 'row',
+    data: 1
+  });
+
+  const handleTableClick = (key, idx) => {
+    setCheckTableData({
+      key: key,
+      data: idx
+    });
+  }
+
+
   React.useEffect(() => {
     const rColorData = {};
     const gColorData = {};
@@ -108,6 +121,23 @@ export default function Table() {
     }
   }, [file]);
 
+  // rColorData[rowNumber] ? `rgba(${rColorData[rowNumber][columnNumber]}, ${gColorData[rowNumber][columnNumber]}, ${bColorData[rowNumber][columnNumber]}, 0.5)` : 
+
+  const getBgColor = (rowNumber, columnNumber) => {
+    // 선택된 테이블 요소
+    if((checkTableData.key === 'row' && checkTableData.data === rowNumber) || (checkTableData.key === 'col' && checkTableData.data === columnNumber)) {
+      // 원래 포인트색을 가지고 있었음
+      if(columnNumber > 0 && rColorData[rowNumber] && rColorData[rowNumber][columnNumber]) {
+        return `rgba(${rColorData[rowNumber][columnNumber]}, ${gColorData[rowNumber][columnNumber]}, ${bColorData[rowNumber][columnNumber]}, 0.7)`;
+      }
+      return '#ddd';
+    }
+    if(columnNumber > 0 && rColorData[rowNumber] && rColorData[rowNumber][columnNumber]) {
+      return `rgba(${rColorData[rowNumber][columnNumber]}, ${gColorData[rowNumber][columnNumber]}, ${bColorData[rowNumber][columnNumber]}, 0.5)`;
+    }
+    return undefined;
+  }
+
   return (
     <>
       {!isEmptyData({
@@ -134,22 +164,25 @@ export default function Table() {
                 gridTemplateColumns: gridData
               }}>
                 {columnDatas.map((columnData, rowIdx) => {
+                  const onClickRow = () => handleTableClick('row', rowIdx)
                   return (
                     <React.Fragment key={`col${rowIdx}`}>
                       {columnData.map((data, idx) => {
                         const rowNumber = rowIdx;
-                        const columnNumber = idx % columnList.length;
-
+                        const columnNumber = idx;
+                        const onClickCol = () => handleTableClick('col', idx)
                         return (
                           <React.Fragment key={idx}>
                             {rowNumber === 0
                               ? <div
                                 className="grid-th"
                                 key={idx}
+                                onClick={idx > 0 ? onClickCol : undefined}
                                 style={{
                                   // width: '40px',
-                                  cursor: 'default',
-                                  background: undefined,
+                                  cursor: idx > 0 ? 'pointer' : 'default',
+                                  // cursor: 'default',
+                                  background: getBgColor(rowNumber, columnNumber),
                                   textAlign: 'center',
                                   fontWeight: 'bold',
                                 }}
@@ -158,7 +191,11 @@ export default function Table() {
                                 </div>
                               : <div
                                 className="grid-td"
-                                style={{backgroundColor: rColorData[rowNumber] ? `rgba(${rColorData[rowNumber][columnNumber]}, ${gColorData[rowNumber][columnNumber]}, ${bColorData[rowNumber][columnNumber]}, 0.5)` : "none"}}
+                                onClick={idx === 0 ? onClickRow : undefined}
+                                style={{
+                                  backgroundColor: getBgColor(rowNumber, columnNumber),
+                                  cursor: idx === 0 ? 'pointer' : 'default',
+                                }}
                                 key={idx}
                               >
                                 {data.slice(0, 5)}
