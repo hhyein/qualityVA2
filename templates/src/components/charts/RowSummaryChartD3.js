@@ -61,6 +61,6 @@ export default function RowSummaryChartD3() {
   }, [svgRef])
 
   return (
-    <div className="row-wrapper" style={{ height: 440, overflowY: 'scroll' }} />
+    <div className="row-wrapper" style={{ height: 440 }} />
   )
 }

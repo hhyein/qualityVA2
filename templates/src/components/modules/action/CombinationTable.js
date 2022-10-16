@@ -95,8 +95,7 @@ export default function CombinationTable({
                   key={`${key}${colIdx}`}
                   onClick={onClick}
                   style={{
-                    borderRight:
-                      colIdx === columnKeys.length - 1 ? 'none' : undefined,
+                    borderRight: colIdx === columnKeys.length - 2 && 'none',
                     borderBottom: isLastRow ? 'none' : undefined,
                     backgroundColor: selectedKey === key ? '#eee' : undefined,
                     cursor: 'pointer'

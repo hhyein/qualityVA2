@@ -113,7 +113,7 @@ export default function Table() {
         for(let i=1;i<codeData.length;i++) {
           codeData[i].unshift(`${i}`);
         }
-        const columnWidth = 685/(codeData[0].length);
+        const columnWidth = 675/(codeData[0].length);
         setGridData(Array.from({length: codeData[0].length }, () => `${columnWidth}px`).join(" "));
         setcolumnDatas(codeData);
       };
@@ -140,23 +140,24 @@ export default function Table() {
         settingValues
       }) && settingValues.model && columnDatas.length > 0 ? (
         <div style={{ display: 'flex', marginTop: -30, marginLeft: -25 }}>
-          <div style={{ marginTop: 95 }}>
-            <RowSummaryChartD3 />
-          </div>
           <div>
-            <div style={{ marginLeft: -30 }}>
+            <div style={{ marginLeft: 60 }}>
               <ColumnSummaryChart />
             </div>
             <div style={{
+              display: 'flex',
               overflowY: 'scroll',
-              marginLeft: -10,
+              // marginLeft: 90,
               marginTop: -20,
-              width: '710px',
+              paddingTop: 20,
+              paddingRight: 10,
+              width: '790px',
               height: '440px',
             }}>
+            <RowSummaryChartD3 />
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: gridData
+                gridTemplateColumns: gridData,
               }}>
                 {columnDatas.map((columnData, rowIdx) => {
                   const onClickRow = () => handleTableClick('row', rowIdx)
@@ -178,6 +179,7 @@ export default function Table() {
                                   background: getBgColor(rowNumber, columnNumber),
                                   textAlign: 'center',
                                   fontWeight: 'bold',
+                                  borderRight: columnNumber === columnData.length - 1 && 'none',
                                 }}
                                 >
                                   {data.slice(0, 5)}
@@ -188,6 +190,7 @@ export default function Table() {
                                 style={{
                                   backgroundColor: getBgColor(rowNumber, columnNumber),
                                   cursor: idx === 0 ? 'pointer' : 'default',
+                                  borderRight: columnNumber === columnData.length - 1 && 'none',
                                 }}
                                 key={idx}
                               >
