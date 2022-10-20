@@ -152,7 +152,7 @@ export default function Table() {
               paddingTop: 20,
               paddingRight: 10,
               width: '790px',
-              height: '440px',
+              height: '420px',
             }}>
             <RowSummaryChartD3 />
               <div style={{
