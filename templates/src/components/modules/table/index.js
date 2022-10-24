@@ -69,7 +69,6 @@ export default function Table() {
     });
   }
 
-
   React.useEffect(() => {
     const rColorData = {};
     const gColorData = {};
@@ -141,20 +140,18 @@ export default function Table() {
       }) && settingValues.model && columnDatas.length > 0 ? (
         <div style={{ display: 'flex', marginTop: -30, marginLeft: -25 }}>
           <div>
-            <div style={{ marginLeft: 60 }}>
+            <div style={{ marginLeft: 65 }}>
               <ColumnSummaryChart />
             </div>
             <div style={{
               display: 'flex',
               overflowY: 'scroll',
-              // marginLeft: 90,
               marginTop: -20,
-              paddingTop: 20,
               paddingRight: 10,
               width: '790px',
-              height: '420px',
+              height: '440px',
             }}>
-            <RowSummaryChartD3 />
+              <RowSummaryChartD3 />
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: gridData,
