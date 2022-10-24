@@ -56,7 +56,6 @@ export default function HeatmapChart(props) {
             setRowIndex(rowIndex);
             setColumnName(columnName);
             setQualityIssueCnt(qualityIssueCnt);
-            console.log(event, chartContext, config);
           }
         }
       },

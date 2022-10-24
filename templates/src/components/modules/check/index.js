@@ -71,9 +71,12 @@ export default function Check() {
     value: 0
   });
   const [visualizationList, setVisualizationList] = React.useState([]);
-  const [rowIndex, setRowIndex] = React.useState('');
-  const [columnName, setColumnName] = React.useState('');
-  const [qualityIssueCnt, setQualityIssueCnt] = React.useState(0);
+  const [completenessRowIndex, setCompletenessRowIndex] = React.useState('');
+  const [completenessColumnName, setCompletenessColumnName] = React.useState('');
+  const [completenessQualityIssueCnt, setCompletenessQualityIssueCnt] = React.useState(0);
+  const [similarityColumnName, setSimilarityColumnName] = React.useState('');
+  const [similarityMin, setSimilarityMin] = React.useState(0);
+  const [similarityMax, setSimilarityMax] = React.useState(0);
 
 
   React.useEffect(() => {
@@ -102,17 +105,17 @@ export default function Check() {
       case "HeatmapChart":
         return <div style={{ display: 'flex' }}>
           <HeatmapChart
-            setRowIndex={setRowIndex}
-            setColumnName={setColumnName}
-            setQualityIssueCnt={setQualityIssueCnt}
+            setRowIndex={setCompletenessRowIndex}
+            setColumnName={setCompletenessColumnName}
+            setQualityIssueCnt={setCompletenessQualityIssueCnt}
           />
           <div style={{ position: 'relative', right: 10 }}>
             <div style={{ width: 165, height: 95, border: '1px solid #999999', marginTop: 30 }}>
               <div style={{ position: 'absolute', top: 20, left: 10, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
               <div style={{ marginTop: 10 }}>
-                <p>row index {rowIndex}</p>
-                <p>column name {columnName}</p>
-                <p>quality issue cnt {qualityIssueCnt}</p>
+                <p>row index {completenessRowIndex}</p>
+                <p>column name {completenessColumnName}</p>
+                <p>quality issue cnt {completenessQualityIssueCnt}</p>
               </div>
             </div>
             <div style={{ width: 165, height: 60, border: '1px solid #999999', marginTop: 15 }}>
@@ -171,14 +174,18 @@ export default function Check() {
 
       case "BoxplotChart":
         return <div style={{ display: 'flex' }}>
-          <BoxplotChart />
+          <BoxplotChart
+            setColumnName={setSimilarityColumnName}
+            setMin={setSimilarityMin}
+            setMax={setSimilarityMax}
+          />
           <div>
             <div style={{ width: 155, height: 80, border: '1px solid #999999', marginTop: 30 }}>
               <div style={{ position: 'absolute', top: 20, left: 290, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
               <div style={{ marginTop: 10 }}>
-                <p>column name</p>
-                <p>mix</p>
-                <p>max</p>
+                <p>column name {similarityColumnName}</p>
+                <p>mix {similarityMin}</p>
+                <p>max {similarityMax}</p>
               </div>
             </div>
             <div style={{ width: 155, height: 75, border: '1px solid #999999', marginTop: 15 }}>
