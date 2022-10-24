@@ -71,6 +71,9 @@ export default function Check() {
     value: 0
   });
   const [visualizationList, setVisualizationList] = React.useState([]);
+  const [rowIndex, setRowIndex] = React.useState('');
+  const [columnName, setColumnName] = React.useState('');
+  const [qualityIssueCnt, setQualityIssueCnt] = React.useState(0);
 
 
   React.useEffect(() => {
@@ -98,14 +101,18 @@ export default function Check() {
     switch (value) {
       case "HeatmapChart":
         return <div style={{ display: 'flex' }}>
-          <HeatmapChart />
+          <HeatmapChart
+            setRowIndex={setRowIndex}
+            setColumnName={setColumnName}
+            setQualityIssueCnt={setQualityIssueCnt}
+          />
           <div style={{ position: 'relative', right: 10 }}>
             <div style={{ width: 165, height: 95, border: '1px solid #999999', marginTop: 30 }}>
               <div style={{ position: 'absolute', top: 20, left: 10, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
               <div style={{ marginTop: 10 }}>
-                <p>row index</p>
-                <p>column name</p>
-                <p>quality issue cnt</p>
+                <p>row index {rowIndex}</p>
+                <p>column name {columnName}</p>
+                <p>quality issue cnt {qualityIssueCnt}</p>
               </div>
             </div>
             <div style={{ width: 165, height: 60, border: '1px solid #999999', marginTop: 15 }}>

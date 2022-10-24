@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import ApexCharts from 'apexcharts'
 
 export default function HeatmapChart(props) {
-  const { data } = props
+  const { data, setRowIndex, setColumnName, setQualityIssueCnt } = props
   const d3 = window.d3v4
 
   useEffect(() => {
@@ -47,7 +47,18 @@ export default function HeatmapChart(props) {
         },
         width: 280,
         height: 220,
-        type: 'heatmap'
+        type: 'heatmap',
+        events: {
+          click: (event, chartContext, config) => {
+            const rowIndex = config.config.series[config.seriesIndex].name;
+            const columnName = config.config.xaxis.categories[config.dataPointIndex];
+            const qualityIssueCnt = config.config.series[config.seriesIndex].data[config.dataPointIndex];
+            setRowIndex(rowIndex);
+            setColumnName(columnName);
+            setQualityIssueCnt(qualityIssueCnt);
+            console.log(event, chartContext, config);
+          }
+        }
       },
       dataLabels: {
         enabled: false
