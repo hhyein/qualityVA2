@@ -47,6 +47,14 @@ export default function BoxplotChart(props) {
         type: 'boxPlot',
         events: {
           click: (event, chartContext, config) => {
+            // 빈 공간 클릭 시
+            if (config.dataPointIndex === -1) {
+              setColumnName('');
+              setMin('');
+              setMax('');
+              return;
+            }
+
             const columnName = config.config.series[0].data[config.dataPointIndex].x;
             const min = config.config.series[0].data[config.dataPointIndex].y[0];
             const max = config.config.series[0].data[config.dataPointIndex].y[4];

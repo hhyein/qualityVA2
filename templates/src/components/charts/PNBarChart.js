@@ -25,6 +25,13 @@ export default function BarChart(props) {
         height: 155,
         events: {
           click: (event, chartContext, config) => {
+            // 빈 공간 클릭 시
+            if (config.dataPointIndex === -1) {
+              setColumnName('');
+              setCorrelation('');
+              return;
+            }
+
             const columnName = config.config.xaxis.categories[config.dataPointIndex];
             const correlation = config.config.series[0].data[config.dataPointIndex].toFixed(0) + "%";
             setColumnName(columnName);

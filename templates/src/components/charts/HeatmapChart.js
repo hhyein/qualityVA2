@@ -50,6 +50,14 @@ export default function HeatmapChart(props) {
         type: 'heatmap',
         events: {
           click: (event, chartContext, config) => {
+            // 빈 공간 클릭 시
+            if (config.dataPointIndex === -1 || config.seriesIndex === -1) {
+              setRowIndex('');
+              setColumnName('');
+              setQualityIssueCnt('');
+              return;
+            }
+
             const rowIndex = config.config.series[config.seriesIndex].name;
             const columnName = config.config.xaxis.categories[config.dataPointIndex];
             const qualityIssueCnt = config.config.series[config.seriesIndex].data[config.dataPointIndex];
