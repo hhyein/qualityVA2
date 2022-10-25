@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import ApexCharts from 'apexcharts'
 
 export default function BoxplotChart(props) {
-  const { data } = props
+  const { data, setColumnName, setMin, setMax } = props
   const d3 = window.d3v4
 
   useEffect(() => {
@@ -44,7 +44,25 @@ export default function BoxplotChart(props) {
         },
         width: 280,
         height: 220,
-        type: 'boxPlot'
+        type: 'boxPlot',
+        events: {
+          click: (event, chartContext, config) => {
+            // 빈 공간 클릭 시
+            if (config.dataPointIndex === -1) {
+              setColumnName('');
+              setMin('');
+              setMax('');
+              return;
+            }
+
+            const columnName = config.config.series[0].data[config.dataPointIndex].x;
+            const min = config.config.series[0].data[config.dataPointIndex].y[0];
+            const max = config.config.series[0].data[config.dataPointIndex].y[4];
+            setColumnName(columnName);
+            setMin(min);
+            setMax(max);
+          }
+        }
       },
       plotOptions: {
         bar: {
