@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import ApexCharts from 'apexcharts'
 
 export default function BarChart(props) {
-  const { data } = props
+  const { data, setColumnName, setCorrelation } = props
   const d3 = window.d3v4
 
   useEffect(() => {
@@ -22,7 +22,15 @@ export default function BarChart(props) {
         },
         type: 'bar',
         width: 130,
-        height: 155
+        height: 155,
+        events: {
+          click: (event, chartContext, config) => {
+            const columnName = config.config.xaxis.categories[config.dataPointIndex];
+            const correlation = config.config.series[0].data[config.dataPointIndex].toFixed(0) + "%";
+            setColumnName(columnName);
+            setCorrelation(correlation);
+          }
+        }
       },
       plotOptions: {
         bar: {

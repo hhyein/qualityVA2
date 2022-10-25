@@ -73,10 +73,12 @@ export default function Check() {
   const [visualizationList, setVisualizationList] = React.useState([]);
   const [completenessRowIndex, setCompletenessRowIndex] = React.useState('');
   const [completenessColumnName, setCompletenessColumnName] = React.useState('');
-  const [completenessQualityIssueCnt, setCompletenessQualityIssueCnt] = React.useState(0);
+  const [completenessQualityIssueCnt, setCompletenessQualityIssueCnt] = React.useState('');
   const [similarityColumnName, setSimilarityColumnName] = React.useState('');
-  const [similarityMin, setSimilarityMin] = React.useState(0);
-  const [similarityMax, setSimilarityMax] = React.useState(0);
+  const [similarityMin, setSimilarityMin] = React.useState('');
+  const [similarityMax, setSimilarityMax] = React.useState('');
+  const [dependencyColumnName, setDependencyColumnName] = React.useState('');
+  const [dependencyCorrelation, setDependencyCorrelation] = React.useState('');
 
 
   React.useEffect(() => {
@@ -221,11 +223,14 @@ export default function Check() {
           <div style={{ width: 315, height: 175, border: '1px solid #999999', marginTop: 30 }}>
             <div style={{ position: 'absolute', top: 20, left: 130, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information & quality issue</div>
             <div style={{ marginTop: 10 }}>
-              <p>column name</p>
-              <p>correlation</p>
+              <p>column name {dependencyColumnName}</p>
+              <p>correlation {dependencyCorrelation}</p>
             </div>
             <div style={{ display: 'flex', position: 'relative', bottom: 15 }}>
-              <PNBarChart />
+              <PNBarChart
+                setColumnName={setDependencyColumnName}
+                setCorrelation={setDependencyCorrelation}
+              />
               <div style={{ position: 'relative', right: 10 }}>
                 <ScatterChart />
               </div>
