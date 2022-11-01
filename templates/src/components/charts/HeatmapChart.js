@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import ApexCharts from 'apexcharts'
 
 export default function HeatmapChart(props) {
-  const { data, setRowIndex, setColumnName, setQualityIssueCnt } = props
+  const { data, label, setRowIndex, setColumnName, setQualityIssueCnt } = props
   const d3 = window.d3v4
 
   useEffect(() => {
@@ -88,6 +88,14 @@ export default function HeatmapChart(props) {
     chart.render();
 
     }, [data])
+
+  useEffect(() => {
+    // 초기화
+    console.log("init");
+    setRowIndex('');
+    setColumnName('');
+    setQualityIssueCnt('');
+  }, [label])
 
   return (
     <div className="heatmap-wrapper" />

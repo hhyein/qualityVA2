@@ -107,6 +107,7 @@ export default function Check() {
       case "HeatmapChart":
         return <div style={{ display: 'flex' }}>
           <HeatmapChart
+            label={metricValues?.label}
             setRowIndex={setCompletenessRowIndex}
             setColumnName={setCompletenessColumnName}
             setQualityIssueCnt={setCompletenessQualityIssueCnt}
