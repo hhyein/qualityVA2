@@ -91,7 +91,6 @@ export default function HeatmapChart(props) {
 
   useEffect(() => {
     // 초기화
-    console.log("init");
     setRowIndex('');
     setColumnName('');
     setQualityIssueCnt('');
