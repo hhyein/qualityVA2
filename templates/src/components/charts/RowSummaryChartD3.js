@@ -47,6 +47,7 @@ export default function RowSummaryChartD3() {
     svg.selectAll()
         .data(data, function(d) {return d.group+':'+d.variable;})
         .enter()
+        .filter(function(d) { return myGroups.indexOf(d.group) >= 0 })
         .append("rect")
         .attr("x", function(d) { return x(d.group) })
         .attr("y", function(d) { return y(d.variable) })
