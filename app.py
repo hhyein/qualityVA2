@@ -55,7 +55,7 @@ def setting():
 
   if request.method == 'GET':
     purposeList = []
-    tmpList = ['prediction', 'classification']
+    tmpList = ['regression', 'classification']
     for i in range(len(tmpList)):
       purposeList.append({'label': tmpList[i], 'value': i})      
 
@@ -65,7 +65,7 @@ def setting():
       columnList.append({'label': tmpList[i], 'value': i})
 
     modelList = []
-    if purpose == 'prediction':
+    if purpose == 'regression':
       tmpList = ['lr', 'knn', 'nb', 'dt', 'svm', 'rbfsvm', 'gpc', 'mlp', 'ridge', 'rf',
                 'qda', 'ada', 'gbc', 'lda', 'et', 'xgboost', 'lightgbm', 'catboost']
     
@@ -76,7 +76,7 @@ def setting():
       modelList.append({'label': tmpList[i], 'value': i})
 
     evalList = []
-    if purpose == 'prediction':
+    if purpose == 'regression':
       tmpList = ['MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE', 'TT']
     
     else:
