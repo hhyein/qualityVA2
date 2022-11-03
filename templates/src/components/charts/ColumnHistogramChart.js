@@ -20,7 +20,7 @@ export default function ColumnHistogramChart(props) {
         animations: {
           enabled: false
         },
-        height: 180,
+        height: 175,
         type: 'bar',
       },
       dataLabels: {
@@ -38,6 +38,6 @@ export default function ColumnHistogramChart(props) {
   }, [data])
 
   return (
-    <div className="columnHistogram-wrapper" style={{ position: 'relative', bottom: 30 }} />
+    <div className="columnHistogram-wrapper" style={{ position: 'relative', bottom: 50 }} />
   )
 }

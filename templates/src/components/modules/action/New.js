@@ -3,6 +3,7 @@ import Select from 'react-select'
 import Title from '../../Title'
 import ColumnHistogramChart from '../../charts/ColumnHistogramChart'
 import ColumnBoxplotChart from '../../charts/ColumnBoxplotChart'
+import RowScatterChart from '../../charts/ColumnBoxplotChart'
 
 export default function Action() {
 
@@ -53,8 +54,7 @@ export default function Action() {
       <React.Fragment>
         <ColumnBoxplotChart />
         <ColumnHistogramChart />
-        {/* <RowScatterChart /> */}
-        <div style={{ display: 'flex', position: 'relative', bottom: 60 }}>
+        <div style={{ display: 'flex', position: 'relative', bottom: 80 }}>
           <div style={{
             width: '47.5%',
             margin: '0 5%'

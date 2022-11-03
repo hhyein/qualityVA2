@@ -29,7 +29,7 @@ export default function ScatterChart(props) {
         animations: {
           enabled: false
         },
-        height: 230,
+        height: 220,
         type: 'scatter',
         zoom: {
           enabled: true,
@@ -53,6 +53,6 @@ export default function ScatterChart(props) {
     }, [data])
 
   return (
-    <div className="rowScatter-wrapper" />
+    <div className="rowScatter-wrapper" style={{ position: 'relative', bottom: 10 }} />
   )
 }
