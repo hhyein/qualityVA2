@@ -3,10 +3,9 @@ import Select from 'react-select'
 import Title from '../../Title'
 import ColumnHistogramChart from '../../charts/ColumnHistogramChart'
 import ColumnBoxplotChart from '../../charts/ColumnBoxplotChart'
-import RowScatterChart from '../../charts/ColumnBoxplotChart'
+import RowScatterChart from '../../charts/RowScatterChart'
 
 export default function Action() {
-
   const actionList = ['remove', 'missing', 'outlier', 'inconsistent', 'transformation'].map((item, idx) => {
     return {
       label: item,
