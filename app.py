@@ -183,12 +183,23 @@ def tablePoint():
 def columnSummary():
   return
 
+@app.route('/rowSummary', methods=['GET', 'POST'])
+def rowSummary():
+  return
+
 @app.route('/combination', methods=['GET', 'POST'])
 def combinationTable():
   with open('static/combination.json') as f:
     combinationData = json.load(f)
 
   return json.dumps(combinationData)
+
+@app.route('/new', methods=['GET', 'POST'])
+def new():
+  req = request.get_data().decode('utf-8')
+  req = eval(req)
+
+  return jsonify({'new: success'})
 
 if __name__ == '__main__':
   app.jinja_env.auto_reload = True
