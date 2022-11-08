@@ -7,7 +7,7 @@ export const mainLayoutStyle = {
     'setting check check check check'
     'setting check check check check'
     'setting check check check check'
-    'table table table effect my-combination'
+    'table table table effect change'
     'table table table action change'
     'table table table action change'
     'table table table action change'
@@ -21,7 +21,6 @@ export const boxTitles = {
   'effect': 'quality impact by action',
   'table': 'table',
   'action': 'data quality improvement',
-  'my-combination': 'my combination',
   'change': 'data change'
 }
 
