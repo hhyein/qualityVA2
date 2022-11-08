@@ -33,6 +33,9 @@ export default function RaderChart(props) {
       xaxis: {
         categories: ['MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE']
       },
+      yaxis: {
+        show: false
+      },
       colors: ['#FF6347', '#9370DB', '#2E8B57', '#DC143C', '#FF69B4'],
     };
 

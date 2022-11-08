@@ -34,6 +34,11 @@ export default function RangeChart(props) {
         type: 'rangeBar',
         height: 135
       },
+      plotOptions: {
+        bar: {
+          columnWidth: '30%'
+        }
+      },
       colors: ["#6C757D"]
     };
 
