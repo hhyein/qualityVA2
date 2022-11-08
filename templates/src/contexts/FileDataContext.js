@@ -47,6 +47,7 @@ export const FileDataProvider = ({ children }) => {
   const [myCombinationRadioValue, setMyCombinationRadioValue] = React.useState('knn');
   const [myCombinationData, setMyCombinationData] = React.useState();
   const [selectedLegendIdx, setSelectedLegendIdx] = useState(0);
+  const [treeChartData, setTreeChartData] = useState();
   
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
@@ -144,7 +145,9 @@ export const FileDataProvider = ({ children }) => {
         setMyCombinationData,
         myCombinationData,
         selectedLegendIdx,
-        setSelectedLegendIdx
+        setSelectedLegendIdx,
+        treeChartData,
+        setTreeChartData
       }}
     >
       {children}

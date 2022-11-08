@@ -63,7 +63,8 @@ export default function Check() {
     settingValues,
     selectedLegendIdx,
     setSelectedLegendIdx,
-    modelSettingData: { columnList }
+    modelSettingData: { columnList },
+    treeChartData
   } = useFileData()
 
   const [metricValues, setMetricValues] = React.useState({
@@ -79,11 +80,28 @@ export default function Check() {
   const [similarityMax, setSimilarityMax] = React.useState('');
   const [dependencyColumnName, setDependencyColumnName] = React.useState('');
   const [dependencyCorrelation, setDependencyCorrelation] = React.useState('');
-
+  const [dataList, setDataList] = React.useState();
+  const [dataIndex, setDataIndex] = React.useState();
 
   React.useEffect(() => {
     setMetricValues(metricList[selectedLegendIdx])
   }, [selectedLegendIdx])
+
+  React.useEffect(() => {
+    if (treeChartData) {
+      setDataList(treeChartData.map(d => (
+        <div style={{ display: 'flex' }}>
+          {d.map(imgName => (
+            <img
+              src={require(`../../icons/${imgName}.png`)}
+              alt={''}
+              style={{ height: '25px', width: '25px' }}
+            />
+          ))}
+        </div>
+      )));
+    }
+  }, [treeChartData])
 
   React.useEffect(() => {
     if (metricValues?.label === 'completeness' || metricValues?.label === 'consistency') {
@@ -248,7 +266,10 @@ export default function Check() {
     <Box title="check">
       {!isEmptyData({
         settingValues
-      }) && settingValues.model && <>
+      }) && settingValues.model && <div style={{
+        display: 'flex',
+        width: '440px'
+      }}>
           <div style={{ display: 'flex', height: '250px' }}>
             <div style={{ width: '440px' }}>
               <div style={{
@@ -292,11 +313,36 @@ export default function Check() {
                 <RaderChart data={checkTableData.data} />
               </div>
               <div style={{ overflowY: 'scroll' }}>
-                <TreeChart />
+                <TreeChart treeData={dataList} setDataIndex={setDataIndex} />
               </div>
             </div>
           </div>
-        </>}
+          {dataList && dataIndex &&
+          <div style={{
+            position: 'relative',
+            top: Number.parseInt(dataIndex)*70,
+            right: '35px',
+            minWidth: '160px',
+            height: '100px',
+            backgroundColor: '#fff',
+            zIndex: 100
+          }}>
+            <div style={{
+              backgroundColor: '#eee',
+              height: '30px',
+              padding: '2px'
+            }}>
+              step {dataIndex}
+            </div>
+            <div style={{
+              padding: '2px'
+            }}>
+              method: {dataIndex === '0' ? 'none' : dataList[Number.parseInt(dataIndex)-1].props.children[0]}</div>
+            <div style={{
+              padding: '2px'
+            }}>detail method: {dataIndex === '0' ? 'none' : dataList[Number.parseInt(dataIndex)-1].props.children[1]}</div>
+          </div>}
+        </div>}
     </Box>
   )
 }
