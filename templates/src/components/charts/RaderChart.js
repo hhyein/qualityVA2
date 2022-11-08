@@ -10,8 +10,14 @@ export default function RaderChart(props) {
 
     var options = {
       series: [{
-        name: 'Series 1',
-        data: data,
+        name: 'LR',
+        data: [80, 50, 30, 40, 100, 20],
+      }, {
+        name: 'NB',
+        data: [20, 30, 40, 80, 20, 80],
+      }, {
+        name: 'DT',
+        data: [44, 76, 78, 13, 43, 10],
       }],
       chart: {
         toolbar: {
@@ -27,7 +33,7 @@ export default function RaderChart(props) {
       xaxis: {
         categories: ['MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE']
       },
-      colors: ['#FF8C00'],
+      colors: ['#FF6347', '#9370DB', '#2E8B57', '#DC143C', '#FF69B4'],
     };
 
     var chart = new ApexCharts(document.querySelector(".radar-wrapper"), options);

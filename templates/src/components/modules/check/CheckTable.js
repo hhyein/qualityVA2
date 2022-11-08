@@ -14,7 +14,7 @@ export default function checkTable(props) {
     ['GPC', '2.43', '5.64', '3.06', '1.04', '3.06', '1.04'],
   ];
 
-  const colorData = ['', 'darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue', 'lightblue'];
+  const colorData = ['', 'tomato', 'mediumpurple', 'seagreen', 'darkgray', 'darkgray', 'darkgray'];
 
   const handleTableClick = (idx) => {
     setCheckTableData({
