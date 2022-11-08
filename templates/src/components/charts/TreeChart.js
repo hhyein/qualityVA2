@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from 'react'
 
 export default function TreeChart(props) {
+  const { treeData, setDataIndex } = props;
+  console.log(treeData);
   const svgRef = useRef()
   const d3 = window.d3v3
   const nodeGap = 90
-
-  const data = {
+  const [data, setData] = React.useState({
     "index": "0",
     "state": "none",
     "name": "start",
@@ -19,32 +20,77 @@ export default function TreeChart(props) {
             "index": "2",
             "state": "none",
             "name": "mod",
-            "children": [
-              {
-                "index": "3",
-                "state": "none",
-                "name": "locf",
-                "children": [
-                  {
-                    "index": "4",
-                    "state": "current",
-                    "name": "min",
-                  }
-                ]
-              }
-            ]
+            "children": []
           }
         ]
       }
     ]
-  }
+  });
+
+  React.useEffect(() => {
+    if (treeData) {
+      const temp = {
+        "index": "0",
+        "state": "none",
+        "name": "start",
+        "children": []
+      }
+
+      let root = temp;
+
+      for (let i = 1; i <= treeData.length; i++) {
+        root.children.push({
+          "index": i.toString(),
+          "state": "state",
+          "name": "name",
+          "children": [],
+        })
+        root = root.children[0];
+      }
+      setData(temp);
+    }
+  }, [treeData])
+
+  // const data = {
+  //   "index": "0",
+  //   "state": "none",
+  //   "name": "start",
+  //   "children": [
+  //     {
+  //       "index": "1",
+  //       "state": "none",
+  //       "name": "mm",
+  //       "children": [
+  //         {
+  //           "index": "2",
+  //           "state": "none",
+  //           "name": "mod",
+  //           "children": [
+  //             {
+  //               "index": "3",
+  //               "state": "none",
+  //               "name": "locf",
+  //               "children": [
+  //                 {
+  //                   "index": "4",
+  //                   "state": "current",
+  //                   "name": "min",
+  //                 }
+  //               ]
+  //             }
+  //           ]
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // }
 
   useEffect(() => {
     d3.select('.treeChart-wrapper').selectAll('*').remove()
 
     var margin = { top: 10, right: 0, bottom: 0, left: 0 },
       width = 50 - margin.left - margin.right,
-      height = 360 + margin.top + margin.bottom
+      height = 270 + margin.top + margin.bottom
 
     var i = 0
     var svg = d3
@@ -80,6 +126,9 @@ export default function TreeChart(props) {
         .enter()
         .append('g')
         .attr('class', 'node')
+        .style('cursor', 'pointer')
+        .on("mouseover", function (d) { setDataIndex(d.index) })
+        .on("mouseout", function () { setDataIndex() })
         .attr('transform', function (d) {
           return 'translate(' + d.x + ',' + d.y + ')'
         })
@@ -114,6 +163,8 @@ export default function TreeChart(props) {
   }, [data, svgRef])
 
   return (
-    <div className="treeChart-wrapper" />
+    <>
+      <div className="treeChart-wrapper" />
+    </>
   )
 }
