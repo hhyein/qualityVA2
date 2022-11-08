@@ -115,28 +115,33 @@ def setting():
 def donutChart():
   originDf = pd.read_csv('static/' + fileName + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
+  columnList = list(originDf.columns)
+
   totalNum = len(originDf) * len(list(originDf.columns))
 
   mis = sum(list(originDf.isnull().sum().values))
   misRate = round((mis/totalNum) * 100)
   
   tmpList = []
-  for column in originDf:
+  for column in columnList:
     df = pd.DataFrame(pd.to_numeric(originDf[column], errors = 'coerce'))
     df = df.dropna()
 
     lower, upper = main.lower_upper(df[column])
-    data1 = df[df[column] > upper]
-    data2 = df[df[column] < lower]
-    tmpList.append(data1.shape[0] + data2.shape[0])
+    lowerIdxList = list(df[df[column] > upper].index.values)
+    upperIdxList = list(df[df[column] < lower].index.values)
+    tmpList.append(len(lowerIdxList + upperIdxList))
+
   out = sum(tmpList)
   outRate = round((out/totalNum) * 100)
 
   tmpList = []
-  for column in originDf:
+  for column in columnList:
     df = originDf[column].dropna()
     df = pd.DataFrame(pd.to_numeric(df, errors = 'coerce'))
-    tmpList.append(list(df.isnull().sum().values[0]))
+    conIdxList = list(df[df[column].isnull()].index)
+    tmpList.append(len(conIdxList))
+    
   inc = sum(tmpList)
   incRate = round((inc/totalNum) * 100)
 
@@ -165,17 +170,40 @@ def tablePoint():
   
   misPointList = []
   for column in columnList:
-    misRowIdxList = list(originDf[originDf[column].isnull()].index)
+    misIdxList = list(originDf[originDf[column].isnull()].index)
 
-    for row in misRowIdxList:
-      misPointList.append({'x': misRowIdxList.index(row), 'y': columnList.index(column)})
+    if len(misIdxList) > 0:
+      for row in misIdxList:
+        misPointList.append({'x': misIdxList.index(row), 'y': columnList.index(column)})
 
-  ##### acc, con
-  accPointList = []
+  outPointList = []
+  for column in columnList:
+    df = pd.DataFrame(pd.to_numeric(originDf[column], errors = 'coerce'))
+    df = df.dropna()
+
+    lower, upper = main.lower_upper(df[column])
+    lowerIdxList = list(df[df[column] > upper].index.values)
+    upperIdxList = list(df[df[column] < lower].index.values)
+    outIdxList = lowerIdxList + upperIdxList
+
+    if len(outIdxList) > 0:
+      for row in outIdxList:
+        outPointList.append({'x': outIdxList.index(row), 'y': columnList.index(column)})
+
   conPointList = []
+  for column in columnList:  
+    df = originDf[column].dropna()
+    df = pd.DataFrame(pd.to_numeric(df, errors = 'coerce'))
+    conIdxList = list(df[df[column].isnull()].index)
+
+    if len(conIdxList) > 0:
+      for row in conIdxList:
+        conPointList.append({'x': conIdxList.index(row), 'y': columnList.index(column)})
 
   response = {}
   response['comPointList'] = misPointList
+  response['accPointList'] = outPointList
+  response['conPointList'] = conPointList
 
   return json.dumps(response)
 
