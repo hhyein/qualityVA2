@@ -57,9 +57,9 @@ export default function MyCombination() {
 
   return (
     <Box title="my-combination">
-      {!isEmptyData({ combinationData }) && dataSetting && (
+      {/* {!isEmptyData({ combinationData }) && dataSetting && (
         <MyCombinationTable data={data} />
-      )}
+      )} */}
     </Box>
   )
 }

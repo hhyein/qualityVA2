@@ -9,7 +9,9 @@ export default function Action() {
     isEmptyData,
     combinationTableData,
     selectedCombinationTableRow,
-    setMyCombinationData
+    setMyCombinationData,
+    myCombinationData,
+    setTreeChartData
   } = useFileData();
 
   const { combinationData } = combinationTableData
@@ -47,6 +49,41 @@ export default function Action() {
       }
     }
   }, [combinationData, selectedCombinationTableRow?.key, radioValue, setMyCombinationData])
+
+  React.useEffect(() => {
+    let imgData;
+    if (!selectedCombinationTableRow) {
+      return;
+    }
+    if (myCombinationData) {
+      let newData;
+      if (myCombinationData === 'outlier' || myCombinationData === 'inconsistent') {
+        newData = [...selectedCombinationTableRow.combination, myCombinationData];
+      } else {
+        newData = selectedCombinationTableRow.combination;
+      }
+      imgData = [{
+        key: selectedCombinationTableRow.key,
+        combination: newData,
+        combinationDetail: [...selectedCombinationTableRow.combinationDetail, 'my']
+      }]
+    } else {
+      imgData = [selectedCombinationTableRow];
+    }
+    const len = Math.max(imgData[0].combination.length, imgData[0].combinationDetail.length);
+      const treeData = Array.from({length: len}, () => []);
+      for(let i=0;i<len;i++) {
+        const [comb, combDetail] = [imgData[0].combination[i], imgData[0].combinationDetail[i]];
+        if(!comb) {
+          treeData[i].push(combDetail, combDetail);
+        } else if(!combDetail) {
+          treeData[i].push(comb, comb);
+        } else {
+          treeData[i].push(comb, combDetail);
+        }
+      }
+      setTreeChartData(treeData);
+  }, [myCombinationData, selectedCombinationTableRow, setTreeChartData])
 
   return (
     <Box title="action">
