@@ -261,7 +261,7 @@ export default function Check() {
         return
     }
   }
-
+  
   return (
     <Box title="check">
       {!isEmptyData({
@@ -320,7 +320,7 @@ export default function Check() {
           {dataList && dataIndex &&
           <div style={{
             position: 'relative',
-            top: Number.parseInt(dataIndex)*70,
+            top: dataIndex.top - 37,
             right: '35px',
             minWidth: '160px',
             height: '100px',
@@ -332,15 +332,15 @@ export default function Check() {
               height: '30px',
               padding: '2px'
             }}>
-              step {dataIndex}
+              step {dataIndex.index}
             </div>
             <div style={{
               padding: '2px'
             }}>
-              method: {dataIndex === '0' ? 'none' : dataList[Number.parseInt(dataIndex)-1].props.children[0]}</div>
+              method: {dataIndex.index === '0' ? 'none' : dataList[Number.parseInt(dataIndex.index)-1].props.children[0]}</div>
             <div style={{
               padding: '2px'
-            }}>detail method: {dataIndex === '0' ? 'none' : dataList[Number.parseInt(dataIndex)-1].props.children[1]}</div>
+            }}>detail method: {dataIndex.index === '0' ? 'none' : dataList[Number.parseInt(dataIndex.index)-1].props.children[1]}</div>
           </div>}
         </div>}
     </Box>

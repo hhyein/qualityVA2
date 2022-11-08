@@ -126,7 +126,10 @@ export default function TreeChart(props) {
         .append('g')
         .attr('class', 'node')
         .style('cursor', 'pointer')
-        .on("mouseover", function (d) { setDataIndex(d.index) })
+        .on("mouseover", function (d) { setDataIndex({
+          index: d.index,
+          top: this.getBoundingClientRect().top
+        }) })
         .on("mouseout", function () { setDataIndex() })
         .attr('transform', function (d) {
           return 'translate(' + d.x + ',' + d.y + ')'
