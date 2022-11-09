@@ -312,7 +312,7 @@ export default function Check() {
               <div style={{ position: 'relative', top: '20px' }}>
                 <RaderChart data={checkTableData.data} />
               </div>
-              <div style={{ overflowY: 'scroll' }}>
+              <div style={{ overflowY: 'auto' }}>
                 <TreeChart treeData={dataList} setDataIndex={setDataIndex} />
               </div>
             </div>

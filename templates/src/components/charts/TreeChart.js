@@ -50,40 +50,6 @@ export default function TreeChart(props) {
     }
   }, [treeData])
 
-  // const data = {
-  //   "index": "0",
-  //   "state": "none",
-  //   "name": "start",
-  //   "children": [
-  //     {
-  //       "index": "1",
-  //       "state": "none",
-  //       "name": "mm",
-  //       "children": [
-  //         {
-  //           "index": "2",
-  //           "state": "none",
-  //           "name": "mod",
-  //           "children": [
-  //             {
-  //               "index": "3",
-  //               "state": "none",
-  //               "name": "locf",
-  //               "children": [
-  //                 {
-  //                   "index": "4",
-  //                   "state": "current",
-  //                   "name": "min",
-  //                 }
-  //               ]
-  //             }
-  //           ]
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // }
-
   useEffect(() => {
     d3.select('.treeChart-wrapper').selectAll('*').remove()
 
