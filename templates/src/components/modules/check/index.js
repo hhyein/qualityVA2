@@ -64,7 +64,8 @@ export default function Check() {
     selectedLegendIdx,
     setSelectedLegendIdx,
     modelSettingData: { columnList },
-    treeChartData
+    treeChartData,
+    donutChartData
   } = useFileData()
 
   const [metricValues, setMetricValues] = React.useState({
@@ -297,7 +298,7 @@ export default function Check() {
                 onLegendClick={setSelectedLegendIdx}
                 dataColorInfo={legendData}
               />
-              {checkDonutData.map((donutData, idx) => (
+              {donutChartData && donutChartData.donutChartData.map((donutData, idx) => (
                 <div style={{ margin: '5px 3px 0' }} key={idx}>
                   <DonutChart
                     donutData={donutData}

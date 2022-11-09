@@ -117,7 +117,7 @@ def donutChart():
   req = eval(req)
   fileName = req["fileName"]
 
-  originDf = pd.read_csv('static/' + fileName + '.csv')
+  originDf = pd.read_csv('static/' + str(fileName) + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
   columnList = list(originDf.columns)
 
@@ -168,7 +168,11 @@ def donutChart():
 
 @app.route('/tablePoint', methods=['GET', 'POST'])
 def tablePoint():
-  originDf = pd.read_csv('static/' + fileName + '.csv')
+  req = request.get_data().decode('utf-8')
+  req = eval(req)
+  fileName = req["fileName"]
+
+  originDf = pd.read_csv('static/' + str(fileName) + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
   columnList = list(originDf.columns)
   

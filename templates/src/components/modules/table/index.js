@@ -8,7 +8,9 @@ export default function Table() {
   const {
     isEmptyData,
     modelSettingData: { columnList },
-    settingValues
+    settingValues,
+    file,
+    tablePointData
   } = useFileData()
 
   const pointData = {
@@ -16,19 +18,19 @@ export default function Table() {
       rColor: 255,
       gColor: 140,
       bColor: 0,
-      points: [{ x: 1, y: 1 }, { x: 2, y: 1 }, { x: 3, y: 1 }, { x: 4, y: 1 }, { x: 5, y: 1 }],
+      points: [],
     },
     acc: {
       rColor: 70,
       gColor: 130,
       bColor: 180,
-      points: [{ x: 4, y: 5 }],
+      points: [],
     },
     con: {
       rColor: 154,
       gColor: 205,
       bColor: 50,
-      points: [{ x: 1, y: 4 }],
+      points: [],
     },
     sim: {
       rColor: 240,
@@ -48,10 +50,6 @@ export default function Table() {
   const [gColorData, setgColorData] = React.useState({});
   const [bColorData, setbColorData] = React.useState({});
 
-  const {
-    file
-  } = useFileData();
-
   const [columnDatas, setcolumnDatas] = React.useState([]);
   const fileReader = new FileReader();
 
@@ -68,6 +66,15 @@ export default function Table() {
       data: idx
     });
   }
+
+  React.useEffect(() => {
+    if(!tablePointData) {
+      return;
+    }
+    pointData.com.points = tablePointData.comPointList;
+    pointData.acc.points = tablePointData.accPointList;
+    pointData.con.points = tablePointData.conPointList;
+  }, [pointData.acc, pointData.com, pointData.con, tablePointData]);
 
   React.useEffect(() => {
     const rColorData = {};

@@ -48,6 +48,8 @@ export const FileDataProvider = ({ children }) => {
   const [myCombinationData, setMyCombinationData] = React.useState();
   const [selectedLegendIdx, setSelectedLegendIdx] = useState(0);
   const [treeChartData, setTreeChartData] = useState();
+  const [donutChartData, setDonutChartData] = useState();
+  const [tablePointData, setTablePointData] = useState();
   
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
@@ -114,11 +116,29 @@ export const FileDataProvider = ({ children }) => {
     setCombinationTableData({ combinationData })
   }, [])
 
+  const updateDonutChartData = async (fileName) => {
+    const option = {
+      fileName: fileName
+    }
+    const donutData = await postData('/donutChart', option);
+    setDonutChartData(donutData);
+  }
+
+  const updateTablePointData = async (fileName) => {
+    const option = {
+      fileName: fileName
+    }
+    const tableData = await postData('/tablePoint', option);
+    setTablePointData(tableData);
+  }
+
   useEffect(() => {
     if (!file || isEmptyData(settingValues)) {
       return
     }
     updateCombinationTable()
+    updateDonutChartData(0)
+    updateTablePointData(0)
   }, [
     file,
     updateCombinationTable,
@@ -147,7 +167,9 @@ export const FileDataProvider = ({ children }) => {
         selectedLegendIdx,
         setSelectedLegendIdx,
         treeChartData,
-        setTreeChartData
+        setTreeChartData,
+        donutChartData,
+        tablePointData
       }}
     >
       {children}
