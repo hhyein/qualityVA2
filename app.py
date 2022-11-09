@@ -182,7 +182,7 @@ def tablePoint():
 
     if len(misIdxList) > 0:
       for row in misIdxList:
-        misPointList.append({'x': misIdxList.index(row), 'y': columnList.index(column)})
+        misPointList.append({'x': str(row + 1), 'y': columnList.index(column)})
 
   outPointList = []
   for column in columnList:
@@ -196,7 +196,7 @@ def tablePoint():
 
     if len(outIdxList) > 0:
       for row in outIdxList:
-        outPointList.append({'x': outIdxList.index(row), 'y': columnList.index(column)})
+        outPointList.append({'x': str(row + 1), 'y': columnList.index(column)})
 
   conPointList = []
   for column in columnList:  
@@ -206,7 +206,7 @@ def tablePoint():
 
     if len(conIdxList) > 0:
       for row in conIdxList:
-        conPointList.append({'x': conIdxList.index(row), 'y': columnList.index(column)})
+        conPointList.append({'x': str(row + 1), 'y': columnList.index(column)})
 
   response = {}
   response['comPointList'] = misPointList

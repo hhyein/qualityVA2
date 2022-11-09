@@ -14,16 +14,6 @@ import RaderChart from '../../charts/RaderChart'
 import TreeChart from '../../charts/TreeChart'
 import CheckTable from './CheckTable'
 
-// api: /donutChart
-// data: {'donutChartData': [{'label': 0, 'color': 'darkorange', 'data': {'issue': 1, 'normal': 99}}, {'label': 1, 'color': 'steelblue', 'data': {'issue': 1, 'normal': 99}}, {'label': 2, 'color': 'yellowgreen', 'data': {'issue': 0, 'normal': 100}}, {'label': 3, 'color': 'lightcoral', 'data': {'issue': 60, 'normal': 40}}, {'label': 4, 'color': 'cadetblue', 'data': {'issue': 60, 'normal': 40}}]}
-const checkDonutData = [
-  { label: 0, color: 'darkorange', data: { issue: 20, normal: 80 } },
-  { label: 1, color: 'steelblue', data: { issue: 20, normal: 80 } },
-  { label: 2, color: 'yellowgreen', data: { issue: 60, normal: 40 } },
-  { label: 3, color: 'lightcoral', data: { issue: 60, normal: 40 } },
-  { label: 4, color: 'cadetblue', data: { issue: 60, normal: 40 } },
-]
-
 const legendData = [
   { label: 0, text: 'completeness', color: 'darkorange' },
   { label: 1, text: 'accuracy', color: 'steelblue' },
@@ -64,8 +54,8 @@ export default function Check() {
     selectedLegendIdx,
     setSelectedLegendIdx,
     modelSettingData: { columnList },
+    donutChartData,
     treeChartData,
-    donutChartData
   } = useFileData()
 
   const [metricValues, setMetricValues] = React.useState({

@@ -7,7 +7,6 @@ import ColumnSummaryChart from '../../charts/ColumnSummaryChart'
 export default function Table() {
   const {
     isEmptyData,
-    modelSettingData: { columnList },
     settingValues,
     file,
     tablePointData
@@ -46,15 +45,12 @@ export default function Table() {
     }
   };
 
+  const fileReader = new FileReader();
   const [rColorData, setrColorData] = React.useState({});
   const [gColorData, setgColorData] = React.useState({});
   const [bColorData, setbColorData] = React.useState({});
-
   const [columnDatas, setcolumnDatas] = React.useState([]);
-  const fileReader = new FileReader();
-
   const [gridData, setGridData] = React.useState('');
-
   const [checkTableData, setCheckTableData] = React.useState({
     key: 'row',
     data: 1
@@ -74,7 +70,7 @@ export default function Table() {
     pointData.com.points = tablePointData.comPointList;
     pointData.acc.points = tablePointData.accPointList;
     pointData.con.points = tablePointData.conPointList;
-  }, [pointData.acc, pointData.com, pointData.con, tablePointData]);
+  }, [pointData.com, pointData.acc, pointData.con, tablePointData]);
 
   React.useEffect(() => {
     const rColorData = {};
@@ -104,7 +100,7 @@ export default function Table() {
     setrColorData(rColorData);
     setgColorData(gColorData);
     setbColorData(bColorData);
-  }, []);
+  }, [pointData]);
 
   React.useEffect(() => {
     if (file) {
