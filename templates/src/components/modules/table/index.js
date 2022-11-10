@@ -12,39 +12,6 @@ export default function Table() {
     tablePointData
   } = useFileData()
 
-  const pointData = {
-    com: {
-      rColor: 255,
-      gColor: 140,
-      bColor: 0,
-      points: [],
-    },
-    acc: {
-      rColor: 70,
-      gColor: 130,
-      bColor: 180,
-      points: [],
-    },
-    con: {
-      rColor: 154,
-      gColor: 205,
-      bColor: 50,
-      points: [],
-    },
-    sim: {
-      rColor: 240,
-      gColor: 128,
-      bColor: 128,
-      points: [],
-    },
-    dep: {
-      rColor: 95,
-      gColor: 158,
-      bColor: 160,
-      points: [],
-    }
-  };
-
   const fileReader = new FileReader();
   const [rColorData, setrColorData] = React.useState({});
   const [gColorData, setgColorData] = React.useState({});
@@ -55,6 +22,8 @@ export default function Table() {
     key: 'row',
     data: 1
   });
+  const [pointData, setPointData] = React.useState();
+
 
   const handleTableClick = (key, idx) => {
     setCheckTableData({
@@ -67,12 +36,44 @@ export default function Table() {
     if(!tablePointData) {
       return;
     }
-    pointData.com.points = tablePointData.comPointList;
-    pointData.acc.points = tablePointData.accPointList;
-    pointData.con.points = tablePointData.conPointList;
-  }, [pointData.com, pointData.acc, pointData.con, tablePointData]);
+    setPointData({
+      com: {
+        rColor: 255,
+        gColor: 140,
+        bColor: 0,
+        points: tablePointData.comPointList,
+      },
+      acc: {
+        rColor: 70,
+        gColor: 130,
+        bColor: 180,
+        points: tablePointData.accPointList,
+      },
+      con: {
+        rColor: 154,
+        gColor: 205,
+        bColor: 50,
+        points: tablePointData.conPointList,
+      },
+      sim: {
+        rColor: 240,
+        gColor: 128,
+        bColor: 128,
+        points: [],
+      },
+      dep: {
+        rColor: 95,
+        gColor: 158,
+        bColor: 160,
+        points: [],
+      }
+    })
+  }, [tablePointData]);
 
   React.useEffect(() => {
+    if(!pointData) {
+      return;
+    }
     const rColorData = {};
     const gColorData = {};
     const bColorData = {};
@@ -140,7 +141,7 @@ export default function Table() {
     <>
       {!isEmptyData({
         settingValues
-      }) && settingValues.model && columnDatas.length > 0 ? (
+      }) && settingValues.model && columnDatas.length > 0 && pointData ? (
         <div style={{ display: 'flex', marginTop: -30, marginLeft: -25 }}>
           <div>
             <div style={{ marginLeft: 65 }}>
