@@ -9,16 +9,8 @@ export default function RaderChart(props) {
     d3.select('.radar-wrapper').selectAll('*').remove()
 
     var options = {
-      series: [{
-        name: 'LR',
-        data: [80, 50, 30, 40, 100, 20],
-      }, {
-        name: 'NB',
-        data: [20, 30, 40, 80, 20, 80],
-      }, {
-        name: 'DT',
-        data: [44, 76, 78, 13, 43, 10],
-      }],
+      series: data,
+      
       chart: {
         toolbar: {
           show: false
@@ -36,7 +28,7 @@ export default function RaderChart(props) {
       yaxis: {
         show: false
       },
-      colors: ['#FF6347', '#9370DB', '#2E8B57', '#DC143C', '#FF69B4'],
+      colors: ['#FF6347', '#9370DB', '#2E8B57', '#B22222', '#FF69B4'],
     };
 
     var chart = new ApexCharts(document.querySelector(".radar-wrapper"), options);

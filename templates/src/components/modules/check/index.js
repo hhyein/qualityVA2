@@ -47,6 +47,16 @@ const thresholdList = [
   { label: 1, value: 2 }
 ];
 
+const data = [
+  ['Model', 'MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE'],
+  ['LR', 2.43, 4.64, 1.06, 1.04, 1.06, 1.04],
+  ['NB', 1.43, 3.64, 3.06, 3.04, 3.06, 0.04],
+  ['DT', 3.43, 2.64, 5.06, 1.04, 3.06, 1.04],
+  ['SVM', 4.43, 1.64, 7.06, 2.04, 3.06, 6.04],
+  ['RBFSVM', 5.43, 0.64, 3.06, 1.04, 5.06, 1.04],
+  ['GPC', 6.43, 6.64, 1.06, 1.04, 3.06, 2.04],
+];
+
 export default function Check() {
   const {
     isEmptyData,
@@ -73,6 +83,17 @@ export default function Check() {
   const [dependencyCorrelation, setDependencyCorrelation] = React.useState('');
   const [dataList, setDataList] = React.useState();
   const [dataIndex, setDataIndex] = React.useState();
+  const [checkTableData, setCheckTableData] = React.useState([1]);
+  const [renderChartData, setRenderChartData] = React.useState([{
+    key: 1,
+    name: 'LR',
+    data: [2.43, 4.64, 1.06, 1.04, 1.06, 1.04],
+  }]);
+
+  // console.log(checkTableData);
+  // console.log(renderChartData);
+
+  // colors: ['#FF6347', '#9370DB', '#2E8B57', '#B22222', '#FF69B4']
 
   React.useEffect(() => {
     setMetricValues(metricList[selectedLegendIdx])
@@ -105,11 +126,6 @@ export default function Check() {
       setVisualizationList(["ScatterChart"]);
     }
   }, [metricValues])
-
-  const [checkTableData, setCheckTableData] = React.useState({
-    key: 1,
-    data: ['2.43', '5.64', '3.06', '1.04', '3.06', '1.04']
-  });
 
   const chartData = (value) => {
     switch (value) {
@@ -298,10 +314,13 @@ export default function Check() {
             </div>
             <CheckTable
               checkTableData={checkTableData}
-              setCheckTableData={setCheckTableData} />
+              setCheckTableData={setCheckTableData}
+              data={data}
+              renderChartData={renderChartData}
+              setRenderChartData={setRenderChartData} />
             <div style={{ display: 'flex' }}>
               <div style={{ position: 'relative', top: '20px' }}>
-                <RaderChart data={checkTableData.data} />
+                <RaderChart data={renderChartData} />
               </div>
               <div style={{ overflowY: 'auto' }}>
                 <TreeChart treeData={dataList} setDataIndex={setDataIndex} />

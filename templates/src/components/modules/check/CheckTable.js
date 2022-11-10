@@ -2,25 +2,35 @@ import React from 'react'
 
 export default function checkTable(props) {
 
-  const { checkTableData, setCheckTableData } = props
+  const { checkTableData, setCheckTableData, data, renderChartData, setRenderChartData } = props
 
-  const data = [
-    ['Model', 'MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE'],
-    ['LR', '2.43', '5.64', '3.06', '1.04', '3.06', '1.04'],
-    ['NB', '2.43', '5.64', '3.06', '1.04', '3.06', '1.04'],
-    ['DT', '2.43', '5.64', '3.06', '1.04', '3.06', '1.04'],
-    ['SVM', '2.43', '5.64', '3.06', '1.04', '3.06', '1.04'],
-    ['RBFSVM', '2.43', '5.64', '3.06', '1.04', '3.06', '1.04'],
-    ['GPC', '2.43', '5.64', '3.06', '1.04', '3.06', '1.04'],
-  ];
-
-  const colorData = ['', 'tomato', 'mediumpurple', 'seagreen', 'darkgray', 'darkgray', 'darkgray'];
+  // const colorData = ['', 'tomato', 'mediumpurple', 'seagreen', 'darkgray', 'darkgray', 'darkgray'];
+  const colors = ['#FF6347', '#9370DB', '#2E8B57', '#B22222', '#FF69B4'];
 
   const handleTableClick = (idx) => {
-    setCheckTableData({
-      key: idx,
-      data: data[idx].splice(1)
-    });
+    if(checkTableData.includes(idx)) {
+      if(checkTableData.length === 1) {
+        return;
+      }
+      setCheckTableData(checkTableData.filter((i) => i !== idx))
+      for(let i=0;i<renderChartData.length;i++) {
+        if(renderChartData[i].key === idx) {
+          setRenderChartData([...renderChartData.slice(0, i), ...renderChartData.slice(i+1)]);
+          break;
+        }
+      }
+    } else {
+      if(checkTableData.length === 5) {
+        return;
+      }
+      setCheckTableData([...checkTableData, idx]);
+      // 새로 선택된 값 chart에 넣기
+      setRenderChartData([...renderChartData, {
+        key: idx,
+        name: data[idx][0],
+        data: data[idx].slice(1)
+      }]);
+    }
   }
 
   return data.length > 0 && (
@@ -62,14 +72,14 @@ export default function checkTable(props) {
                           borderRight: 'none',
                           height: '20px',
                           cursor: 'pointer',
-                          backgroundColor: checkTableData.key === rowIdx ? '#eee' : undefined,
+                          backgroundColor: checkTableData.includes(rowIdx) ? '#eee' : undefined,
                         }}
                         key={idx}
                       >
                         {idx === 0
                           ? <div
                             style={{
-                              backgroundColor: colorData[rowIdx],
+                              backgroundColor: checkTableData.includes(rowIdx) ? colors[checkTableData.indexOf(rowIdx)] : 'darkgray',
                               padding: '2px 8px',
                               borderRadius: '3px',
                               color: 'white'
