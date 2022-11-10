@@ -87,7 +87,9 @@ export const FileDataProvider = ({ children }) => {
       evalList,
       dimensionList,
     })
-  }, [settingValues.purpose])
+    updateDonutChartData(0)
+    updateTablePointData(0)
+  }, [settingValues])
 
   useEffect(() => {
     handlePurposeChange()
@@ -137,8 +139,6 @@ export const FileDataProvider = ({ children }) => {
       return
     }
     updateCombinationTable()
-    updateDonutChartData(0)
-    updateTablePointData(0)
   }, [
     file,
     updateCombinationTable,
