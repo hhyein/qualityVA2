@@ -28,6 +28,9 @@ export default function RaderChart(props) {
       yaxis: {
         show: false
       },
+      legend: {
+        showForSingleSeries: true
+      },
       colors: ['#FF6347', '#9370DB', '#2E8B57', '#B22222', '#FF69B4'],
     };
 
