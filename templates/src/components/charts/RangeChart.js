@@ -11,16 +11,19 @@ export default function RangeChart(props) {
     var options = {
       series: [{
         data: [{
-          x: 'imputation',
+          x: 'missing',
           y: [1, 5]
         }, {
-          x: 'scaling',
+          x: 'outlier',
           y: [4, 6]
         }, {
-          x: 'selection',
+          x: 'incons',
           y: [5, 8]
         }, {
-          x: 'extraction',
+          x: 'scaling',
+          y: [7, 11]
+        },  {
+          x: 'selection',
           y: [3, 11]
         }]
       }],
