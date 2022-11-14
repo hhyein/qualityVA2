@@ -90,11 +90,6 @@ export default function Check() {
     data: [2.43, 4.64, 1.06, 1.04, 1.06, 1.04],
   }]);
 
-  // console.log(checkTableData);
-  // console.log(renderChartData);
-
-  // colors: ['#FF6347', '#9370DB', '#2E8B57', '#B22222', '#FF69B4']
-
   React.useEffect(() => {
     setMetricValues(metricList[selectedLegendIdx])
   }, [selectedLegendIdx])

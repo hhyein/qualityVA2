@@ -152,7 +152,6 @@ def donutChart():
   ##### sim, dep
   simRate = round(60)
   depRate = round(60)
-  #####
 
   rateList = [misRate, outRate, incRate, simRate, depRate]
   colorList = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue']
@@ -165,6 +164,80 @@ def donutChart():
   response['donutChartData'] = dataList
 
   return json.dumps(response)
+
+@app.route('/checkVisualization', methods=['GET', 'POST'])
+def checkVisualization():
+  # req = request.get_data().decode('utf-8')
+  # req = eval(req)
+  # vis = req["visualization"]
+  # metric = req["metricValues"]
+
+  vis = 'histogramChart'
+  metric = 'completeness'
+  columnName = 'ash'
+
+  originDf = pd.read_csv('static/' + str(fileName) + '.csv')
+  originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
+  columnList = list(originDf.columns)
+  
+  # completeness, consistency
+  if vis == 'heatmapChart':
+    sliceCnt = 10
+    sliceSize = int(len(originDf)/sliceCnt)
+
+    seriesDataList = []
+    for i in range(sliceCnt):
+      rowSliceDf = originDf.iloc[sliceSize * i : sliceSize * (i + 1)]
+      columnCntList = []
+
+      for column in columnList:
+        columnDf = rowSliceDf[column]
+
+        if metric == 'consistency':
+          columnDf = rowSliceDf[column]
+          columnDf = columnDf.dropna()
+          columnDf = pd.to_numeric(columnDf, errors = 'coerce')
+
+        columnCnt = columnDf.isnull().sum()
+        columnCntList.append(columnCnt)
+
+      seriesDataList.append({'name': 'r' + str(i), 'data': columnCntList})
+
+  # accuracy
+  if vis == 'histogramChart':
+    seriesDataList = []
+    categoryDataList = []
+
+    # calculate threshold outlier
+    columnDf = originDf[columnName]
+    columnDf = columnDf.apply(pd.to_numeric, errors = 'coerce')
+    lower, upper = main.lower_upper(columnDf)
+
+    # generate histogram chart dataset
+    columnList = columnDf.values.tolist()
+    minValue = columnDf.min()
+    maxValue = columnDf.max()
+
+    sliceCnt = 20
+    sliceSize = (maxValue - minValue)/sliceCnt
+    columnCntList = [0 for i in range(sliceCnt)]
+
+    for i in range(sliceCnt):
+      minRange = float(minValue + (sliceSize * i))
+      maxRange = float(minValue + (sliceSize * (i + 1)))
+      categoryDataList.append(maxRange)
+
+      for j in range(len(columnList)):
+        if math.isnan(columnList[j]) == False:
+          if columnList[j] >= minRange and columnList[j] <= maxRange:
+            columnCntList[i] = columnCntList[i] + 1
+
+    seriesDataList.append({'name': columnName, 'data': columnCntList})
+
+  # if vis == 'boxplotChart':
+  # if vis == 'scatterChart':
+
+  return json.dumps({'checkVisualization': 'success'})
 
 @app.route('/tablePoint', methods=['GET', 'POST'])
 def tablePoint():
@@ -234,6 +307,7 @@ def combinationTable():
 def new():
   req = request.get_data().decode('utf-8')
   req = eval(req)
+  # req example: {'type': row 또는 column, 'name': idx명 또는 column명
 
   return jsonify({'new: success'})
 

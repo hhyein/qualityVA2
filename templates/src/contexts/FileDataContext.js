@@ -134,6 +134,8 @@ export const FileDataProvider = ({ children }) => {
     setTablePointData(tableData);
   }
 
+  postData('/checkVisualization');
+
   useEffect(() => {
     if (!file || isEmptyData(settingValues)) {
       return
