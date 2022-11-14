@@ -50,6 +50,11 @@ export const FileDataProvider = ({ children }) => {
   const [treeChartData, setTreeChartData] = useState();
   const [donutChartData, setDonutChartData] = useState();
   const [tablePointData, setTablePointData] = useState();
+  const [columnDatas, setColumnDatas] = React.useState([]);
+  const [checkTableData, setCheckTableData] = React.useState({
+    key: 'row',
+    data: 1
+  });
   
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
@@ -169,7 +174,11 @@ export const FileDataProvider = ({ children }) => {
         treeChartData,
         setTreeChartData,
         donutChartData,
-        tablePointData
+        tablePointData,
+        columnDatas,
+        setColumnDatas,
+        checkTableData,
+        setCheckTableData
       }}
     >
       {children}
