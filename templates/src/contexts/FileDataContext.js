@@ -52,7 +52,7 @@ export const FileDataProvider = ({ children }) => {
   const [tablePointData, setTablePointData] = useState();
   const [columnDatas, setColumnDatas] = React.useState([]);
   const [checkTableData, setCheckTableData] = React.useState({
-    key: 'row',
+    key: 'col',
     data: 1
   });
   
