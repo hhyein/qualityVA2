@@ -16,7 +16,6 @@ export default function BoxplotChart(props) {
     if (checkTableData.key === "col") {
       x_label = columnDatas[0][checkTableData.data].slice(0, 5);
     }
-    console.log(x_label)
 
     d3.select('.boxplot-wrapper').selectAll('*').remove()
 
