@@ -5,6 +5,7 @@ export default function TreeChart(props) {
   const svgRef = useRef()
   const d3 = window.d3v3
   const nodeGap = 90
+
   const [data, setData] = React.useState({
     "index": "0",
     "state": "none",
@@ -26,7 +27,7 @@ export default function TreeChart(props) {
     ]
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (treeData) {
       const temp = {
         "index": "0",
@@ -35,9 +36,9 @@ export default function TreeChart(props) {
         "children": []
       }
 
-      let root = temp;
+      var root = temp;
 
-      for (let i = 1; i <= treeData.length; i++) {
+      for (var i = 1; i <= treeData.length; i++) {
         root.children.push({
           "index": i.toString(),
           "state": "state",
@@ -51,11 +52,13 @@ export default function TreeChart(props) {
   }, [treeData])
 
   useEffect(() => {
+    if (!treeData) return;
+    
     d3.select('.treeChart-wrapper').selectAll('*').remove()
 
     var margin = { top: 10, right: 0, bottom: 0, left: 0 },
-      width = 50 - margin.left - margin.right,
-      height = 270 + margin.top + margin.bottom
+    width = 50 - margin.left - margin.right,
+    height = (treeData.length * nodeGap) + margin.top + margin.bottom
 
     var i = 0
     var svg = d3
