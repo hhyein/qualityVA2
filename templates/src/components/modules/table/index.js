@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from '../../Box'
-import { useFileData } from '../../../contexts/FileDataContext'
+import { useFileData, postData } from '../../../contexts/FileDataContext'
 import RowSummaryChartD3 from '../../charts/RowSummaryChartD3'
 import ColumnSummaryChart from '../../charts/ColumnSummaryChart'
 
@@ -30,6 +30,8 @@ export default function Table() {
       key: key,
       data: idx
     });
+
+    postData('/new', checkTableData);
   }
 
   React.useEffect(() => {

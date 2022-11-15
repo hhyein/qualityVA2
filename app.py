@@ -233,9 +233,9 @@ def combinationTable():
 @app.route('/new', methods=['GET', 'POST'])
 def new():
   req = request.get_data().decode('utf-8')
-  req = eval(req)
+  #req = eval(req)
 
-  return jsonify({'new: success'})
+  return json.dumps({'new': 'success'})
 
 if __name__ == '__main__':
   app.jinja_env.auto_reload = True
