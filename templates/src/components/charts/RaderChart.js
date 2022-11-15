@@ -29,7 +29,9 @@ export default function RaderChart(props) {
         show: false
       },
       legend: {
-        showForSingleSeries: true
+        showForSingleSeries: true,
+        width: 200,
+        height: 35
       },
       colors: ['#FF6347', '#9370DB', '#2E8B57', '#B22222', '#FF69B4'],
     };
