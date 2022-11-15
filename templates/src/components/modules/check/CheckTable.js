@@ -34,7 +34,7 @@ export default function checkTable(props) {
     <div style={{
       overflowY: 'auto',
       marginTop: '5px',
-      width: '390px',
+      width: '370px',
     }}>
       <div style={{
         display: 'grid',

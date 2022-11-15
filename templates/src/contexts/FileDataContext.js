@@ -134,6 +134,9 @@ export const FileDataProvider = ({ children }) => {
     setTablePointData(tableData);
   }
 
+  postData('/modelTable')
+  postData('/changeDisort')
+
   useEffect(() => {
     if (!file || isEmptyData(settingValues)) {
       return

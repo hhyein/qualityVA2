@@ -20,7 +20,7 @@ import module.tree as tree
 app = Flask(__name__)
 CORS(app)
 
-fileName = 'wine'
+uploadFileName = 'wine'
 purpose = ''
 column = ''
 inputModelList = []
@@ -54,9 +54,9 @@ def fileUpload():
 
 @app.route('/setting', methods=['GET', 'POST'])
 def setting():
-  global purpose, column, inputModelList, inputEvalList
+  global uploadFileName, purpose, column, inputModelList, inputEvalList
 
-  originDf = pd.read_csv('static/' + fileName + '.csv')
+  originDf = pd.read_csv('static/' + uploadFileName + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
 
   if request.method == 'GET':
@@ -175,12 +175,9 @@ def donutChart():
 def checkVisualization():
   # req = request.get_data().decode('utf-8')
   # req = eval(req)
+  # fileName = req["fileName"]
   # vis = req["visualization"]
   # metric = req["metricValues"]
-
-  vis = 'histogramChart'
-  metric = 'completeness'
-  columnName = 'ash'
 
   originDf = pd.read_csv('static/' + str(fileName) + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
@@ -248,6 +245,10 @@ def checkVisualization():
 # 모델 성능 계산할 시에는 mis, inc drop 처리
 @app.route('/modelTable', methods=['GET', 'POST'])
 def modelTable():
+  # req = request.get_data().decode('utf-8')
+  # req = eval(req)
+  # fileName = req["fileName"]
+
   # originDf = pd.read_csv('static/' + str(fileName) + '.csv')
   # originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
   # columnList = list(originDf.columns)
@@ -273,6 +274,8 @@ def modelTable():
   # modelResultDf.to_csv('example_modelTable.csv', index = False)
 
   modelResultDf = pd.read_csv('static/example_modelTable.csv')
+  modelResultDf = modelResultDf.round(3)
+
   modelResultList = [list(modelResultDf.columns)]
   for i in range(len(modelResultDf)):
     modelResultList.append(list(modelResultDf.iloc[i]))
@@ -330,11 +333,11 @@ def tablePoint():
 
 @app.route('/columnSummary', methods=['GET', 'POST'])
 def columnSummary():
-  return
+  return json.dumps({'columnSummary': 'success'})
 
 @app.route('/rowSummary', methods=['GET', 'POST'])
 def rowSummary():
-  return
+  return json.dumps({'rowSummary': 'success'})
 
 @app.route('/combination', methods=['GET', 'POST'])
 def combinationTable():
@@ -349,15 +352,31 @@ def new():
   req = eval(req)
   # req example: {'type': row 또는 column, 'name': idx명 또는 column명
 
-  return jsonify({'new: success'})
+  return json.dumps({'new': 'success'})
 
 @app.route('/changeCnt', methods=['GET', 'POST'])
 def changeCnt():
-  return
+  global uploadFileName
+  beforeDf = pd.read_csv('static/' + str(uploadFileName) + '.csv')
+  beforeList = [len(beforeDf), len(beforeDf.columns), len(beforeDf) * len(beforeDf.columns)]
+  
+  # req = request.get_data().decode('utf-8')
+  # req = eval(req)
+  # fileName = req["fileName"]
+  
+  fileName = '0'
+  originDf = pd.read_csv('static/' + str(fileName) + '.csv')
+  afterList = [len(originDf), len(originDf.columns), len(originDf) * len(originDf.columns)]
+
+  seriesDataList = []
+  seriesDataList.append({'name': 'before', 'data': beforeList})
+  seriesDataList.append({'name': 'after', 'data': afterList})
+
+  return json.dumps({'changeCnt': 'success'})
 
 @app.route('/changeDisort', methods=['GET', 'POST'])
 def changeDisort():
-  return
+  return json.dumps({'changeDisort': 'success'})
 
 if __name__ == '__main__':
   app.jinja_env.auto_reload = True
