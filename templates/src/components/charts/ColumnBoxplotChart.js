@@ -1,22 +1,11 @@
 import React, { useEffect } from 'react'
 import ApexCharts from 'apexcharts'
-import { useFileData } from '../../contexts/FileDataContext'
 
 export default function BoxplotChart(props) {
-  const {
-    columnDatas,
-    checkTableData
-  } = useFileData();
-
   const { data } = props
   const d3 = window.d3v4
 
   useEffect(() => {
-    let x_label = "idx " + checkTableData.data;
-    if (checkTableData.key === "col") {
-      x_label = columnDatas[0][checkTableData.data].slice(0, 5);
-    }
-
     d3.select('.boxplot-wrapper').selectAll('*').remove()
 
     var options = {
@@ -24,7 +13,7 @@ export default function BoxplotChart(props) {
       {
         data: [
           {
-            x: x_label,
+            x: 'alcohol',
             y: [54, 66, 69, 75, 88]
           }
         ]
@@ -60,7 +49,7 @@ export default function BoxplotChart(props) {
     var chart = new ApexCharts(document.querySelector(".boxplot-wrapper"), options);
     chart.render();
 
-    }, [data, checkTableData])
+    }, [data])
 
   return (
     <div className="boxplot-wrapper" style={{ position: 'relative', bottom: 10 }} />

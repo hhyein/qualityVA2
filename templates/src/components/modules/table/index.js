@@ -9,18 +9,19 @@ export default function Table() {
     isEmptyData,
     settingValues,
     file,
-    tablePointData,
-    columnDatas,
-    setColumnDatas,
-    checkTableData,
-    setCheckTableData
+    tablePointData
   } = useFileData()
 
   const fileReader = new FileReader();
   const [rColorData, setrColorData] = React.useState({});
   const [gColorData, setgColorData] = React.useState({});
   const [bColorData, setbColorData] = React.useState({});
+  const [columnDatas, setcolumnDatas] = React.useState([]);
   const [gridData, setGridData] = React.useState('');
+  const [checkTableData, setCheckTableData] = React.useState({
+    key: 'row',
+    data: 1
+  });
   const [pointData, setPointData] = React.useState();
 
 
@@ -117,7 +118,7 @@ export default function Table() {
         }
         const columnWidth = 675/(codeData[0].length);
         setGridData(Array.from({length: codeData[0].length }, () => `${columnWidth}px`).join(" "));
-        setColumnDatas(codeData);
+        setcolumnDatas(codeData);
       };
       fileReader.readAsText(file);
     }
