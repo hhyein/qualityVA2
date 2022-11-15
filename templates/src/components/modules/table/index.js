@@ -19,7 +19,7 @@ export default function Table() {
   const [columnDatas, setcolumnDatas] = React.useState([]);
   const [gridData, setGridData] = React.useState('');
   const [checkTableData, setCheckTableData] = React.useState({
-    key: 'row',
+    key: 'col',
     data: 1
   });
   const [pointData, setPointData] = React.useState();
