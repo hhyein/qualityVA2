@@ -26,23 +26,29 @@ column = ''
 inputModelList = []
 inputEvalList = []
 
+# if purpose == '' or 'regression':
+#   from pycaret.regression import *
+
+# if purpose == 'classification':
+#   from pycaret.classification import *
+
 @app.route('/fileUpload', methods=['GET', 'POST'])
 def fileUpload():
   req = request.files['file']
 
-  fileUploadList = []
-  stream = codecs.iterdecode(req.stream, 'utf-8')
-  for row in csv.reader(stream, dialect = csv.excel):
-    if row:
-      fileUploadList.append(row)
+  # fileUploadList = []
+  # stream = codecs.iterdecode(req.stream, 'utf-8')
+  # for row in csv.reader(stream, dialect = csv.excel):
+  #   if row:
+  #     fileUploadList.append(row)
 
-  fileUploadDf = pd.DataFrame(fileUploadList)
-  fileUploadDf = fileUploadDf.rename(columns = fileUploadDf.iloc[0])
-  fileUploadDf = fileUploadDf.drop(fileUploadDf.index[0])
-  fileUploadDf = fileUploadDf.reset_index(drop = True)
+  # fileUploadDf = pd.DataFrame(fileUploadList)
+  # fileUploadDf = fileUploadDf.rename(columns = fileUploadDf.iloc[0])
+  # fileUploadDf = fileUploadDf.drop(fileUploadDf.index[0])
+  # fileUploadDf = fileUploadDf.reset_index(drop = True)
 
-  originDf = fileUploadDf.reindex(sorted(fileUploadDf.columns), axis = 1)
-  originDf.to_json('static/file.json', orient = 'records', indent = 4)
+  # originDf = fileUploadDf.reindex(sorted(fileUploadDf.columns), axis = 1)
+  # originDf.to_json('static/file.json', orient = 'records', indent = 4)
 
   return json.dumps({'fileUpload': 'success'})
 
@@ -239,6 +245,40 @@ def checkVisualization():
 
   return json.dumps({'checkVisualization': 'success'})
 
+# 모델 성능 계산할 시에는 mis, inc drop 처리
+@app.route('/modelTable', methods=['GET', 'POST'])
+def modelTable():
+  # originDf = pd.read_csv('static/' + str(fileName) + '.csv')
+  # originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
+  # columnList = list(originDf.columns)
+
+  # df = originDf.apply(pd.to_numeric, errors = 'coerce')
+  # df = pd.DataFrame(df, columns = columnList)
+  # df = df.dropna()
+
+  # global column
+  # clf = setup(data = df, target = column, preprocess = False, session_id = 42, use_gpu = True, silent = True)
+  # model = compare_models()
+  # modelResultDf = pull()
+
+  # modelResultDf = modelResultDf.drop(['Model'], axis = 1)
+  # modelResultDf = modelResultDf.drop(['TT (Sec)'], axis = 1)
+  # modelResultDf['Model'] = modelResultDf.index
+  
+  # firstColumnList = list(modelResultDf.columns[-1:])
+  # remainColumnList = list(modelResultDf.columns[:-1])
+  # arrangeColumnList = firstColumnList + remainColumnList
+
+  # modelResultDf = modelResultDf[arrangeColumnList]
+  # modelResultDf.to_csv('example_modelTable.csv', index = False)
+
+  modelResultDf = pd.read_csv('static/example_modelTable.csv')
+  modelResultList = [list(modelResultDf.columns)]
+  for i in range(len(modelResultDf)):
+    modelResultList.append(list(modelResultDf.iloc[i]))
+
+  return json.dumps({'modelTable': 'success'})
+
 @app.route('/tablePoint', methods=['GET', 'POST'])
 def tablePoint():
   req = request.get_data().decode('utf-8')
@@ -298,7 +338,7 @@ def rowSummary():
 
 @app.route('/combination', methods=['GET', 'POST'])
 def combinationTable():
-  with open('static/combination.json') as f:
+  with open('static/example_combination.json') as f:
     combinationData = json.load(f)
 
   return json.dumps(combinationData)
@@ -310,6 +350,14 @@ def new():
   # req example: {'type': row 또는 column, 'name': idx명 또는 column명
 
   return jsonify({'new: success'})
+
+@app.route('/changeCnt', methods=['GET', 'POST'])
+def changeCnt():
+  return
+
+@app.route('/changeDisort', methods=['GET', 'POST'])
+def changeDisort():
+  return
 
 if __name__ == '__main__':
   app.jinja_env.auto_reload = True
