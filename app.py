@@ -162,12 +162,12 @@ def donutChart():
   rateList = [misRate, outRate, incRate, simRate, depRate]
   colorList = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue']
 
-  dataList = []
+  donutChartList = []
   for i in range(0, 5):
-    dataList.append({'label': i, 'color': colorList[i], 'data': {'issue': rateList[i], 'normal': 100 - rateList[i]}})
+    donutChartList.append({'label': i, 'color': colorList[i], 'data': {'issue': rateList[i], 'normal': 100 - rateList[i]}})
 
   response = {}
-  response['donutChartData'] = dataList
+  response['donutChartData'] = donutChartList
 
   return json.dumps(response)
 
@@ -208,9 +208,6 @@ def checkVisualization():
 
   # accuracy
   if vis == 'histogramChart':
-    seriesDataList = []
-    categoryDataList = []
-
     # calculate threshold outlier
     columnDf = originDf[columnName]
     columnDf = columnDf.apply(pd.to_numeric, errors = 'coerce')
@@ -225,6 +222,9 @@ def checkVisualization():
     sliceSize = (maxValue - minValue)/sliceCnt
     columnCntList = [0 for i in range(sliceCnt)]
 
+    seriesDataList = []
+    categoryDataList = []
+
     for i in range(sliceCnt):
       minRange = float(minValue + (sliceSize * i))
       maxRange = float(minValue + (sliceSize * (i + 1)))
@@ -236,9 +236,6 @@ def checkVisualization():
             columnCntList[i] = columnCntList[i] + 1
 
     seriesDataList.append({'name': columnName, 'data': columnCntList})
-
-  # if vis == 'boxplotChart':
-  # if vis == 'scatterChart':
 
   return json.dumps({'checkVisualization': 'success'})
 
@@ -350,7 +347,6 @@ def combinationTable():
 def new():
   req = request.get_data().decode('utf-8')
   req = eval(req)
-  # req example: {'type': row 또는 column, 'name': idx명 또는 column명
 
   return json.dumps({'new': 'success'})
 
@@ -360,13 +356,12 @@ def changeCnt():
   beforeDf = pd.read_csv('static/' + str(uploadFileName) + '.csv')
   beforeList = [len(beforeDf), len(beforeDf.columns), len(beforeDf) * len(beforeDf.columns)]
   
-  # req = request.get_data().decode('utf-8')
-  # req = eval(req)
-  # fileName = req["fileName"]
-  
-  fileName = '0'
-  originDf = pd.read_csv('static/' + str(fileName) + '.csv')
-  afterList = [len(originDf), len(originDf.columns), len(originDf) * len(originDf.columns)]
+  req = request.get_data().decode('utf-8')
+  req = eval(req)
+  fileName = req["fileName"]
+
+  afterDf = pd.read_csv('static/' + str(fileName) + '.csv')
+  afterList = [len(afterDf), len(afterDf.columns), len(afterDf) * len(afterDf.columns)]
 
   seriesDataList = []
   seriesDataList.append({'name': 'before', 'data': beforeList})
@@ -376,6 +371,51 @@ def changeCnt():
 
 @app.route('/changeDisort', methods=['GET', 'POST'])
 def changeDisort():
+  global uploadFileName, column
+  beforeDf = pd.read_csv('static/' + str(uploadFileName) + '.csv')
+  beforeDf = beforeDf.apply(pd.to_numeric, errors = 'coerce')
+  beforeColumnDf = beforeDf[column]
+  beforeColumnList = beforeColumnDf.values.tolist()
+
+  req = request.get_data().decode('utf-8')
+  req = eval(req)
+  fileName = req["fileName"]
+
+  afterDf = pd.read_csv('static/' + str(fileName) + '.csv')
+  afterDf = afterDf.apply(pd.to_numeric, errors = 'coerce')
+  afterColumnDf = afterDf[column]
+  afterColumnList = afterColumnDf.values.tolist()
+
+  # calculate value and range based on before dataframe
+  minValue = beforeColumnDf.min()
+  maxValue = beforeColumnDf.max()
+
+  sliceCnt = 20
+  sliceSize = (maxValue - minValue)/sliceCnt
+  beforeColumnCntList = [0 for i in range(sliceCnt)]
+  afterColumnCntList = [0 for i in range(sliceCnt)]
+
+  seriesDataList = []
+  categoryDataList = []
+
+  for i in range(sliceCnt):
+    minRange = float(minValue + (sliceSize * i))
+    maxRange = float(minValue + (sliceSize * (i + 1)))
+    categoryDataList.append(maxRange)
+
+    for j in range(len(beforeColumnList)):
+      if math.isnan(beforeColumnList[j]) == False:
+        if beforeColumnList[j] >= minRange and beforeColumnList[j] <= maxRange:
+          beforeColumnCntList[i] = beforeColumnCntList[i] + 1
+
+    for j in range(len(afterColumnList)):
+      if math.isnan(afterColumnList[j]) == False:
+        if afterColumnList[j] >= minRange and afterColumnList[j] <= maxRange:
+          afterColumnCntList[i] = afterColumnCntList[i] + 1
+
+  seriesDataList.append({'name': 'before', 'data': beforeColumnCntList})
+  seriesDataList.append({'name': 'after', 'data': afterColumnCntList})
+
   return json.dumps({'changeDisort': 'success'})
 
 if __name__ == '__main__':
