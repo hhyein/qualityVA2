@@ -9,7 +9,8 @@ export default function Table() {
     isEmptyData,
     settingValues,
     file,
-    tablePointData
+    tablePointData,
+    actionRadioValue
   } = useFileData()
 
   const fileReader = new FileReader();
@@ -26,12 +27,14 @@ export default function Table() {
 
 
   const handleTableClick = (key, idx) => {
-    setCheckTableData({
-      key: key,
-      data: idx
-    });
+    if (actionRadioValue === 'new') {
+      setCheckTableData({
+        key: key,
+        data: idx
+      });
 
-    postData('/new', checkTableData);
+      postData('/new', checkTableData);
+    }
   }
 
   React.useEffect(() => {

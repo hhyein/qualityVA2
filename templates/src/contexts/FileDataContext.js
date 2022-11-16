@@ -50,7 +50,8 @@ export const FileDataProvider = ({ children }) => {
   const [treeChartData, setTreeChartData] = useState();
   const [donutChartData, setDonutChartData] = useState();
   const [tablePointData, setTablePointData] = useState();
-  
+  const [actionRadioValue, setActionRadioValue] = useState('recommend');
+
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
   }
@@ -169,7 +170,9 @@ export const FileDataProvider = ({ children }) => {
         treeChartData,
         setTreeChartData,
         donutChartData,
-        tablePointData
+        tablePointData,
+        actionRadioValue,
+        setActionRadioValue
       }}
     >
       {children}
