@@ -173,11 +173,11 @@ def donutChart():
 
 @app.route('/checkVisualization', methods=['GET', 'POST'])
 def checkVisualization():
-  # req = request.get_data().decode('utf-8')
-  # req = eval(req)
-  # fileName = req["fileName"]
-  # vis = req["visualization"]
-  # metric = req["metricValues"]
+  req = request.get_data().decode('utf-8')
+  req = eval(req)
+  fileName = req["fileName"]
+  vis = req["visualization"]
+  metric = req["metricValues"]
 
   originDf = pd.read_csv('static/' + str(fileName) + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
@@ -203,8 +203,11 @@ def checkVisualization():
 
         columnCnt = columnDf.isnull().sum()
         columnCntList.append(columnCnt)
-
       seriesDataList.append({'name': 'r' + str(i), 'data': columnCntList})
+
+      categoryDataList = []
+      for i in range(len(columnList)):
+        categoryDataList.append('c' + str(i))
 
   # accuracy
   if vis == 'histogramChart':
@@ -237,14 +240,18 @@ def checkVisualization():
 
     seriesDataList.append({'name': columnName, 'data': columnCntList})
 
-  return json.dumps({'checkVisualization': 'success'})
+  response = []
+  response['seriesData'] = seriesDataList
+  response['categoryData'] = categoryDataList
+
+  return json.dumps(response)
 
 # 모델 성능 계산할 시에는 mis, inc drop 처리
 @app.route('/modelTable', methods=['GET', 'POST'])
 def modelTable():
-  # req = request.get_data().decode('utf-8')
-  # req = eval(req)
-  # fileName = req["fileName"]
+  req = request.get_data().decode('utf-8')
+  req = eval(req)
+  fileName = req["fileName"]
 
   # originDf = pd.read_csv('static/' + str(fileName) + '.csv')
   # originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
@@ -277,7 +284,10 @@ def modelTable():
   for i in range(len(modelResultDf)):
     modelResultList.append(list(modelResultDf.iloc[i]))
 
-  return json.dumps({'modelTable': 'success'})
+  response = []
+  response['modelResultData'] = modelResultList
+
+  return json.dumps(response)
 
 @app.route('/tablePoint', methods=['GET', 'POST'])
 def tablePoint():
@@ -346,7 +356,6 @@ def combinationTable():
 @app.route('/new', methods=['GET', 'POST'])
 def new():
   req = request.get_data().decode('utf-8')
-  #req = eval(req)
 
   return json.dumps({'new': 'success'})
 
@@ -367,7 +376,10 @@ def changeCnt():
   seriesDataList.append({'name': 'before', 'data': beforeList})
   seriesDataList.append({'name': 'after', 'data': afterList})
 
-  return json.dumps({'changeCnt': 'success'})
+  response = []
+  response['seriesData'] = seriesDataList
+
+  return json.dumps(response)
 
 @app.route('/changeDisort', methods=['GET', 'POST'])
 def changeDisort():
@@ -416,7 +428,11 @@ def changeDisort():
   seriesDataList.append({'name': 'before', 'data': beforeColumnCntList})
   seriesDataList.append({'name': 'after', 'data': afterColumnCntList})
 
-  return json.dumps({'changeDisort': 'success'})
+  response = []
+  response['seriesData'] = seriesDataList
+  response['categoryData'] = categoryDataList
+
+  return json.dumps(response)
 
 if __name__ == '__main__':
   app.jinja_env.auto_reload = True
