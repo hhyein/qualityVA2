@@ -346,7 +346,7 @@ def combinationTable():
 @app.route('/new', methods=['GET', 'POST'])
 def new():
   req = request.get_data().decode('utf-8')
-  req = eval(req)
+  #req = eval(req)
 
   return json.dumps({'new': 'success'})
 

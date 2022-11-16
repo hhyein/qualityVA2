@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from '../../Box'
-import { useFileData } from '../../../contexts/FileDataContext'
+import { useFileData, postData } from '../../../contexts/FileDataContext'
 import RowSummaryChartD3 from '../../charts/RowSummaryChartD3'
 import ColumnSummaryChart from '../../charts/ColumnSummaryChart'
 
@@ -9,7 +9,8 @@ export default function Table() {
     isEmptyData,
     settingValues,
     file,
-    tablePointData
+    tablePointData,
+    actionRadioValue
   } = useFileData()
 
   const fileReader = new FileReader();
@@ -19,17 +20,21 @@ export default function Table() {
   const [columnDatas, setcolumnDatas] = React.useState([]);
   const [gridData, setGridData] = React.useState('');
   const [checkTableData, setCheckTableData] = React.useState({
-    key: 'row',
+    key: 'col',
     data: 1
   });
   const [pointData, setPointData] = React.useState();
 
 
   const handleTableClick = (key, idx) => {
-    setCheckTableData({
-      key: key,
-      data: idx
-    });
+    if (actionRadioValue === 'new') {
+      setCheckTableData({
+        key: key,
+        data: idx
+      });
+
+      postData('/new', checkTableData);
+    }
   }
 
   React.useEffect(() => {

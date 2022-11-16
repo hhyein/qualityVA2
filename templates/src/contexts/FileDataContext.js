@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { PORT } from '../const'
 
-const fetchData = async route => {
+export const fetchData = async route => {
   try {
     const res = await axios.get(
       `http://${window.location.hostname}:${PORT}${route}?${Math.random()}`
@@ -14,7 +14,7 @@ const fetchData = async route => {
   }
 }
 
-const postData = async (route, params, config) => {
+export const postData = async (route, params, config) => {
   try {
     const res = await axios.post(
       `http://${window.location.hostname}:${PORT}${route}?${Math.random()}`,
@@ -50,7 +50,8 @@ export const FileDataProvider = ({ children }) => {
   const [treeChartData, setTreeChartData] = useState();
   const [donutChartData, setDonutChartData] = useState();
   const [tablePointData, setTablePointData] = useState();
-  
+  const [actionRadioValue, setActionRadioValue] = useState('recommend');
+
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
   }
@@ -169,7 +170,9 @@ export const FileDataProvider = ({ children }) => {
         treeChartData,
         setTreeChartData,
         donutChartData,
-        tablePointData
+        tablePointData,
+        actionRadioValue,
+        setActionRadioValue
       }}
     >
       {children}

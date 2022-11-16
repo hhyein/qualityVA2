@@ -11,13 +11,14 @@ export default function Action() {
     selectedCombinationTableRow,
     setMyCombinationData,
     myCombinationData,
-    setTreeChartData
+    setTreeChartData,
+    actionRadioValue,
+    setActionRadioValue
   } = useFileData();
 
   const { combinationData } = combinationTableData
-  const [radioValue, setRadioValue] = React.useState('recommend');
   const handleChangeRadio = (e) => {
-    setRadioValue(e.target.value);
+    setActionRadioValue(e.target.value);
   }
 
   const data = useMemo(() => {
@@ -40,7 +41,7 @@ export default function Action() {
   }, [combinationData])
 
   React.useEffect(() => {
-    if (radioValue === 'new') {
+    if (actionRadioValue === 'new') {
       setMyCombinationData('transformation');
     } else {
       const key = selectedCombinationTableRow?.key;
@@ -48,7 +49,7 @@ export default function Action() {
         setMyCombinationData();
       }
     }
-  }, [combinationData, selectedCombinationTableRow?.key, radioValue, setMyCombinationData])
+  }, [combinationData, selectedCombinationTableRow?.key, actionRadioValue, setMyCombinationData])
 
   React.useEffect(() => {
     let imgData;
@@ -102,14 +103,14 @@ export default function Action() {
                   value={item}
                   style={{ marginRight: '10px' }}
                   onClick={handleChangeRadio}
-                  checked={radioValue === item}
+                  checked={actionRadioValue === item}
                 />
                 {item}
               </div>
             ))}
           </div>
-          {radioValue === 'recommend' && <Recommend />}
-          {radioValue === 'new' && <New />}
+          {actionRadioValue === 'recommend' && <Recommend />}
+          {actionRadioValue === 'new' && <New />}
         </React.Fragment>
       )}
     </Box>
