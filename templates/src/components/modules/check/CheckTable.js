@@ -3,8 +3,6 @@ import React from 'react'
 export default function checkTable(props) {
 
   const { checkTableData, setCheckTableData, data, renderChartData, setRenderChartData } = props
-
-  // const colorData = ['', 'tomato', 'mediumpurple', 'seagreen', 'darkgray', 'darkgray', 'darkgray'];
   const colors = ['#FF6347', '#9370DB', '#2E8B57', '#B22222', '#FF69B4'];
 
   const handleTableClick = (idx) => {
@@ -24,7 +22,6 @@ export default function checkTable(props) {
         return;
       }
       setCheckTableData([...checkTableData, idx]);
-      // 새로 선택된 값 chart에 넣기
       setRenderChartData([...renderChartData, {
         key: idx,
         name: data[idx][0],
@@ -35,9 +32,9 @@ export default function checkTable(props) {
 
   return data.length > 0 && (
     <div style={{
-      // overflow: 'scroll',
+      overflowY: 'auto',
       marginTop: '5px',
-      width: '350px',
+      width: '370px',
     }}>
       <div style={{
         display: 'grid',

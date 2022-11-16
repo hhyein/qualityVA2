@@ -20,37 +20,43 @@ import module.tree as tree
 app = Flask(__name__)
 CORS(app)
 
-fileName = 'wine'
+uploadFileName = 'wine'
 purpose = ''
 column = ''
 inputModelList = []
 inputEvalList = []
 
+# if purpose == '' or 'regression':
+#   from pycaret.regression import *
+
+# if purpose == 'classification':
+#   from pycaret.classification import *
+
 @app.route('/fileUpload', methods=['GET', 'POST'])
 def fileUpload():
   req = request.files['file']
 
-  fileUploadList = []
-  stream = codecs.iterdecode(req.stream, 'utf-8')
-  for row in csv.reader(stream, dialect = csv.excel):
-    if row:
-      fileUploadList.append(row)
+  # fileUploadList = []
+  # stream = codecs.iterdecode(req.stream, 'utf-8')
+  # for row in csv.reader(stream, dialect = csv.excel):
+  #   if row:
+  #     fileUploadList.append(row)
 
-  fileUploadDf = pd.DataFrame(fileUploadList)
-  fileUploadDf = fileUploadDf.rename(columns = fileUploadDf.iloc[0])
-  fileUploadDf = fileUploadDf.drop(fileUploadDf.index[0])
-  fileUploadDf = fileUploadDf.reset_index(drop = True)
+  # fileUploadDf = pd.DataFrame(fileUploadList)
+  # fileUploadDf = fileUploadDf.rename(columns = fileUploadDf.iloc[0])
+  # fileUploadDf = fileUploadDf.drop(fileUploadDf.index[0])
+  # fileUploadDf = fileUploadDf.reset_index(drop = True)
 
-  originDf = fileUploadDf.reindex(sorted(fileUploadDf.columns), axis = 1)
-  originDf.to_json('static/file.json', orient = 'records', indent = 4)
+  # originDf = fileUploadDf.reindex(sorted(fileUploadDf.columns), axis = 1)
+  # originDf.to_json('static/file.json', orient = 'records', indent = 4)
 
   return json.dumps({'fileUpload': 'success'})
 
 @app.route('/setting', methods=['GET', 'POST'])
 def setting():
-  global purpose, column, inputModelList, inputEvalList
+  global uploadFileName, purpose, column, inputModelList, inputEvalList
 
-  originDf = pd.read_csv('static/' + fileName + '.csv')
+  originDf = pd.read_csv('static/' + uploadFileName + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
 
   if request.method == 'GET':
@@ -152,19 +158,126 @@ def donutChart():
   ##### sim, dep
   simRate = round(60)
   depRate = round(60)
-  #####
 
   rateList = [misRate, outRate, incRate, simRate, depRate]
   colorList = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue']
 
-  dataList = []
+  donutChartList = []
   for i in range(0, 5):
-    dataList.append({'label': i, 'color': colorList[i], 'data': {'issue': rateList[i], 'normal': 100 - rateList[i]}})
+    donutChartList.append({'label': i, 'color': colorList[i], 'data': {'issue': rateList[i], 'normal': 100 - rateList[i]}})
 
   response = {}
-  response['donutChartData'] = dataList
+  response['donutChartData'] = donutChartList
 
   return json.dumps(response)
+
+@app.route('/checkVisualization', methods=['GET', 'POST'])
+def checkVisualization():
+  # req = request.get_data().decode('utf-8')
+  # req = eval(req)
+  # fileName = req["fileName"]
+  # vis = req["visualization"]
+  # metric = req["metricValues"]
+
+  originDf = pd.read_csv('static/' + str(fileName) + '.csv')
+  originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
+  columnList = list(originDf.columns)
+  
+  # completeness, consistency
+  if vis == 'heatmapChart':
+    sliceCnt = 10
+    sliceSize = int(len(originDf)/sliceCnt)
+
+    seriesDataList = []
+    for i in range(sliceCnt):
+      rowSliceDf = originDf.iloc[sliceSize * i : sliceSize * (i + 1)]
+      columnCntList = []
+
+      for column in columnList:
+        columnDf = rowSliceDf[column]
+
+        if metric == 'consistency':
+          columnDf = rowSliceDf[column]
+          columnDf = columnDf.dropna()
+          columnDf = pd.to_numeric(columnDf, errors = 'coerce')
+
+        columnCnt = columnDf.isnull().sum()
+        columnCntList.append(columnCnt)
+
+      seriesDataList.append({'name': 'r' + str(i), 'data': columnCntList})
+
+  # accuracy
+  if vis == 'histogramChart':
+    # calculate threshold outlier
+    columnDf = originDf[columnName]
+    columnDf = columnDf.apply(pd.to_numeric, errors = 'coerce')
+    lower, upper = main.lower_upper(columnDf)
+
+    # generate histogram chart dataset
+    columnList = columnDf.values.tolist()
+    minValue = columnDf.min()
+    maxValue = columnDf.max()
+
+    sliceCnt = 20
+    sliceSize = (maxValue - minValue)/sliceCnt
+    columnCntList = [0 for i in range(sliceCnt)]
+
+    seriesDataList = []
+    categoryDataList = []
+
+    for i in range(sliceCnt):
+      minRange = float(minValue + (sliceSize * i))
+      maxRange = float(minValue + (sliceSize * (i + 1)))
+      categoryDataList.append(maxRange)
+
+      for j in range(len(columnList)):
+        if math.isnan(columnList[j]) == False:
+          if columnList[j] >= minRange and columnList[j] <= maxRange:
+            columnCntList[i] = columnCntList[i] + 1
+
+    seriesDataList.append({'name': columnName, 'data': columnCntList})
+
+  return json.dumps({'checkVisualization': 'success'})
+
+# 모델 성능 계산할 시에는 mis, inc drop 처리
+@app.route('/modelTable', methods=['GET', 'POST'])
+def modelTable():
+  # req = request.get_data().decode('utf-8')
+  # req = eval(req)
+  # fileName = req["fileName"]
+
+  # originDf = pd.read_csv('static/' + str(fileName) + '.csv')
+  # originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
+  # columnList = list(originDf.columns)
+
+  # df = originDf.apply(pd.to_numeric, errors = 'coerce')
+  # df = pd.DataFrame(df, columns = columnList)
+  # df = df.dropna()
+
+  # global column
+  # clf = setup(data = df, target = column, preprocess = False, session_id = 42, use_gpu = True, silent = True)
+  # model = compare_models()
+  # modelResultDf = pull()
+
+  # modelResultDf = modelResultDf.drop(['Model'], axis = 1)
+  # modelResultDf = modelResultDf.drop(['TT (Sec)'], axis = 1)
+  # modelResultDf['Model'] = modelResultDf.index
+  
+  # firstColumnList = list(modelResultDf.columns[-1:])
+  # remainColumnList = list(modelResultDf.columns[:-1])
+  # arrangeColumnList = firstColumnList + remainColumnList
+
+  # modelResultDf = modelResultDf[arrangeColumnList]
+  # modelResultDf.to_csv('example_modelTable.csv', index = False)
+
+  modelResultDf = pd.read_csv('static/example_modelTable.csv')
+  modelResultDf = modelResultDf.round(3)
+
+  modelResultList = [list(modelResultDf.columns)]
+  for i in range(len(modelResultDf)):
+    modelResultList.append(list(modelResultDf.iloc[i]))
+
+  return json.dumps({'modelTable': 'success'})
 
 @app.route('/tablePoint', methods=['GET', 'POST'])
 def tablePoint():
@@ -217,15 +330,15 @@ def tablePoint():
 
 @app.route('/columnSummary', methods=['GET', 'POST'])
 def columnSummary():
-  return
+  return json.dumps({'columnSummary': 'success'})
 
 @app.route('/rowSummary', methods=['GET', 'POST'])
 def rowSummary():
-  return
+  return json.dumps({'rowSummary': 'success'})
 
 @app.route('/combination', methods=['GET', 'POST'])
 def combinationTable():
-  with open('static/combination.json') as f:
+  with open('static/example_combination.json') as f:
     combinationData = json.load(f)
 
   return json.dumps(combinationData)
@@ -236,6 +349,74 @@ def new():
   #req = eval(req)
 
   return json.dumps({'new': 'success'})
+
+@app.route('/changeCnt', methods=['GET', 'POST'])
+def changeCnt():
+  global uploadFileName
+  beforeDf = pd.read_csv('static/' + str(uploadFileName) + '.csv')
+  beforeList = [len(beforeDf), len(beforeDf.columns), len(beforeDf) * len(beforeDf.columns)]
+  
+  req = request.get_data().decode('utf-8')
+  req = eval(req)
+  fileName = req["fileName"]
+
+  afterDf = pd.read_csv('static/' + str(fileName) + '.csv')
+  afterList = [len(afterDf), len(afterDf.columns), len(afterDf) * len(afterDf.columns)]
+
+  seriesDataList = []
+  seriesDataList.append({'name': 'before', 'data': beforeList})
+  seriesDataList.append({'name': 'after', 'data': afterList})
+
+  return json.dumps({'changeCnt': 'success'})
+
+@app.route('/changeDisort', methods=['GET', 'POST'])
+def changeDisort():
+  global uploadFileName, column
+  beforeDf = pd.read_csv('static/' + str(uploadFileName) + '.csv')
+  beforeDf = beforeDf.apply(pd.to_numeric, errors = 'coerce')
+  beforeColumnDf = beforeDf[column]
+  beforeColumnList = beforeColumnDf.values.tolist()
+
+  req = request.get_data().decode('utf-8')
+  req = eval(req)
+  fileName = req["fileName"]
+
+  afterDf = pd.read_csv('static/' + str(fileName) + '.csv')
+  afterDf = afterDf.apply(pd.to_numeric, errors = 'coerce')
+  afterColumnDf = afterDf[column]
+  afterColumnList = afterColumnDf.values.tolist()
+
+  # calculate value and range based on before dataframe
+  minValue = beforeColumnDf.min()
+  maxValue = beforeColumnDf.max()
+
+  sliceCnt = 20
+  sliceSize = (maxValue - minValue)/sliceCnt
+  beforeColumnCntList = [0 for i in range(sliceCnt)]
+  afterColumnCntList = [0 for i in range(sliceCnt)]
+
+  seriesDataList = []
+  categoryDataList = []
+
+  for i in range(sliceCnt):
+    minRange = float(minValue + (sliceSize * i))
+    maxRange = float(minValue + (sliceSize * (i + 1)))
+    categoryDataList.append(maxRange)
+
+    for j in range(len(beforeColumnList)):
+      if math.isnan(beforeColumnList[j]) == False:
+        if beforeColumnList[j] >= minRange and beforeColumnList[j] <= maxRange:
+          beforeColumnCntList[i] = beforeColumnCntList[i] + 1
+
+    for j in range(len(afterColumnList)):
+      if math.isnan(afterColumnList[j]) == False:
+        if afterColumnList[j] >= minRange and afterColumnList[j] <= maxRange:
+          afterColumnCntList[i] = afterColumnCntList[i] + 1
+
+  seriesDataList.append({'name': 'before', 'data': beforeColumnCntList})
+  seriesDataList.append({'name': 'after', 'data': afterColumnCntList})
+
+  return json.dumps({'changeDisort': 'success'})
 
 if __name__ == '__main__':
   app.jinja_env.auto_reload = True

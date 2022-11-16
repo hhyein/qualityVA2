@@ -49,12 +49,24 @@ const thresholdList = [
 
 const data = [
   ['Model', 'MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE'],
-  ['LR', 2.43, 4.64, 1.06, 1.04, 1.06, 1.04],
-  ['NB', 1.43, 3.64, 3.06, 3.04, 3.06, 0.04],
-  ['DT', 3.43, 2.64, 5.06, 1.04, 3.06, 1.04],
-  ['SVM', 4.43, 1.64, 7.06, 2.04, 3.06, 6.04],
-  ['RBFSVM', 5.43, 0.64, 3.06, 1.04, 5.06, 1.04],
-  ['GPC', 6.43, 6.64, 1.06, 1.04, 3.06, 2.04],
+  ['et', 0.462, 0.351, 0.571, 0.548, 0.042, 0.036],
+  ['br', 0.504, 0.399, 0.616, 0.489, 0.045, 0.04],
+  ['ada', 0.479, 0.399, 0.604, 0.483, 0.044, 0.038],
+  ['rf', 0.488, 0.42, 0.611, 0.475, 0.045, 0.039],
+  ['ridge', 0.509, 0.402, 0.618, 0.474, 0.045, 0.04],
+  ['lr', 0.519, 0.415, 0.629, 0.456, 0.046, 0.041],
+  ['gbr', 0.527, 0.447, 0.648, 0.417, 0.047, 0.042],
+  ['lightgbm', 0.516, 0.46, 0.652, 0.417, 0.047, 0.041],
+  ['en', 0.544, 0.482, 0.673, 0.396, 0.049, 0.043],
+  ['lar', 0.55, 0.489, 0.667, 0.349, 0.049, 0.043],
+  ['lasso', 0.593, 0.552, 0.72, 0.31, 0.053, 0.047],
+  ['knn', 0.637, 0.598, 0.758, 0.232, 0.055, 0.05],
+  ['omp', 0.641, 0.647, 0.787, 0.164, 0.057, 0.051],
+  ['dt', 0.619, 0.685, 0.789, 0.134, 0.058, 0.049],
+  ['llar', 0.759, 0.806, 0.887, -0.058, 0.064, 0.06],
+  ['dummy', 0.759, 0.806, 0.887, -0.058, 0.064, 0.06],
+  ['huber', 0.768, 0.958, 0.95, -0.308, 0.07, 0.061],
+  ['par', 1.346, 2.972, 1.654, -3.23, 0.116, 0.105]
 ];
 
 export default function Check() {
@@ -86,14 +98,9 @@ export default function Check() {
   const [checkTableData, setCheckTableData] = React.useState([1]);
   const [renderChartData, setRenderChartData] = React.useState([{
     key: 1,
-    name: 'LR',
-    data: [2.43, 4.64, 1.06, 1.04, 1.06, 1.04],
+    name: 'et',
+    data: [0.461, 0.351, 0.571, 0.548, 0.042, 0.036],
   }]);
-
-  // console.log(checkTableData);
-  // console.log(renderChartData);
-
-  // colors: ['#FF6347', '#9370DB', '#2E8B57', '#B22222', '#FF69B4']
 
   React.useEffect(() => {
     setMetricValues(metricList[selectedLegendIdx])
@@ -319,7 +326,7 @@ export default function Check() {
               renderChartData={renderChartData}
               setRenderChartData={setRenderChartData} />
             <div style={{ display: 'flex' }}>
-              <div style={{ position: 'relative', top: '20px' }}>
+              <div style={{ position: 'relative', top: '10px' }}>
                 <RaderChart data={renderChartData} />
               </div>
               <div style={{ overflowY: 'auto' }}>
