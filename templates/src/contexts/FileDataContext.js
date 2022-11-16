@@ -51,6 +51,10 @@ export const FileDataProvider = ({ children }) => {
   const [donutChartData, setDonutChartData] = useState();
   const [tablePointData, setTablePointData] = useState();
   const [actionRadioValue, setActionRadioValue] = useState('recommend');
+  const [visualizationData, setVisualizationData] = useState();
+  const [modelTableData, setModelTableData] = useState();
+  const [changeCntData, setChangeCntData] = useState();
+  const [changeDistortData, setChangeDistort] = useState();
 
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
@@ -135,11 +139,54 @@ export const FileDataProvider = ({ children }) => {
     setTablePointData(tableData);
   }
 
+  const updateVisualizationData = async (fileName, visualization, metricValue) => {
+    const option = {
+      fileName: fileName,
+      visualization: visualization,
+      metricValue: metricValue
+    }
+    const visualizationData = await postData('/checkVisualization', option);
+    setVisualizationData(visualizationData);
+  }
+
+  const updateModelTableData = async (fileName) => {
+    const option = {
+      fileName: fileName
+    }
+    const modelTableData = await postData('/modelTable', option);
+    setModelTableData(modelTableData);
+  }
+
+  const updateChangeCntData = async (fileName) => {
+    const option = {
+      fileName: fileName
+    }
+    const changeCntData = await postData('/changeCnt', option);
+    setChangeCntData(changeCntData);
+  }
+
+  const updateChangeDistortData = async (fileName) => {
+    const option = {
+      fileName: fileName
+    }
+    const changeDistortData = await postData('/changeDistort', option);
+    setChangeDistort(changeDistortData);
+  }
+
+  // const [visualizationData, setVisualizationData] = useState();
+  // const [modelTableData, setModelTableData] = useState();
+  // const [changeCntData, setChangeCntData] = useState();
+  // const [changeDistortData, setChangeDistort] = useState();
+
   useEffect(() => {
     if (!file || isEmptyData(settingValues)) {
       return
     }
     updateCombinationTable()
+    updateVisualizationData(0, 'heatmapChart', 'completeness')
+    updateModelTableData(0)
+    updateChangeCntData(0)
+    updateChangeDistortData(0)
   }, [
     file,
     updateCombinationTable,
@@ -172,7 +219,12 @@ export const FileDataProvider = ({ children }) => {
         donutChartData,
         tablePointData,
         actionRadioValue,
-        setActionRadioValue
+        setActionRadioValue,
+        visualizationData,
+        updateVisualizationData,
+        modelTableData,
+        changeCntData,
+        changeDistortData
       }}
     >
       {children}
