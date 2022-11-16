@@ -99,9 +99,7 @@ def setting():
     return json.dumps(response)
 
   if request.method == 'POST':
-    req = request.get_data().decode('utf-8')
-    req = eval(req)
-
+    req = eval(request.get_data().decode('utf-8'))
     purpose = req["purpose"]["label"]
     column = req["column"]["label"]
     modelList = req["model"]
@@ -119,8 +117,7 @@ def setting():
 
 @app.route('/donutChart', methods=['GET', 'POST'])
 def donutChart():
-  req = request.get_data().decode('utf-8')
-  req = eval(req)
+  req = eval(request.get_data().decode('utf-8'))
   fileName = req["fileName"]
 
   originDf = pd.read_csv('static/' + str(fileName) + '.csv')
@@ -173,11 +170,10 @@ def donutChart():
 
 @app.route('/checkVisualization', methods=['GET', 'POST'])
 def checkVisualization():
-  req = request.get_data().decode('utf-8')
-  req = eval(req)
+  req = eval(request.get_data().decode('utf-8'))
   fileName = req["fileName"]
   vis = req["visualization"]
-  metric = req["metricValues"]
+  metric = req["metricValue"]
 
   originDf = pd.read_csv('static/' + str(fileName) + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
@@ -203,7 +199,7 @@ def checkVisualization():
 
         columnCnt = columnDf.isnull().sum()
         columnCntList.append(columnCnt)
-      seriesDataList.append({'name': 'r' + str(i), 'data': columnCntList})
+      seriesDataList.append({'name': 'r' + str(i), 'data': str(columnCntList)})
 
       categoryDataList = []
       for i in range(len(columnList)):
@@ -238,9 +234,9 @@ def checkVisualization():
           if columnList[j] >= minRange and columnList[j] <= maxRange:
             columnCntList[i] = columnCntList[i] + 1
 
-    seriesDataList.append({'name': columnName, 'data': columnCntList})
+    seriesDataList.append({'name': columnName, 'data': str(columnCntList)})
 
-  response = []
+  response = {}
   response['seriesData'] = seriesDataList
   response['categoryData'] = categoryDataList
 
@@ -249,8 +245,7 @@ def checkVisualization():
 # 모델 성능 계산할 시에는 mis, inc drop 처리
 @app.route('/modelTable', methods=['GET', 'POST'])
 def modelTable():
-  req = request.get_data().decode('utf-8')
-  req = eval(req)
+  req = eval(request.get_data().decode('utf-8'))
   fileName = req["fileName"]
 
   # originDf = pd.read_csv('static/' + str(fileName) + '.csv')
@@ -284,15 +279,14 @@ def modelTable():
   for i in range(len(modelResultDf)):
     modelResultList.append(list(modelResultDf.iloc[i]))
 
-  response = []
+  response = {}
   response['modelResultData'] = modelResultList
 
   return json.dumps(response)
 
 @app.route('/tablePoint', methods=['GET', 'POST'])
 def tablePoint():
-  req = request.get_data().decode('utf-8')
-  req = eval(req)
+  req = eval(request.get_data().decode('utf-8'))
   fileName = req["fileName"]
 
   originDf = pd.read_csv('static/' + str(fileName) + '.csv')
@@ -365,8 +359,7 @@ def changeCnt():
   beforeDf = pd.read_csv('static/' + str(uploadFileName) + '.csv')
   beforeList = [len(beforeDf), len(beforeDf.columns), len(beforeDf) * len(beforeDf.columns)]
   
-  req = request.get_data().decode('utf-8')
-  req = eval(req)
+  req = eval(request.get_data().decode('utf-8'))
   fileName = req["fileName"]
 
   afterDf = pd.read_csv('static/' + str(fileName) + '.csv')
@@ -376,7 +369,7 @@ def changeCnt():
   seriesDataList.append({'name': 'before', 'data': beforeList})
   seriesDataList.append({'name': 'after', 'data': afterList})
 
-  response = []
+  response = {}
   response['seriesData'] = seriesDataList
 
   return json.dumps(response)
@@ -389,8 +382,7 @@ def changeDisort():
   beforeColumnDf = beforeDf[column]
   beforeColumnList = beforeColumnDf.values.tolist()
 
-  req = request.get_data().decode('utf-8')
-  req = eval(req)
+  req = eval(request.get_data().decode('utf-8'))
   fileName = req["fileName"]
 
   afterDf = pd.read_csv('static/' + str(fileName) + '.csv')
@@ -428,7 +420,7 @@ def changeDisort():
   seriesDataList.append({'name': 'before', 'data': beforeColumnCntList})
   seriesDataList.append({'name': 'after', 'data': afterColumnCntList})
 
-  response = []
+  response = {}
   response['seriesData'] = seriesDataList
   response['categoryData'] = categoryDataList
 
