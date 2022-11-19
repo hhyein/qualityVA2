@@ -241,8 +241,6 @@ def checkVisualization():
   response['seriesData'] = seriesDataList
   response['categoryData'] = categoryDataList
 
-  print(response)
-
   return json.dumps(response)
 
 # 모델 성능 계산할 시에는 mis, inc drop 처리
