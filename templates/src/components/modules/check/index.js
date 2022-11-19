@@ -78,11 +78,11 @@ export default function Check() {
     modelSettingData: { columnList },
     donutChartData,
     treeChartData,
-    visualizationData,
-    updateVisualizationData
+    // visualizationData,
+    // updateVisualizationData
   } = useFileData()
 
-  console.log(visualizationData)
+  // console.log(visualizationData)
 
   const [metricValues, setMetricValues] = React.useState({
     label: "completeness",

@@ -377,8 +377,8 @@ def changeCnt():
 
   return json.dumps(response)
 
-@app.route('/changeDisort', methods=['GET', 'POST'])
-def changeDisort():
+@app.route('/changeDistort', methods=['GET', 'POST'])
+def changeDistort():
   global uploadFileName, column
   beforeDf = pd.read_csv('static/' + str(uploadFileName) + '.csv')
   beforeDf = beforeDf.apply(pd.to_numeric, errors = 'coerce')

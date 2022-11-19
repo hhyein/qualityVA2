@@ -173,11 +173,6 @@ export const FileDataProvider = ({ children }) => {
     setChangeDistort(changeDistortData);
   }
 
-  // const [visualizationData, setVisualizationData] = useState();
-  // const [modelTableData, setModelTableData] = useState();
-  // const [changeCntData, setChangeCntData] = useState();
-  // const [changeDistortData, setChangeDistort] = useState();
-
   useEffect(() => {
     if (!file || isEmptyData(settingValues)) {
       return
