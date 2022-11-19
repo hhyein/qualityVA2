@@ -23,11 +23,11 @@ const legendData = [
 ]
 
 const metricList = [
-  { label: 'completeness', value: 0 },
-  { label: 'accuracy', value: 1 },
-  { label: 'consistency', value: 2 },
-  { label: 'similarity', value: 3 },
-  { label: 'dependency', value: 4 },
+  { label: 'completeness', visualChart: 'heatmapChart', value: 0 },
+  { label: 'accuracy', visualChart: 'histogramChart', value: 1 },
+  { label: 'consistency', visualChart: 'heatmapChart', value: 2 },
+  { label: 'similarity', visualChart: 'boxplotChart', value: 3 },
+  { label: 'dependency', visualChart: 'scatterChart', value: 4 },
 ]
 
 const outlierList = [
@@ -78,14 +78,13 @@ export default function Check() {
     modelSettingData: { columnList },
     donutChartData,
     treeChartData,
-    // visualizationData,
-    // updateVisualizationData
+    visualizationData,
+    updateVisualizationData
   } = useFileData()
-
-  // console.log(visualizationData)
 
   const [metricValues, setMetricValues] = React.useState({
     label: "completeness",
+    visualChart: "heatmapChart",
     value: 0
   });
   const [visualizationList, setVisualizationList] = React.useState([]);
@@ -105,10 +104,17 @@ export default function Check() {
     name: 'et',
     data: [0.461, 0.351, 0.571, 0.548, 0.042, 0.036],
   }]);
+  const [columnData, setColumnData] = React.useState();
+  const [outlierData, setOutlierData] = React.useState();
+  
+  // console.log(visualizationData);
 
   React.useEffect(() => {
-    setMetricValues(metricList[selectedLegendIdx])
-  }, [selectedLegendIdx])
+    if(columnList) {
+      setColumnData(columnList[0].label)
+    setOutlierData(outlierList[0].label)
+    }
+  }, [columnList])
 
   React.useEffect(() => {
     if (treeChartData) {
@@ -127,26 +133,31 @@ export default function Check() {
   }, [treeChartData])
 
   React.useEffect(() => {
-    if (metricValues?.label === 'completeness' || metricValues?.label === 'consistency') {
-      setVisualizationList(["HeatmapChart"]);
-    } else if (metricValues?.label == 'accuracy') {
-      setVisualizationList(["HistogramChart"]);
-    } else if (metricValues?.label === 'similarity') {
-      setVisualizationList(["BoxplotChart"]);
-    } else if (metricValues?.label === 'dependency') {
-      setVisualizationList(["ScatterChart"]);
+    setMetricValues(metricList[selectedLegendIdx])
+  }, [selectedLegendIdx])
+
+
+  React.useEffect(() => {
+    if (metricValues?.label) {
+      setVisualizationList([metricValues.visualChart]);
+      if (metricValues.visualChart === 'histogramChart') {
+        updateVisualizationData(0, metricValues.visualChart, metricValues.label, columnData, outlierData)
+      } else {
+        updateVisualizationData(0, metricValues.visualChart, metricValues.label)
+      }
     }
-  }, [metricValues])
+  }, [metricValues, columnData, outlierData])
 
   const chartData = (value) => {
     switch (value) {
-      case "HeatmapChart":
+      case "heatmapChart":
         return <div style={{ display: 'flex' }}>
           <HeatmapChart
             label={metricValues?.label}
             setRowIndex={setCompletenessRowIndex}
             setColumnName={setCompletenessColumnName}
             setQualityIssueCnt={setCompletenessQualityIssueCnt}
+            visualizationData={visualizationData}
           />
           <div style={{ position: 'relative', right: 10 }}>
             <div style={{ width: 165, height: 95, border: '1px solid #999999', marginTop: 30 }}>
@@ -167,7 +178,7 @@ export default function Check() {
           </div>
         </div>
 
-      case "HistogramChart":
+      case "histogramChart":
         return <div style={{ display: 'flex' }}>
           <div>
             <div style={{ display: 'flex', marginTop: 20, marginRight: 10 }}>
@@ -178,14 +189,22 @@ export default function Check() {
                 <Title title="column" />
                 <Select className="select"
                   options={columnList}
-                  placeholder={<div>select</div>}
+                  placeholder={<div>{columnData}</div>}
+                  defaultValue={columnData}
+                  onChange={v => {
+                    setColumnData(v.label)
+                  }}
                 />
               </div>
               <div style={{ width: '45%' }}>
                 <Title title="outlier" />
                 <Select className="select"
                   options={outlierList}
-                  placeholder={<div>select</div>}
+                  placeholder={<div>{outlierData}</div>}
+                  defaultValue={outlierData}
+                  onChange={v => {
+                    setOutlierData(v.label)
+                  }}
                 />
               </div>
             </div>
@@ -211,7 +230,7 @@ export default function Check() {
           </div>
         </div>
 
-      case "BoxplotChart":
+      case "boxplotChart":
         return <div style={{ display: 'flex' }}>
           <BoxplotChart
             setColumnName={setSimilarityColumnName}
@@ -238,7 +257,7 @@ export default function Check() {
           </div>
         </div>
 
-      case "ScatterChart":
+      case "scatterChart":
         return <div style={{ display: 'flex' }}>
           <div style={{ width: 100, height: 175, marginTop: 25, marginLeft: 10, marginRight: 10 }}>
             <Title title="column" />
@@ -279,7 +298,7 @@ export default function Check() {
         return
     }
   }
-  
+
   return (
     <Box title="check">
       {!isEmptyData({
@@ -339,30 +358,30 @@ export default function Check() {
             </div>
           </div>
           {dataList && dataIndex &&
-          <div style={{
-            position: 'relative',
-            top: dataIndex.top - 37,
-            right: '35px',
-            minWidth: '160px',
-            height: '100px',
-            backgroundColor: '#fff',
-            zIndex: 100
-          }}>
             <div style={{
-              backgroundColor: '#eee',
-              height: '30px',
-              padding: '2px'
+              position: 'relative',
+              top: dataIndex.top - 37,
+              right: '35px',
+              minWidth: '160px',
+              height: '100px',
+              backgroundColor: '#fff',
+              zIndex: 100
             }}>
-              step {dataIndex.index}
-            </div>
-            <div style={{
-              padding: '2px'
-            }}>
-              method: {dataIndex.index === '0' ? 'none' : dataList[Number.parseInt(dataIndex.index)-1].props.children[0]}</div>
-            <div style={{
-              padding: '2px'
-            }}>detail method: {dataIndex.index === '0' ? 'none' : dataList[Number.parseInt(dataIndex.index)-1].props.children[1]}</div>
-          </div>}
+              <div style={{
+                backgroundColor: '#eee',
+                height: '30px',
+                padding: '2px'
+              }}>
+                step {dataIndex.index}
+              </div>
+              <div style={{
+                padding: '2px'
+              }}>
+                method: {dataIndex.index === '0' ? 'none' : dataList[Number.parseInt(dataIndex.index) - 1].props.children[0]}</div>
+              <div style={{
+                padding: '2px'
+              }}>detail method: {dataIndex.index === '0' ? 'none' : dataList[Number.parseInt(dataIndex.index) - 1].props.children[1]}</div>
+            </div>}
         </div>}
     </Box>
   )
