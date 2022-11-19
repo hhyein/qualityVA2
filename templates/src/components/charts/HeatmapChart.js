@@ -2,9 +2,17 @@ import React, { useEffect } from 'react'
 import ApexCharts from 'apexcharts'
 
 export default function HeatmapChart(props) {
-  const { data, label, setRowIndex, setColumnName, setQualityIssueCnt, visualizationData } = props
-  const { seriesData, categoryData } = visualizationData
+  const { label, setRowIndex, setColumnName, setQualityIssueCnt, visualizationData } = props
+  const [seriesData, setSeriesData] = React.useState([]);
+  const [categoryData, setCategoryData] = React.useState([]);
   const d3 = window.d3v4
+
+  useEffect(() => {
+    if(visualizationData) {
+      setSeriesData(visualizationData.seriesData)
+      setCategoryData(visualizationData.categoryData)
+    }
+    }, [visualizationData])
 
   useEffect(() => {
     d3.select('.heatmap-wrapper').selectAll('*').remove()
@@ -58,7 +66,7 @@ export default function HeatmapChart(props) {
     var chart = new ApexCharts(document.querySelector(".heatmap-wrapper"), options);
     chart.render();
 
-    }, [data])
+    }, [seriesData, categoryData])
 
   useEffect(() => {
     setRowIndex('');
