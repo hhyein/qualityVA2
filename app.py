@@ -198,9 +198,8 @@ def checkVisualization():
           columnDf = pd.to_numeric(columnDf, errors = 'coerce')
 
         columnCnt = columnDf.isnull().sum()
-        columnCntList.append(columnCnt)
-      seriesDataList.append({'name': 'r' + str(i), 'data': str(columnCntList)})
-
+        columnCntList.append(int(columnCnt))
+      seriesDataList.append({'name': 'r' + str(i), 'data': columnCntList})
       categoryDataList = []
       for i in range(len(columnList)):
         categoryDataList.append('c' + str(i))
@@ -236,11 +235,13 @@ def checkVisualization():
           if columnList[j] >= minRange and columnList[j] <= maxRange:
             columnCntList[i] = columnCntList[i] + 1
 
-    seriesDataList.append({'name': columnName, 'data': str(columnCntList)})
+    seriesDataList.append({'name': columnName, 'data': columnCntList})
 
   response = {}
   response['seriesData'] = seriesDataList
   response['categoryData'] = categoryDataList
+
+  print(response)
 
   return json.dumps(response)
 
