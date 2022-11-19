@@ -207,6 +207,9 @@ def checkVisualization():
 
   # accuracy
   if vis == 'histogramChart':
+    columnName = req["column"]
+    outlierMethod = req["outlier"]
+
     # calculate threshold outlier
     columnDf = originDf[columnName]
     columnDf = columnDf.apply(pd.to_numeric, errors = 'coerce')
