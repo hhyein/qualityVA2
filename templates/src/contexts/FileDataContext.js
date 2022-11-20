@@ -92,8 +92,6 @@ export const FileDataProvider = ({ children }) => {
       evalList,
       dimensionList,
     })
-    updateDonutChartData(0)
-    updateTablePointData(0)
   }, [settingValues])
 
   useEffect(() => {
@@ -156,7 +154,7 @@ export const FileDataProvider = ({ children }) => {
       fileName: fileName
     }
     const modelTableData = await postData('/modelTable', option);
-    setModelTableData(modelTableData);
+    setModelTableData(modelTableData.modelResultData);
   }
 
   const updateChangeCntData = async (fileName) => {
@@ -176,14 +174,22 @@ export const FileDataProvider = ({ children }) => {
   }
 
   useEffect(() => {
+    if (!file) {
+      return
+    }
+    updateDonutChartData(0)
+    updateTablePointData(0)
+    updateModelTableData(0)
+    updateVisualizationData(0, 'heatmapChart', 'completeness')
+    updateChangeCntData(0)
+    updateChangeDistortData(0)
+  }, [file])
+
+  useEffect(() => {
     if (!file || isEmptyData(settingValues)) {
       return
     }
     updateCombinationTable()
-    updateVisualizationData(0, 'heatmapChart', 'completeness')
-    updateModelTableData(0)
-    updateChangeCntData(0)
-    updateChangeDistortData(0)
   }, [
     file,
     updateCombinationTable,

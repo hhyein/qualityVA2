@@ -9,13 +9,7 @@ export default function DensityChart(props) {
     d3.select('.density-wrapper').selectAll('*').remove()
 
     var options = {
-      series: [{
-      name: 'before',
-      data: [31, 40, 28, 51, 42, 109, 100]
-    }, {
-      name: 'after',
-      data: [11, 32, 45, 32, 34, 52, 41]
-    }],
+      series: data.seriesData,
       chart: {
         toolbar: {
           show: false
@@ -31,7 +25,7 @@ export default function DensityChart(props) {
       },
       xaxis: {
         type: 'datetime',
-        categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"],
+        categories: data.categoryData,
         tooltip: {
           enabled: false
         }

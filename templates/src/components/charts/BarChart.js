@@ -9,13 +9,7 @@ export default function BarChart(props) {
     d3.select('.bar-wrapper').selectAll('*').remove()
 
     var options = {
-      series: [{
-      name: 'before',
-      data: [44, 55, 41]
-    }, {
-      name: 'after',
-      data: [53, 32, 33]
-    }],
+      series: data,
       chart: {
         toolbar: {
           show: false

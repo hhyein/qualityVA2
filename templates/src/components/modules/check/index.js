@@ -47,27 +47,27 @@ const thresholdList = [
   { label: 1, value: 2 }
 ];
 
-const data = [
-  ['Model', 'MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE'],
-  ['et', 0.462, 0.351, 0.571, 0.548, 0.042, 0.036],
-  ['br', 0.504, 0.399, 0.616, 0.489, 0.045, 0.04],
-  ['ada', 0.479, 0.399, 0.604, 0.483, 0.044, 0.038],
-  ['rf', 0.488, 0.42, 0.611, 0.475, 0.045, 0.039],
-  ['ridge', 0.509, 0.402, 0.618, 0.474, 0.045, 0.04],
-  ['lr', 0.519, 0.415, 0.629, 0.456, 0.046, 0.041],
-  ['gbr', 0.527, 0.447, 0.648, 0.417, 0.047, 0.042],
-  ['lightgbm', 0.516, 0.46, 0.652, 0.417, 0.047, 0.041],
-  ['en', 0.544, 0.482, 0.673, 0.396, 0.049, 0.043],
-  ['lar', 0.55, 0.489, 0.667, 0.349, 0.049, 0.043],
-  ['lasso', 0.593, 0.552, 0.72, 0.31, 0.053, 0.047],
-  ['knn', 0.637, 0.598, 0.758, 0.232, 0.055, 0.05],
-  ['omp', 0.641, 0.647, 0.787, 0.164, 0.057, 0.051],
-  ['dt', 0.619, 0.685, 0.789, 0.134, 0.058, 0.049],
-  ['llar', 0.759, 0.806, 0.887, -0.058, 0.064, 0.06],
-  ['dummy', 0.759, 0.806, 0.887, -0.058, 0.064, 0.06],
-  ['huber', 0.768, 0.958, 0.95, -0.308, 0.07, 0.061],
-  ['par', 1.346, 2.972, 1.654, -3.23, 0.116, 0.105]
-];
+// const data = [
+//   ['Model', 'MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE'],
+//   ['et', 0.462, 0.351, 0.571, 0.548, 0.042, 0.036],
+//   ['br', 0.504, 0.399, 0.616, 0.489, 0.045, 0.04],
+//   ['ada', 0.479, 0.399, 0.604, 0.483, 0.044, 0.038],
+//   ['rf', 0.488, 0.42, 0.611, 0.475, 0.045, 0.039],
+//   ['ridge', 0.509, 0.402, 0.618, 0.474, 0.045, 0.04],
+//   ['lr', 0.519, 0.415, 0.629, 0.456, 0.046, 0.041],
+//   ['gbr', 0.527, 0.447, 0.648, 0.417, 0.047, 0.042],
+//   ['lightgbm', 0.516, 0.46, 0.652, 0.417, 0.047, 0.041],
+//   ['en', 0.544, 0.482, 0.673, 0.396, 0.049, 0.043],
+//   ['lar', 0.55, 0.489, 0.667, 0.349, 0.049, 0.043],
+//   ['lasso', 0.593, 0.552, 0.72, 0.31, 0.053, 0.047],
+//   ['knn', 0.637, 0.598, 0.758, 0.232, 0.055, 0.05],
+//   ['omp', 0.641, 0.647, 0.787, 0.164, 0.057, 0.051],
+//   ['dt', 0.619, 0.685, 0.789, 0.134, 0.058, 0.049],
+//   ['llar', 0.759, 0.806, 0.887, -0.058, 0.064, 0.06],
+//   ['dummy', 0.759, 0.806, 0.887, -0.058, 0.064, 0.06],
+//   ['huber', 0.768, 0.958, 0.95, -0.308, 0.07, 0.061],
+//   ['par', 1.346, 2.972, 1.654, -3.23, 0.116, 0.105]
+// ];
 
 export default function Check() {
   const {
@@ -79,9 +79,10 @@ export default function Check() {
     donutChartData,
     treeChartData,
     visualizationData,
-    updateVisualizationData
+    updateVisualizationData,
+    modelTableData
   } = useFileData()
-
+  
   const [metricValues, setMetricValues] = React.useState({
     label: "completeness",
     visualChart: "heatmapChart",
@@ -342,12 +343,13 @@ export default function Check() {
                 </div>
               ))}
             </div>
-            <CheckTable
+            {modelTableData && <CheckTable
               checkTableData={checkTableData}
               setCheckTableData={setCheckTableData}
-              data={data}
+              data={modelTableData}
               renderChartData={renderChartData}
-              setRenderChartData={setRenderChartData} />
+              setRenderChartData={setRenderChartData} /> }
+            
             <div style={{ display: 'flex' }}>
               <div style={{ position: 'relative', top: '10px' }}>
                 <RaderChart data={renderChartData} />
