@@ -183,7 +183,7 @@ export const FileDataProvider = ({ children }) => {
       fileName: fileName
     }
     const modelTableData = await postData('/modelTable', option);
-    setModelTableData(modelTableData);
+    setModelTableData(modelTableData.modelResultData);
   }
 
   const updateChangeCntData = async (fileName) => {
