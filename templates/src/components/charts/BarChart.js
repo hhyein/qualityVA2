@@ -9,7 +9,7 @@ export default function BarChart(props) {
     d3.select('.bar-wrapper').selectAll('*').remove()
 
     var options = {
-      series: data,
+      series: data.seriesData,
       chart: {
         toolbar: {
           show: false

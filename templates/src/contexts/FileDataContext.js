@@ -121,6 +121,35 @@ export const FileDataProvider = ({ children }) => {
     setCombinationTableData({ combinationData })
   }, [])
 
+  // useEffect(() => {
+  //   if (!file) {
+  //     return
+  //   }
+  // }, [file])
+
+  useEffect(() => {
+    if (!file || isEmptyData(settingValues)) {
+      return
+    }
+    updateCombinationTable()
+  }, [
+    file,
+    updateCombinationTable,
+    settingValues,
+  ])
+
+  useEffect(() => {
+    if (!file) {
+      return
+    }
+    updateDonutChartData(selectedLegendIdx)
+    updateTablePointData(selectedLegendIdx)
+    updateModelTableData(selectedLegendIdx)
+    updateVisualizationData(selectedLegendIdx, 'heatmapChart', 'completeness')
+    updateChangeCntData(selectedLegendIdx)
+    updateChangeDistortData(selectedLegendIdx)
+  }, [file, selectedLegendIdx])
+
   const updateDonutChartData = async (fileName) => {
     const option = {
       fileName: fileName
@@ -154,7 +183,7 @@ export const FileDataProvider = ({ children }) => {
       fileName: fileName
     }
     const modelTableData = await postData('/modelTable', option);
-    setModelTableData(modelTableData.modelResultData);
+    setModelTableData(modelTableData);
   }
 
   const updateChangeCntData = async (fileName) => {
@@ -172,29 +201,6 @@ export const FileDataProvider = ({ children }) => {
     const changeDistortData = await postData('/changeDistort', option);
     setChangeDistort(changeDistortData);
   }
-
-  useEffect(() => {
-    if (!file) {
-      return
-    }
-    updateDonutChartData(0)
-    updateTablePointData(0)
-    updateModelTableData(0)
-    updateVisualizationData(0, 'heatmapChart', 'completeness')
-    updateChangeCntData(0)
-    updateChangeDistortData(0)
-  }, [file])
-
-  useEffect(() => {
-    if (!file || isEmptyData(settingValues)) {
-      return
-    }
-    updateCombinationTable()
-  }, [
-    file,
-    updateCombinationTable,
-    settingValues,
-  ])
 
   return (
     <FileDataContext.Provider

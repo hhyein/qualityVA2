@@ -12,9 +12,7 @@ export default function Change() {
     changeCntData,
     changeDistortData
   } = useFileData()
-
-  console.log(changeCntData);
-
+  
   return (
     <Box title="change">
       {!isEmptyData({
@@ -22,7 +20,7 @@ export default function Change() {
       }) && settingValues.model && <>
         <Title title="count" />
         <div style={{ position: 'relative', bottom: '10px', height: '130px' }}>
-          <BarChart data={changeCntData.seriesData} />
+          <BarChart data={changeCntData} />
         </div>
         <Title title="distort" />
         <div style={{ position: 'relative', bottom: '15px' }}>
