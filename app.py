@@ -163,6 +163,20 @@ def donutChart():
   for i in range(0, 5):
     donutChartList.append({'label': i, 'color': colorList[i], 'data': {'issue': rateList[i], 'normal': 100 - rateList[i]}})
 
+
+
+  ##### dup, cor, rel
+  # dupRate = round(10)
+  # corRate = round(20)
+  # relRate = round(30)
+
+  # rateList = [misRate, outRate, incRate, dupRate, corRate, relRate]
+  # colorList = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue', 'mediumpurple']
+
+  # donutChartList = []
+  # for i in range(0, 6):
+  #   donutChartList.append({'label': i, 'color': colorList[i], 'data': {'issue': rateList[i], 'normal': 100 - rateList[i]}})
+
   response = {}
   response['donutChartData'] = donutChartList
 
@@ -206,8 +220,9 @@ def checkVisualization():
 
   # accuracy
   if vis == 'histogramChart':
-    columnName = req["column"]
     outlierMethod = req["outlier"]
+    columnName = req["column"]
+
     # calculate threshold outlier
     columnDf = originDf[columnName]
     columnDf = columnDf.apply(pd.to_numeric, errors = 'coerce')
