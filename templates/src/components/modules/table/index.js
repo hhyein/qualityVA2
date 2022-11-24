@@ -10,7 +10,9 @@ export default function Table() {
     settingValues,
     file,
     tablePointData,
-    actionRadioValue
+    actionRadioValue,
+    checkTableData,
+    setCheckTableData
   } = useFileData()
 
   const fileReader = new FileReader();
@@ -19,10 +21,6 @@ export default function Table() {
   const [bColorData, setbColorData] = React.useState({});
   const [columnDatas, setcolumnDatas] = React.useState([]);
   const [gridData, setGridData] = React.useState('');
-  const [checkTableData, setCheckTableData] = React.useState({
-    key: 'col',
-    data: 1
-  });
   const [pointData, setPointData] = React.useState();
 
 

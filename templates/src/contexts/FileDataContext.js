@@ -55,6 +55,10 @@ export const FileDataProvider = ({ children }) => {
   const [modelTableData, setModelTableData] = useState();
   const [changeCntData, setChangeCntData] = useState();
   const [changeDistortData, setChangeDistort] = useState();
+  const [checkTableData, setCheckTableData] = useState({
+    key: 'col',
+    data: 1
+  });
 
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
@@ -233,7 +237,9 @@ export const FileDataProvider = ({ children }) => {
         updateVisualizationData,
         modelTableData,
         changeCntData,
-        changeDistortData
+        changeDistortData,
+        checkTableData,
+        setCheckTableData
       }}
     >
       {children}

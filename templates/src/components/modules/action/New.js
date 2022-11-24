@@ -1,11 +1,16 @@
 import React from 'react'
 import Select from 'react-select'
 import Title from '../../Title'
+import { useFileData } from '../../../contexts/FileDataContext'
 import ColumnHistogramChart from '../../charts/ColumnHistogramChart'
 import ColumnBoxplotChart from '../../charts/ColumnBoxplotChart'
 import RowScatterChart from '../../charts/RowScatterChart'
 
 export default function Action() {
+  const {
+    checkTableData
+  } = useFileData()
+
   const actionList = ['remove', 'missing', 'outlier', 'inconsistent', 'transformation'].map((item, idx) => {
     return {
       label: item,
@@ -51,9 +56,15 @@ export default function Action() {
 
   return (
       <React.Fragment>
-        <ColumnBoxplotChart />
-        <ColumnHistogramChart />
-        <div style={{ display: 'flex', position: 'relative', bottom: 80 }}>
+        {checkTableData.key === 'col' ?
+          <React.Fragment>
+            <ColumnBoxplotChart />
+            <ColumnHistogramChart />
+          </React.Fragment>
+          :
+          <RowScatterChart />
+        }
+        <div style={{ display: 'flex', position: 'relative', bottom: (checkTableData.key === 'col' ? 80 : 20) }}>
           <div style={{
             width: '47.5%',
             margin: '0 5%'
