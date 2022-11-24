@@ -193,7 +193,7 @@ def checkVisualization():
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
   columnList = list(originDf.columns)
   
-  # completeness, consistency
+  # completeness, homogeneity
   if vis == 'heatmapChart':
     sliceCnt = 10
     sliceSize = int(len(originDf)/sliceCnt)
@@ -207,6 +207,7 @@ def checkVisualization():
         columnDf = rowSliceDf[column]
 
         if metric == 'consistency':
+        # if metric == 'homogeneity':
           columnDf = rowSliceDf[column]
           columnDf = columnDf.dropna()
           columnDf = pd.to_numeric(columnDf, errors = 'coerce')
@@ -218,7 +219,7 @@ def checkVisualization():
       for i in range(len(columnList)):
         categoryDataList.append('c' + str(i))
 
-  # accuracy
+  # outlier
   if vis == 'histogramChart':
     outlierMethod = req["outlier"]
     columnName = req["column"]
