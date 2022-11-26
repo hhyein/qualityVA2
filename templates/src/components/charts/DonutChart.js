@@ -8,7 +8,7 @@ export default function DonutChart(props) {
   useEffect(() => {
     d3.select(`.donut-wrapper-${label}`).selectAll('*').remove()
     
-    const width = 60, height = 60, margin = 20
+    const width = 48, height = 48, margin = 17
     const radius = Math.min(width, height) / 2 - margin
 
     const svg = d3

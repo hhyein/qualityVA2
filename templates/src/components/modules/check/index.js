@@ -16,10 +16,11 @@ import CheckTable from './CheckTable'
 
 const legendData = [
   { label: 0, text: 'completeness', color: 'darkorange' },
-  { label: 1, text: 'accuracy', color: 'steelblue' },
-  { label: 2, text: 'consistency', color: 'yellowgreen' },
-  { label: 3, text: 'similarity', color: 'lightcoral' },
-  { label: 4, text: 'dependency', color: 'cadetblue' },
+  { label: 1, text: 'outlier', color: 'steelblue' },
+  { label: 2, text: 'homogeneity', color: 'yellowgreen' },
+  { label: 3, text: 'duplicate', color: 'lightcoral' },
+  { label: 4, text: 'correlation', color: 'cadetblue' },
+  { label: 5, text: 'relevance', color: 'mediumpurple' },
 ]
 
 const metricList = [
@@ -286,11 +287,11 @@ export default function Check() {
         display: 'flex',
         width: '440px'
       }}>
-          <div style={{ display: 'flex', height: '250px' }}>
+          <div style={{ display: 'flex', height: '275px' }}>
             <div style={{ width: '440px' }}>
               <div style={{
                 position: 'absolute',
-                top: 60,
+                top: 75,
                 left: 0,
               }}>
                 {visualizationList.map((chart, idx) => {
@@ -314,7 +315,7 @@ export default function Check() {
                 dataColorInfo={legendData}
               />
               {donutChartData && donutChartData.donutChartData.map((donutData, idx) => (
-                <div style={{ margin: '5px 3px 0' }} key={idx}>
+                <div style={{ margin: '17px 3px 0' }} key={idx}>
                   <DonutChart
                     donutData={donutData}
                   />

@@ -14,7 +14,7 @@ export default function Legend(props) {
     d3.select('.legend-wrapper').selectAll('*').remove()
 
     const width = 100
-    const height = 70
+    const height = 90
 
     const svg = d3
       .select('.legend-wrapper')
