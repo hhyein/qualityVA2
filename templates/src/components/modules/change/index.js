@@ -12,6 +12,10 @@ export default function Change() {
     changeCntData,
     changeDistortData
   } = useFileData()
+
+  if (typeof changeCntData === 'undefined') {
+    return <></>
+  }
   
   return (
     <Box title="change">
