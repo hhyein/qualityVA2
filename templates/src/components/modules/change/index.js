@@ -12,10 +12,6 @@ export default function Change() {
     changeCntData,
     changeDistortData
   } = useFileData()
-
-  if (typeof changeCntData === 'undefined') {
-    return <></>
-  }
   
   return (
     <Box title="change">
@@ -28,7 +24,7 @@ export default function Change() {
         </div>
         <Title title="distort" />
         <div style={{ position: 'relative', bottom: '15px' }}>
-          <DensityChart data={changeDistortData} />
+          {/* <DensityChart data={changeDistortData} /> */}
         </div>
       </>}
     </Box>
