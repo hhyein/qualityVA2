@@ -8,14 +8,13 @@ export default function Table() {
   const {
     isEmptyData,
     settingValues,
-    file,
     tablePointData,
     actionRadioValue,
     checkTableData,
-    setCheckTableData
+    setCheckTableData,
+    tableData
   } = useFileData()
 
-  const fileReader = new FileReader();
   const [rColorData, setrColorData] = React.useState({});
   const [gColorData, setgColorData] = React.useState({});
   const [bColorData, setbColorData] = React.useState({});
@@ -107,14 +106,8 @@ export default function Table() {
   }, [pointData]);
 
   React.useEffect(() => {
-    if (file) {
-      fileReader.onload = (e) => {
-        const csvOutput = e.target.result;
-        const code = csvOutput.toString().split('\r\n');
-        const codeData = [];
-        for (let i = 0; i < code.length-1; i++) {
-          codeData.push(code[i].split(","));
-        }
+    if (tableData) {
+      const codeData = [...tableData.tableData];
         codeData[0].unshift('idx');
         for(let i=1;i<codeData.length;i++) {
           codeData[i].unshift(`${i}`);
@@ -122,10 +115,8 @@ export default function Table() {
         const columnWidth = 675/(codeData[0].length);
         setGridData(Array.from({length: codeData[0].length }, () => `${columnWidth}px`).join(" "));
         setcolumnDatas(codeData);
-      };
-      fileReader.readAsText(file);
     }
-  }, [file]);
+  }, [tableData]);
 
   const getBgColor = (rowNumber, columnNumber) => {
     if((checkTableData.key === 'row' && checkTableData.data === rowNumber) || (checkTableData.key === 'col' && checkTableData.data === columnNumber)) {
@@ -163,7 +154,7 @@ export default function Table() {
                 display: 'grid',
                 gridTemplateColumns: gridData,
               }}>
-                {columnDatas.map((columnData, rowIdx) => {
+                {columnDatas && columnDatas.map((columnData, rowIdx) => {
                   const onClickRow = () => handleTableClick('row', rowIdx)
                   return (
                     <React.Fragment key={`col${rowIdx}`}>
@@ -186,7 +177,7 @@ export default function Table() {
                                   borderRight: columnNumber === columnData.length - 1 && 'none',
                                 }}
                                 >
-                                  {data.slice(0, 5)}
+                                  {data.toString().slice(0, 5)}
                                 </div>
                               : <div
                                 className="grid-td"
@@ -198,7 +189,7 @@ export default function Table() {
                                 }}
                                 key={idx}
                               >
-                                {data.slice(0, 5)}
+                                {data.toString().slice(0, 5)}
                               </div>
                             }
                           </React.Fragment>

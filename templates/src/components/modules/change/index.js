@@ -24,7 +24,7 @@ export default function Change() {
         </div>
         <Title title="distort" />
         <div style={{ position: 'relative', bottom: '15px' }}>
-          {/* <DensityChart data={changeDistortData} /> */}
+          {changeDistortData && <DensityChart data={changeDistortData} /> }
         </div>
       </>}
     </Box>

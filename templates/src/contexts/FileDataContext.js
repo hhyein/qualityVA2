@@ -46,7 +46,7 @@ export const FileDataProvider = ({ children }) => {
   const [selectedCombinationTableRow, setSelectedCombinationTableRow] = useState()
   const [myCombinationRadioValue, setMyCombinationRadioValue] = React.useState('knn');
   const [selectedLegendIdx, setSelectedLegendIdx] = useState(0);
-  const [treeChartData, setTreeChartData] = useState();
+  const [treeChartData, setTreeChartData] = useState(0);
   const [donutChartData, setDonutChartData] = useState();
   const [tablePointData, setTablePointData] = useState();
   const [actionRadioValue, setActionRadioValue] = useState('recommend');
@@ -59,6 +59,7 @@ export const FileDataProvider = ({ children }) => {
     data: 1
   });
   const [treeChartNode, setTreeChartNode] = useState(0);
+  const [tableData, setTableData] = useState();
 
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
@@ -124,23 +125,14 @@ export const FileDataProvider = ({ children }) => {
     }))
     setCombinationTableData({ combinationData })
   }, [])
-
-  // useEffect(() => {
-  //   if (!file) {
-  //     return
-  //   }
-  // }, [file])
-
+  
   useEffect(() => {
     if (!file || isEmptyData(settingValues)) {
       return
     }
     updateCombinationTable()
-  }, [
-    file,
-    updateCombinationTable,
-    settingValues,
-  ])
+    updateChangeDistortData(treeChartNode)
+  }, [file, updateCombinationTable, settingValues, treeChartNode])
 
   useEffect(() => {
     if (!file) {
@@ -151,12 +143,12 @@ export const FileDataProvider = ({ children }) => {
     updateModelTableData(treeChartNode)
     updateVisualizationData(treeChartNode, 'heatmapChart', 'completeness')
     updateChangeCntData(treeChartNode)
-    updateChangeDistortData(treeChartNode)
+    updateTableData(treeChartNode)
   }, [file, treeChartNode])
 
   const updateDonutChartData = async (fileName) => {
     const option = {
-      fileName: fileName // TODO: 임시값으로 0 설정, 추후 변경!!
+      fileName: fileName 
     }
     const donutData = await postData('/donutChart', option);
     setDonutChartData(donutData);
@@ -164,7 +156,7 @@ export const FileDataProvider = ({ children }) => {
 
   const updateTablePointData = async (fileName) => {
     const option = {
-      fileName: fileName // TODO: 임시값으로 0 설정, 추후 변경!!
+      fileName: fileName 
     }
     const tableData = await postData('/tablePoint', option);
     setTablePointData(tableData);
@@ -172,7 +164,7 @@ export const FileDataProvider = ({ children }) => {
 
   const updateVisualizationData = async (fileName, visualization, metricValue, column, outlier) => {
     const option = {
-      fileName: fileName, // TODO: 임시값으로 0 설정, 추후 변경!!,
+      fileName: fileName,
       visualization: visualization,
       metricValue: metricValue,
       column: column,
@@ -184,7 +176,7 @@ export const FileDataProvider = ({ children }) => {
 
   const updateModelTableData = async (fileName) => {
     const option = {
-      fileName: fileName // TODO: 임시값으로 0 설정, 추후 변경!!
+      fileName: fileName 
     }
     const modelTableData = await postData('/modelTable', option);
     setModelTableData(modelTableData.modelResultData);
@@ -192,7 +184,7 @@ export const FileDataProvider = ({ children }) => {
 
   const updateChangeCntData = async (fileName) => {
     const option = {
-      fileName: fileName // TODO: 임시값으로 0 설정, 추후 변경!!
+      fileName: fileName 
     }
     const changeCntData = await postData('/changeCnt', option);
     setChangeCntData(changeCntData);
@@ -200,10 +192,18 @@ export const FileDataProvider = ({ children }) => {
 
   const updateChangeDistortData = async (fileName) => {
     const option = {
-      fileName: fileName // TODO: 임시값으로 0 설정, 추후 변경!!
+      fileName: fileName 
     }
     const changeDistortData = await postData('/changeDistort', option);
     setChangeDistort(changeDistortData);
+  }
+
+  const updateTableData = async (fileName) => {
+    const option = {
+      fileName: fileName 
+    }
+    const tableData = await postData('/tableData', option);
+    setTableData(tableData);
   }
 
   return (
@@ -239,7 +239,8 @@ export const FileDataProvider = ({ children }) => {
         checkTableData,
         setCheckTableData,
         treeChartNode,
-        setTreeChartNode
+        setTreeChartNode,
+        tableData
       }}
     >
       {children}

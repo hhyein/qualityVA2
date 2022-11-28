@@ -152,19 +152,6 @@ def donutChart():
   inc = sum(tmpList)
   incRate = round((inc/totalNum) * 100)
 
-  ##### sim, dep
-  # simRate = round(60)
-  # depRate = round(60)
-
-  # rateList = [misRate, outRate, incRate, simRate, depRate]
-  # colorList = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue']
-
-  # donutChartList = []
-  # for i in range(0, 5):
-  #   donutChartList.append({'label': i, 'color': colorList[i], 'data': {'issue': rateList[i], 'normal': 100 - rateList[i]}})
-
-
-
   ##### dup, cor, rel
   dupRate = round(10)
   corRate = round(20)
@@ -301,6 +288,24 @@ def modelTable():
 
   return json.dumps(response)
 
+@app.route('/tableData', methods=['GET', 'POST'])
+def tableData():
+  req = eval(request.get_data().decode('utf-8'))
+  fileName = req["fileName"]
+
+  originDf = pd.read_csv('static/' + str(fileName) + '.csv')
+  originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
+  originDf = originDf.fillna('')
+  columnList = list(originDf.columns)
+
+  originDfList = originDf.values.tolist()
+  originDfList.insert(0, columnList)
+
+  response = {}
+  response['tableData'] = originDfList
+
+  return json.dumps(response)
+
 @app.route('/tablePoint', methods=['GET', 'POST'])
 def tablePoint():
   req = eval(request.get_data().decode('utf-8'))
@@ -396,6 +401,7 @@ def changeDistort():
   global uploadFileName, column
   beforeDf = pd.read_csv('static/' + str(uploadFileName) + '.csv')
   beforeDf = beforeDf.apply(pd.to_numeric, errors = 'coerce')
+  print(column)
   beforeColumnDf = beforeDf[column]
   beforeColumnList = beforeColumnDf.values.tolist()
 

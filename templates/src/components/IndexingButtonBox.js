@@ -27,6 +27,7 @@ export default function IndexingButtonBox({ componentInfo, style }) {
       <div style={{ display: 'flex' }}>
         {buttonList.map(key => (
           <Button
+            key={key}
             onClick={() => setSelectedButton(key)}
             style={
               selectedButton === key
