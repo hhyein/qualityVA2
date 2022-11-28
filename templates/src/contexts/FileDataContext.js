@@ -58,6 +58,7 @@ export const FileDataProvider = ({ children }) => {
     key: 'col',
     data: 1
   });
+  const [treeChartNode, setTreeChartNode] = useState(0);
 
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
@@ -145,17 +146,17 @@ export const FileDataProvider = ({ children }) => {
     if (!file) {
       return
     }
-    updateDonutChartData(selectedLegendIdx)
-    updateTablePointData(selectedLegendIdx)
-    updateModelTableData(selectedLegendIdx)
-    updateVisualizationData(selectedLegendIdx, 'heatmapChart', 'completeness')
-    updateChangeCntData(selectedLegendIdx)
-    updateChangeDistortData(selectedLegendIdx)
-  }, [file, selectedLegendIdx])
+    updateDonutChartData(treeChartNode)
+    updateTablePointData(treeChartNode)
+    updateModelTableData(treeChartNode)
+    updateVisualizationData(treeChartNode, 'heatmapChart', 'completeness')
+    updateChangeCntData(treeChartNode)
+    updateChangeDistortData(treeChartNode)
+  }, [file, treeChartNode])
 
   const updateDonutChartData = async (fileName) => {
     const option = {
-      fileName: 0 // TODO: 임시값으로 0 설정, 추후 변경!!
+      fileName: fileName // TODO: 임시값으로 0 설정, 추후 변경!!
     }
     const donutData = await postData('/donutChart', option);
     setDonutChartData(donutData);
@@ -163,7 +164,7 @@ export const FileDataProvider = ({ children }) => {
 
   const updateTablePointData = async (fileName) => {
     const option = {
-      fileName: 0 // TODO: 임시값으로 0 설정, 추후 변경!!
+      fileName: fileName // TODO: 임시값으로 0 설정, 추후 변경!!
     }
     const tableData = await postData('/tablePoint', option);
     setTablePointData(tableData);
@@ -171,7 +172,7 @@ export const FileDataProvider = ({ children }) => {
 
   const updateVisualizationData = async (fileName, visualization, metricValue, column, outlier) => {
     const option = {
-      fileName: 0, // TODO: 임시값으로 0 설정, 추후 변경!!,
+      fileName: fileName, // TODO: 임시값으로 0 설정, 추후 변경!!,
       visualization: visualization,
       metricValue: metricValue,
       column: column,
@@ -183,7 +184,7 @@ export const FileDataProvider = ({ children }) => {
 
   const updateModelTableData = async (fileName) => {
     const option = {
-      fileName: 0 // TODO: 임시값으로 0 설정, 추후 변경!!
+      fileName: fileName // TODO: 임시값으로 0 설정, 추후 변경!!
     }
     const modelTableData = await postData('/modelTable', option);
     setModelTableData(modelTableData.modelResultData);
@@ -191,7 +192,7 @@ export const FileDataProvider = ({ children }) => {
 
   const updateChangeCntData = async (fileName) => {
     const option = {
-      fileName: 0 // TODO: 임시값으로 0 설정, 추후 변경!!
+      fileName: fileName // TODO: 임시값으로 0 설정, 추후 변경!!
     }
     const changeCntData = await postData('/changeCnt', option);
     setChangeCntData(changeCntData);
@@ -199,7 +200,7 @@ export const FileDataProvider = ({ children }) => {
 
   const updateChangeDistortData = async (fileName) => {
     const option = {
-      fileName: 0 // TODO: 임시값으로 0 설정, 추후 변경!!
+      fileName: fileName // TODO: 임시값으로 0 설정, 추후 변경!!
     }
     const changeDistortData = await postData('/changeDistort', option);
     setChangeDistort(changeDistortData);
@@ -236,7 +237,9 @@ export const FileDataProvider = ({ children }) => {
         changeCntData,
         changeDistortData,
         checkTableData,
-        setCheckTableData
+        setCheckTableData,
+        treeChartNode,
+        setTreeChartNode
       }}
     >
       {children}

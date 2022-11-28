@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 
 export default function TreeChart(props) {
-  const { treeData, setDataIndex, actionRadioValue } = props;
+  const { treeData, setDataIndex, actionRadioValue, onNodeClick } = props;
   const svgRef = useRef()
   const d3 = window.d3v3
   const nodeGap = 90
@@ -100,6 +100,9 @@ export default function TreeChart(props) {
           top: this.getBoundingClientRect().top
         }) })
         .on("mouseout", function () { setDataIndex() })
+        .on('click', (d) => {
+          onNodeClick(d.index)
+        })
         .attr('transform', function (d) {
           return 'translate(' + d.x + ',' + d.y + ')'
         })

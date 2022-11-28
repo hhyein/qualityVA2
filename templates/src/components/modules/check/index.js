@@ -67,7 +67,9 @@ export default function Check() {
     visualizationData,
     updateVisualizationData,
     modelTableData,
-    actionRadioValue
+    actionRadioValue,
+    setTreeChartNode,
+    treeChartNode
   } = useFileData()
   
   const [metricValues, setMetricValues] = React.useState({
@@ -137,9 +139,9 @@ export default function Check() {
     if (metricValues?.label) {
       setVisualizationList([metricValues.visualChart]);
       if (metricValues.visualChart === 'histogramChart') {
-        updateVisualizationData(0, metricValues.visualChart, metricValues.label, columnData, outlierData)
+        updateVisualizationData(treeChartNode, metricValues.visualChart, metricValues.label, columnData, outlierData)
       } else {
-        updateVisualizationData(0, metricValues.visualChart, metricValues.label)
+        updateVisualizationData(treeChartNode, metricValues.visualChart, metricValues.label)
       }
     }
   }, [metricValues, columnData, outlierData])
@@ -423,7 +425,11 @@ export default function Check() {
                 <RaderChart data={renderChartData} />
               </div>
               <div style={{ overflowY: 'auto', zIndex: 100 }}>
-                <TreeChart treeData={dataList} setDataIndex={setDataIndex} actionRadioValue={actionRadioValue} />
+                <TreeChart 
+                treeData={dataList} 
+                setDataIndex={setDataIndex} 
+                actionRadioValue={actionRadioValue}
+                onNodeClick = {setTreeChartNode} />
               </div>
             </div>
           </div>
@@ -431,7 +437,7 @@ export default function Check() {
             <div style={{
               position: 'relative',
               top: dataIndex.top - 37,
-              right: '35px',
+              right: '15px',
               minWidth: '160px',
               height: '100px',
               backgroundColor: '#fff',
