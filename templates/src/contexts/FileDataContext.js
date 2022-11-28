@@ -45,7 +45,6 @@ export const FileDataProvider = ({ children }) => {
   const [combinationTableSortingInfo, setCombinationTableSortingInfo] = useState({})
   const [selectedCombinationTableRow, setSelectedCombinationTableRow] = useState()
   const [myCombinationRadioValue, setMyCombinationRadioValue] = React.useState('knn');
-  const [myCombinationData, setMyCombinationData] = React.useState();
   const [selectedLegendIdx, setSelectedLegendIdx] = useState(0);
   const [treeChartData, setTreeChartData] = useState();
   const [donutChartData, setDonutChartData] = useState();
@@ -223,8 +222,6 @@ export const FileDataProvider = ({ children }) => {
         settingValues,
         setMyCombinationRadioValue,
         myCombinationRadioValue,
-        setMyCombinationData,
-        myCombinationData,
         selectedLegendIdx,
         setSelectedLegendIdx,
         treeChartData,
