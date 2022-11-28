@@ -78,9 +78,9 @@ export default function Check() {
   const [completenessRowIndex, setCompletenessRowIndex] = React.useState('');
   const [completenessColumnName, setCompletenessColumnName] = React.useState('');
   const [completenessQualityIssueCnt, setCompletenessQualityIssueCnt] = React.useState('');
-  const [similarityColumnName, setSimilarityColumnName] = React.useState('');
-  const [similarityMin, setSimilarityMin] = React.useState('');
-  const [similarityMax, setSimilarityMax] = React.useState('');
+  const [correlationColumnName, setCorrelationColumnName] = React.useState('');
+  const [highCorrelationColumnCnt, setHighCorrelationColumnCnt] = React.useState('');
+  const [highCorrelationColumnName, setHighCorrelationColumnName] = React.useState('');
   const [dependencyColumnName, setDependencyColumnName] = React.useState('');
   const [dependencyCorrelation, setDependencyCorrelation] = React.useState('');
   const [relevanceColumnName, setRelevanceColumnName] = React.useState('');
@@ -226,31 +226,46 @@ export default function Check() {
         </div>
 
       case "boxplotChart":
-        return <div style={{ display: 'flex' }}>
-          <BoxplotChart
-            setColumnName={setSimilarityColumnName}
-            setMin={setSimilarityMin}
-            setMax={setSimilarityMax}
-          />
-          <div>
-            <div style={{ width: 155, height: 80, border: '1px solid #999999', marginTop: 30 }}>
-              <div style={{ position: 'absolute', top: 20, left: 290, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
-              <div style={{ marginTop: 10 }}>
-                <p>column name {similarityColumnName}</p>
-                <p>mix {similarityMin}</p>
-                <p>max {similarityMax}</p>
+        return <>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '60px auto', marginTop: 20, marginRight: 10 }}>
+            <div style={{ gridRow: '1 / 3' }}>
+              <BoxplotChart
+                setColumnName={setCorrelationColumnName}
+                setHighCorrelationColumnCnt={setHighCorrelationColumnCnt}
+                setHighCorrelationColumnName={setHighCorrelationColumnName}
+              />
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5px' }}>
+              <div>
+                <Title title="method" />
+                <Select className="select"
+                  options={methodList}
+                  placeholder={<div>select</div>}
+                  onChange={v => {
+                    setMethodData(v.label)
+                  }}
+                />
+              </div>
+              <div>
+                <Title title="threshold" />
+                <Select className="select"
+                  options={thresholdList}
+                  placeholder={<div>select</div>}
+                />
               </div>
             </div>
-            <div style={{ width: 155, height: 75, border: '1px solid #999999', marginTop: 15 }}>
-              <div style={{ position: 'absolute', top: 120, left: 290, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>quality issue</div>
-              <div style={{ marginTop: 10 }}>
-                <p>column name</p>
-                <p>minDiff</p>
-                <p>maxDiff</p>
+            <div style={{ gridColumn: '2 / 3'}}>
+              <div style={{ position: 'relative', height: 120, marginTop: 10, border: '1px solid #999999' }}>
+                <div style={{ position: 'absolute', top: -10, left: 2, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
+                <div style={{ marginTop: 10 }}>
+                  <p>column name {correlationColumnName}</p>
+                  <p>high correlation column cnt</p>
+                  <p>high correlation column name</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </>
 
       case "scatterChart":
         return <div style={{ display: 'flex' }}>
