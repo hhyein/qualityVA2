@@ -66,7 +66,8 @@ export default function Check() {
     treeChartData,
     visualizationData,
     updateVisualizationData,
-    modelTableData
+    modelTableData,
+    actionRadioValue
   } = useFileData()
   
   const [metricValues, setMetricValues] = React.useState({
@@ -421,8 +422,8 @@ export default function Check() {
               <div style={{ position: 'relative', top: '10px' }}>
                 <RaderChart data={renderChartData} />
               </div>
-              <div style={{ overflowY: 'auto' }}>
-                <TreeChart treeData={dataList} setDataIndex={setDataIndex} />
+              <div style={{ overflowY: 'auto', zIndex: 100 }}>
+                <TreeChart treeData={dataList} setDataIndex={setDataIndex} actionRadioValue={actionRadioValue} />
               </div>
             </div>
           </div>

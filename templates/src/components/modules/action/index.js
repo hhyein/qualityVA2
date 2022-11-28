@@ -9,8 +9,6 @@ export default function Action() {
     isEmptyData,
     combinationTableData,
     selectedCombinationTableRow,
-    setMyCombinationData,
-    myCombinationData,
     setTreeChartData,
     actionRadioValue,
     setActionRadioValue
@@ -41,36 +39,11 @@ export default function Action() {
   }, [combinationData])
 
   React.useEffect(() => {
-    if (actionRadioValue === 'new') {
-      setMyCombinationData('transformation');
-    } else {
-      const key = selectedCombinationTableRow?.key;
-      if (key) {
-        setMyCombinationData();
-      }
-    }
-  }, [combinationData, selectedCombinationTableRow?.key, actionRadioValue, setMyCombinationData])
-
-  React.useEffect(() => {
     let imgData;
     if (!selectedCombinationTableRow) {
       return;
     }
-    if (myCombinationData) {
-      let newData;
-      if (myCombinationData === 'outlier' || myCombinationData === 'inconsistent') {
-        newData = [...selectedCombinationTableRow.combination, myCombinationData];
-      } else {
-        newData = selectedCombinationTableRow.combination;
-      }
-      imgData = [{
-        key: selectedCombinationTableRow.key,
-        combination: newData,
-        combinationDetail: [...selectedCombinationTableRow.combinationDetail, 'my']
-      }]
-    } else {
-      imgData = [selectedCombinationTableRow];
-    }
+    imgData = [selectedCombinationTableRow];
     const len = Math.max(imgData[0].combination.length, imgData[0].combinationDetail.length);
       const treeData = Array.from({length: len}, () => []);
       for(let i=0;i<len;i++) {
@@ -84,7 +57,7 @@ export default function Action() {
         }
       }
       setTreeChartData(treeData);
-  }, [myCombinationData, selectedCombinationTableRow, setTreeChartData])
+  }, [selectedCombinationTableRow, setTreeChartData])
 
   return (
     <Box title="action">

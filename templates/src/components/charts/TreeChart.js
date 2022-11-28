@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 
 export default function TreeChart(props) {
-  const { treeData, setDataIndex } = props;
+  const { treeData, setDataIndex, actionRadioValue } = props;
   const svgRef = useRef()
   const d3 = window.d3v3
   const nodeGap = 90
