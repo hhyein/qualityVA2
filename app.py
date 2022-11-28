@@ -153,29 +153,29 @@ def donutChart():
   incRate = round((inc/totalNum) * 100)
 
   ##### sim, dep
-  simRate = round(60)
-  depRate = round(60)
+  # simRate = round(60)
+  # depRate = round(60)
 
-  rateList = [misRate, outRate, incRate, simRate, depRate]
-  colorList = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue']
+  # rateList = [misRate, outRate, incRate, simRate, depRate]
+  # colorList = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue']
 
-  donutChartList = []
-  for i in range(0, 5):
-    donutChartList.append({'label': i, 'color': colorList[i], 'data': {'issue': rateList[i], 'normal': 100 - rateList[i]}})
+  # donutChartList = []
+  # for i in range(0, 5):
+  #   donutChartList.append({'label': i, 'color': colorList[i], 'data': {'issue': rateList[i], 'normal': 100 - rateList[i]}})
 
 
 
   ##### dup, cor, rel
-  # dupRate = round(10)
-  # corRate = round(20)
-  # relRate = round(30)
+  dupRate = round(10)
+  corRate = round(20)
+  relRate = round(30)
 
-  # rateList = [misRate, outRate, incRate, dupRate, corRate, relRate]
-  # colorList = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue', 'mediumpurple']
+  rateList = [misRate, outRate, incRate, dupRate, corRate, relRate]
+  colorList = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue', 'mediumpurple']
 
-  # donutChartList = []
-  # for i in range(0, 6):
-  #   donutChartList.append({'label': i, 'color': colorList[i], 'data': {'issue': rateList[i], 'normal': 100 - rateList[i]}})
+  donutChartList = []
+  for i in range(0, 6):
+    donutChartList.append({'label': i, 'color': colorList[i], 'data': {'issue': rateList[i], 'normal': 100 - rateList[i]}})
 
   response = {}
   response['donutChartData'] = donutChartList

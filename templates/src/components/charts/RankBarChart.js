@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import ApexCharts from 'apexcharts'
 
 export default function BarChart(props) {
-  const { data } = props
+  const { data, setColumnName, setRank, setScore } = props
   const d3 = window.d3v4
 
   useEffect(() => {
@@ -19,9 +19,26 @@ export default function BarChart(props) {
         animations: {
           enabled: false
         },
-        width: 280,
+        width: 250,
         height: 220,
-        type: 'bar'
+        type: 'bar',
+        events: {
+          click: (event, chartContext, config) => {
+            // 빈 공간 클릭 시
+            if (config.dataPointIndex === -1) {
+              setColumnName('');
+              setRank('');
+              setScore('');
+              return;
+            }
+
+            const columnName = config.config.xaxis.categories[config.dataPointIndex];
+            const score = config.config.series[0].data[config.dataPointIndex];
+            setColumnName(columnName);
+            setRank(config.dataPointIndex+1);
+            setScore(score);
+          }
+        }
       },
       plotOptions: {
         bar: {
@@ -33,8 +50,8 @@ export default function BarChart(props) {
         enabled: false
       },
       xaxis: {
-        categories: ['South Korea', 'Canada', 'United Kingdom', 'Netherlands', 'Italy', 'France', 'Japan',
-          'United States', 'China', 'Germany'
+        categories: ['S. Korea', 'Canada', 'UK', 'NL', 'Italy', 'France', 'Japan',
+          'US', 'China', 'Germany'
         ],
       }
     };
@@ -45,6 +62,6 @@ export default function BarChart(props) {
     }, [data])
 
   return (
-    <div className="rankBar-wrapper" />
+    <div className="rankBar-wrapper" style={{ marginTop: '-20px' }} />
   )
 }

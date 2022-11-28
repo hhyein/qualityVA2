@@ -12,25 +12,33 @@ import PNBarChart from '../../charts/PNBarChart'
 import ScatterChart from '../../charts/ScatterChart'
 import RaderChart from '../../charts/RaderChart'
 import TreeChart from '../../charts/TreeChart'
+import RankBarChart from '../../charts/RankBarChart'
 import CheckTable from './CheckTable'
 
 const legendData = [
   { label: 0, text: 'completeness', color: 'darkorange' },
-  { label: 1, text: 'accuracy', color: 'steelblue' },
-  { label: 2, text: 'consistency', color: 'yellowgreen' },
-  { label: 3, text: 'similarity', color: 'lightcoral' },
-  { label: 4, text: 'dependency', color: 'cadetblue' },
+  { label: 1, text: 'outlier', color: 'steelblue' },
+  { label: 2, text: 'homogeneity', color: 'yellowgreen' },
+  { label: 3, text: 'duplicate', color: 'lightcoral' },
+  { label: 4, text: 'correlation', color: 'cadetblue' },
+  { label: 5, text: 'relevance', color: 'mediumpurple' },
 ]
 
 const metricList = [
   { label: 'completeness', visualChart: 'heatmapChart', value: 0 },
-  { label: 'accuracy', visualChart: 'histogramChart', value: 1 },
-  { label: 'consistency', visualChart: 'heatmapChart', value: 2 },
-  { label: 'similarity', visualChart: 'boxplotChart', value: 3 },
-  { label: 'dependency', visualChart: 'scatterChart', value: 4 },
+  { label: 'outlier', visualChart: 'histogramChart', value: 1 },
+  { label: 'homogeneity', visualChart: 'heatmapChart', value: 2 },
+  { label: 'duplicate', visualChart: 'duplicate', value: 3 },
+  { label: 'correlation', visualChart: 'boxplotChart', value: 4 },
+  { label: 'relevance', visualChart: 'rankBarChart', value: 5 },
 ]
 
 const outlierList = [
+  { label: 'statical based', value: 0 },
+  { label: 'ML based', value: 1 }
+];
+
+const methodList = [
   { label: 'statical based', value: 0 },
   { label: 'ML based', value: 1 }
 ];
@@ -70,11 +78,14 @@ export default function Check() {
   const [completenessRowIndex, setCompletenessRowIndex] = React.useState('');
   const [completenessColumnName, setCompletenessColumnName] = React.useState('');
   const [completenessQualityIssueCnt, setCompletenessQualityIssueCnt] = React.useState('');
-  const [similarityColumnName, setSimilarityColumnName] = React.useState('');
-  const [similarityMin, setSimilarityMin] = React.useState('');
-  const [similarityMax, setSimilarityMax] = React.useState('');
+  const [correlationColumnName, setCorrelationColumnName] = React.useState('');
+  const [highCorrelationColumnCnt, setHighCorrelationColumnCnt] = React.useState('');
+  const [highCorrelationColumnName, setHighCorrelationColumnName] = React.useState('');
   const [dependencyColumnName, setDependencyColumnName] = React.useState('');
   const [dependencyCorrelation, setDependencyCorrelation] = React.useState('');
+  const [relevanceColumnName, setRelevanceColumnName] = React.useState('');
+  const [relevanceRank, setRelevanceRank] = React.useState('');
+  const [relevanceScore, setRelevanceScore] = React.useState('');
   const [dataList, setDataList] = React.useState();
   const [dataIndex, setDataIndex] = React.useState();
   const [checkTableData, setCheckTableData] = React.useState([1]);
@@ -85,13 +96,18 @@ export default function Check() {
   }]);
   const [columnData, setColumnData] = React.useState();
   const [outlierData, setOutlierData] = React.useState();
-  
-  // console.log(visualizationData);
+  const [methodData, setMethodData] = React.useState();
+  const [cntList, setCntList] = React.useState([]);
+  const [cntData, setCntData] = React.useState();
 
   React.useEffect(() => {
     if(columnList) {
       setColumnData(columnList[0].label)
-    setOutlierData(outlierList[0].label)
+      setOutlierData(outlierList[0].label)
+      setMethodData(methodList[0].label)
+
+      setCntList([...Array(columnList.length).keys()].map(x => ({ label: x, value: x })))
+      setCntData(0)
     }
   }, [columnList])
 
@@ -165,6 +181,17 @@ export default function Check() {
                 width: '45%',
                 margin: '0 5%'
               }}>
+                <Title title="method" />
+                <Select className="select"
+                  options={outlierList}
+                  placeholder={<div>{outlierData}</div>}
+                  defaultValue={outlierData}
+                  onChange={v => {
+                    setOutlierData(v.label)
+                  }}
+                />
+              </div>
+              <div style={{ width: '45%' }}>
                 <Title title="column" />
                 <Select className="select"
                   options={columnList}
@@ -172,17 +199,6 @@ export default function Check() {
                   defaultValue={columnData}
                   onChange={v => {
                     setColumnData(v.label)
-                  }}
-                />
-              </div>
-              <div style={{ width: '45%' }}>
-                <Title title="outlier" />
-                <Select className="select"
-                  options={outlierList}
-                  placeholder={<div>{outlierData}</div>}
-                  defaultValue={outlierData}
-                  onChange={v => {
-                    setOutlierData(v.label)
                   }}
                 />
               </div>
@@ -210,31 +226,46 @@ export default function Check() {
         </div>
 
       case "boxplotChart":
-        return <div style={{ display: 'flex' }}>
-          <BoxplotChart
-            setColumnName={setSimilarityColumnName}
-            setMin={setSimilarityMin}
-            setMax={setSimilarityMax}
-          />
-          <div>
-            <div style={{ width: 155, height: 80, border: '1px solid #999999', marginTop: 30 }}>
-              <div style={{ position: 'absolute', top: 20, left: 290, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
-              <div style={{ marginTop: 10 }}>
-                <p>column name {similarityColumnName}</p>
-                <p>mix {similarityMin}</p>
-                <p>max {similarityMax}</p>
+        return <>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '60px auto', marginTop: 20, marginRight: 10 }}>
+            <div style={{ gridRow: '1 / 3' }}>
+              <BoxplotChart
+                setColumnName={setCorrelationColumnName}
+                setHighCorrelationColumnCnt={setHighCorrelationColumnCnt}
+                setHighCorrelationColumnName={setHighCorrelationColumnName}
+              />
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5px' }}>
+              <div>
+                <Title title="method" />
+                <Select className="select"
+                  options={methodList}
+                  placeholder={<div>select</div>}
+                  onChange={v => {
+                    setMethodData(v.label)
+                  }}
+                />
+              </div>
+              <div>
+                <Title title="threshold" />
+                <Select className="select"
+                  options={thresholdList}
+                  placeholder={<div>select</div>}
+                />
               </div>
             </div>
-            <div style={{ width: 155, height: 75, border: '1px solid #999999', marginTop: 15 }}>
-              <div style={{ position: 'absolute', top: 120, left: 290, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>quality issue</div>
-              <div style={{ marginTop: 10 }}>
-                <p>column name</p>
-                <p>minDiff</p>
-                <p>maxDiff</p>
+            <div style={{ gridColumn: '2 / 3'}}>
+              <div style={{ position: 'relative', height: 120, marginTop: 10, border: '1px solid #999999' }}>
+                <div style={{ position: 'absolute', top: -10, left: 2, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
+                <div style={{ marginTop: 10 }}>
+                  <p>column name {correlationColumnName}</p>
+                  <p>high correlation column cnt</p>
+                  <p>high correlation column name</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </>
 
       case "scatterChart":
         return <div style={{ display: 'flex' }}>
@@ -272,6 +303,64 @@ export default function Check() {
             </div>
           </div>
         </div>
+      
+      case "rankBarChart":
+        return <>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '60px auto', marginTop: 20, marginRight: 10 }}>
+            <div style={{ gridRow: '1 / 3' }}>
+              <RankBarChart
+                setColumnName={setRelevanceColumnName}
+                setRank={setRelevanceRank}
+                setScore={setRelevanceScore}
+              />
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5px' }}>
+              <div>
+                <Title title="method" />
+                <Select className="select"
+                  options={methodList}
+                  placeholder={<div>{methodData}</div>}
+                  defaultValue={methodData}
+                  onChange={v => {
+                    setMethodData(v.label)
+                  }}
+                />
+              </div>
+              <div>
+                <Title title="cnt" />
+                <Select className="select"
+                  options={cntList}
+                  placeholder={<div>{cntData}</div>}
+                  defaultValue={cntData}
+                  onChange={v => {
+                    setCntData(v)
+                  }}
+                />
+              </div>
+            </div>
+            <div style={{ gridColumn: '2 / 3'}}>
+              <div style={{ position: 'relative', height: 80, marginTop: 10, border: '1px solid #999999' }}>
+                <div style={{ position: 'absolute', top: -10, left: 2, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
+                <div style={{ marginTop: 10 }}>
+                  <p>column name {relevanceColumnName}</p>
+                  <p>rank {relevanceRank}</p>
+                  <p>score {relevanceScore}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      
+      case "duplicate":
+        return <>
+          <div style={{ position: 'relative', height: 80, marginTop: 40, border: '1px solid #999999' }}>
+            <div style={{ position: 'absolute', top: -10, left: 2, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
+            <div style={{ marginTop: 10 }}>
+              <p>duplicate cnt</p>
+              {/* <p>row index  value</p> */}
+            </div>
+          </div>
+        </>
 
       default:
         return
@@ -286,11 +375,11 @@ export default function Check() {
         display: 'flex',
         width: '440px'
       }}>
-          <div style={{ display: 'flex', height: '250px' }}>
+          <div style={{ display: 'flex', height: '275px' }}>
             <div style={{ width: '440px' }}>
               <div style={{
                 position: 'absolute',
-                top: 60,
+                top: 75,
                 left: 0,
               }}>
                 {visualizationList.map((chart, idx) => {
@@ -314,7 +403,7 @@ export default function Check() {
                 dataColorInfo={legendData}
               />
               {donutChartData && donutChartData.donutChartData.map((donutData, idx) => (
-                <div style={{ margin: '5px 3px 0' }} key={idx}>
+                <div style={{ margin: '17px 3px 0' }} key={idx}>
                   <DonutChart
                     donutData={donutData}
                   />
