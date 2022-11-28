@@ -97,6 +97,7 @@ export default function Check() {
   const [columnData, setColumnData] = React.useState();
   const [outlierData, setOutlierData] = React.useState();
   const [methodData, setMethodData] = React.useState();
+  const [cntList, setCntList] = React.useState([]);
   const [cntData, setCntData] = React.useState();
   
   // console.log(visualizationData);
@@ -104,9 +105,11 @@ export default function Check() {
   React.useEffect(() => {
     if(columnList) {
       setColumnData(columnList[0].label)
-    setOutlierData(outlierList[0].label)
-    setMethodData(methodList[0].label)
-    setCntData([...Array(columnList[0].label.length).keys()])
+      setOutlierData(outlierList[0].label)
+      setMethodData(methodList[0].label)
+
+      setCntList([...Array(columnList.length).keys()].map(x => ({ label: x, value: x })))
+      setCntData(0)
     }
   }, [columnList])
 
@@ -313,11 +316,11 @@ export default function Check() {
               <div>
                 <Title title="cnt" />
                 <Select className="select"
-                  options={[...Array(columnList[0].label.length).keys()]}
+                  options={cntList}
                   placeholder={<div>{cntData}</div>}
                   defaultValue={cntData}
                   onChange={v => {
-                    setCntData(v.label)
+                    setCntData(v)
                   }}
                 />
               </div>

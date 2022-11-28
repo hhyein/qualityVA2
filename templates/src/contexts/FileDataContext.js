@@ -156,7 +156,7 @@ export const FileDataProvider = ({ children }) => {
 
   const updateDonutChartData = async (fileName) => {
     const option = {
-      fileName: fileName
+      fileName: 0 // TODO: 임시값으로 0 설정, 추후 변경!!
     }
     const donutData = await postData('/donutChart', option);
     setDonutChartData(donutData);
@@ -164,7 +164,7 @@ export const FileDataProvider = ({ children }) => {
 
   const updateTablePointData = async (fileName) => {
     const option = {
-      fileName: fileName
+      fileName: 0 // TODO: 임시값으로 0 설정, 추후 변경!!
     }
     const tableData = await postData('/tablePoint', option);
     setTablePointData(tableData);
@@ -172,7 +172,7 @@ export const FileDataProvider = ({ children }) => {
 
   const updateVisualizationData = async (fileName, visualization, metricValue, column, outlier) => {
     const option = {
-      fileName: fileName,
+      fileName: 0, // TODO: 임시값으로 0 설정, 추후 변경!!,
       visualization: visualization,
       metricValue: metricValue,
       column: column,
@@ -184,7 +184,7 @@ export const FileDataProvider = ({ children }) => {
 
   const updateModelTableData = async (fileName) => {
     const option = {
-      fileName: fileName
+      fileName: 0 // TODO: 임시값으로 0 설정, 추후 변경!!
     }
     const modelTableData = await postData('/modelTable', option);
     setModelTableData(modelTableData.modelResultData);
@@ -192,7 +192,7 @@ export const FileDataProvider = ({ children }) => {
 
   const updateChangeCntData = async (fileName) => {
     const option = {
-      fileName: fileName
+      fileName: 0 // TODO: 임시값으로 0 설정, 추후 변경!!
     }
     const changeCntData = await postData('/changeCnt', option);
     setChangeCntData(changeCntData);
@@ -200,7 +200,7 @@ export const FileDataProvider = ({ children }) => {
 
   const updateChangeDistortData = async (fileName) => {
     const option = {
-      fileName: fileName
+      fileName: 0 // TODO: 임시값으로 0 설정, 추후 변경!!
     }
     const changeDistortData = await postData('/changeDistort', option);
     setChangeDistort(changeDistortData);
