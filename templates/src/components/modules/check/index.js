@@ -28,7 +28,7 @@ const metricList = [
   { label: 'completeness', visualChart: 'heatmapChart', value: 0 },
   { label: 'outlier', visualChart: 'histogramChart', value: 1 },
   { label: 'homogeneity', visualChart: 'heatmapChart', value: 2 },
-  { label: 'duplicate', visualChart: 'boxplotChart', value: 3 },
+  { label: 'duplicate', visualChart: 'duplicate', value: 3 },
   { label: 'correlation', visualChart: 'boxplotChart', value: 4 },
   { label: 'relevance', visualChart: 'rankBarChart', value: 5 },
 ]
@@ -332,6 +332,17 @@ export default function Check() {
                   <p>score {relevanceScore}</p>
                 </div>
               </div>
+            </div>
+          </div>
+        </>
+      
+      case "duplicate":
+        return <>
+          <div style={{ position: 'relative', height: 80, marginTop: 40, border: '1px solid #999999' }}>
+            <div style={{ position: 'absolute', top: -10, left: 2, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
+            <div style={{ marginTop: 10 }}>
+              <p>duplicate cnt</p>
+              {/* <p>row index  value</p> */}
             </div>
           </div>
         </>
