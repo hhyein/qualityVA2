@@ -99,8 +99,6 @@ export default function Check() {
   const [methodData, setMethodData] = React.useState();
   const [cntList, setCntList] = React.useState([]);
   const [cntData, setCntData] = React.useState();
-  
-  // console.log(visualizationData);
 
   React.useEffect(() => {
     if(columnList) {
@@ -183,6 +181,17 @@ export default function Check() {
                 width: '45%',
                 margin: '0 5%'
               }}>
+                <Title title="method" />
+                <Select className="select"
+                  options={outlierList}
+                  placeholder={<div>{outlierData}</div>}
+                  defaultValue={outlierData}
+                  onChange={v => {
+                    setOutlierData(v.label)
+                  }}
+                />
+              </div>
+              <div style={{ width: '45%' }}>
                 <Title title="column" />
                 <Select className="select"
                   options={columnList}
@@ -190,17 +199,6 @@ export default function Check() {
                   defaultValue={columnData}
                   onChange={v => {
                     setColumnData(v.label)
-                  }}
-                />
-              </div>
-              <div style={{ width: '45%' }}>
-                <Title title="outlier" />
-                <Select className="select"
-                  options={outlierList}
-                  placeholder={<div>{outlierData}</div>}
-                  defaultValue={outlierData}
-                  onChange={v => {
-                    setOutlierData(v.label)
                   }}
                 />
               </div>
