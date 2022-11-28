@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import ApexCharts from 'apexcharts'
 
 export default function BoxplotChart(props) {
-  const { data, setColumnName, setMin, setMax } = props
+  const { data, setColumnName, setHighCorrelationColumnCnt, setHighCorrelationColumnName } = props
   const d3 = window.d3v4
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function BoxplotChart(props) {
         animations: {
           enabled: false
         },
-        width: 280,
+        width: 250,
         height: 220,
         type: 'boxPlot',
         events: {
@@ -50,17 +50,17 @@ export default function BoxplotChart(props) {
             // 빈 공간 클릭 시
             if (config.dataPointIndex === -1) {
               setColumnName('');
-              setMin('');
-              setMax('');
+              setHighCorrelationColumnCnt('');
+              setHighCorrelationColumnName('');
               return;
             }
 
             const columnName = config.config.series[0].data[config.dataPointIndex].x;
-            const min = config.config.series[0].data[config.dataPointIndex].y[0];
-            const max = config.config.series[0].data[config.dataPointIndex].y[4];
+            //const min = config.config.series[0].data[config.dataPointIndex].y[0];
+            //const max = config.config.series[0].data[config.dataPointIndex].y[4];
             setColumnName(columnName);
-            setMin(min);
-            setMax(max);
+            setHighCorrelationColumnCnt('');
+            setHighCorrelationColumnName('');
           }
         }
       },
@@ -87,6 +87,6 @@ export default function BoxplotChart(props) {
     }, [data])
 
   return (
-    <div className="boxplot-wrapper" />
+    <div className="boxplot-wrapper" style={{ marginTop: '-20px' }} />
   )
 }
