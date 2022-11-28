@@ -12,6 +12,7 @@ import PNBarChart from '../../charts/PNBarChart'
 import ScatterChart from '../../charts/ScatterChart'
 import RaderChart from '../../charts/RaderChart'
 import TreeChart from '../../charts/TreeChart'
+import RankBarChart from '../../charts/RankBarChart'
 import CheckTable from './CheckTable'
 
 const legendData = [
@@ -25,13 +26,19 @@ const legendData = [
 
 const metricList = [
   { label: 'completeness', visualChart: 'heatmapChart', value: 0 },
-  { label: 'accuracy', visualChart: 'histogramChart', value: 1 },
-  { label: 'consistency', visualChart: 'heatmapChart', value: 2 },
-  { label: 'similarity', visualChart: 'boxplotChart', value: 3 },
-  { label: 'dependency', visualChart: 'scatterChart', value: 4 },
+  { label: 'outlier', visualChart: 'histogramChart', value: 1 },
+  { label: 'homogeneity', visualChart: 'heatmapChart', value: 2 },
+  { label: 'duplicate', visualChart: 'boxplotChart', value: 3 },
+  { label: 'correlation', visualChart: 'boxplotChart', value: 4 },
+  { label: 'relevance', visualChart: 'rankBarChart', value: 5 },
 ]
 
 const outlierList = [
+  { label: 'statical based', value: 0 },
+  { label: 'ML based', value: 1 }
+];
+
+const methodList = [
   { label: 'statical based', value: 0 },
   { label: 'ML based', value: 1 }
 ];
@@ -76,6 +83,9 @@ export default function Check() {
   const [similarityMax, setSimilarityMax] = React.useState('');
   const [dependencyColumnName, setDependencyColumnName] = React.useState('');
   const [dependencyCorrelation, setDependencyCorrelation] = React.useState('');
+  const [relevanceColumnName, setRelevanceColumnName] = React.useState('');
+  const [relevanceRank, setRelevanceRank] = React.useState('');
+  const [relevanceScore, setRelevanceScore] = React.useState('');
   const [dataList, setDataList] = React.useState();
   const [dataIndex, setDataIndex] = React.useState();
   const [checkTableData, setCheckTableData] = React.useState([1]);
@@ -86,6 +96,8 @@ export default function Check() {
   }]);
   const [columnData, setColumnData] = React.useState();
   const [outlierData, setOutlierData] = React.useState();
+  const [methodData, setMethodData] = React.useState();
+  const [cntData, setCntData] = React.useState();
   
   // console.log(visualizationData);
 
@@ -93,6 +105,8 @@ export default function Check() {
     if(columnList) {
       setColumnData(columnList[0].label)
     setOutlierData(outlierList[0].label)
+    setMethodData(methodList[0].label)
+    setCntData([...Array(columnList[0].label.length).keys()])
     }
   }, [columnList])
 
@@ -273,6 +287,53 @@ export default function Check() {
             </div>
           </div>
         </div>
+      
+      case "rankBarChart":
+        return <>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '60px auto', marginTop: 20, marginRight: 10 }}>
+            <div style={{ gridRow: '1 / 3' }}>
+              <RankBarChart
+                setColumnName={setRelevanceColumnName}
+                setRank={setRelevanceRank}
+                setScore={setRelevanceScore}
+              />
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5px' }}>
+              <div>
+                <Title title="method" />
+                <Select className="select"
+                  options={methodList}
+                  placeholder={<div>{methodData}</div>}
+                  defaultValue={methodData}
+                  onChange={v => {
+                    setMethodData(v.label)
+                  }}
+                />
+              </div>
+              <div>
+                <Title title="cnt" />
+                <Select className="select"
+                  options={[...Array(columnList[0].label.length).keys()]}
+                  placeholder={<div>{cntData}</div>}
+                  defaultValue={cntData}
+                  onChange={v => {
+                    setCntData(v.label)
+                  }}
+                />
+              </div>
+            </div>
+            <div style={{ gridColumn: '2 / 3'}}>
+              <div style={{ position: 'relative', height: 80, marginTop: 10, border: '1px solid #999999' }}>
+                <div style={{ position: 'absolute', top: -10, left: 2, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
+                <div style={{ marginTop: 10 }}>
+                  <p>column name {relevanceColumnName}</p>
+                  <p>rank {relevanceRank}</p>
+                  <p>score {relevanceScore}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
 
       default:
         return
