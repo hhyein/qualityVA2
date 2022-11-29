@@ -13,6 +13,7 @@ import pandas as pd
 from io import StringIO
 from scipy import stats
 from collections import Counter
+# from pycaret.regression import *
 
 import module.main as main
 import module.tree as tree
@@ -21,16 +22,9 @@ app = Flask(__name__)
 CORS(app)
 
 uploadFileName = 'wine'
-purpose = ''
 column = ''
 inputModelList = []
 inputEvalList = []
-
-# if purpose == '' or 'regression':
-#   from pycaret.regression import *
-
-# if purpose == 'classification':
-#   from pycaret.classification import *
 
 @app.route('/fileUpload', methods=['GET', 'POST'])
 def fileUpload():
@@ -54,7 +48,7 @@ def fileUpload():
 
 @app.route('/setting', methods=['GET', 'POST'])
 def setting():
-  global uploadFileName, purpose, column, inputModelList, inputEvalList
+  global uploadFileName, column, inputModelList, inputEvalList
 
   originDf = pd.read_csv('static/' + uploadFileName + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
@@ -163,6 +157,8 @@ def checkVisualization():
   originDf = pd.read_csv('static/' + str(fileName) + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
   columnList = list(originDf.columns)
+
+  response = {}
   
   # completeness, homogeneity
   if vis == 'heatmapChart':
@@ -189,6 +185,9 @@ def checkVisualization():
       categoryDataList = []
       for i in range(len(columnList)):
         categoryDataList.append('c' + str(i))
+
+    response['seriesData'] = seriesDataList
+    response['categoryData'] = categoryDataList
 
   # outlier
   if vis == 'histogramChart':
@@ -223,10 +222,9 @@ def checkVisualization():
             columnCntList[i] = columnCntList[i] + 1
 
     seriesDataList.append({'name': columnName, 'data': columnCntList})
-
-  response = {}
-  response['seriesData'] = seriesDataList
-  response['categoryData'] = categoryDataList
+    
+    response['seriesData'] = seriesDataList
+    response['categoryData'] = categoryDataList
 
   return json.dumps(response)
 
@@ -353,6 +351,12 @@ def combinationTable():
 
   return json.dumps(combinationData)
 
+@app.route('/recommend', methods=['GET', 'POST'])
+def recommend():
+  req = request.get_data().decode('utf-8')
+
+  return json.dumps({'recommend': 'success'})
+
 @app.route('/new', methods=['GET', 'POST'])
 def new():
   req = request.get_data().decode('utf-8')
@@ -385,7 +389,6 @@ def changeDistort():
   global uploadFileName, column
   beforeDf = pd.read_csv('static/' + str(uploadFileName) + '.csv')
   beforeDf = beforeDf.apply(pd.to_numeric, errors = 'coerce')
-  print(column)
   beforeColumnDf = beforeDf[column]
   beforeColumnList = beforeColumnDf.values.tolist()
 

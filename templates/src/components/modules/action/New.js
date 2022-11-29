@@ -18,10 +18,7 @@ export default function Action() {
     }
   });
 
-  const [actionValues, setActionValues] = React.useState({
-    label: "remove",
-    value: 0
-  });
+  const [actionValues, setActionValues] = React.useState();
 
   const [actionDetailList, setActionDetailList] = React.useState();
   const [actionDetailValues, setActionDetailValues] = React.useState();
@@ -80,7 +77,7 @@ export default function Action() {
             />
           </div>
           <div style={{ width: '47.5%' }} >
-            {actionValues?.label !== 'remove' && actionValues?.label !== 'none' &&
+            {actionValues && actionValues?.label !== 'remove' && actionValues?.label !== 'none' &&
               <React.Fragment>
               <Title title="actionDetail" />
               <Select className="select"
