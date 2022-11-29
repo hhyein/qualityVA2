@@ -147,7 +147,7 @@ export default function Check() {
     switch (value) {
       // completeness, homogeneity
       case "heatmapChart":
-        return <div style={{ display: 'flex' }}>
+        return <div style={{ display: 'flex', marginLeft: -5 }}>
           <HeatmapChart
             label={metricValues?.label}
             setRowIndex={setCompletenessRowIndex}
@@ -156,7 +156,7 @@ export default function Check() {
             visualizationData={visualizationData}
           />
           <div style={{ position: 'relative', right: 10 }}>
-            <div style={{ width: 165, height: 95, border: '1px solid #999999', marginTop: 30 }}>
+            <div style={{ width: 163, height: 95, border: '1px solid #999999', marginTop: 30 }}>
               <div style={{ position: 'absolute', top: 20, left: 10, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
               <div style={{ marginTop: 10 }}>
                 <p>row index {completenessRowIndex}</p>
@@ -164,7 +164,7 @@ export default function Check() {
                 <p>quality issue cnt {completenessQualityIssueCnt}</p>
               </div>
             </div>
-            <div style={{ width: 165, height: 60, border: '1px solid #999999', marginTop: 15 }}>
+            <div style={{ width: 163, height: 60, border: '1px solid #999999', marginTop: 15 }}>
               <div style={{ position: 'absolute', top: 135, left: 10, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>quality issue</div>
               <div style={{ marginTop: 10, display: 'flex' }}>
                 <p>row index</p>
@@ -229,8 +229,8 @@ export default function Check() {
 
       case "duplicate":
         return <>
-          <div style={{ position: 'relative', height: 80, marginTop: 40, border: '1px solid #999999' }}>
-            <div style={{ position: 'absolute', top: -10, left: 2, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
+          <div style={{ position: 'relative', height: 80, left: 10, marginTop: 40, border: '1px solid #999999', width: 418 }}>
+            <div style={{ position: 'absolute', top: -10, left: 10, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
             <div style={{ marginTop: 10 }}>
               <p>duplicate cnt</p>
               <p>row index value</p>
