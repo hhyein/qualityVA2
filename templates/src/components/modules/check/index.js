@@ -269,7 +269,7 @@ export default function Check() {
               </div>
             </div>
             <div style={{ gridColumn: '2 / 3'}}>
-              <div style={{ position: 'relative', height: 120, marginTop: 10, border: '1px solid #999999' }}>
+              <div style={{ position: 'relative', height: 112, marginTop: 10, border: '1px solid #999999' }}>
                 <div style={{ position: 'absolute', top: -10, left: 2, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
                 <div style={{ marginTop: 10 }}>
                   <p>column name {correlationColumnName}</p>
@@ -317,7 +317,7 @@ export default function Check() {
               </div>
             </div>
             <div style={{ gridColumn: '2 / 3'}}>
-              <div style={{ position: 'relative', height: 80, marginTop: 10, border: '1px solid #999999' }}>
+              <div style={{ position: 'relative', height: 112, marginTop: 10, border: '1px solid #999999' }}>
                 <div style={{ position: 'absolute', top: -10, left: 2, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
                 <div style={{ marginTop: 10 }}>
                   <p>column name {relevanceColumnName}</p>
