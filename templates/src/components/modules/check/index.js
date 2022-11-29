@@ -377,6 +377,7 @@ export default function Check() {
                 </div>
               ))}
             </div>
+
             {modelTableData && <CheckTable
               checkTableData={checkTableData}
               setCheckTableData={setCheckTableData}
@@ -385,7 +386,7 @@ export default function Check() {
               setRenderChartData={setRenderChartData} /> }
             
             <div style={{ display: 'flex' }}>
-              <div style={{ position: 'relative', top: '10px' }}>
+              <div style={{ position: 'relative', top: 10, left: 10, marginRight: 10 }}>
                 <RaderChart data={renderChartData} />
               </div>
               <div style={{ overflowY: 'auto', zIndex: 100 }}>
