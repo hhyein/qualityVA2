@@ -229,7 +229,7 @@ export default function Check() {
 
       case "duplicate":
         return <>
-          <div style={{ position: 'relative', height: 80, left: 10, marginTop: 40, border: '1px solid #999999', width: 418 }}>
+          <div style={{ position: 'relative', height: 172, left: 10, marginTop: 30, border: '1px solid #999999', width: 418 }}>
             <div style={{ position: 'absolute', top: -10, left: 10, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
             <div style={{ marginTop: 10 }}>
               <p>duplicate cnt</p>
