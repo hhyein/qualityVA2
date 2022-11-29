@@ -11,7 +11,7 @@ export default function Action() {
     checkTableData
   } = useFileData()
 
-  const actionList = ['remove', 'missing', 'outlier', 'inconsistent', 'transformation'].map((item, idx) => {
+  const actionList = ['remove', 'missing', 'outlier', 'inconsistent', 'transformation', 'none'].map((item, idx) => {
     return {
       label: item,
       value: idx
@@ -80,7 +80,7 @@ export default function Action() {
             />
           </div>
           <div style={{ width: '47.5%' }} >
-            {actionValues?.label !== 'remove' && 
+            {actionValues?.label !== 'remove' && actionValues?.label !== 'none' &&
               <React.Fragment>
               <Title title="actionDetail" />
               <Select className="select"
