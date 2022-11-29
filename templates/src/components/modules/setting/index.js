@@ -16,20 +16,6 @@ export default function Setting() {
   const [values, setValues] = React.useState(settingValues);
   const [buttonActive, setButtonActive] = React.useState(false);
 
-  const metricList = [
-    {
-      label: "normality test",
-      value: 0
-    },
-    {
-      label: "bayesian test",
-      value: 1
-    },
-    {
-      label: "chi squared test",
-      value: 2
-    }];
-
   React.useEffect(() => {
     setValues(settingValues);
   }, [setSettingValues, settingValues])
@@ -38,8 +24,7 @@ export default function Setting() {
     if (
       values?.column &&
       values?.eval && values.eval.length > 0 &&
-      values?.model && values.model.length > 0 &&
-      values?.metric) {
+      values?.model && values.model.length > 0) {
       setButtonActive(true);
     } else {
       setButtonActive(false);
@@ -103,15 +88,6 @@ export default function Setting() {
                   placeholder={<div>select</div>}
                   defaultValue={values?.eval ? values.eval : undefined}
                   onChange={v => handleChange('eval', v)}
-                />
-                <Title title="metric" />
-                <Select className="select"
-                  options={metricList}
-                  placeholder={<div>select</div>}
-                  defaultValue={values?.metric ? values.metric : undefined}
-                  onChange={v => {
-                    handleChange('metric', v)
-                  }}
                 />
             </div>
             <button

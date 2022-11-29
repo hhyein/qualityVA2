@@ -35,8 +35,7 @@ export const FileDataProvider = ({ children }) => {
   const [settingValues, setSettingValues] = useState({
     column: undefined,
     model: undefined,
-    eval: undefined,
-    metric: undefined
+    eval: undefined
   })
   const [modelSettingData, setModelSettingData] = useState({})
   const [combinationTableData, setCombinationTableData] = useState({})
