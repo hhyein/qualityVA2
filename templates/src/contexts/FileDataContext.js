@@ -33,13 +33,11 @@ const FileDataContext = React.createContext()
 export const FileDataProvider = ({ children }) => {
   const [file, setFile] = useState()  
   const [settingValues, setSettingValues] = useState({
-    purpose: undefined,
     column: undefined,
     model: undefined,
     eval: undefined,
     metric: undefined
   })
-  const [purposeList, setPurposeList] = useState()
   const [modelSettingData, setModelSettingData] = useState({})
   const [combinationTableData, setCombinationTableData] = useState({})
   const [combinationTableSortingInfo, setCombinationTableSortingInfo] = useState({})
@@ -76,20 +74,7 @@ export const FileDataProvider = ({ children }) => {
     handleSettingValuesChange()
   }, [handleSettingValuesChange])
 
-  const updatePurposeList = useCallback(async () => {
-    const { purposeList } = await fetchData('/setting')
-    setPurposeList(purposeList)
-  }, [])
-
-  const handlePurposeChange = useCallback(async () => {
-    if (!settingValues.purpose) {
-      return
-    }
-    setCombinationTableSortingInfo(prev => ({
-      ...prev,
-      isAscending: settingValues.purpose.label === 'prediction',
-    }))
-    // await postData('/setting', settingValues)
+  const updateSettingList = useCallback(async () => {
     const { columnList, modelList, evalList, dimensionList } = await fetchData('/setting')
     setModelSettingData({
       columnList,
@@ -97,11 +82,7 @@ export const FileDataProvider = ({ children }) => {
       evalList,
       dimensionList,
     })
-  }, [settingValues])
-
-  useEffect(() => {
-    handlePurposeChange()
-  }, [handlePurposeChange])
+  }, [])
 
   const handleDrop = useCallback(
     async files => {
@@ -112,9 +93,9 @@ export const FileDataProvider = ({ children }) => {
       }
       formData.append('file', files[0])
       await postData('/fileUpload', formData, config)
-      await updatePurposeList()
+      await updateSettingList()
     },
-    [updatePurposeList]
+    [updateSettingList]
   )
 
   const updateCombinationTable = useCallback(async () => {
@@ -212,7 +193,6 @@ export const FileDataProvider = ({ children }) => {
         file,
         isEmptyData,
         handleDrop,
-        purposeList,
         modelSettingData,
         combinationTableData,
         combinationTableSortingInfo,

@@ -7,7 +7,7 @@ import { useFileData } from '../../../contexts/FileDataContext'
 export default function Setting() {
   const {
     isEmptyData,
-    purposeList,
+    file,
     modelSettingData: { columnList, modelList, evalList },
     settingValues,
     setSettingValues
@@ -39,7 +39,6 @@ export default function Setting() {
       values?.column &&
       values?.eval && values.eval.length > 0 &&
       values?.model && values.model.length > 0 &&
-      values?.purpose &&
       values?.metric) {
       setButtonActive(true);
     } else {
@@ -50,7 +49,6 @@ export default function Setting() {
   const handleChange = (key, value) => {
     if (key === 'purpose') {
       setSettingValues({
-        purpose: value,
         column: undefined,
         model: undefined,
         eval: undefined,
@@ -70,7 +68,7 @@ export default function Setting() {
   return (
     <Box title="setting" style={{ overflow: 'auto' }}>
       {!isEmptyData({
-        purposeList,
+        file,
       }) && (
           <React.Fragment>
             <div
@@ -80,15 +78,6 @@ export default function Setting() {
                 gridGap: '5px',
               }}
             >
-              <Title title="purpose" />
-                <Select className="select"
-                  options={purposeList}
-                  placeholder={<div>select</div>}
-                  defaultValue={values?.purpose ? values.purpose : undefined}
-                  onChange={v => {
-                    handleChange('purpose', v)
-                  }}
-                />
                 <Title title="column" />
                 <Select className="select"
                   options={columnList}
