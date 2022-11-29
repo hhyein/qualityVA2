@@ -89,7 +89,7 @@ export const FileDataProvider = ({ children }) => {
       ...prev,
       isAscending: settingValues.purpose.label === 'prediction',
     }))
-    await postData('/setting', settingValues)
+    // await postData('/setting', settingValues)
     const { columnList, modelList, evalList, dimensionList } = await fetchData('/setting')
     setModelSettingData({
       columnList,
