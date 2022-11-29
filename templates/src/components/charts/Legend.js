@@ -3,12 +3,6 @@ import React, { useEffect } from 'react'
 export default function Legend(props) {
   const { dataColorInfo, onLegendClick } = props
   const d3 = window.d3v4
-  
-  // const exampleLegendData = [
-  //   { text: 'missing', color: 'steelblue' },
-  //   { text: 'outlier', color: 'darkorange' },
-  //   { text: 'inconsistent', color: 'darkgreen' },
-  // ]
 
   useEffect(() => {
     d3.select('.legend-wrapper').selectAll('*').remove()

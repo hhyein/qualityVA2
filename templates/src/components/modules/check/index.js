@@ -34,13 +34,8 @@ const metricList = [
 ]
 
 const outlierList = [
-  { label: 'statical based', value: 0 },
-  { label: 'ML based', value: 1 }
-];
-
-const methodList = [
-  { label: 'statical based', value: 0 },
-  { label: 'ML based', value: 1 }
+  { label: 'statistics', value: 0 },
+  { label: 'model', value: 1 }
 ];
 
 const correlationList = [
@@ -53,6 +48,11 @@ const thresholdList = [
   { label: 0.1, value: 0 },
   { label: 0.5, value: 1 },
   { label: 1, value: 2 }
+];
+
+const importanceList = [
+  { label: 'statistics', value: 0 },
+  { label: 'model', value: 1 }
 ];
 
 export default function Check() {
@@ -84,8 +84,6 @@ export default function Check() {
   const [correlationColumnName, setCorrelationColumnName] = React.useState('');
   const [highCorrelationColumnCnt, setHighCorrelationColumnCnt] = React.useState('');
   const [highCorrelationColumnName, setHighCorrelationColumnName] = React.useState('');
-  const [dependencyColumnName, setDependencyColumnName] = React.useState('');
-  const [dependencyCorrelation, setDependencyCorrelation] = React.useState('');
   const [relevanceColumnName, setRelevanceColumnName] = React.useState('');
   const [relevanceRank, setRelevanceRank] = React.useState('');
   const [relevanceScore, setRelevanceScore] = React.useState('');
@@ -107,7 +105,7 @@ export default function Check() {
     if(columnList) {
       setColumnData(columnList[0].label)
       setOutlierData(outlierList[0].label)
-      setMethodData(methodList[0].label)
+      setMethodData(importanceList[0].label)
 
       setCntList([...Array(columnList.length).keys()].map(x => ({ label: x, value: x })))
       setCntData(0)
@@ -134,7 +132,6 @@ export default function Check() {
     setMetricValues(metricList[selectedLegendIdx])
   }, [selectedLegendIdx])
 
-
   React.useEffect(() => {
     if (metricValues?.label) {
       setVisualizationList([metricValues.visualChart]);
@@ -148,6 +145,7 @@ export default function Check() {
 
   const chartData = (value) => {
     switch (value) {
+      // completeness, homogeneity
       case "heatmapChart":
         return <div style={{ display: 'flex' }}>
           <HeatmapChart
@@ -176,6 +174,7 @@ export default function Check() {
           </div>
         </div>
 
+      // outlier
       case "histogramChart":
         return <div style={{ display: 'flex' }}>
           <div>
@@ -228,6 +227,18 @@ export default function Check() {
           </div>
         </div>
 
+      case "duplicate":
+        return <>
+          <div style={{ position: 'relative', height: 80, marginTop: 40, border: '1px solid #999999' }}>
+            <div style={{ position: 'absolute', top: -10, left: 2, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
+            <div style={{ marginTop: 10 }}>
+              <p>duplicate cnt</p>
+              <p>row index value</p>
+            </div>
+          </div>
+        </>
+
+      // correlation
       case "boxplotChart":
         return <>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '60px auto', marginTop: 20, marginRight: 10 }}>
@@ -242,7 +253,7 @@ export default function Check() {
               <div>
                 <Title title="method" />
                 <Select className="select"
-                  options={methodList}
+                  options={correlationList}
                   placeholder={<div>select</div>}
                   onChange={v => {
                     setMethodData(v.label)
@@ -269,44 +280,8 @@ export default function Check() {
             </div>
           </div>
         </>
-
-      case "scatterChart":
-        return <div style={{ display: 'flex' }}>
-          <div style={{ width: 100, height: 175, marginTop: 25, marginLeft: 10, marginRight: 10 }}>
-            <Title title="column" />
-            <Select className="select"
-              options={columnList}
-              placeholder={<div>select</div>}
-            />
-            <Title title="correlation" />
-            <Select className="select"
-              options={correlationList}
-              placeholder={<div>select</div>}
-            />
-            <Title title="threshold" />
-            <Select className="select"
-              options={thresholdList}
-              placeholder={<div>select</div>}
-            />
-          </div>
-          <div style={{ width: 315, height: 175, border: '1px solid #999999', marginTop: 30 }}>
-            <div style={{ position: 'absolute', top: 20, left: 130, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information & quality issue</div>
-            <div style={{ marginTop: 10 }}>
-              <p>column name {dependencyColumnName}</p>
-              <p>correlation {dependencyCorrelation}</p>
-            </div>
-            <div style={{ display: 'flex', position: 'relative', bottom: 15 }}>
-              <PNBarChart
-                setColumnName={setDependencyColumnName}
-                setCorrelation={setDependencyCorrelation}
-              />
-              <div style={{ position: 'relative', right: 10 }}>
-                <ScatterChart />
-              </div>
-            </div>
-          </div>
-        </div>
       
+      // relevance
       case "rankBarChart":
         return <>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '60px auto', marginTop: 20, marginRight: 10 }}>
@@ -321,7 +296,7 @@ export default function Check() {
               <div>
                 <Title title="method" />
                 <Select className="select"
-                  options={methodList}
+                  options={importanceList}
                   placeholder={<div>{methodData}</div>}
                   defaultValue={methodData}
                   onChange={v => {
@@ -350,17 +325,6 @@ export default function Check() {
                   <p>score {relevanceScore}</p>
                 </div>
               </div>
-            </div>
-          </div>
-        </>
-      
-      case "duplicate":
-        return <>
-          <div style={{ position: 'relative', height: 80, marginTop: 40, border: '1px solid #999999' }}>
-            <div style={{ position: 'absolute', top: -10, left: 2, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
-            <div style={{ marginTop: 10 }}>
-              <p>duplicate cnt</p>
-              {/* <p>row index  value</p> */}
             </div>
           </div>
         </>

@@ -25,7 +25,6 @@ export default function BarChart(props) {
         height: 155,
         events: {
           click: (event, chartContext, config) => {
-            // 빈 공간 클릭 시
             if (config.dataPointIndex === -1) {
               setColumnName('');
               setCorrelation('');

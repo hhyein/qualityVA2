@@ -24,7 +24,6 @@ export default function BarChart(props) {
         type: 'bar',
         events: {
           click: (event, chartContext, config) => {
-            // 빈 공간 클릭 시
             if (config.dataPointIndex === -1) {
               setColumnName('');
               setRank('');
