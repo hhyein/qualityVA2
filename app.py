@@ -13,7 +13,7 @@ import pandas as pd
 from io import StringIO
 from scipy import stats
 from collections import Counter
-# from pycaret.regression import *
+from pycaret.regression import *
 
 import module.main as main
 import module.tree as tree
@@ -22,28 +22,16 @@ app = Flask(__name__)
 CORS(app)
 
 uploadFileName = 'wine'
-column = ''
+column = 'alcohol'
 inputModelList = []
 inputEvalList = []
+
+combination = []
+combinationDetail = []
 
 @app.route('/fileUpload', methods=['GET', 'POST'])
 def fileUpload():
   req = request.files['file']
-
-  # fileUploadList = []
-  # stream = codecs.iterdecode(req.stream, 'utf-8')
-  # for row in csv.reader(stream, dialect = csv.excel):
-  #   if row:
-  #     fileUploadList.append(row)
-
-  # fileUploadDf = pd.DataFrame(fileUploadList)
-  # fileUploadDf = fileUploadDf.rename(columns = fileUploadDf.iloc[0])
-  # fileUploadDf = fileUploadDf.drop(fileUploadDf.index[0])
-  # fileUploadDf = fileUploadDf.reset_index(drop = True)
-
-  # originDf = fileUploadDf.reindex(sorted(fileUploadDf.columns), axis = 1)
-  # originDf.to_json('static/file.json', orient = 'records', indent = 4)
-
   return json.dumps({'fileUpload': 'success'})
 
 @app.route('/setting', methods=['GET', 'POST'])
@@ -98,15 +86,16 @@ def donutChart():
   req = eval(request.get_data().decode('utf-8'))
   fileName = req["fileName"]
 
-  originDf = pd.read_csv('static/' + str(fileName) + '.csv')
+  originDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
   columnList = list(originDf.columns)
-
   totalNum = len(originDf) * len(list(originDf.columns))
 
+  # completeness
   mis = sum(list(originDf.isnull().sum().values))
   misRate = round((mis/totalNum) * 100)
   
+  # outlier
   tmpList = []
   for column in columnList:
     df = pd.DataFrame(pd.to_numeric(originDf[column], errors = 'coerce'))
@@ -116,17 +105,16 @@ def donutChart():
     lowerIdxList = list(df[df[column] > upper].index.values)
     upperIdxList = list(df[df[column] < lower].index.values)
     tmpList.append(len(lowerIdxList + upperIdxList))
-
   out = sum(tmpList)
   outRate = round((out/totalNum) * 100)
 
+  # homogeneity
   tmpList = []
   for column in columnList:
     df = originDf[column].dropna()
     df = pd.DataFrame(pd.to_numeric(df, errors = 'coerce'))
     conIdxList = list(df[df[column].isnull()].index)
     tmpList.append(len(conIdxList))
-    
   inc = sum(tmpList)
   incRate = round((inc/totalNum) * 100)
 
@@ -154,7 +142,7 @@ def checkVisualization():
   vis = req["visualization"]
   metric = req["metricValue"]
 
-  originDf = pd.read_csv('static/' + str(fileName) + '.csv')
+  originDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
   columnList = list(originDf.columns)
 
@@ -173,8 +161,7 @@ def checkVisualization():
       for column in columnList:
         columnDf = rowSliceDf[column]
 
-        if metric == 'consistency':
-        # if metric == 'homogeneity':
+        if metric == 'homogeneity':
           columnDf = rowSliceDf[column]
           columnDf = columnDf.dropna()
           columnDf = pd.to_numeric(columnDf, errors = 'coerce')
@@ -194,12 +181,10 @@ def checkVisualization():
     outlierMethod = req["outlier"]
     columnName = req["column"]
 
-    # calculate threshold outlier
     columnDf = originDf[columnName]
     columnDf = columnDf.apply(pd.to_numeric, errors = 'coerce')
     lower, upper = main.lower_upper(columnDf)
 
-    # generate histogram chart dataset
     columnList = columnDf.values.tolist()
     minValue = columnDf.min()
     maxValue = columnDf.max()
@@ -234,7 +219,7 @@ def modelTable():
   req = eval(request.get_data().decode('utf-8'))
   fileName = req["fileName"]
 
-  # originDf = pd.read_csv('static/' + str(fileName) + '.csv')
+  # originDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
   # originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
   # columnList = list(originDf.columns)
 
@@ -275,7 +260,7 @@ def tableData():
   req = eval(request.get_data().decode('utf-8'))
   fileName = req["fileName"]
 
-  originDf = pd.read_csv('static/' + str(fileName) + '.csv')
+  originDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
   originDf = originDf.fillna('')
   columnList = list(originDf.columns)
@@ -293,7 +278,7 @@ def tablePoint():
   req = eval(request.get_data().decode('utf-8'))
   fileName = req["fileName"]
 
-  originDf = pd.read_csv('static/' + str(fileName) + '.csv')
+  originDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
   columnList = list(originDf.columns)
   
@@ -353,26 +338,520 @@ def combinationTable():
 
 @app.route('/recommend', methods=['GET', 'POST'])
 def recommend():
-  req = request.get_data().decode('utf-8')
+  # req = request.get_data().decode('utf-8')
+  ##### for test
+  req = {'combination': ['completeness', 'outlier'], 'combinationDetail': ['min', 'iqr']}
+
+  global uploadFileName, combination, combinationDetail
+  combination = req["combination"]
+  combinationDetail = req["combinationDetail"]
+
+  originDf = pd.read_csv('static/' + uploadFileName + '.csv')
+  originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
+  columnList = list(originDf.columns)
+
+  beforeDf = originDf
+  beforeDf.to_csv('static/dataset/0.csv', index = False)
+
+  for i in range(len(combination)):
+    issue = combination[i]
+    action = combinationDetail[i]
+
+    if issue == 'completeness':
+      actionColumnDfList = []
+
+      if action == "remove":
+        columnConcatDf = beforeDf.dropna()
+        columnConcatDf = columnConcatDf.reset_index(drop = True)
+
+      else:
+        for column in columnList:
+          columnDf = beforeDf.loc[:, [column]]
+          missingIndex = [index for index, row in columnDf.iterrows() if row.isnull().any()]
+
+          if len(missingIndex) > 0:
+            inconsNaNDf = pd.DataFrame(pd.to_numeric(columnDf.squeeze(), errors = 'coerce'))
+            inconsDropDf = inconsNaNDf.dropna()
+
+            if action == "min":
+              columnDf = main.imp_min(columnDf, inconsDropDf)
+            if action == "max":
+              columnDf = main.imp_max(columnDf, inconsDropDf)
+            if action == "mean":
+              columnDf = main.imp_mean(columnDf, inconsDropDf)
+            if action == "median":
+              columnDf = main.imp_median(columnDf, inconsDropDf)
+
+          else:
+            columnDf = columnDf
+
+          actionColumnDfList.append(columnDf)
+
+        columnConcatDf = actionColumnDfList[0]
+        for k in range(len(actionColumnDfList) - 1):
+          columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
+          columnConcatDf = columnConcatDf.reset_index(drop = True)
+
+      beforeDf = columnConcatDf
+
+    if issue == 'outlier':
+      actionColumnDfList = []
+
+      for column in columnList:
+        columnDf = beforeDf.loc[:, [column]]
+        missingIndex = [index for index, row in columnDf.iterrows() if row.isnull().any()]
+
+        inconsNaNDf = pd.DataFrame(pd.to_numeric(columnDf.squeeze(), errors = 'coerce'))
+        missingAndInconsIndex = [index for index, row in inconsNaNDf.iterrows() if row.isnull().any()]
+        inconsIndex = list(set(missingAndInconsIndex) - set(missingIndex))
+
+        if action == 'iqr':
+          lower, upper = main.lower_upper(inconsNaNDf)
+          lowerIdxList = list(inconsNaNDf[inconsNaNDf[column] > upper].index.values)
+          upperIdxList = list(inconsNaNDf[inconsNaNDf[column] < lower].index.values)
+          outlierIndex = lowerIdxList + upperIdxList
+
+        if action == 'zscore':
+          inconsNaNSeries = inconsNaNDf.dropna()
+          meanValue = np.mean(inconsNaNSeries)
+          stdValue = np.std(inconsNaNSeries)
+
+          outlierIndex = []
+          zscoreThreshold = 3
+          for i in range(len(inconsNaNDf)):
+              value = inconsNaNDf.iloc[i].values[0]
+              zscore = ((value - meanValue)/stdValue).values[0]
+
+              if zscore > zscoreThreshold:
+                outlierIndex.append(i)
+      
+        for idx in missingIndex:
+          columnDf.loc[idx, column] = np.nan
+
+        for idx in inconsIndex:
+          columnDf.loc[idx, column] = 'incons'
+        
+        columnDf = columnDf.drop(outlierIndex)
+        actionColumnDfList.append(columnDf)
+
+      columnConcatDf = actionColumnDfList[0]
+      for k in range(len(actionColumnDfList) - 1):
+        columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
+        columnConcatDf = columnConcatDf.reset_index(drop = True)
+
+      beforeDf = columnConcatDf
+
+    if issue == 'homogeneity':
+      actionColumnDfList = []
+
+      for column in columnList:
+        columnDf = beforeDf.loc[:, [column]]
+        missingIndex = [index for index, row in columnDf.iterrows() if row.isnull().any()]
+        
+        inconsNaNDf = pd.DataFrame(pd.to_numeric(columnDf.squeeze(), errors = 'coerce'))
+        missingAndInconsIndex = [index for index, row in inconsNaNDf.iterrows() if row.isnull().any()]
+        inconsIndex = list(set(missingAndInconsIndex) - set(missingIndex))
+
+        columnDf = columnDf.drop(inconsIndex)
+        actionColumnDfList.append(columnDf)
+
+      columnConcatDf = actionColumnDfList[0]
+      for k in range(len(actionColumnDfList) - 1):
+        columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
+        columnConcatDf = columnConcatDf.reset_index(drop = True)
+
+      beforeDf = columnConcatDf
+
+    if issue == 'duplicate':
+      df = beforeDf.drop_duplicates()
+      df = df.reset_index(drop = True)
+
+      beforeDf = df
+
+    if issue == 'correlation' or issue == 'relevance':
+      tmpList = []
+      for column in columnList:
+        columnSeries = beforeDf[column].dropna()
+        tmpList.append(pd.to_numeric(columnSeries, errors = 'coerce'))
+
+      inconsNaNDf = pd.concat(tmpList, axis = 1)
+      allCorrDf = inconsNaNDf.corr(method = action)
+
+      highCorrList = []
+      if issue == 'correlation':
+        for row in columnList:
+          for column in columnList:
+            if row == column: break
+            if allCorrDf.loc[row][column] > corrThreshold:
+              highCorrList.append([row, column])
+
+        for i in range(len(highCorrList)):
+          dropColumnName = highCorrList[i][0]
+          if dropColumnName == column:
+            dropColumnName = highCorrList[i][1]
+          allCorrDf = allCorrDf.drop([dropColumnName], axis = 1)
+
+      if issue == 'relevance':
+        columnCorrDf = allCorrDf[column]
+        
+        for row in columnList:
+          if columnCorrDf[row] > corrThreshold:
+            highCorrList.append(row)
+
+        for i in range(len(highCorrList)):
+          dropColumnName = highCorrList[i]
+          allCorrDf = allCorrDf.drop([dropColumnName], axis = 1)
+
+      beforeDf = allCorrDf
+    beforeDf.to_csv('static/dataset/' + str(i + 1) + '.csv', index = False)
 
   return json.dumps({'recommend': 'success'})
 
 @app.route('/new', methods=['GET', 'POST'])
 def new():
-  req = request.get_data().decode('utf-8')
+  # req = request.get_data().decode('utf-8')
+  ##### for test
+  req = {'fileName': '1', 'select': 'column', 'selectDetail': 'pH', 'action': 'max'}
+  fileName = req["fileName"]
+  select = req["select"]
+  selectDetail = req["selectDetail"]
+  action = req["action"]
+
+  global combination, combinationDetail
+  ##### for test
+  combination = ['completeness', 'outlier']
+  combinationDetail = ['min', 'iqr']
+  customIssue = combination[int(fileName) - 1]
+  originAction = combinationDetail[int(fileName) - 1]
+
+  originDf = pd.read_csv('static/dataset/' + str(int(fileName) - 1) + '.csv')
+  originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
+  columnList = list(originDf.columns)
+
+  # customization
+  if select == 'column':
+    if customIssue == 'correlation' or customIssue == 'relevance':
+      originDf = originDf.drop([selectDetail], axis = 1)
+
+    if customIssue == 'homogeneity':
+      actionColumnDfList = []
+
+      for column in columnList:
+        columnDf = beforeDf.loc[:, [column]]
+        missingIndex = [index for index, row in columnDf.iterrows() if row.isnull().any()]
+        
+        inconsNaNDf = pd.DataFrame(pd.to_numeric(columnDf.squeeze(), errors = 'coerce'))
+        missingAndInconsIndex = [index for index, row in inconsNaNDf.iterrows() if row.isnull().any()]
+        inconsIndex = list(set(missingAndInconsIndex) - set(missingIndex))
+
+        if column == selectDetail:
+          columnDf = columnDf
+        else:
+          columnDf = columnDf.drop(inconsIndex)
+        
+        actionColumnDfList.append(columnDf)
+
+      columnConcatDf = actionColumnDfList[0]
+      for k in range(len(actionColumnDfList) - 1):
+        columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
+        columnConcatDf = columnConcatDf.reset_index(drop = True)
+
+      originDf = columnConcatDf
+
+    if customIssue == 'completeness':
+      actionColumnDfList = []
+
+      if action == 'remove':
+        originDf = originDf[selectDetail].dropna()
+        originDf = originDf.reset_index(drop = True)
+
+      else:
+        for column in columnList:
+          columnDf = originDf.loc[:, [column]]
+          missingIndex = [index for index, row in columnDf.iterrows() if row.isnull().any()]
+
+          if len(missingIndex) > 0:
+            inconsNaNDf = pd.DataFrame(pd.to_numeric(columnDf.squeeze(), errors = 'coerce'))
+            inconsDropDf = inconsNaNDf.dropna()
+
+            if column == selectDetail:
+              if action == 'none':
+                columnDf = columnDf
+              if action == 'min':
+                columnDf = main.imp_min(columnDf, inconsDropDf)
+              if action == 'max':
+                columnDf = main.imp_max(columnDf, inconsDropDf)
+              if action == 'mean':
+                columnDf = main.imp_mean(columnDf, inconsDropDf)
+              if action == 'median':
+                columnDf = main.imp_median(columnDf, inconsDropDf)
+
+            else:
+              if originAction == 'min':
+                columnDf = main.imp_min(columnDf, inconsDropDf)
+              if originAction == 'max':
+                columnDf = main.imp_max(columnDf, inconsDropDf)
+              if originAction == 'mean':
+                columnDf = main.imp_mean(columnDf, inconsDropDf)
+              if originAction == 'median':
+                columnDf = main.imp_median(columnDf, inconsDropDf)
+          
+          else:
+            columnDf = columnDf
+          
+          actionColumnDfList.append(columnDf)
+
+        columnConcatDf = actionColumnDfList[0]
+        for k in range(len(actionColumnDfList) - 1):
+          columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
+          columnConcatDf = columnConcatDf.reset_index(drop = True)
+
+      originDf = columnConcatDf
+    
+    if customIssue == 'outlier':
+      actionColumnDfList = []
+
+      for column in columnList:
+        columnDf = originDf.loc[:, [column]]
+        missingIndex = [index for index, row in columnDf.iterrows() if row.isnull().any()]
+
+        inconsNaNDf = pd.DataFrame(pd.to_numeric(columnDf.squeeze(), errors = 'coerce'))
+        missingAndInconsIndex = [index for index, row in inconsNaNDf.iterrows() if row.isnull().any()]
+        inconsIndex = list(set(missingAndInconsIndex) - set(missingIndex))
+
+        if column == selectDetail:
+          if action == 'none':
+            columnDf = columnDf
+
+          if action == 'iqr':
+            lower, upper = main.lower_upper(inconsNaNDf)
+            lowerIdxList = list(inconsNaNDf[inconsNaNDf[column] > upper].index.values)
+            upperIdxList = list(inconsNaNDf[inconsNaNDf[column] < lower].index.values)
+            outlierIndex = lowerIdxList + upperIdxList
+
+          if action == 'zscore':
+            inconsNaNSeries = inconsNaNDf.dropna()
+            meanValue = np.mean(inconsNaNSeries)
+            stdValue = np.std(inconsNaNSeries)
+
+            outlierIndex = []
+            zscoreThreshold = 3
+            for i in range(len(inconsNaNDf)):
+                value = inconsNaNDf.iloc[i].values[0]
+                zscore = ((value - meanValue)/stdValue).values[0]
+
+                if zscore > zscoreThreshold:
+                  outlierIndex.append(i)
+
+        else:
+          if originAction == 'iqr':
+            lower, upper = main.lower_upper(inconsNaNDf)
+            lowerIdxList = list(inconsNaNDf[inconsNaNDf[column] > upper].index.values)
+            upperIdxList = list(inconsNaNDf[inconsNaNDf[column] < lower].index.values)
+            outlierIndex = lowerIdxList + upperIdxList
+
+          if originAction == 'zscore':
+            inconsNaNSeries = inconsNaNDf.dropna()
+            meanValue = np.mean(inconsNaNSeries)
+            stdValue = np.std(inconsNaNSeries)
+
+            outlierIndex = []
+            zscoreThreshold = 3
+            for i in range(len(inconsNaNDf)):
+                value = inconsNaNDf.iloc[i].values[0]
+                zscore = ((value - meanValue)/stdValue).values[0]
+
+                if zscore > zscoreThreshold:
+                  outlierIndex.append(i)
+      
+        for idx in missingIndex:
+          columnDf.loc[idx, column] = np.nan
+
+        for idx in inconsIndex:
+          columnDf.loc[idx, column] = 'incons'
+        
+        columnDf = columnDf.drop(outlierIndex)
+        actionColumnDfList.append(columnDf)
+
+      columnConcatDf = actionColumnDfList[0]
+      for k in range(len(actionColumnDfList) - 1):
+        columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
+        columnConcatDf = columnConcatDf.reset_index(drop = True)
+
+      originDf = columnConcatDf
+
+  if select == 'row':
+    originDf = originDf.drop([int(selectDetail)])
+
+  originDf.to_csv('static/dataset/' + fileName + '.csv', index = False)
+
+  # customization after dataset
+  beforeDf = originDf
+
+  for i in range(int(fileName), len(combination)):
+    issue = combination[i]
+    action = combinationDetail[i]
+
+    if issue == 'completeness':
+      actionColumnDfList = []
+
+      if action == "remove":
+        columnConcatDf = beforeDf.dropna()
+        columnConcatDf = columnConcatDf.reset_index(drop = True)
+
+      else:
+        for column in columnList:
+          columnDf = beforeDf.loc[:, [column]]
+          missingIndex = [index for index, row in columnDf.iterrows() if row.isnull().any()]
+
+          if len(missingIndex) > 0:
+            inconsNaNDf = pd.DataFrame(pd.to_numeric(columnDf.squeeze(), errors = 'coerce'))
+            inconsDropDf = inconsNaNDf.dropna()
+
+            if action == "min":
+              columnDf = main.imp_min(columnDf, inconsDropDf)
+            if action == "max":
+              columnDf = main.imp_max(columnDf, inconsDropDf)
+            if action == "mean":
+              columnDf = main.imp_mean(columnDf, inconsDropDf)
+            if action == "median":
+              columnDf = main.imp_median(columnDf, inconsDropDf)
+
+          else:
+            columnDf = columnDf
+
+          actionColumnDfList.append(columnDf)
+
+        columnConcatDf = actionColumnDfList[0]
+        for k in range(len(actionColumnDfList) - 1):
+          columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
+          columnConcatDf = columnConcatDf.reset_index(drop = True)
+
+      beforeDf = columnConcatDf
+
+    if issue == 'outlier':
+      actionColumnDfList = []
+
+      for column in columnList:
+        columnDf = beforeDf.loc[:, [column]]
+        missingIndex = [index for index, row in columnDf.iterrows() if row.isnull().any()]
+
+        inconsNaNDf = pd.DataFrame(pd.to_numeric(columnDf.squeeze(), errors = 'coerce'))
+        missingAndInconsIndex = [index for index, row in inconsNaNDf.iterrows() if row.isnull().any()]
+        inconsIndex = list(set(missingAndInconsIndex) - set(missingIndex))
+
+        if action == 'iqr':
+          lower, upper = main.lower_upper(inconsNaNDf)
+          lowerIdxList = list(inconsNaNDf[inconsNaNDf[column] > upper].index.values)
+          upperIdxList = list(inconsNaNDf[inconsNaNDf[column] < lower].index.values)
+          outlierIndex = lowerIdxList + upperIdxList
+
+        if action == 'zscore':
+          inconsNaNSeries = inconsNaNDf.dropna()
+          meanValue = np.mean(inconsNaNSeries)
+          stdValue = np.std(inconsNaNSeries)
+
+          outlierIndex = []
+          zscoreThreshold = 3
+          for i in range(len(inconsNaNDf)):
+              value = inconsNaNDf.iloc[i].values[0]
+              zscore = ((value - meanValue)/stdValue).values[0]
+
+              if zscore > zscoreThreshold:
+                outlierIndex.append(i)
+      
+        for idx in missingIndex:
+          columnDf.loc[idx, column] = np.nan
+
+        for idx in inconsIndex:
+          columnDf.loc[idx, column] = 'incons'
+        
+        columnDf = columnDf.drop(outlierIndex)
+        actionColumnDfList.append(columnDf)
+
+      columnConcatDf = actionColumnDfList[0]
+      for k in range(len(actionColumnDfList) - 1):
+        columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
+        columnConcatDf = columnConcatDf.reset_index(drop = True)
+
+      beforeDf = columnConcatDf
+
+    if issue == 'homogeneity':
+      actionColumnDfList = []
+
+      for column in columnList:
+        columnDf = beforeDf.loc[:, [column]]
+        missingIndex = [index for index, row in columnDf.iterrows() if row.isnull().any()]
+        
+        inconsNaNDf = pd.DataFrame(pd.to_numeric(columnDf.squeeze(), errors = 'coerce'))
+        missingAndInconsIndex = [index for index, row in inconsNaNDf.iterrows() if row.isnull().any()]
+        inconsIndex = list(set(missingAndInconsIndex) - set(missingIndex))
+
+        columnDf = columnDf.drop(inconsIndex)
+        actionColumnDfList.append(columnDf)
+
+      columnConcatDf = actionColumnDfList[0]
+      for k in range(len(actionColumnDfList) - 1):
+        columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
+        columnConcatDf = columnConcatDf.reset_index(drop = True)
+
+      beforeDf = columnConcatDf
+
+    if issue == 'duplicate':
+      df = beforeDf.drop_duplicates()
+      df = df.reset_index(drop = True)
+
+      beforeDf = df
+
+    if issue == 'correlation' or issue == 'relevance':
+      tmpList = []
+      for column in columnList:
+        columnSeries = beforeDf[column].dropna()
+        tmpList.append(pd.to_numeric(columnSeries, errors = 'coerce'))
+
+      inconsNaNDf = pd.concat(tmpList, axis = 1)
+      allCorrDf = inconsNaNDf.corr(method = action)
+
+      highCorrList = []
+      if issue == 'correlation':
+        for row in columnList:
+          for column in columnList:
+            if row == column: break
+            if allCorrDf.loc[row][column] > corrThreshold:
+              highCorrList.append([row, column])
+
+        for i in range(len(highCorrList)):
+          dropColumnName = highCorrList[i][0]
+          if dropColumnName == column:
+            dropColumnName = highCorrList[i][1]
+          allCorrDf = allCorrDf.drop([dropColumnName], axis = 1)
+
+      if issue == 'relevance':
+        columnCorrDf = allCorrDf[column]
+        
+        for row in columnList:
+          if columnCorrDf[row] > corrThreshold:
+            highCorrList.append(row)
+
+        for i in range(len(highCorrList)):
+          dropColumnName = highCorrList[i]
+          allCorrDf = allCorrDf.drop([dropColumnName], axis = 1)
+
+      beforeDf = allCorrDf
+    beforeDf.to_csv('static/dataset/' + str(i + 1) + '.csv', index = False)
 
   return json.dumps({'new': 'success'})
 
 @app.route('/changeCnt', methods=['GET', 'POST'])
 def changeCnt():
   global uploadFileName
-  beforeDf = pd.read_csv('static/' + str(uploadFileName) + '.csv')
+  beforeDf = pd.read_csv('static/' + uploadFileName + '.csv')
   beforeList = [len(beforeDf), len(beforeDf.columns), len(beforeDf) * len(beforeDf.columns)]
   
   req = eval(request.get_data().decode('utf-8'))
   fileName = req["fileName"]
 
-  afterDf = pd.read_csv('static/' + str(fileName) + '.csv')
+  afterDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
   afterList = [len(afterDf), len(afterDf.columns), len(afterDf) * len(afterDf.columns)]
 
   seriesDataList = []
@@ -387,7 +866,7 @@ def changeCnt():
 @app.route('/changeDistort', methods=['GET', 'POST'])
 def changeDistort():
   global uploadFileName, column
-  beforeDf = pd.read_csv('static/' + str(uploadFileName) + '.csv')
+  beforeDf = pd.read_csv('static/' + uploadFileName + '.csv')
   beforeDf = beforeDf.apply(pd.to_numeric, errors = 'coerce')
   beforeColumnDf = beforeDf[column]
   beforeColumnList = beforeColumnDf.values.tolist()
@@ -395,12 +874,11 @@ def changeDistort():
   req = eval(request.get_data().decode('utf-8'))
   fileName = req["fileName"]
 
-  afterDf = pd.read_csv('static/' + str(fileName) + '.csv')
+  afterDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
   afterDf = afterDf.apply(pd.to_numeric, errors = 'coerce')
   afterColumnDf = afterDf[column]
   afterColumnList = afterColumnDf.values.tolist()
 
-  # calculate value and range based on before dataframe
   minValue = beforeColumnDf.min()
   maxValue = beforeColumnDf.max()
 

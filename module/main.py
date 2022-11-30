@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import impyute as impy
 from scipy import stats
+from sklearn.impute import KNNImputer
 
 def lower_upper(df):
     df = df.dropna()
@@ -13,51 +14,26 @@ def lower_upper(df):
 
     return lower, upper
 
-def imp_min(df, colName):
-    minValue = df.min()
+def imp_min(df, impDf):
+    minValue = impDf.min()
     df = df.fillna(minValue)
-    output = df.to_frame(name = colName)
 
-    return output
+    return df
 
-def imp_max(df, colName):
-    maxValue = df.max()
+def imp_max(df, impDf):
+    maxValue = impDf.max()
     df = df.fillna(maxValue)
-    output = df.to_frame(name = colName)
 
-    return output
+    return df
 
-def imp_mode(df, colName):
-    modeValue = df.mode(dropna = True)[0]
-    df = df.fillna(modeValue)
-    output = df.to_frame(name = colName)
+def imp_mean(df, impDf):
+    meanValue = impDf.mean()
+    df = df.fillna(meanValue)
 
-    return output
+    return df
 
-def imp_mean(df, colName):
-    df = df.to_frame(name = colName)
-    df = impy.mean(df.values)
-    output = pd.DataFrame(df, columns = [colName])
+def imp_median(df, impDf):
+    medianValue = impDf.median()
+    df = df.fillna(medianValue)
 
-    return output
-
-def imp_median(df, colName):
-    df = df.to_frame(name = colName)
-    df = impy.median(df.values)
-    output = pd.DataFrame(df, columns = [colName])
-
-    return output
-
-def imp_em(df, colName):
-    df = df.to_frame(name = colName)
-    df = impy.em(df.values, loops = 50)
-    output = pd.DataFrame(df, columns = [colName])
-
-    return output
-
-def imp_locf(df, colName):
-    df = df.to_frame(name = colName)
-    df = impy.locf(df.values, axis = 1)
-    output = pd.DataFrame(df, columns = [colName])
-
-    return output
+    return df

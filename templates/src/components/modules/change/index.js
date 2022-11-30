@@ -20,11 +20,11 @@ export default function Change() {
       }) && settingValues.model && <>
         <Title title="count" />
         <div style={{ position: 'relative', bottom: '10px', height: '130px' }}>
-          <BarChart data={changeCntData} />
+          { changeCntData && <BarChart data={changeCntData} /> }
         </div>
         <Title title="distort" />
         <div style={{ position: 'relative', bottom: '15px' }}>
-          {changeDistortData && <DensityChart data={changeDistortData} /> }
+          { changeDistortData && <DensityChart data={changeDistortData} /> }
         </div>
       </>}
     </Box>
