@@ -186,6 +186,8 @@ export const FileDataProvider = ({ children }) => {
     setTableData(tableData);
   }
 
+  postData('/new')
+
   return (
     <FileDataContext.Provider
       value={{

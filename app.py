@@ -21,8 +21,8 @@ import module.tree as tree
 app = Flask(__name__)
 CORS(app)
 
-uploadFileName = 'wine'
-column = 'alcohol'
+uploadFileName = 'bike'
+column = 'cnt'
 inputModelList = []
 inputEvalList = []
 
