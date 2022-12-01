@@ -209,11 +209,11 @@ def checkVisualization():
     response['seriesData'] = seriesDataList
     response['categoryData'] = categoryDataList
 
-    # rowIdx = req["rowIdx"]
-    # columnIdx = req["columnIdx"]
+    rowIdx = req["rowIdx"]
+    columnIdx = req["columnIdx"]
     ##### for test
-    rowIdx = 0
-    columnIdx = 2
+    # rowIdx = 0
+    # columnIdx = 2
 
     response['rowIndex'] = str(sliceSize * int(rowIdx)) + '~' + str(sliceSize * (int(rowIdx) + 1))
     response['columnName'] = columnList[int(columnIdx)]
@@ -224,7 +224,7 @@ def checkVisualization():
 
     issueList = []
     for i in missingIdx:
-      issueList.append('row index: ' + str(i) + 'value: NaN')
+      issueList.append([i, 'NaN'])
 
     response['issueList'] = issueList
 
