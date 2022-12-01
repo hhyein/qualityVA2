@@ -130,18 +130,33 @@ def donutChart():
   corrThreshold = 0.8
 
   # correlation
+  highCorrColumnList = []
   for column in columnList:
-      columnCorrDf = abs(allCorrDf[column])
-      highCorr = highCorr + len(columnCorrDf[columnCorrDf > corrThreshold])
-  highCorr = int((highCorr - len(columnList))/2)
+    columnCorrDf = abs(allCorrDf[column])
+    highCorrDf = columnCorrDf[columnCorrDf > corrThreshold]
+    
+    if len(highCorrDf) > 1:
+      highCorrColumnList.append(list(highCorrDf.index))
+
+  highCorrColumnList = list(set([tuple(set(item)) for item in highCorrColumnList]))
+  highCorr = len(highCorrColumnList) * 2
   corRate = round(highCorr/len(columnList) * 100)
 
-  global targetColumn
-
   # relevance
+  global targetColumn
   columnCorrDf = abs(allCorrDf[targetColumn])
-  highColumnCorr = len(columnCorrDf[columnCorrDf > corrThreshold])
+
+  highCorrColumnList = []
+  for row in columnList:
+    if row == targetColumn: continue
+    if columnCorrDf[row] > 0.8 or columnCorrDf[row] < -0.8:
+      highCorrColumnList.append(row)
+  
+  highColumnCorr = len(highCorrColumnList)
   relRate = round(highColumnCorr/len(columnList) * 100)
+
+  print(highCorr)
+  print(highColumnCorr)
 
   rateList = [misRate, outRate, incRate, dupRate, corRate, relRate]
   colorList = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue', 'mediumpurple']
