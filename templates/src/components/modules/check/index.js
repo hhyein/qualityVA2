@@ -378,8 +378,8 @@ export default function Check() {
               }}>
                 {visualizationList.map((chart, idx) => {
                   return (
-                    <div key={idx} class='chart' style={visualizationList.length >= 2 ? { width: 220, height: 230 } : { width: 440, height: 230 }} >
-                      {chartData(chart)}
+                    <div key={idx} className='chart' style={visualizationList.length >= 2 ? { width: 220, height: 230 } : { width: 440, height: 230 }} >
+                      {chartData(visualizationData.visualization)}
                     </div>
                   )
                 })}
