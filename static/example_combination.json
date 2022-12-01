@@ -164,7 +164,7 @@
         },
         "issue": "i",
         "action": [
-            "zscore"
+            "remove"
         ]
     },
     {
@@ -543,7 +543,7 @@
         "action": [
             "iqr",
             "remove",
-            "remove"
+            "pearson"
         ]
     },
     {
@@ -566,7 +566,7 @@
         "action": [
             "iqr",
             "remove",
-            "remove"
+            "spearman"
         ]
     },
     {
@@ -589,7 +589,7 @@
         "action": [
             "iqr",
             "remove",
-            "remove"
+            "kendall"
         ]
     },
     {
@@ -612,7 +612,7 @@
         "action": [
             "zscore",
             "remove",
-            "remove"
+            "pearson"
         ]
     },
     {
@@ -635,7 +635,7 @@
         "action": [
             "zscore",
             "remove",
-            "remove"
+            "spearman"
         ]
     },
     {
@@ -658,7 +658,7 @@
         "action": [
             "zscore",
             "remove",
-            "remove"
+            "kendall"
         ]
     }
 ]

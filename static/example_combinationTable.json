@@ -626,13 +626,13 @@
             "zscore"
         ],
         [
-            "zscore"
+            "remove"
         ],
         [
-            "zscore"
+            "remove"
         ],
         [
-            "zscore"
+            "remove"
         ],
         [
             "pearson"
@@ -841,92 +841,92 @@
         [
             "iqr",
             "remove",
-            "remove"
+            "pearson"
         ],
         [
             "iqr",
             "remove",
-            "remove"
+            "pearson"
         ],
         [
             "iqr",
             "remove",
-            "remove"
+            "pearson"
         ],
         [
             "iqr",
             "remove",
-            "remove"
+            "spearman"
         ],
         [
             "iqr",
             "remove",
-            "remove"
+            "spearman"
         ],
         [
             "iqr",
             "remove",
-            "remove"
+            "spearman"
         ],
         [
             "iqr",
             "remove",
-            "remove"
+            "kendall"
         ],
         [
             "iqr",
             "remove",
-            "remove"
+            "kendall"
         ],
         [
             "iqr",
             "remove",
-            "remove"
+            "kendall"
         ],
         [
             "zscore",
             "remove",
-            "remove"
+            "pearson"
         ],
         [
             "zscore",
             "remove",
-            "remove"
+            "pearson"
         ],
         [
             "zscore",
             "remove",
-            "remove"
+            "pearson"
         ],
         [
             "zscore",
             "remove",
-            "remove"
+            "spearman"
         ],
         [
             "zscore",
             "remove",
-            "remove"
+            "spearman"
         ],
         [
             "zscore",
             "remove",
-            "remove"
+            "spearman"
         ],
         [
             "zscore",
             "remove",
-            "remove"
+            "kendall"
         ],
         [
             "zscore",
             "remove",
-            "remove"
+            "kendall"
         ],
         [
             "zscore",
             "remove",
-            "remove"
+            "kendall"
         ]
     ],
     "MAE": [
