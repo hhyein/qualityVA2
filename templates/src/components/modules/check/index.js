@@ -209,22 +209,29 @@ export default function Check() {
               </div>
             </div>
             <div style={{ position: 'relative', bottom: 15 }}>
-              <HistogramChart />
+              <HistogramChart
+                data={visualizationData}
+                method={outlierData}
+              />
             </div>
           </div>
           <div>
-            <div style={{ width: 168, height: 95, border: '1px solid #999999', marginTop: 30 }}>
+            <div style={{ width: 168, height: 85, border: '1px solid #999999', marginTop: 30, overflowY: 'auto' }}>
               <div style={{ position: 'absolute', top: 20, left: 270, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
               <div style={{ marginTop: 10 }}>
-                <p>outlier standard</p>
-                <p>quality issue cnt</p>
+                <p><strong>outlier standard</strong> {visualizationData.standard}</p>
+                <p><strong>quality issue cnt</strong> {visualizationData.cnt}</p>
               </div>
             </div>
-            <div style={{ width: 168, height: 60, border: '1px solid #999999', marginTop: 15 }}>
-              <div style={{ position: 'absolute', top: 135, left: 270, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>quality issue</div>
-              <div style={{ marginTop: 10, display: 'flex' }}>
-                <p>row index</p>
-                <p>value</p>
+            <div style={{ width: 168, height: 70, border: '1px solid #999999', marginTop: 15, overflowY: 'auto' }}>
+              <div style={{ position: 'absolute', top: 120, left: 270, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>quality issue</div>
+              <div style={{ marginTop: 10 }}>
+                {visualizationData.issueList.map(issue =>
+                  <p>
+                    <strong>row index</strong>&nbsp;{issue[0]}&nbsp;
+                    <strong>value</strong>&nbsp;{issue[1]}
+                  </p>
+                )}
               </div>
             </div>
           </div>

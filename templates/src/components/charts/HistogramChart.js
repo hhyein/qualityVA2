@@ -2,17 +2,22 @@ import React, { useEffect } from 'react'
 import ApexCharts from 'apexcharts'
 
 export default function HistogramChart(props) {
-  const { data } = props
+  const { data, method } = props
   const d3 = window.d3v4
 
   useEffect(() => {
+    if (!data)
+      return;
+    
     d3.select('.histogram-wrapper').selectAll('*').remove()
 
+    if (method === 'z-score') {
+      data.lower = -Infinity
+      data.upper = data.threshold
+    }
+
     var options = {
-      series: [{
-      name: 'Inflation',
-      data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2]
-    }],
+      series: data.seriesData,
       chart: {
         toolbar: {
           show: false
@@ -28,9 +33,25 @@ export default function HistogramChart(props) {
         enabled: false,
       },
       xaxis: {
-        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        categories: data.categoryData,
       },
-      colors: ["#6C757D"]
+      plotOptions: {
+        bar: {
+          colors: {
+            ranges: [{
+              to: data.lower,
+              color: '#D91212'
+            }, {
+              from: data.lower,
+              to: data.upper,
+              color: '#6C757D'
+            }, {
+              from: data.upper,
+              color: '#D91212'
+            }]
+          },
+        }
+      }
     };
 
     var chart = new ApexCharts(document.querySelector(".histogram-wrapper"), options);
