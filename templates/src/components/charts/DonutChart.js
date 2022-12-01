@@ -40,7 +40,7 @@ export default function DonutChart(props) {
       .attr('d', d3
         .arc()
         .innerRadius(width / 2)
-        .outerRadius(radius)
+        .outerRadius(radius * 1.5)
       )
       .attr('fill', d => colorScale(d.data.key))
   }, [data, color, label, svgRef, d3])

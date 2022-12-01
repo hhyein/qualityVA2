@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box } from '../../Box'
 import { useFileData, postData } from '../../../contexts/FileDataContext'
-import RowSummaryChartD3 from '../../charts/RowSummaryChartD3'
 import ColumnSummaryChart from '../../charts/ColumnSummaryChart'
 
 export default function Table() {
@@ -149,7 +148,6 @@ export default function Table() {
               width: '790px',
               height: '440px',
             }}>
-              <RowSummaryChartD3 />
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: gridData,

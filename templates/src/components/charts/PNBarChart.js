@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import ApexCharts from 'apexcharts'
 
-export default function BarChart(props) {
-  const { data, setColumnName, setCorrelation } = props
+export default function PNBarChart(props) {
+  const { data } = props
   const d3 = window.d3v4
 
   useEffect(() => {
@@ -21,22 +21,8 @@ export default function BarChart(props) {
           enabled: false
         },
         type: 'bar',
-        width: 130,
-        height: 155,
-        events: {
-          click: (event, chartContext, config) => {
-            if (config.dataPointIndex === -1) {
-              setColumnName('');
-              setCorrelation('');
-              return;
-            }
-
-            const columnName = config.config.xaxis.categories[config.dataPointIndex];
-            const correlation = config.config.series[0].data[config.dataPointIndex].toFixed(0) + "%";
-            setColumnName(columnName);
-            setCorrelation(correlation);
-          }
-        }
+        width: 230,
+        height: 215,
       },
       plotOptions: {
         bar: {

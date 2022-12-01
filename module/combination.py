@@ -46,12 +46,9 @@ for column in originDf:
 duplicate = len(originDf[originDf.duplicated()])
 
 # correlation, relevance check based on 'pearson and 0.8'
-tmpList = []
-for column in columnList:
-    df = originDf[column].dropna()
-    tmpList.append(pd.to_numeric(df, errors = 'coerce'))
-df = pd.concat(tmpList, axis = 1)
-allCorrDf = df.corr()
+inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
+inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
+allCorrDf = inconsNaNDf.corr()
 
 # correlation
 highCorr = 0

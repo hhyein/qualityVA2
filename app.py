@@ -13,7 +13,7 @@ import pandas as pd
 from io import StringIO
 from scipy import stats
 from collections import Counter
-from pycaret.regression import *
+# from pycaret.regression import *
 
 import module.main as main
 import module.tree as tree
@@ -118,10 +118,30 @@ def donutChart():
   inc = sum(tmpList)
   incRate = round((inc/totalNum) * 100)
 
-  ##### dup, cor, rel
-  dupRate = round(10)
-  corRate = round(20)
-  relRate = round(30)
+  # duplicate
+  dupCnt = len(originDf[originDf.duplicated()])
+  dupRate = round(dupCnt/len(originDf) * 100)
+
+  inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
+  inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
+  allCorrDf = inconsNaNDf.corr()
+
+  highCorr = 0
+  corrThreshold = 0.8
+
+  # correlation
+  for column in columnList:
+      columnCorrDf = abs(allCorrDf[column])
+      highCorr = highCorr + len(columnCorrDf[columnCorrDf > corrThreshold])
+  highCorr = int((highCorr - len(columnList))/2)
+  corRate = round(highCorr/len(columnList) * 100)
+
+  global targetColumn
+
+  # relevance
+  columnCorrDf = abs(allCorrDf[targetColumn])
+  highColumnCorr = len(columnCorrDf[columnCorrDf > corrThreshold])
+  relRate = round(highColumnCorr/len(columnList) * 100)
 
   rateList = [misRate, outRate, incRate, dupRate, corRate, relRate]
   colorList = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue', 'mediumpurple']

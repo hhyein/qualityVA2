@@ -7,10 +7,10 @@ import Legend from '../../charts/Legend'
 import DonutChart from '../../charts/DonutChart'
 import HeatmapChart from '../../charts/HeatmapChart'
 import HistogramChart from '../../charts/HistogramChart'
-import BoxplotChart from '../../charts/BoxplotChart'
+import CorrelationChart from '../../charts/CorrelationChart'
 import RaderChart from '../../charts/RaderChart'
 import TreeChart from '../../charts/TreeChart'
-import RankBarChart from '../../charts/RankBarChart'
+import PNBarChart from '../../charts/PNBarChart'
 import CheckTable from './CheckTable'
 
 const legendData = [
@@ -27,30 +27,19 @@ const metricList = [
   { label: 'outlier', visualChart: 'histogramChart', value: 1 },
   { label: 'homogeneity', visualChart: 'heatmapChart', value: 2 },
   { label: 'duplicate', visualChart: 'duplicate', value: 3 },
-  { label: 'correlation', visualChart: 'boxplotChart', value: 4 },
+  { label: 'correlation', visualChart: 'correlationChart', value: 4 },
   { label: 'relevance', visualChart: 'rankBarChart', value: 5 },
 ]
 
 const outlierList = [
-  { label: 'statistics', value: 0 },
-  { label: 'model', value: 1 }
+  { label: 'iqr', value: 0 },
+  { label: 'z-score', value: 1 }
 ];
 
 const correlationList = [
   { label: 'person', value: 0 },
   { label: 'kendall', value: 1 },
   { label: 'spearman', value: 2 }
-];
-
-const thresholdList = [
-  { label: 0.1, value: 0 },
-  { label: 0.5, value: 1 },
-  { label: 1, value: 2 }
-];
-
-const importanceList = [
-  { label: 'statistics', value: 0 },
-  { label: 'model', value: 1 }
 ];
 
 export default function Check() {
@@ -95,7 +84,7 @@ export default function Check() {
   }]);
   const [columnData, setColumnData] = React.useState();
   const [outlierData, setOutlierData] = React.useState();
-  const [methodData, setMethodData] = React.useState();
+  const [corrData, setCorrData] = React.useState();
   const [cntList, setCntList] = React.useState([]);
   const [cntData, setCntData] = React.useState();
 
@@ -103,7 +92,7 @@ export default function Check() {
     if(columnList) {
       setColumnData(columnList[0].label)
       setOutlierData(outlierList[0].label)
-      setMethodData(importanceList[0].label)
+      setCorrData(correlationList[0].label)
 
       setCntList([...Array(columnList.length).keys()].map(x => ({ label: x, value: x })))
       setCntData(0)
@@ -237,32 +226,22 @@ export default function Check() {
         </>
 
       // correlation
-      case "boxplotChart":
+      case "correlationChart":
         return <>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '60px auto', marginTop: 20, marginRight: 10 }}>
-            <div style={{ gridRow: '1 / 3' }}>
-              <BoxplotChart
-                setColumnName={setCorrelationColumnName}
-                setHighCorrelationColumnCnt={setHighCorrelationColumnCnt}
-                setHighCorrelationColumnName={setHighCorrelationColumnName}
-              />
+            <div style={{ gridRow: '1 / 3', marginTop: -20, marginLeft: -5 }}>
+              <CorrelationChart />
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5px' }}>
-              <div>
+            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr' }}>
+            <div>
                 <Title title="method" />
                 <Select className="select"
                   options={correlationList}
-                  placeholder={<div>select</div>}
+                  placeholder={<div>{corrData}</div>}
+                  defaultValue={corrData}
                   onChange={v => {
-                    setMethodData(v.label)
+                    setCorrData(v.label)
                   }}
-                />
-              </div>
-              <div>
-                <Title title="threshold" />
-                <Select className="select"
-                  options={thresholdList}
-                  placeholder={<div>select</div>}
                 />
               </div>
             </div>
@@ -284,32 +263,17 @@ export default function Check() {
         return <>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '60px auto', marginTop: 20, marginRight: 10 }}>
             <div style={{ gridRow: '1 / 3' }}>
-              <RankBarChart
-                setColumnName={setRelevanceColumnName}
-                setRank={setRelevanceRank}
-                setScore={setRelevanceScore}
-              />
+              <PNBarChart />
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr' }}>
               <div>
                 <Title title="method" />
                 <Select className="select"
-                  options={importanceList}
-                  placeholder={<div>{methodData}</div>}
-                  defaultValue={methodData}
+                  options={correlationList}
+                  placeholder={<div>{corrData}</div>}
+                  defaultValue={corrData}
                   onChange={v => {
-                    setMethodData(v.label)
-                  }}
-                />
-              </div>
-              <div>
-                <Title title="cnt" />
-                <Select className="select"
-                  options={cntList}
-                  placeholder={<div>{cntData}</div>}
-                  defaultValue={cntData}
-                  onChange={v => {
-                    setCntData(v)
+                    setCorrData(v.label)
                   }}
                 />
               </div>
