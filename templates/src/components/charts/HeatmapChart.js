@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import ApexCharts from 'apexcharts'
 
 export default function HeatmapChart(props) {
-  const { label, setRowIndex, setColumnName, setQualityIssueCnt, visualizationData } = props
+  const { label, setCell, setQualityIssueCnt, visualizationData } = props
   const [seriesData, setSeriesData] = React.useState([]);
   const [categoryData, setCategoryData] = React.useState([]);
   const d3 = window.d3v4
@@ -32,16 +32,14 @@ export default function HeatmapChart(props) {
         events: {
           click: (event, chartContext, config) => {
             if (config.dataPointIndex === -1 || config.seriesIndex === -1) {
-              setRowIndex('');
-              setColumnName('');
+              setCell([0, 0]);
               setQualityIssueCnt('');
               return;
             }
-            const rowIndex = config.config.series[config.seriesIndex].name;
-            const columnName = config.config.xaxis.categories[config.dataPointIndex];
+            const rowIndex = Number(config.config.series[config.seriesIndex].name.slice(1));
+            const columnName = Number(config.config.xaxis.categories[config.dataPointIndex].slice(1));
             const qualityIssueCnt = config.config.series[config.seriesIndex].data[config.dataPointIndex];
-            setRowIndex(rowIndex);
-            setColumnName(columnName);
+            setCell([rowIndex, columnName]);
             setQualityIssueCnt(qualityIssueCnt);
           }
         }
@@ -70,12 +68,12 @@ export default function HeatmapChart(props) {
 
   useEffect(() => {
     if (visualizationData) {
-      setRowIndex(visualizationData.seriesData[0].name);
-      setColumnName(visualizationData.categoryData[0]);
+      const row = Number(visualizationData.seriesData[0].name.slice(1));
+      const column = Number(visualizationData.categoryData[0].slice(1));
+      setCell([row, column])
       setQualityIssueCnt(visualizationData.seriesData[0].data[0]);
     } else {
-      setRowIndex('r0');
-      setColumnName('c0');
+      setCell([0, 0])
       setQualityIssueCnt('');
     }
   }, [label])

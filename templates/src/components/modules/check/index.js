@@ -65,8 +65,7 @@ export default function Check() {
     value: 0
   });
   const [visualizationList, setVisualizationList] = React.useState([]);
-  const [completenessRowIndex, setCompletenessRowIndex] = React.useState('r0');
-  const [completenessColumnName, setCompletenessColumnName] = React.useState('c0');
+  const [completenessCell, setCompletenessCell] = React.useState([0, 0]);
   const [completenessQualityIssueCnt, setCompletenessQualityIssueCnt] = React.useState('');
   const [correlationColumnName, setCorrelationColumnName] = React.useState('');
   const [highCorrelationColumnCnt, setHighCorrelationColumnCnt] = React.useState('');
@@ -127,8 +126,8 @@ export default function Check() {
       switch (metricValues.visualChart) {
         case "heatmapChart": // completeness, homogeneity
           params = {
-            rowIdx: Number(completenessRowIndex.slice(1)),
-            columnIdx: Number(completenessColumnName.slice(1)),
+            rowIdx: completenessCell[0],
+            columnIdx: completenessCell[1],
           }
           break
         
@@ -143,7 +142,7 @@ export default function Check() {
     }
   }, [
     metricValues,
-    completenessRowIndex, completenessColumnName, // completeness, homogeneity
+    completenessCell, // completeness, homogeneity
     columnData, outlierData // outlier
   ])
 
@@ -154,8 +153,7 @@ export default function Check() {
         return <div style={{ display: 'flex', marginLeft: -5 }}>
           <HeatmapChart
             label={metricValues?.label}
-            setRowIndex={setCompletenessRowIndex}
-            setColumnName={setCompletenessColumnName}
+            setCell={setCompletenessCell}
             setQualityIssueCnt={setCompletenessQualityIssueCnt}
             visualizationData={visualizationData}
           />
@@ -163,8 +161,8 @@ export default function Check() {
             <div style={{ width: 193, height: 85, border: '1px solid #999999', marginTop: 30 }}>
               <div style={{ position: 'absolute', top: 20, left: 10, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
               <div style={{ marginTop: 10 }}>
-                <p><strong>row index</strong> {completenessRowIndex}</p>
-                <p><strong>column name</strong> {completenessColumnName}</p>
+                <p><strong>row index</strong> {completenessCell[0]}</p>
+                <p><strong>column name</strong> {completenessCell[1]}</p>
                 <p><strong>quality issue cnt</strong> {completenessQualityIssueCnt}</p>
               </div>
             </div>
