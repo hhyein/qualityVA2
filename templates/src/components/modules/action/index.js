@@ -19,24 +19,24 @@ export default function Action() {
     setActionRadioValue(e.target.value);
   }
 
-  const data = useMemo(() => {
-    if (!combinationData) {
-      return []
-    }
-    return combinationData.combinationList.map((combination, i) => ({
-      key: combination,
-      model: combinationData.modelNames[i],
-      combination: combinationData.combinationIconList[i],
-      combinationDetail: combinationData.combinationDetailIconList[i],
-      ...combinationData.inputEvalList.reduce(
-        (acc, cur) => ({
-          ...acc,
-          [cur]: combinationData[cur][i],
-        }),
-        {}
-      ),
-    }))
-  }, [combinationData])
+  // const data = useMemo(() => {
+  //   if (!combinationData) {
+  //     return []
+  //   }
+  //   return combinationData.combinationList.map((combination, i) => ({
+  //     key: combination,
+  //     model: combinationData.modelNames[i],
+  //     combination: combinationData.combinationIconList[i],
+  //     combinationDetail: combinationData.combinationDetailIconList[i],
+  //     ...combinationData.inputEvalList.reduce(
+  //       (acc, cur) => ({
+  //         ...acc,
+  //         [cur]: combinationData[cur][i],
+  //       }),
+  //       {}
+  //     ),
+  //   }))
+  // }, [combinationData])
 
   React.useEffect(() => {
     let imgData;
@@ -61,7 +61,7 @@ export default function Action() {
 
   return (
     <Box title="action">
-      {!isEmptyData({ combinationData }) && data.length > 0 && (
+      {!isEmptyData({ combinationData }) && (
         <React.Fragment>
           <div style={{
             display: 'flex',

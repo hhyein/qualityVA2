@@ -111,7 +111,7 @@ export default function Table() {
         for(let i=1;i<codeData.length;i++) {
           codeData[i].unshift(`${i}`);
         }
-        const columnWidth = 675/(codeData[0].length);
+        const columnWidth = 740/(codeData[0].length);
         setGridData(Array.from({length: codeData[0].length }, () => `${columnWidth}px`).join(" "));
         setcolumnDatas(codeData);
     }
@@ -145,12 +145,13 @@ export default function Table() {
               overflowY: 'scroll',
               marginTop: -20,
               paddingRight: 10,
-              width: '790px',
+              width: '792px',
               height: '440px',
             }}>
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: gridData,
+                marginLeft: 30,
               }}>
                 {columnDatas && columnDatas.map((columnData, rowIdx) => {
                   const onClickRow = () => handleTableClick('row', rowIdx)
