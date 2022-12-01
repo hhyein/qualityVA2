@@ -212,21 +212,17 @@ def checkVisualization():
 
     issueList = []
     for i in missingIdx:
-      issueList.append(['row index: ' + str(i) + 'value: NaN'])
+      issueList.append('row index: ' + str(i) + 'value: NaN')
 
     response['issueList'] = issueList
 
   # outlier
   if vis == 'histogramChart':
-    outlierMethod = req["outlier"]
+    method = req["outlier"]
     columnName = req["column"]
-    # method = req["method"]
-    #### for test
-    method = 'iqr'
 
     columnDf = originDf[columnName]
     columnDf = columnDf.apply(pd.to_numeric, errors = 'coerce')
-    lower, upper = main.lower_upper(columnDf)
 
     columnList = columnDf.values.tolist()
     minValue = columnDf.min()
@@ -253,24 +249,61 @@ def checkVisualization():
 
     response['seriesData'] = seriesDataList
     response['categoryData'] = categoryDataList
-    response['lower'] = lower
-    response['upper'] = upper
 
-    response['standard'] = 'less than ' + str(lower) + ' greater than ' + str(upper)
-    response['cnt'] = 10
+    if method == 'iqr':
+      lower, upper = main.lower_upper(columnDf)
+      lowerIdxList = list(columnDf[columnDf > upper].index.values)
+      upperIdxList = list(columnDf[columnDf < lower].index.values)
+      outlierIndex = lowerIdxList + upperIdxList
 
-    issueList = []
-    for i in range(0, 4):
-      issueList.append(['row index: 100 value 100'])
+      response['cnt'] = len(outlierIndex)
+      response['lower'] = lower
+      response['upper'] = upper
+      response['standard'] = 'less than ' + str(lower) + ', greater than ' + str(upper)
 
-    response['issueList'] = issueList
+      issueList = []
+      for i in outlierIndex:
+        outlier = columnDf.iloc[i]
+        issueList.append('row index: ' + str(i) + ' value: ' + str(outlier))
+      
+      response['issueList'] = issueList
+
+    if method == 'z-score':
+      columnSeries = columnDf.dropna()
+      meanValue = np.mean(columnSeries)
+      stdValue = np.std(columnSeries)
+
+      outlierIndex = []
+      zscoreThreshold = 3
+      for i in range(len(columnDf)):
+        value = columnDf.iloc[i]
+        zscore = ((value - meanValue)/stdValue)
+
+        if zscore > zscoreThreshold:
+          outlierIndex.append(i)
+      response['cnt'] = len(outlierIndex)
+
+      issueList = []
+      outlierValue = []
+      for i in outlierIndex:
+        outlier = columnDf.iloc[i]
+        outlierValue.append(outlier)
+        issueList.append('row index: ' + str(i) + ' value: ' + str(outlier))
+      
+      response['threshold'] = min(outlierValue)
+      response['standard'] = 'greater than ' + str(min(outlierValue))
+      response['issueList'] = issueList
 
   # duplicate
   if vis == 'duplicate':
     dupDf = originDf[originDf.duplicated(keep = False)]
     dupList = list(dupDf.index)
 
-    response['issueList'] = dupList
+    issueList = 'row index: '
+    for i in dupList:
+      issueList = issueList + str(i) + ', '
+
+    response['issueList'] = issueList
     response['cnt'] = len(dupList)
 
   # correlation
