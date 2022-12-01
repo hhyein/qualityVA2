@@ -78,17 +78,12 @@ export default function Check() {
   const [columnData, setColumnData] = React.useState();
   const [outlierData, setOutlierData] = React.useState();
   const [corrData, setCorrData] = React.useState();
-  const [cntList, setCntList] = React.useState([]);
-  const [cntData, setCntData] = React.useState();
 
   React.useEffect(() => {
     if(columnList) {
       setColumnData(columnList[0].label)
       setOutlierData(outlierList[0].label)
       setCorrData(correlationList[0].label)
-
-      setCntList([...Array(columnList.length).keys()].map(x => ({ label: x, value: x })))
-      setCntData(0)
     }
   }, [columnList])
 
