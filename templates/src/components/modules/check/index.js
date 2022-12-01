@@ -37,7 +37,7 @@ const outlierList = [
 ];
 
 const correlationList = [
-  { label: 'person', value: 0 },
+  { label: 'pearson', value: 0 },
   { label: 'kendall', value: 1 },
   { label: 'spearman', value: 2 }
 ];
