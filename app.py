@@ -155,9 +155,6 @@ def donutChart():
   highColumnCorr = len(highCorrColumnList)
   relRate = round(highColumnCorr/len(columnList) * 100)
 
-  print(highCorr)
-  print(highColumnCorr)
-
   rateList = [misRate, outRate, incRate, dupRate, corRate, relRate]
   colorList = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue', 'mediumpurple']
 
