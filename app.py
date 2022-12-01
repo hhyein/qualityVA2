@@ -331,6 +331,8 @@ def checkVisualization():
       for column in columnList:
         categoryDataList.append('c' + str(i))
 
+    response['cnt'] = 10
+    response['issueList'] = ['(a, b)', '(c, d)']
     response['seriesData'] = seriesDataList
     response['categoryData'] = categoryDataList
 
@@ -351,7 +353,9 @@ def checkVisualization():
       if row == targetColumn: continue
       dataList.append(columnCorrDf[row])
 
-    response['data'] = dataList
+    response['cnt'] = 10
+    response['issueList'] = ['a', 'b', 'c']
+    response['seriesData'] = seriesDataList
     response['categoryData'] = columnList
 
   return json.dumps(response)
