@@ -67,7 +67,14 @@ highCorr = len(highCorrColumnList) * 2
 
 # relevance
 columnCorrDf = abs(allCorrDf[targetColumn])
-highColumnCorr = len(columnCorrDf[columnCorrDf > corrThreshold])
+
+highCorrColumnList = []
+for row in columnList:
+    if row == targetColumn: continue
+    if columnCorrDf[row] > 0.8 or columnCorrDf[row] < -0.8:
+        highCorrColumnList.append(row)
+
+highColumnCorr = len(highCorrColumnList)
 
 print(missing, outlier, incons, duplicate, highCorr, highColumnCorr)
 
