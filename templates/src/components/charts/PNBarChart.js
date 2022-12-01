@@ -6,12 +6,15 @@ export default function PNBarChart(props) {
   const d3 = window.d3v4
 
   useEffect(() => {
+    if (!data)
+      return;
+
     d3.select('.PNbar-wrapper').selectAll('*').remove()
 
     var options = {
       series: [{
-      data: [0.08610236581521998, 0.5736944999046226, -0.01558512944752652, 0.2962295067166269, 0.01376486083701261, 0.8476643757918249, 0.06624478643155432, -0.06004524367676903, 0.05790498550457126, 0.0533358080664225, 0.03717584355855042]
-    }],
+        data: data.seriesData
+      }],
       chart: {
         toolbar: {
           show: false
@@ -27,13 +30,15 @@ export default function PNBarChart(props) {
         bar: {
           colors: {
             ranges: [{
-              from: 1,
-              to: 0,
-              color: '#F15B46'
+              to: -0.8,
+              color: '#128FD9'
             }, {
-              from: 0,
-              to: -1,
-              color: '#FEB019'
+              from: -0.8,
+              to: 0.8,
+              color: '#6C757D'
+            }, {
+              from: 0.8,
+              color: '#D91212'
             }]
           },
         }
@@ -44,13 +49,15 @@ export default function PNBarChart(props) {
       yaxis: {
         labels: {
           formatter: function (y) {
-            return y.toFixed(0) + "%";
+            return y.toFixed(2) + "%";
           }
-        }
+        },
+        min: -1,
+        max: 1
       },
       xaxis: {
         type: 'category',
-        categories: ['atemp', 'casual', 'cnt', 'holiday', 'hr', 'hum', 'registered', 'temp', 'weathersit', 'weekday', 'windspeed', 'workingday'],
+        categories: data.categoryData,
         labels: {
           show: false
         },

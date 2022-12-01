@@ -28,7 +28,7 @@ const metricList = [
   { label: 'homogeneity', visualChart: 'heatmapChart', value: 2 },
   { label: 'duplicate', visualChart: 'duplicate', value: 3 },
   { label: 'correlation', visualChart: 'correlationChart', value: 4 },
-  { label: 'relevance', visualChart: 'PNBarChart', value: 5 },
+  { label: 'relevance', visualChart: 'relevanceChart', value: 5 },
 ]
 
 const outlierList = [
@@ -67,9 +67,6 @@ export default function Check() {
   const [visualizationList, setVisualizationList] = React.useState([]);
   const [completenessCell, setCompletenessCell] = React.useState([0, 0]);
   const [completenessQualityIssueCnt, setCompletenessQualityIssueCnt] = React.useState('');
-  const [relevanceColumnName, setRelevanceColumnName] = React.useState('');
-  const [relevanceRank, setRelevanceRank] = React.useState('');
-  const [relevanceScore, setRelevanceScore] = React.useState('');
   const [dataList, setDataList] = React.useState();
   const [dataIndex, setDataIndex] = React.useState();
   const [checkTableData, setCheckTableData] = React.useState([1]);
@@ -136,6 +133,7 @@ export default function Check() {
           break
         
         case "correlationChart": //correlation
+        case "relevanceChart": // relevance
           params = {
             method: corrData,
           }
@@ -147,7 +145,7 @@ export default function Check() {
     metricValues,
     completenessCell, // completeness, homogeneity
     columnData, outlierData, // outlier
-    corrData, // correlation
+    corrData, // correlation, relevance
   ])
 
   const chartData = (value) => {
@@ -287,11 +285,13 @@ export default function Check() {
         </>
       
       // relevance
-      case "PNBarChart":
+      case "relevanceChart":
         return <>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '60px auto', marginTop: 20, marginRight: 10 }}>
             <div style={{ gridRow: '1 / 3' }}>
-              <PNBarChart />
+              <PNBarChart
+                data={visualizationData}
+              />
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr' }}>
               <div>
@@ -310,9 +310,10 @@ export default function Check() {
               <div style={{ position: 'relative', height: 112, marginTop: 10, border: '1px solid #999999' }}>
                 <div style={{ position: 'absolute', top: -10, left: 2, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
                 <div style={{ marginTop: 10 }}>
-                  <p>column name {relevanceColumnName}</p>
-                  <p>rank {relevanceRank}</p>
-                  <p>score {relevanceScore}</p>
+                  <p><strong>high correlation column cnt</strong> {visualizationData.cnt}</p>
+                  {visualizationData.issueList.length > 0 &&
+                    <p><strong>high correlation column name</strong> {visualizationData.issueList[0].join(', ')}</p>
+                  }
                 </div>
               </div>
             </div>

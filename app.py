@@ -357,10 +357,10 @@ def checkVisualization():
     response['categoryData'] = categoryDataList
 
   # relevance
-  if vis == 'PNBarChart':
-    # method = req["method"]
+  if vis == 'relevanceChart':
+    method = req["method"]
     ##### for test
-    method = 'pearson'
+    # method = 'pearson'
 
     inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
     inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
