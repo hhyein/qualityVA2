@@ -238,8 +238,10 @@ export default function Check() {
           <div style={{ position: 'relative', height: 172, left: 10, marginTop: 30, border: '1px solid #999999', width: 418 }}>
             <div style={{ position: 'absolute', top: -10, left: 10, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
             <div style={{ marginTop: 10 }}>
-              <p>duplicate cnt</p>
-              <p>row index value</p>
+              <p><strong>duplicate cnt</strong> {visualizationData.cnt}</p>
+              {visualizationData.issueList &&
+                <p><strong>row index</strong> {visualizationData.issueList}</p>
+              }
             </div>
           </div>
         </>

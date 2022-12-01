@@ -310,10 +310,7 @@ def checkVisualization():
   if vis == 'duplicate':
     dupDf = originDf[originDf.duplicated(keep = False)]
     dupList = list(dupDf.index)
-
-    issueList = 'row index: '
-    for i in dupList:
-      issueList = issueList + str(i) + ', '
+    issueList = ', '.join(dupList)
 
     response['issueList'] = issueList
     response['cnt'] = len(dupList)
