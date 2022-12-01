@@ -10,8 +10,7 @@ export default function PNBarChart(props) {
 
     var options = {
       series: [{
-      name: 'Cash Flow',
-      data: [1.45, 5.42, 5.9, -0.42, -12.6, -17.1, -17.2, -14.16, -11.1, -6.09]
+      data: [0.08610236581521998, 0.5736944999046226, -0.01558512944752652, 0.2962295067166269, 0.01376486083701261, 0.8476643757918249, 0.06624478643155432, -0.06004524367676903, 0.05790498550457126, 0.0533358080664225, 0.03717584355855042]
     }],
       chart: {
         toolbar: {
@@ -28,12 +27,12 @@ export default function PNBarChart(props) {
         bar: {
           colors: {
             ranges: [{
-              from: -100,
-              to: -46,
+              from: 1,
+              to: 0,
               color: '#F15B46'
             }, {
-              from: -45,
-              to: 0,
+              from: 0,
+              to: -1,
               color: '#FEB019'
             }]
           },
@@ -51,7 +50,7 @@ export default function PNBarChart(props) {
       },
       xaxis: {
         type: 'category',
-        categories: ['column1', 'column2', 'column3', 'column4', 'column5', 'column6', 'column7', 'column8', 'column9', 'column10'],
+        categories: ['atemp', 'casual', 'cnt', 'holiday', 'hr', 'hum', 'registered', 'temp', 'weathersit', 'weekday', 'windspeed', 'workingday'],
         labels: {
           show: false
         },

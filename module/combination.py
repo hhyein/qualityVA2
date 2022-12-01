@@ -43,12 +43,15 @@ for column in originDf:
     incons = sum(tmpList)
 
 # duplicate check
-duplicate = len(originDf[originDf.duplicated()])
+duplicate = len(originDf[originDf.duplicated(keep = False)])
 
 # correlation, relevance check based on 'pearson and 0.8'
-inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
-inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
-allCorrDf = inconsNaNDf.corr()
+tmpList = []
+for column in columnList:
+    df = originDf[column].dropna()
+    tmpList.append(pd.to_numeric(df, errors = 'coerce'))
+df = pd.concat(tmpList, axis = 1)
+allCorrDf = df.corr()
 
 # correlation
 highCorr = 0
@@ -88,7 +91,6 @@ for i in range(len(actionList)):
 permutationList = sum(permutationList, [])
 
 print(permutationList)
-permutationList = ['m', 'o', 'i', 'c', 'r', 'moi', 'oic']
 
 # combination
 missingList = ["remove", "min", "max", "mean", "median"]
@@ -260,7 +262,7 @@ for permutation in permutationList:
                 columnList = list(df.columns)
 
                 if beforeAction == "init":
-                    actionList.append([action])
+                    actionList.append(["remove"])
                 else:
                     tmpList = []
                     for i in range(len(beforeAction)):
@@ -295,7 +297,7 @@ for permutation in permutationList:
             for j in range(len(beforeActionDfList)):
                 beforeAction = beforeActionList[j]
                 if beforeAction == "init":
-                    actionList.append([action])
+                    actionList.append(["remove"])
                 else:
                     tmpList = []
                     for i in range(len(beforeAction)):
@@ -319,7 +321,7 @@ for permutation in permutationList:
 
                 for action in corrList:
                     if beforeAction == "init":
-                        actionList.append([action])
+                        actionList.append(["remove"])
                     else:
                         tmpList = []
                         for i in range(len(beforeAction)):
