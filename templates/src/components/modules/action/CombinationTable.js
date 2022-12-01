@@ -26,8 +26,8 @@ export default function CombinationTable({
   }
   
   const isVisibleImg = (idx) => {
-    const len = filterList[idx].combinationDetail.filter((item) => checkedList.includes(item)).length;
-    if(len === filterList[idx].combinationDetail.length) {
+    const len = filterList[idx].combination.filter((item) => checkedList.includes(item)).length;
+    if(len === filterList[idx].combination.length) {
       return true;
     }
     return false;

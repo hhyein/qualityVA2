@@ -18,7 +18,7 @@ export default function Combination() {
   const [lengthValues, setLengthValues] = React.useState();
   const [actionList, setActionList] = React.useState();
   const [checkedList, setCheckList] = React.useState();
-  const imgNameList = ['', 'em', 'lof', 'max', 'med', 'men', 'min', 'mod', 'rem', 'log', 'mbs', 'mm', 'rob', 'sqt', 'std'];
+  const imgNameList = ['', 'c', 'o', 'i', 'd', 'm', 'r'];
 
   React.useEffect(() => {
     setLengthList(Array.from({ length: 11 }, (_, i) => ({ label: i, value: i })));
@@ -55,7 +55,7 @@ export default function Combination() {
       key: combination,
       model: combinationData.modelNames[i],
       combination: combinationData.combinationIconList[i],
-      combinationDetail: combinationData.combinationDetailIconList[i],
+      combinationDetail: combinationData.combinationDetailIconList[i].map((icon, idx) => `${combinationData.combinationIconList[i][idx]}_${icon}`),
       ...combinationData.inputEvalList.reduce(
         (acc, cur) => ({
           ...acc,
@@ -73,8 +73,8 @@ export default function Combination() {
     }
     const sortedChartTableData = data.sort((a, b) =>
       isAscending
-        ? a[column].data - b[column].data
-        : b[column].data - a[column].data
+        ? a[column] - b[column]
+        : b[column] - a[column]
     )
 
     if (
