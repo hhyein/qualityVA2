@@ -356,7 +356,8 @@ export default function Check() {
                 treeData={dataList} 
                 setDataIndex={setDataIndex} 
                 actionRadioValue={actionRadioValue}
-                onNodeClick = {setTreeChartNode} />
+                onNodeClick = {setTreeChartNode}
+                treeChartNode = {treeChartNode} />
               </div>
             </div>
           </div>

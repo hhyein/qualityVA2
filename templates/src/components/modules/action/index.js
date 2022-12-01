@@ -19,25 +19,6 @@ export default function Action() {
     setActionRadioValue(e.target.value);
   }
 
-  // const data = useMemo(() => {
-  //   if (!combinationData) {
-  //     return []
-  //   }
-  //   return combinationData.combinationList.map((combination, i) => ({
-  //     key: combination,
-  //     model: combinationData.modelNames[i],
-  //     combination: combinationData.combinationIconList[i],
-  //     combinationDetail: combinationData.combinationDetailIconList[i],
-  //     ...combinationData.inputEvalList.reduce(
-  //       (acc, cur) => ({
-  //         ...acc,
-  //         [cur]: combinationData[cur][i],
-  //       }),
-  //       {}
-  //     ),
-  //   }))
-  // }, [combinationData])
-
   React.useEffect(() => {
     let imgData;
     if (!selectedCombinationTableRow) {
@@ -68,7 +49,7 @@ export default function Action() {
             height: '20px',
             marginBottom: '5px',
           }}>
-            {['recommend', 'new'].map((item) => (
+            {['recommend', 'custom'].map((item) => (
               <div key={item} style={{ display: 'flex', fontSize: 13, alignItems: 'center', width: '50%' }}>
                 <input
                   type='radio'
@@ -83,7 +64,7 @@ export default function Action() {
             ))}
           </div>
           {actionRadioValue === 'recommend' && <Recommend />}
-          {actionRadioValue === 'new' && <New />}
+          {actionRadioValue === 'custom' && <New />}
         </React.Fragment>
       )}
     </Box>

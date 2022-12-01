@@ -23,7 +23,7 @@ export default function Table() {
 
 
   const handleTableClick = (key, idx) => {
-    if (actionRadioValue === 'new') {
+    if (actionRadioValue === 'custom') {
       setCheckTableData({
         key: key,
         data: idx
