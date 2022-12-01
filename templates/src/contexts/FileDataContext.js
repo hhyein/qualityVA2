@@ -142,13 +142,12 @@ export const FileDataProvider = ({ children }) => {
     setTablePointData(tableData);
   }
 
-  const updateVisualizationData = async (fileName, visualization, metricValue, column, outlier) => {
+  const updateVisualizationData = async (fileName, visualization, metricValue, params) => {
     const option = {
       fileName: fileName,
       visualization: visualization,
       metricValue: metricValue,
-      column: column,
-      outlier: outlier
+      ...params,
     }
     const visualizationData = await postData('/checkVisualization', option);
     setVisualizationData(visualizationData);

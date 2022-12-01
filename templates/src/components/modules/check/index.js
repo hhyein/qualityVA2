@@ -65,8 +65,8 @@ export default function Check() {
     value: 0
   });
   const [visualizationList, setVisualizationList] = React.useState([]);
-  const [completenessRowIndex, setCompletenessRowIndex] = React.useState('');
-  const [completenessColumnName, setCompletenessColumnName] = React.useState('');
+  const [completenessRowIndex, setCompletenessRowIndex] = React.useState('r0');
+  const [completenessColumnName, setCompletenessColumnName] = React.useState('c0');
   const [completenessQualityIssueCnt, setCompletenessQualityIssueCnt] = React.useState('');
   const [correlationColumnName, setCorrelationColumnName] = React.useState('');
   const [highCorrelationColumnCnt, setHighCorrelationColumnCnt] = React.useState('');
@@ -122,13 +122,30 @@ export default function Check() {
   React.useEffect(() => {
     if (metricValues?.label) {
       setVisualizationList([metricValues.visualChart]);
-      if (metricValues.visualChart === 'histogramChart') {
-        updateVisualizationData(treeChartNode, metricValues.visualChart, metricValues.label, columnData, outlierData)
-      } else {
-        updateVisualizationData(treeChartNode, metricValues.visualChart, metricValues.label)
+
+      let params = {}
+      switch (metricValues.visualChart) {
+        case "heatmapChart": // completeness, homogeneity
+          params = {
+            rowIdx: Number(completenessRowIndex.slice(1)),
+            columnIdx: Number(completenessColumnName.slice(1)),
+          }
+          break
+        
+        case "histogramChart": // outlier
+          params = {
+            column: columnData,
+            outlier: outlierData,
+          }
+          break
       }
+      updateVisualizationData(treeChartNode, metricValues.visualChart, metricValues.label, params)
     }
-  }, [metricValues, columnData, outlierData])
+  }, [
+    metricValues,
+    completenessRowIndex, completenessColumnName, // completeness, homogeneity
+    columnData, outlierData // outlier
+  ])
 
   const chartData = (value) => {
     switch (value) {
@@ -143,19 +160,23 @@ export default function Check() {
             visualizationData={visualizationData}
           />
           <div style={{ position: 'relative', right: 10 }}>
-            <div style={{ width: 163, height: 95, border: '1px solid #999999', marginTop: 30 }}>
+            <div style={{ width: 193, height: 85, border: '1px solid #999999', marginTop: 30 }}>
               <div style={{ position: 'absolute', top: 20, left: 10, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
               <div style={{ marginTop: 10 }}>
-                <p>row index {completenessRowIndex}</p>
-                <p>column name {completenessColumnName}</p>
-                <p>quality issue cnt {completenessQualityIssueCnt}</p>
+                <p><strong>row index</strong> {completenessRowIndex}</p>
+                <p><strong>column name</strong> {completenessColumnName}</p>
+                <p><strong>quality issue cnt</strong> {completenessQualityIssueCnt}</p>
               </div>
             </div>
-            <div style={{ width: 163, height: 60, border: '1px solid #999999', marginTop: 15 }}>
-              <div style={{ position: 'absolute', top: 135, left: 10, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>quality issue</div>
-              <div style={{ marginTop: 10, display: 'flex' }}>
-                <p>row index</p>
-                <p>value</p>
+            <div style={{ width: 193, height: 70, border: '1px solid #999999', marginTop: 15, overflowY: 'auto' }}>
+              <div style={{ position: 'absolute', top: 120, left: 10, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>quality issue</div>
+              <div style={{ marginTop: 10 }}>
+                {visualizationData.issueList.map(issue =>
+                  <p>
+                    <strong>row index</strong>&nbsp;{issue[0]}&nbsp;
+                    <strong>value</strong>&nbsp;{issue[1]}
+                  </p>
+                )}
               </div>
             </div>
           </div>

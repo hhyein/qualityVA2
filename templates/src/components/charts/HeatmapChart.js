@@ -26,7 +26,7 @@ export default function HeatmapChart(props) {
         animations: {
           enabled: false
         },
-        width: 280,
+        width: 250,
         height: 220,
         type: 'heatmap',
         events: {
@@ -69,9 +69,15 @@ export default function HeatmapChart(props) {
     }, [seriesData, categoryData])
 
   useEffect(() => {
-    setRowIndex('');
-    setColumnName('');
-    setQualityIssueCnt('');
+    if (visualizationData) {
+      setRowIndex(visualizationData.seriesData[0].name);
+      setColumnName(visualizationData.categoryData[0]);
+      setQualityIssueCnt(visualizationData.seriesData[0].data[0]);
+    } else {
+      setRowIndex('r0');
+      setColumnName('c0');
+      setQualityIssueCnt('');
+    }
   }, [label])
 
   return (
