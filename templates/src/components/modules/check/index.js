@@ -67,9 +67,6 @@ export default function Check() {
   const [visualizationList, setVisualizationList] = React.useState([]);
   const [completenessCell, setCompletenessCell] = React.useState([0, 0]);
   const [completenessQualityIssueCnt, setCompletenessQualityIssueCnt] = React.useState('');
-  const [correlationColumnName, setCorrelationColumnName] = React.useState('');
-  const [highCorrelationColumnCnt, setHighCorrelationColumnCnt] = React.useState('');
-  const [highCorrelationColumnName, setHighCorrelationColumnName] = React.useState('');
   const [relevanceColumnName, setRelevanceColumnName] = React.useState('');
   const [relevanceRank, setRelevanceRank] = React.useState('');
   const [relevanceScore, setRelevanceScore] = React.useState('');
@@ -137,13 +134,20 @@ export default function Check() {
             outlier: outlierData,
           }
           break
+        
+        case "correlationChart": //correlation
+          params = {
+            method: corrData,
+          }
+          break
       }
       updateVisualizationData(treeChartNode, metricValues.visualChart, metricValues.label, params)
     }
   }, [
     metricValues,
     completenessCell, // completeness, homogeneity
-    columnData, outlierData // outlier
+    columnData, outlierData, // outlier
+    corrData, // correlation
   ])
 
   const chartData = (value) => {
@@ -251,7 +255,9 @@ export default function Check() {
         return <>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '60px auto', marginTop: 20, marginRight: 10 }}>
             <div style={{ gridRow: '1 / 3', marginTop: -20, marginLeft: -10 }}>
-              <CorrelationChart />
+              <CorrelationChart
+                data={visualizationData}
+              />
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr' }}>
             <div>
@@ -270,9 +276,10 @@ export default function Check() {
               <div style={{ position: 'relative', height: 112, marginTop: 10, border: '1px solid #999999' }}>
                 <div style={{ position: 'absolute', top: -10, left: 2, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
                 <div style={{ marginTop: 10 }}>
-                  <p>column name {correlationColumnName}</p>
-                  <p>high correlation column cnt</p>
-                  <p>high correlation column name</p>
+                  <p><strong>high correlation column cnt</strong> {visualizationData.cnt}</p>
+                  {visualizationData.issueList.length > 0 &&
+                    <p><strong>high correlation column name</strong> {visualizationData.issueList[0].join(', ')}</p>
+                  }
                 </div>
               </div>
             </div>

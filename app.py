@@ -317,9 +317,9 @@ def checkVisualization():
 
   # correlation
   if vis == 'correlationChart':
-    # method = req["method"]
+    method = req["method"]
     ##### for test
-    method = 'pearson'
+    # method = 'pearson'
     corrThreshold = 0.8
 
     inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
