@@ -119,7 +119,7 @@ def donutChart():
   incRate = round((inc/totalNum) * 100)
 
   # duplicate
-  dupCnt = len(originDf[originDf.duplicated()])
+  dupCnt = len(originDf[originDf.duplicated(keep = False)])
   dupRate = round(dupCnt/len(originDf) * 100)
 
   inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
@@ -166,6 +166,7 @@ def checkVisualization():
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
   columnList = list(originDf.columns)
 
+  global targetColumn
   response = {}
   
   # completeness, homogeneity
@@ -196,10 +197,32 @@ def checkVisualization():
     response['seriesData'] = seriesDataList
     response['categoryData'] = categoryDataList
 
+    # rowIdx = req["rowIdx"]
+    # columnIdx = req["columnIdx"]
+    ##### for test
+    rowIdx = 0
+    columnIdx = 2
+
+    response['rowIndex'] = str(sliceSize * int(rowIdx)) + '~' + str(sliceSize * (int(rowIdx) + 1))
+    response['columnName'] = columnList[int(columnIdx)]
+
+    columnDf = originDf.iloc[:, [columnIdx]]
+    sliceDf = columnDf.iloc[sliceSize * int(rowIdx) : sliceSize * (int(rowIdx) + 1)]
+    missingIdx = [index for index, row in sliceDf.iterrows() if row.isnull().any()]
+
+    issueList = []
+    for i in missingIdx:
+      issueList.append(['row index: ' + str(i) + 'value: NaN'])
+
+    response['issueList'] = issueList
+
   # outlier
   if vis == 'histogramChart':
     outlierMethod = req["outlier"]
     columnName = req["column"]
+    # method = req["method"]
+    #### for test
+    method = 'iqr'
 
     columnDf = originDf[columnName]
     columnDf = columnDf.apply(pd.to_numeric, errors = 'coerce')
@@ -227,9 +250,76 @@ def checkVisualization():
             columnCntList[i] = columnCntList[i] + 1
 
     seriesDataList.append({'name': columnName, 'data': columnCntList})
-    
+
     response['seriesData'] = seriesDataList
     response['categoryData'] = categoryDataList
+    response['lower'] = lower
+    response['upper'] = upper
+
+    response['standard'] = 'less than ' + str(lower) + ' greater than ' + str(upper)
+    response['cnt'] = 10
+
+    issueList = []
+    for i in range(0, 4):
+      issueList.append(['row index: 100 value 100'])
+
+    response['issueList'] = issueList
+
+  # duplicate
+  if vis == 'duplicate':
+    dupDf = originDf[originDf.duplicated(keep = False)]
+    dupList = list(dupDf.index)
+
+    response['issueList'] = dupList
+    response['cnt'] = len(dupList)
+
+  # correlation
+  if vis == 'correlationChart':
+    # method = req["method"]
+    ##### for test
+    method = 'pearson'
+
+    inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
+    inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
+    allCorrDf = inconsNaNDf.corr(method = method)
+    allCorrDf = allCorrDf.reindex(sorted(allCorrDf.columns), axis = 1)
+
+    seriesDataList = []
+    for i in range(len(allCorrDf)):
+      columnCntList = []
+
+      for j in range(i + 1):
+        columnCnt = allCorrDf.iloc[i][j]
+        columnCntList.append(float(columnCnt))
+
+      seriesDataList.append({'name': 'r' + str(i), 'data': columnCntList})
+
+      categoryDataList = []
+      for column in columnList:
+        categoryDataList.append('c' + str(i))
+
+    response['seriesData'] = seriesDataList
+    response['categoryData'] = categoryDataList
+
+  # relevance
+  if vis == 'PNBarChart':
+    # method = req["method"]
+    ##### for test
+    method = 'pearson'
+
+    inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
+    inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
+    allCorrDf = inconsNaNDf.corr(method = method)
+    allCorrDf = allCorrDf.reindex(sorted(allCorrDf.columns), axis = 1)
+    columnCorrDf = allCorrDf[targetColumn]
+
+    dataList = []
+    for row in columnList:
+      if row == targetColumn: continue
+      dataList.append(columnCorrDf[row])
+
+    response['data'] = dataList
+    response['categoryData'] = columnList
 
   return json.dumps(response)
 

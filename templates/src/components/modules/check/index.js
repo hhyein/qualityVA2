@@ -229,7 +229,7 @@ export default function Check() {
       case "correlationChart":
         return <>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '60px auto', marginTop: 20, marginRight: 10 }}>
-            <div style={{ gridRow: '1 / 3', marginTop: -20, marginLeft: -5 }}>
+            <div style={{ gridRow: '1 / 3', marginTop: -20, marginLeft: -10 }}>
               <CorrelationChart />
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr' }}>

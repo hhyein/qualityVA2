@@ -43,7 +43,7 @@ for column in originDf:
     incons = sum(tmpList)
 
 # duplicate check
-duplicate = len(originDf[originDf.duplicated()])
+duplicate = len(originDf[originDf.duplicated(keep = False)])
 
 # correlation, relevance check based on 'pearson and 0.8'
 inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
