@@ -21,7 +21,7 @@ export default function HeatmapChart(props) {
         animations: {
           enabled: false
         },
-        width: 250,
+        width: 230,
         height: 220,
         type: 'heatmap'
       },
