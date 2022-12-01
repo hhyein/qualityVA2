@@ -54,12 +54,16 @@ df = pd.concat(tmpList, axis = 1)
 allCorrDf = df.corr()
 
 # correlation
-highCorr = 0
+highCorrColumnList = []
 for column in columnList:
     columnCorrDf = abs(allCorrDf[column])
-    highCorr = highCorr + len(columnCorrDf[columnCorrDf > corrThreshold])
+    highCorrDf = columnCorrDf[columnCorrDf > corrThreshold]
+    
+    if len(highCorrDf) > 1:
+    highCorrColumnList.append(list(highCorrDf.index))
 
-highCorr = int((highCorr - len(columnList))/2)
+highCorrColumnList = list(set([tuple(set(item)) for item in highCorrColumnList]))
+highCorr = len(highCorrColumnList) * 2
 
 # relevance
 columnCorrDf = abs(allCorrDf[targetColumn])

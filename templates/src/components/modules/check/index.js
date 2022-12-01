@@ -28,7 +28,7 @@ const metricList = [
   { label: 'homogeneity', visualChart: 'heatmapChart', value: 2 },
   { label: 'duplicate', visualChart: 'duplicate', value: 3 },
   { label: 'correlation', visualChart: 'correlationChart', value: 4 },
-  { label: 'relevance', visualChart: 'rankBarChart', value: 5 },
+  { label: 'relevance', visualChart: 'PNBarChart', value: 5 },
 ]
 
 const outlierList = [
@@ -259,7 +259,7 @@ export default function Check() {
         </>
       
       // relevance
-      case "rankBarChart":
+      case "PNBarChart":
         return <>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '60px auto', marginTop: 20, marginRight: 10 }}>
             <div style={{ gridRow: '1 / 3' }}>

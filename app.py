@@ -311,11 +311,24 @@ def checkVisualization():
     # method = req["method"]
     ##### for test
     method = 'pearson'
+    corrThreshold = 0.8
 
     inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
     inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
     allCorrDf = inconsNaNDf.corr(method = method)
     allCorrDf = allCorrDf.reindex(sorted(allCorrDf.columns), axis = 1)
+
+    highCorrColumnList = []
+    for column in columnList:
+      columnCorrDf = abs(allCorrDf[column])
+      highCorrDf = columnCorrDf[columnCorrDf > corrThreshold]
+      
+      if len(highCorrDf) > 1:
+        highCorrColumnList.append(list(highCorrDf.index))
+    highCorrColumnList = list(set([tuple(set(item)) for item in highCorrColumnList]))
+
+    response['cnt'] = len(highCorrColumnList) * 2
+    response['issueList'] = highCorrColumnList
 
     seriesDataList = []
     for i in range(len(allCorrDf)):
@@ -331,8 +344,6 @@ def checkVisualization():
       for column in columnList:
         categoryDataList.append('c' + str(i))
 
-    response['cnt'] = 10
-    response['issueList'] = ['(a, b)', '(c, d)']
     response['seriesData'] = seriesDataList
     response['categoryData'] = categoryDataList
 
@@ -348,13 +359,16 @@ def checkVisualization():
     allCorrDf = allCorrDf.reindex(sorted(allCorrDf.columns), axis = 1)
     columnCorrDf = allCorrDf[targetColumn]
 
-    dataList = []
+    seriesDataList = []
+    highCorrColumnList = []
     for row in columnList:
       if row == targetColumn: continue
-      dataList.append(columnCorrDf[row])
+      if columnCorrDf[row] > 0.8 or columnCorrDf[row] < -0.8:
+        highCorrColumnList.append(row)
+      seriesDataList.append(columnCorrDf[row])
 
-    response['cnt'] = 10
-    response['issueList'] = ['a', 'b', 'c']
+    response['cnt'] = len(highCorrColumnList)
+    response['issueList'] = highCorrColumnList
     response['seriesData'] = seriesDataList
     response['categoryData'] = columnList
 
