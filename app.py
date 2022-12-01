@@ -179,7 +179,9 @@ def checkVisualization():
   columnList = list(originDf.columns)
 
   global targetColumn
-  response = {}
+  response = {
+    'visualization': vis
+  }
   
   # completeness, homogeneity
   if vis == 'heatmapChart':

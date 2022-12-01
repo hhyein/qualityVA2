@@ -121,7 +121,7 @@ export const FileDataProvider = ({ children }) => {
     updateDonutChartData(treeChartNode)
     updateTablePointData(treeChartNode)
     updateModelTableData(treeChartNode)
-    updateVisualizationData(treeChartNode, 'heatmapChart', 'completeness')
+    updateVisualizationData(treeChartNode, 'heatmapChart', 'completeness', {rowIdx: 0, columnIdx: 0})
     updateChangeCntData(treeChartNode)
     updateTableData(treeChartNode)
   }, [file, treeChartNode])

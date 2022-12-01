@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 import ApexCharts from 'apexcharts'
 
 export default function HeatmapChart(props) {
-  const { data } = props
+  const { chartName, data } = props
   const d3 = window.d3v4
 
   useEffect(() => {
-    if (!data)
+    if (!data || data.visualization != chartName)
       return;
 
     d3.select('.correlation-wrapper').selectAll('*').remove()

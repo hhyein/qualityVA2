@@ -107,6 +107,36 @@ export default function Check() {
     setMetricValues(metricList[selectedLegendIdx])
   }, [selectedLegendIdx])
 
+  // React.useEffect(() => {
+  //   if (metricValues?.label) {
+  //     setVisualizationList([metricValues.visualChart]);
+
+  //     if (metricValues.visualChart != "heatmapChart")
+  //       return;
+      
+  //     const params = {
+  //       rowIdx: completenessCell[0],
+  //       columnIdx: completenessCell[1],
+  //     }
+  //     updateVisualizationData(treeChartNode, metricValues.visualChart, metricValues.label, params)
+  //   }
+  // }, [metricValues, completenessCell])
+
+  // React.useEffect(() => {
+  //   if (metricValues?.label) {
+  //     setVisualizationList([metricValues.visualChart]);
+
+  //     if (metricValues.visualChart != "histogramChart")
+  //       return;
+      
+  //     const params = {
+  //       column: columnData,
+  //       outlier: outlierData,
+  //     }
+  //     updateVisualizationData(treeChartNode, metricValues.visualChart, metricValues.label, params)
+  //   }
+  // }, [metricValues, columnData, outlierData])
+
   React.useEffect(() => {
     if (metricValues?.label) {
       setVisualizationList([metricValues.visualChart]);
@@ -149,10 +179,11 @@ export default function Check() {
       case "heatmapChart":
         return <div style={{ display: 'flex', marginLeft: -5 }}>
           <HeatmapChart
+            chartName='heatmapChart'
             label={metricValues?.label}
             setCell={setCompletenessCell}
             setQualityIssueCnt={setCompletenessQualityIssueCnt}
-            visualizationData={visualizationData}
+            data={visualizationData}
           />
           <div style={{ position: 'relative', right: 10 }}>
             <div style={{ width: 193, height: 85, border: '1px solid #999999', marginTop: 30 }}>
@@ -210,6 +241,7 @@ export default function Check() {
             </div>
             <div style={{ position: 'relative', bottom: 15 }}>
               <HistogramChart
+                chartName='histogramChart'
                 data={visualizationData}
                 method={outlierData}
               />
@@ -256,6 +288,7 @@ export default function Check() {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '60px auto', marginTop: 20, marginRight: 10 }}>
             <div style={{ gridRow: '1 / 3', marginTop: -20, marginLeft: -10 }}>
               <CorrelationChart
+                chartName='correlationChart'
                 data={visualizationData}
               />
             </div>
@@ -292,6 +325,7 @@ export default function Check() {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '60px auto', marginTop: 20, marginRight: 10 }}>
             <div style={{ gridRow: '1 / 3' }}>
               <PNBarChart
+                chartName='relevanceChart'
                 data={visualizationData}
               />
             </div>

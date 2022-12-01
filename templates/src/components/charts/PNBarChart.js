@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 import ApexCharts from 'apexcharts'
 
 export default function PNBarChart(props) {
-  const { data } = props
+  const { chartName, data } = props
   const d3 = window.d3v4
 
   useEffect(() => {
-    if (!data)
+    if (!data || data.visualization != chartName)
       return;
 
     d3.select('.PNbar-wrapper').selectAll('*').remove()

@@ -2,23 +2,17 @@ import React, { useEffect } from 'react'
 import ApexCharts from 'apexcharts'
 
 export default function HeatmapChart(props) {
-  const { label, setCell, setQualityIssueCnt, visualizationData } = props
-  const [seriesData, setSeriesData] = React.useState([]);
-  const [categoryData, setCategoryData] = React.useState([]);
+  const { chartName, data, label, setCell, setQualityIssueCnt } = props
   const d3 = window.d3v4
 
   useEffect(() => {
-    if(visualizationData) {
-      setSeriesData(visualizationData.seriesData)
-      setCategoryData(visualizationData.categoryData)
-    }
-    }, [visualizationData])
-
-  useEffect(() => {
+    if (!data || data.visualization != chartName)
+      return;
+    
     d3.select('.heatmap-wrapper').selectAll('*').remove()
 
     var options = {
-      series: seriesData,
+      series: data.seriesData,
       chart: {
         toolbar: {
           show: false
@@ -48,7 +42,7 @@ export default function HeatmapChart(props) {
         enabled: false
       },
       xaxis: {
-        categories: categoryData,
+        categories: data.categoryData,
         tooltip: {
           enabled: false
         }
@@ -64,14 +58,14 @@ export default function HeatmapChart(props) {
     var chart = new ApexCharts(document.querySelector(".heatmap-wrapper"), options);
     chart.render();
 
-    }, [seriesData, categoryData])
+  }, [data])
 
   useEffect(() => {
-    if (visualizationData) {
-      const row = Number(visualizationData.seriesData[0].name.slice(1));
-      const column = Number(visualizationData.categoryData[0].slice(1));
+    if (data && data.visualization == chartName) {
+      const row = Number(data.seriesData[0].name.slice(1));
+      const column = Number(data.categoryData[0].slice(1));
       setCell([row, column])
-      setQualityIssueCnt(visualizationData.seriesData[0].data[0]);
+      setQualityIssueCnt(data.seriesData[0].data[0]);
     } else {
       setCell([0, 0])
       setQualityIssueCnt('');

@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 import ApexCharts from 'apexcharts'
 
 export default function HistogramChart(props) {
-  const { data, method } = props
+  const { chartName, data, method } = props
   const d3 = window.d3v4
 
   useEffect(() => {
-    if (!data)
+    if (!data || data.visualization != chartName)
       return;
     
     d3.select('.histogram-wrapper').selectAll('*').remove()
