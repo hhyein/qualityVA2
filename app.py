@@ -22,7 +22,7 @@ app = Flask(__name__)
 CORS(app)
 
 uploadFileName = 'bike'
-column = 'cnt'
+targetColumn = 'cnt'
 inputModelList = []
 inputEvalList = []
 
@@ -36,7 +36,7 @@ def fileUpload():
 
 @app.route('/setting', methods=['GET', 'POST'])
 def setting():
-  global uploadFileName, column, inputModelList, inputEvalList
+  global uploadFileName, targetColumn, inputModelList, inputEvalList
 
   originDf = pd.read_csv('static/' + uploadFileName + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
@@ -67,7 +67,7 @@ def setting():
 
   if request.method == 'POST':
     req = eval(request.get_data().decode('utf-8'))
-    column = req["column"]["label"]
+    targetColumn = req["column"]["label"]
     modelList = req["model"]
     evalList = req["eval"]
 
@@ -227,8 +227,8 @@ def modelTable():
   # df = pd.DataFrame(df, columns = columnList)
   # df = df.dropna()
 
-  # global column
-  # clf = setup(data = df, target = column, preprocess = False, session_id = 42, use_gpu = True, silent = True)
+  # global targetColumn
+  # clf = setup(data = df, target = targetColumn, preprocess = False, session_id = 42, use_gpu = True, silent = True)
   # model = compare_models()
   # modelResultDf = pull()
 
@@ -331,7 +331,7 @@ def rowSummary():
 
 @app.route('/combination', methods=['GET', 'POST'])
 def combinationTable():
-  with open('static/example_combination.json') as f:
+  with open('static/example_combinationTable.json') as f:
     combinationData = json.load(f)
 
   return json.dumps(combinationData)
@@ -469,12 +469,8 @@ def recommend():
       beforeDf = df
 
     if issue == 'correlation' or issue == 'relevance':
-      tmpList = []
-      for column in columnList:
-        columnSeries = beforeDf[column].dropna()
-        tmpList.append(pd.to_numeric(columnSeries, errors = 'coerce'))
-
-      inconsNaNDf = pd.concat(tmpList, axis = 1)
+      inconsNaNSeries = beforeDf.apply(pd.to_numeric, errors = 'coerce')
+      inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
       allCorrDf = inconsNaNDf.corr(method = action)
 
       highCorrList = []
@@ -487,12 +483,13 @@ def recommend():
 
         for i in range(len(highCorrList)):
           dropColumnName = highCorrList[i][0]
-          if dropColumnName == column:
+          if dropColumnName == targetColumn:
             dropColumnName = highCorrList[i][1]
-          allCorrDf = allCorrDf.drop([dropColumnName], axis = 1)
+          
+          beforeDf = beforeDf.drop([dropColumnName], axis = 1)
 
       if issue == 'relevance':
-        columnCorrDf = allCorrDf[column]
+        columnCorrDf = allCorrDf[targetColumn]
         
         for row in columnList:
           if columnCorrDf[row] > corrThreshold:
@@ -500,7 +497,7 @@ def recommend():
 
         for i in range(len(highCorrList)):
           dropColumnName = highCorrList[i]
-          allCorrDf = allCorrDf.drop([dropColumnName], axis = 1)
+          beforeDf = beforeDf.drop([dropColumnName], axis = 1)
 
       beforeDf = allCorrDf
     beforeDf.to_csv('static/dataset/' + str(i + 1) + '.csv', index = False)
@@ -548,7 +545,6 @@ def new():
           columnDf = columnDf
         else:
           columnDf = columnDf.drop(inconsIndex)
-        
         actionColumnDfList.append(columnDf)
 
       columnConcatDf = actionColumnDfList[0]
@@ -804,12 +800,8 @@ def new():
       beforeDf = df
 
     if issue == 'correlation' or issue == 'relevance':
-      tmpList = []
-      for column in columnList:
-        columnSeries = beforeDf[column].dropna()
-        tmpList.append(pd.to_numeric(columnSeries, errors = 'coerce'))
-
-      inconsNaNDf = pd.concat(tmpList, axis = 1)
+      inconsNaNSeries = beforeDf.apply(pd.to_numeric, errors = 'coerce')
+      inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
       allCorrDf = inconsNaNDf.corr(method = action)
 
       highCorrList = []
@@ -822,12 +814,12 @@ def new():
 
         for i in range(len(highCorrList)):
           dropColumnName = highCorrList[i][0]
-          if dropColumnName == column:
+          if dropColumnName == targetColumn:
             dropColumnName = highCorrList[i][1]
-          allCorrDf = allCorrDf.drop([dropColumnName], axis = 1)
+          beforeDf = beforeDf.drop([dropColumnName], axis = 1)
 
       if issue == 'relevance':
-        columnCorrDf = allCorrDf[column]
+        columnCorrDf = allCorrDf[targetColumn]
         
         for row in columnList:
           if columnCorrDf[row] > corrThreshold:
@@ -835,9 +827,8 @@ def new():
 
         for i in range(len(highCorrList)):
           dropColumnName = highCorrList[i]
-          allCorrDf = allCorrDf.drop([dropColumnName], axis = 1)
+          beforeDf = beforeDf.drop([dropColumnName], axis = 1)
 
-      beforeDf = allCorrDf
     beforeDf.to_csv('static/dataset/' + str(i + 1) + '.csv', index = False)
 
   return json.dumps({'new': 'success'})
@@ -865,10 +856,10 @@ def changeCnt():
 
 @app.route('/changeDistort', methods=['GET', 'POST'])
 def changeDistort():
-  global uploadFileName, column
+  global uploadFileName, targetColumn
   beforeDf = pd.read_csv('static/' + uploadFileName + '.csv')
   beforeDf = beforeDf.apply(pd.to_numeric, errors = 'coerce')
-  beforeColumnDf = beforeDf[column]
+  beforeColumnDf = beforeDf[targetColumn]
   beforeColumnList = beforeColumnDf.values.tolist()
 
   req = eval(request.get_data().decode('utf-8'))
@@ -876,7 +867,7 @@ def changeDistort():
 
   afterDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
   afterDf = afterDf.apply(pd.to_numeric, errors = 'coerce')
-  afterColumnDf = afterDf[column]
+  afterColumnDf = afterDf[targetColumn]
   afterColumnList = afterColumnDf.values.tolist()
 
   minValue = beforeColumnDf.min()
