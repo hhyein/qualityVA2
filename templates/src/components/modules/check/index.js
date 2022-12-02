@@ -168,7 +168,7 @@ export default function Check() {
               <div style={{ marginTop: 10 }}>
                 {visualizationData.issueList.map(issue =>
                   <p>
-                    <strong>row index</strong>&nbsp;{issue[0]}&nbsp;
+                    <strong>row</strong>&nbsp;{issue[0]}&nbsp;
                     <strong>value</strong>&nbsp;{issue[1]}
                   </p>
                 )}
@@ -228,7 +228,7 @@ export default function Check() {
               <div style={{ marginTop: 10 }}>
                 {visualizationData.issueList.map(issue =>
                   <p>
-                    <strong>row index</strong>&nbsp;{issue[0]}&nbsp;
+                    <strong>row</strong>&nbsp;{issue[0]}&nbsp;
                     <strong>value</strong>&nbsp;{issue[1]}
                   </p>
                 )}
@@ -244,7 +244,7 @@ export default function Check() {
             <div style={{ marginTop: 10 }}>
               <p><strong>duplicate cnt</strong> {visualizationData.cnt}</p>
               {visualizationData.issueList &&
-                <p><strong>row index</strong> {visualizationData.issueList}</p>
+                <p><strong>row</strong> {visualizationData.issueList}</p>
               }
             </div>
           </div>

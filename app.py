@@ -279,9 +279,7 @@ def checkVisualization():
       for i in outlierIndex:
         outlier = columnDf.iloc[i]
         issueList.append([str(i), str(round(outlier, 3))])
-        #issueList.append('row index: ' + str(i) + ' value: ' + str(round(outlier, 3)))
       
-      print(issueList)
       response['issueList'] = issueList
 
     if method == 'z-score':
@@ -304,11 +302,10 @@ def checkVisualization():
       for i in outlierIndex:
         outlier = columnDf.iloc[i]
         outlierValue.append(outlier)
-        issueList.append([str(i), str(outlier)])
-        issueList.append('row index: ' + str(i) + ' value: ' + str(outlier))
+        issueList.append([str(i), str(round(outlier, 3))])
       
-      response['threshold'] = min(outlierValue)
-      response['standard'] = 'greater than ' + str(min(outlierValue))
+      response['threshold'] = round(min(outlierValue), 3)
+      response['standard'] = 'greater than ' + str(round(min(outlierValue), 3))
       response['issueList'] = issueList
 
   # duplicate
