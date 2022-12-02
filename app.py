@@ -492,6 +492,9 @@ def tablePoint():
 
 @app.route('/columnSummary', methods=['GET', 'POST'])
 def columnSummary():
+  # req = eval(request.get_data().decode('utf-8'))
+  # fileName = req["fileName"]
+
   exampleData = [
         {
           name: 'r1',
@@ -522,7 +525,10 @@ def columnSummary():
 
 @app.route('/rowSummary', methods=['GET', 'POST'])
 def rowSummary():
-  exampleData = [0, 1, 2, 3, 4]
+  # req = eval(request.get_data().decode('utf-8'))
+  # fileName = req["fileName"]
+
+  exampleData = [1, 2, 3, 4, 5]
 
   response = {}
   response['rowIndex'] = exampleData
@@ -1032,6 +1038,30 @@ def new():
     beforeDf.to_csv('static/dataset/' + str(i + 1) + '.csv', index = False)
 
   return json.dumps({'new': 'success'})
+
+@app.route('/impact', methods=['GET', 'POST'])
+def impact():
+  exampleData = [{
+          x: 'missing',
+          y: [1, 5]
+        }, {
+          x: 'outlier',
+          y: [4, 6]
+        }, {
+          x: 'incons',
+          y: [5, 8]
+        }, {
+          x: 'scaling',
+          y: [7, 11]
+        },  {
+          x: 'selection',
+          y: [3, 11]
+        }]
+
+  response = {}
+  response['seriesData'] = exampleData
+
+  return json.dumps(response)
 
 @app.route('/changeCnt', methods=['GET', 'POST'])
 def changeCnt():
