@@ -21,7 +21,7 @@ export default function HeatmapChart(props) {
           enabled: false
         },
         width: 250,
-        height: 220,
+        height: 225,
         type: 'heatmap',
         events: {
           click: (event, chartContext, config) => {

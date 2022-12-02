@@ -213,9 +213,6 @@ def checkVisualization():
 
     rowIdx = req["rowIdx"]
     columnIdx = req["columnIdx"]
-    ##### for test
-    # rowIdx = 0
-    # columnIdx = 2
 
     response['rowIndex'] = str(sliceSize * int(rowIdx)) + '~' + str(sliceSize * (int(rowIdx) + 1))
     response['columnName'] = columnList[int(columnIdx)]
@@ -224,9 +221,12 @@ def checkVisualization():
     sliceDf = columnDf.iloc[sliceSize * int(rowIdx) : sliceSize * (int(rowIdx) + 1)]
     missingIdx = [index for index, row in sliceDf.iterrows() if row.isnull().any()]
 
+    if metric == 'completeness': issue = 'NaN'
+    if metric == 'homogeneity': issue = 'incons'
+
     issueList = []
     for i in missingIdx:
-      issueList.append([i, 'NaN'])
+      issueList.append([i, issue])
 
     response['issueList'] = issueList
 
@@ -271,15 +271,16 @@ def checkVisualization():
       outlierIndex = lowerIdxList + upperIdxList
 
       response['cnt'] = len(outlierIndex)
-      response['lower'] = lower
-      response['upper'] = upper
-      response['standard'] = 'less than ' + str(lower) + ', greater than ' + str(upper)
+      response['lower'] = round(lower, 3)
+      response['upper'] = round(upper, 3)
+      response['standard'] = 'less than ' + str(round(lower, 3)) + ', greater than ' + str(round(upper, 3))
 
       issueList = []
       for i in outlierIndex:
         outlier = columnDf.iloc[i]
-        issueList.append('row index: ' + str(i) + ' value: ' + str(outlier))
+        issueList.append('row index: ' + str(i) + ' value: ' + str(round(outlier, 3)))
       
+      print(issueList)
       response['issueList'] = issueList
 
     if method == 'z-score':
@@ -320,8 +321,6 @@ def checkVisualization():
   # correlation
   if vis == 'correlationChart':
     method = req["method"]
-    ##### for test
-    # method = 'pearson'
     corrThreshold = 0.8
 
     inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
@@ -351,9 +350,10 @@ def checkVisualization():
 
       seriesDataList.append({'name': 'r' + str(i), 'data': columnCntList})
 
+      targetColumnIndex = columnList.index(targetColumn)
       categoryDataList = []
       for column in columnList:
-        categoryDataList.append('c' + str(i))
+        categoryDataList.append('c' + str(targetColumnIndex))
 
     response['seriesData'] = seriesDataList
     response['categoryData'] = categoryDataList
@@ -361,8 +361,6 @@ def checkVisualization():
   # relevance
   if vis == 'relevanceChart':
     method = req["method"]
-    ##### for test
-    # method = 'pearson'
 
     inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
     inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)

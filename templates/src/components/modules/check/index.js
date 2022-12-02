@@ -107,58 +107,28 @@ export default function Check() {
     setMetricValues(metricList[selectedLegendIdx])
   }, [selectedLegendIdx])
 
-  // React.useEffect(() => {
-  //   if (metricValues?.label) {
-  //     setVisualizationList([metricValues.visualChart]);
-
-  //     if (metricValues.visualChart != "heatmapChart")
-  //       return;
-      
-  //     const params = {
-  //       rowIdx: completenessCell[0],
-  //       columnIdx: completenessCell[1],
-  //     }
-  //     updateVisualizationData(treeChartNode, metricValues.visualChart, metricValues.label, params)
-  //   }
-  // }, [metricValues, completenessCell])
-
-  // React.useEffect(() => {
-  //   if (metricValues?.label) {
-  //     setVisualizationList([metricValues.visualChart]);
-
-  //     if (metricValues.visualChart != "histogramChart")
-  //       return;
-      
-  //     const params = {
-  //       column: columnData,
-  //       outlier: outlierData,
-  //     }
-  //     updateVisualizationData(treeChartNode, metricValues.visualChart, metricValues.label, params)
-  //   }
-  // }, [metricValues, columnData, outlierData])
-
   React.useEffect(() => {
     if (metricValues?.label) {
       setVisualizationList([metricValues.visualChart]);
 
       let params = {}
       switch (metricValues.visualChart) {
-        case "heatmapChart": // completeness, homogeneity
+        case "heatmapChart":
           params = {
             rowIdx: completenessCell[0],
             columnIdx: completenessCell[1],
           }
           break
         
-        case "histogramChart": // outlier
+        case "histogramChart":
           params = {
             column: columnData,
             outlier: outlierData,
           }
           break
         
-        case "correlationChart": //correlation
-        case "relevanceChart": // relevance
+        case "correlationChart":
+        case "relevanceChart":
           params = {
             method: corrData,
           }
@@ -168,14 +138,13 @@ export default function Check() {
     }
   }, [
     metricValues,
-    completenessCell, // completeness, homogeneity
-    columnData, outlierData, // outlier
-    corrData, // correlation, relevance
+    completenessCell,
+    columnData, outlierData,
+    corrData,
   ])
 
   const chartData = (value) => {
     switch (value) {
-      // completeness, homogeneity
       case "heatmapChart":
         return <div style={{ display: 'flex', marginLeft: -5 }}>
           <HeatmapChart
@@ -208,7 +177,6 @@ export default function Check() {
           </div>
         </div>
 
-      // outlier
       case "histogramChart":
         return <div style={{ display: 'flex' }}>
           <div>
@@ -282,7 +250,6 @@ export default function Check() {
           </div>
         </>
 
-      // correlation
       case "correlationChart":
         return <>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '60px auto', marginTop: 20, marginRight: 10 }}>
@@ -319,7 +286,6 @@ export default function Check() {
           </div>
         </>
       
-      // relevance
       case "relevanceChart":
         return <>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '60px auto', marginTop: 20, marginRight: 10 }}>
