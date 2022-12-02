@@ -507,9 +507,9 @@ def combinationTable():
 
 @app.route('/recommend', methods=['GET', 'POST'])
 def recommend():
-  req = request.get_data().decode('utf-8')
+  # req = request.get_data().decode('utf-8')
   ##### for test
-  # req = {'combination': ['completeness', 'outlier'], 'combinationDetail': ['min', 'iqr']}
+  req = {'combination': ['completeness', 'outlier'], 'combinationDetail': ['min', 'iqr']}
 
   global uploadFileName, combination, combinationDetail
   combination = req["combination"]
@@ -675,9 +675,9 @@ def recommend():
 
 @app.route('/new', methods=['GET', 'POST'])
 def new():
-  req = request.get_data().decode('utf-8')
+  # req = request.get_data().decode('utf-8')
   ##### for test
-  # req = {'fileName': '1', 'select': 'column', 'selectDetail': 'pH', 'action': 'max'}
+  req = {'fileName': '1', 'select': 'column', 'selectDetail': 'pH', 'action': 'max'}
   fileName = req["fileName"]
   select = req["select"]
   selectDetail = req["selectDetail"]
