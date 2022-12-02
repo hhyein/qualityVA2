@@ -35,10 +35,20 @@ export default function BarChart(props) {
       xaxis: {
         categories: ['row', 'column', 'instance']
       },
+      yaxis: {
+        labels: {
+          show: false
+        }
+      },
       legend: {
         show: false
       },
-      colors: ["#cccccc", "#6C757D"]
+      plotOptions: {
+        bar: {
+          columnWidth: '40%'
+        }
+      },
+      colors: ["#6C757D"]
     };
 
     var chart = new ApexCharts(document.querySelector(".bar-wrapper"), options);

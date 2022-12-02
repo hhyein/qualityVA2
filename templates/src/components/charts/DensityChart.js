@@ -24,16 +24,16 @@ export default function DensityChart(props) {
         enabled: false
       },
       xaxis: {
-        type: 'datetime',
         categories: data.categoryData,
         tooltip: {
           enabled: false
-        }
-      },
-      tooltip: {
-        x: {
-          format: 'dd/MM/yy HH:mm'
         },
+        tickAmount: 5
+      },
+      yaxis: {
+        labels: {
+          show: false
+        }
       },
       legend: {
         show: false

@@ -23,7 +23,7 @@ export default function Change() {
           { changeCntData && <BarChart data={changeCntData} /> }
         </div>
         <Title title="distort" />
-        <div style={{ position: 'relative', bottom: '15px' }}>
+        <div style={{ position: 'relative', bottom: '15px', left: -5 }}>
           { changeDistortData && <DensityChart data={changeDistortData} /> }
         </div>
       </>}

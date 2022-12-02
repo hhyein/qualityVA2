@@ -492,11 +492,42 @@ def tablePoint():
 
 @app.route('/columnSummary', methods=['GET', 'POST'])
 def columnSummary():
-  return json.dumps({'columnSummary': 'success'})
+  exampleData = [
+        {
+          name: 'r1',
+          data: [0, 47, 66, 23, 34, 17, 88, 46, 48, 23, 0, 47, 66]
+        },
+        {
+          name: 'r2',
+          data: [9, 73, 48, 76, 67, 7, 49, 11, 78, 42, 9, 73, 48]
+        },
+        {
+          name: 'r3',
+          data: [51, 70, 56, 31, 34, 24, 32, 58, 33, 4, 51, 70, 56]
+        },
+        {
+          name: 'r4',
+          data: [8, 90, 39, 63, 16, 49, 90, 17, 62, 36, 8, 90, 39]
+        },
+        {
+          name: 'r5',
+          data: [58, 34, 22, 46, 47, 9, 89, 31, 69, 24, 58, 34, 22]
+        },
+      ]
+
+  response = {}
+  response['seriesData'] = exampleData
+
+  return json.dumps(response)
 
 @app.route('/rowSummary', methods=['GET', 'POST'])
 def rowSummary():
-  return json.dumps({'rowSummary': 'success'})
+  exampleData = [0, 1, 2, 3, 4]
+
+  response = {}
+  response['rowIndex'] = exampleData
+
+  return json.dumps(response)
 
 @app.route('/combination', methods=['GET', 'POST'])
 def combinationTable():
@@ -1014,9 +1045,12 @@ def changeCnt():
   afterDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
   afterList = [len(afterDf), len(afterDf.columns), len(afterDf) * len(afterDf.columns)]
 
+  diffList = []
+  for i in range(0, 3):
+    diffList.append(beforeList[i] - afterList[i])
+
   seriesDataList = []
-  seriesDataList.append({'name': 'before', 'data': beforeList})
-  seriesDataList.append({'name': 'after', 'data': afterList})
+  seriesDataList.append({'name': 'diff', 'data': diffList})
 
   response = {}
   response['seriesData'] = seriesDataList
