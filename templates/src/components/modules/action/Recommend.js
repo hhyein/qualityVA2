@@ -17,9 +17,25 @@ export default function Combination() {
 
   const [lengthList, setLengthList] = React.useState();
   const [lengthValues, setLengthValues] = React.useState();
+  const [sortList, setSortList] = React.useState();
+  const [sortValues, setSortValues] = React.useState();
   const [actionList, setActionList] = React.useState();
   const [checkedList, setCheckList] = React.useState();
   const imgNameList = ['', 'c', 'o', 'i', 'd', 'm', 'r'];
+  
+  React.useEffect(() => {
+    if(combinationData) {
+      setSortList(combinationData.inputEvalList.map((element, idx) => ({ label: element, value: idx })));
+    }
+  }, [combinationData]);
+
+  React.useEffect(() => {
+    if(sortValues?.label) {
+      setCombinationTableSortingInfo({
+        column: sortValues?.label,
+      });
+    }
+  }, [sortValues]);
 
   React.useEffect(() => {
     if(selectedCombinationTableRow?.key && combinationData) {
@@ -120,7 +136,11 @@ export default function Combination() {
   )
 
   const handleChange = (key, value) => {
-    setLengthValues(value);
+    if(key === 'length') {
+      setLengthValues(value);
+    } else if (key === 'sort') {
+      setSortValues(value);
+    }
   }
 
   const handleCheckBox = (checkName) => {
@@ -138,8 +158,8 @@ export default function Combination() {
         marginBottom: '5px'
       }}>
         <div style={{
-          width: '45%',
-          margin: '0 2.5%'
+          width: '30%',
+          margin: '0 2%'
         }}>
           <Title title="length" />
           <Select className="select"
@@ -151,11 +171,24 @@ export default function Combination() {
           />
         </div>
         <div style={{
-          width: '45%',
-          margin: '0 2.5%',
+          width: '30%',
+          margin: '0 2%'
+        }}>
+          <Title title="sort" />
+          <Select className="select"
+            options={sortList}
+            placeholder={<div>select</div>}
+            onChange={v => {
+              handleChange('sort', v)
+            }}
+          />
+        </div>
+        <div style={{
+          width: '30%',
+          margin: '0 2%'
         }}>
           <Title title="action" />
-          <div class="dropdown" style={{ marginLeft: '10px' }} >
+          <div class="dropdown">
             <button class="dropbtn">select</button>
             <div class="dropdown-content">
 
