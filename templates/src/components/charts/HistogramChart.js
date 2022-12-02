@@ -35,23 +35,11 @@ export default function HistogramChart(props) {
       xaxis: {
         categories: data.categoryData,
       },
-      plotOptions: {
-        bar: {
-          colors: {
-            ranges: [{
-              to: data.lower,
-              color: '#D91212'
-            }, {
-              from: data.lower,
-              to: data.upper,
-              color: '#6C757D'
-            }, {
-              from: data.upper,
-              color: '#D91212'
-            }]
-          },
-        }
-      }
+      colors: [({ value, seriesIndex, dataPointIndex }) => {
+        if (data.categoryData[dataPointIndex] <= data.lower || data.categoryData[dataPointIndex] >= data.upper)
+          return '#D91212'
+        return '#6C757D'
+      }]
     };
 
     var chart = new ApexCharts(document.querySelector(".histogram-wrapper"), options);
