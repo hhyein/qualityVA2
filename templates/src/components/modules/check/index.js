@@ -158,8 +158,8 @@ export default function Check() {
             <div style={{ width: 193, height: 85, border: '1px solid #999999', marginTop: 30 }}>
               <div style={{ position: 'absolute', top: 20, left: 10, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
               <div style={{ marginTop: 10 }}>
-                <p><strong>row index</strong> {completenessCell[0]}</p>
-                <p><strong>column name</strong> {completenessCell[1]}</p>
+                <p><strong>row index</strong> {visualizationData.rowIndex}</p>
+                <p><strong>column name</strong> {visualizationData.columnName}</p>
                 <p><strong>quality issue cnt</strong> {completenessQualityIssueCnt}</p>
               </div>
             </div>
