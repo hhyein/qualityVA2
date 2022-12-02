@@ -392,7 +392,7 @@ export default function Check() {
               </div>
             </div>
           </div>
-          {dataList && dataIndex &&
+          {dataList && dataList.length > 0 && dataIndex &&
             <div style={{
               position: 'relative',
               top: dataIndex.top - 37,
@@ -407,15 +407,15 @@ export default function Check() {
                 height: '30px',
                 padding: '2px'
               }}>
-                step {dataIndex.index}
+                step {dataIndex?.index}
               </div>
               <div style={{
                 padding: '2px'
               }}>
-                method: {dataIndex.index === '0' ? 'none' : dataList[Number.parseInt(dataIndex.index) - 1].props.children[0]}</div>
+                method: {dataIndex?.index === '0' ? 'none' : dataList[Number.parseInt(dataIndex?.index) - 1].props?.children[0]}</div>
               <div style={{
                 padding: '2px'
-              }}>detail method: {dataIndex.index === '0' ? 'none' : dataList[Number.parseInt(dataIndex.index) - 1].props.children[1]}</div>
+              }}>detail method: {dataIndex?.index === '0' ? 'none' : dataList[Number.parseInt(dataIndex?.index) - 1].props?.children[1]}</div>
             </div>}
         </div>}
     </Box>
