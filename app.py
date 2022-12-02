@@ -675,7 +675,7 @@ def recommend():
 
 @app.route('/new', methods=['GET', 'POST'])
 def new():
-  # req = request.get_data().decode('utf-8')
+  req = request.get_data().decode('utf-8')
   ##### for test
   req = {'fileName': '1', 'select': 'column', 'selectDetail': 'pH', 'action': 'max'}
   fileName = req["fileName"]

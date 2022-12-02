@@ -30,7 +30,7 @@ export default function TreeChart(props) {
   useEffect(() => {
     if (treeData) {
       const temp = {
-        "index": "0",
+        "index": 0,
         "state": "none",
         "name": "start",
         "children": []
@@ -40,7 +40,7 @@ export default function TreeChart(props) {
 
       for (var i = 1; i <= treeData.length; i++) {
         root.children.push({
-          "index": i.toString(),
+          "index": i,
           "state": "state",
           "name": "name",
           "children": [],

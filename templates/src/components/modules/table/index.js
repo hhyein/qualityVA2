@@ -33,9 +33,8 @@ export default function Table() {
       setCustomValues({
         ...customValues,
         'select': key === 'row' ? 'row' : 'column',
-        'selectDetail': key === 'row' ? idx : columnDatas[0][idx],
+        'selectDetail': key === 'row' ? idx-1 : columnDatas[0][idx],
       })
-      // postData('/new', checkTableData);
     }
   }
 
