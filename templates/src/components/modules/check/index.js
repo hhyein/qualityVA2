@@ -58,7 +58,7 @@ export default function Check() {
     setTreeChartNode,
     treeChartNode
   } = useFileData()
-  
+
   const [metricValues, setMetricValues] = React.useState({
     label: "completeness",
     visualChart: "heatmapChart",
@@ -68,7 +68,10 @@ export default function Check() {
   const [completenessCell, setCompletenessCell] = React.useState([0, 0]);
   const [completenessQualityIssueCnt, setCompletenessQualityIssueCnt] = React.useState('');
   const [dataList, setDataList] = React.useState();
-  const [dataIndex, setDataIndex] = React.useState();
+  const [dataIndex, setDataIndex] = React.useState({
+    index: 0,
+    top: 0
+  });
   const [checkTableData, setCheckTableData] = React.useState([1]);
   const [renderChartData, setRenderChartData] = React.useState([{
     key: 1,
@@ -80,7 +83,7 @@ export default function Check() {
   const [corrData, setCorrData] = React.useState();
 
   React.useEffect(() => {
-    if(columnList) {
+    if (columnList) {
       setColumnData(columnList[0].label)
       setOutlierData(outlierList[0].label)
       setCorrData(correlationList[0].label)
@@ -95,7 +98,7 @@ export default function Check() {
             <img
               src={require(`../../icons/${imgName}.png`)}
               alt={''}
-              style={{ height: '25px', width: '25px' }}
+              style={{ height: 20, width: 20 }}
             />
           ))}
         </div>
@@ -119,14 +122,14 @@ export default function Check() {
             columnIdx: completenessCell[1],
           }
           break
-        
+
         case "histogramChart":
           params = {
             column: columnData,
             outlier: outlierData,
           }
           break
-        
+
         case "correlationChart":
         case "relevanceChart":
           params = {
@@ -260,7 +263,7 @@ export default function Check() {
               />
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr' }}>
-            <div>
+              <div>
                 <Title title="method" />
                 <Select className="select"
                   options={correlationList}
@@ -272,7 +275,7 @@ export default function Check() {
                 />
               </div>
             </div>
-            <div style={{ gridColumn: '2 / 3'}}>
+            <div style={{ gridColumn: '2 / 3' }}>
               <div style={{ position: 'relative', height: 112, marginTop: 10, border: '1px solid #999999' }}>
                 <div style={{ position: 'absolute', top: -10, left: 2, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
                 <div style={{ marginTop: 10 }}>
@@ -285,7 +288,7 @@ export default function Check() {
             </div>
           </div>
         </>
-      
+
       case "relevanceChart":
         return <>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '60px auto', marginTop: 20, marginRight: 10 }}>
@@ -308,7 +311,7 @@ export default function Check() {
                 />
               </div>
             </div>
-            <div style={{ gridColumn: '2 / 3'}}>
+            <div style={{ gridColumn: '2 / 3' }}>
               <div style={{ position: 'relative', height: 112, marginTop: 10, border: '1px solid #999999' }}>
                 <div style={{ position: 'absolute', top: -10, left: 2, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
                 <div style={{ marginTop: 10 }}>
@@ -376,46 +379,58 @@ export default function Check() {
               setCheckTableData={setCheckTableData}
               data={modelTableData}
               renderChartData={renderChartData}
-              setRenderChartData={setRenderChartData} /> }
-            
+              setRenderChartData={setRenderChartData} />}
+
             <div style={{ display: 'flex' }}>
               <div style={{ position: 'relative', top: 10, left: 2 }}>
                 <RaderChart data={renderChartData} />
               </div>
               <div style={{ overflowY: 'auto', zIndex: 100, marginLeft: -2 }}>
-                <TreeChart 
-                treeData={dataList} 
-                setDataIndex={setDataIndex} 
-                actionRadioValue={actionRadioValue}
-                onNodeClick = {setTreeChartNode}
-                treeChartNode = {treeChartNode} />
+                <TreeChart
+                  treeData={dataList}
+                  setDataIndex={setDataIndex}
+                  actionRadioValue={actionRadioValue}
+                  onNodeClick={setTreeChartNode}
+                  treeChartNode={treeChartNode} />
               </div>
             </div>
           </div>
           {dataList && dataList.length > 0 && dataIndex &&
             <div style={{
               position: 'relative',
+              border: '1px solid #eee',
+              borderRadius: '10px',
               top: dataIndex.top - 37,
               right: '15px',
-              minWidth: '160px',
-              height: '100px',
+              minWidth: '120px',
+              height: '80px',
               backgroundColor: '#fff',
-              zIndex: 100
+              zIndex: 100,
+              fontSize: 12
             }}>
               <div style={{
                 backgroundColor: '#eee',
-                height: '30px',
-                padding: '2px'
+                height: '20px',
+                padding: '2px',
+                borderRadius: '10px 10px 0px 0px',
               }}>
                 step {dataIndex?.index}
               </div>
               <div style={{
-                padding: '2px'
+                display: 'flex',
+                padding: '2px',
+                fontSize: 12
               }}>
-                method: {dataIndex?.index === '0' ? 'none' : dataList[Number.parseInt(dataIndex?.index) - 1].props?.children[0]}</div>
+                <div style={{
+                  margin: 2
+                }}>method: {dataIndex?.index === 0 && 'none'} </div> {dataIndex?.index !== 0 && dataList[Number.parseInt(dataIndex?.index) - 1].props?.children[0]}</div>
               <div style={{
-                padding: '2px'
-              }}>detail method: {dataIndex?.index === '0' ? 'none' : dataList[Number.parseInt(dataIndex?.index) - 1].props?.children[1]}</div>
+                display: 'flex',
+                padding: '2px',
+                fontSize: 12
+              }}><div style={{
+                margin: 2
+              }}>detail method: {dataIndex?.index === 0 && 'none'} </div>{dataIndex?.index !== 0 && dataList[Number.parseInt(dataIndex?.index) - 1].props?.children[1]}</div>
             </div>}
         </div>}
     </Box>
