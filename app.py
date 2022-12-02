@@ -713,26 +713,21 @@ def recommend():
 
   return json.dumps({'recommend': 'success'})
 
-@app.route('/new', methods=['GET', 'POST'])
-def new():
+@app.route('/newVisualization', methods=['GET', 'POST'])
+def newVisualization():
   req = request.get_data().decode('utf-8')
   req = eval(req)
   
   fileName = req["fileName"]
   select = req["select"]
   selectDetail = req["selectDetail"]
-  action = req["action"]
 
-  global combination, combinationDetail, targetColumn
-  customIssue = combination[int(fileName) - 1]
-  originAction = combinationDetail[int(fileName) - 1]
-
-  originDf = pd.read_csv('static/dataset/' + str(int(fileName) - 1) + '.csv')
+  originDf = pd.read_csv('static/dataset/' + fileName + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
 
   # visualization
   if select == 'column':
-    columnDf = originDf.loc[:, [targetColumn]]
+    columnDf = originDf.loc[:, [selectDetail]]
     columnDf = columnDf.apply(pd.to_numeric, errors = 'coerce')
 
     # box plot
@@ -751,6 +746,9 @@ def new():
     response['boxplotSeriesData'] = [data]
 
     # histogram
+    columnDf = originDf[selectDetail]
+    columnDf = columnDf.apply(pd.to_numeric, errors = 'coerce')
+
     columnList = columnDf.values.tolist()
     minValue = columnDf.min()
     maxValue = columnDf.max()
@@ -772,7 +770,7 @@ def new():
           if columnList[j] >= minRange and columnList[j] <= maxRange:
             columnCntList[i] = columnCntList[i] + 1
 
-    seriesDataList.append({'name': columnName, 'data': columnCntList})
+    seriesDataList.append({'name': selectDetail, 'data': columnCntList})
 
     response = {}
     response['histogramSeriesData'] = seriesDataList
@@ -780,7 +778,7 @@ def new():
 
   if select == 'row':
     # scatter plot
-    scatterDf = originDf.dropna()
+    scatterDf = originDf.apply(pd.to_numeric, errors = 'coerce').dropna()
     scatterDf = scatterDf.reset_index(drop = True)
 
     from sklearn.manifold import TSNE
@@ -788,15 +786,34 @@ def new():
 
     tsneDf = TSNE(n_components = 2, random_state = 0).fit_transform(dataMatrix)
     tsneDf = pd.DataFrame(tsneDf, columns = ['value1', 'value2'])
-    tsneList = list(tsneDf.transpose().to_dict().values())
-    print(tsneList)
+    tsneList = tsneDf.values.tolist()
 
+    selectList = [tsneList[int(selectDetail)]]
+    del tsneList[int(selectDetail)]
 
+    response = {}
+    response['selectSeriesData'] = selectList
+    response['notSelectSeriesData'] = tsneList
 
+  return json.dumps(response)
 
+@app.route('/new', methods=['GET', 'POST'])
+def new():
+  req = request.get_data().decode('utf-8')
+  req = eval(req)
+  
+  fileName = req["fileName"]
+  select = req["select"]
+  selectDetail = req["selectDetail"]
+  action = req["action"]
 
-
+  originDf = pd.read_csv('static/dataset/' + str(int(fileName) - 1) + '.csv')
+  originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
   columnList = list(originDf.columns)
+
+  global combination, combinationDetail, targetColumn
+  customIssue = combination[int(fileName) - 1]
+  originAction = combinationDetail[int(fileName) - 1]
 
   # customization
   if select == 'column':
