@@ -494,32 +494,88 @@ def tablePoint():
 def columnSummary():
   # req = eval(request.get_data().decode('utf-8'))
   # fileName = req["fileName"]
+  fileName = 0
 
-  exampleData = [
-        {
-          name: 'r1',
-          data: [0, 47, 66, 23, 34, 17, 88, 46, 48, 23, 0, 47, 66]
-        },
-        {
-          name: 'r2',
-          data: [9, 73, 48, 76, 67, 7, 49, 11, 78, 42, 9, 73, 48]
-        },
-        {
-          name: 'r3',
-          data: [51, 70, 56, 31, 34, 24, 32, 58, 33, 4, 51, 70, 56]
-        },
-        {
-          name: 'r4',
-          data: [8, 90, 39, 63, 16, 49, 90, 17, 62, 36, 8, 90, 39]
-        },
-        {
-          name: 'r5',
-          data: [58, 34, 22, 46, 47, 9, 89, 31, 69, 24, 58, 34, 22]
-        },
-      ]
+  originDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
+  originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
+  columnList = list(originDf.columns)
+  totalNum = len(originDf)
 
+  comList = []
+  outList = []
+  homList = []
+  for column in columnList:
+    # completeness
+    columnDf = originDf.loc[:, [column]]
+    mis = sum(list(columnDf.isnull().sum()))
+    misRate = round((mis/totalNum) * 100)
+
+    # outlier
+    columnDf = pd.DataFrame(pd.to_numeric(columnDf.squeeze(), errors = 'coerce'))
+    columnDf = columnDf.dropna()
+
+    lower, upper = main.lower_upper(columnDf[column])
+    lowerIdxList = list(columnDf[columnDf[column] > upper].index.values)
+    upperIdxList = list(columnDf[columnDf[column] < lower].index.values)
+    out = len(lowerIdxList + upperIdxList)
+    outRate = round((out/totalNum) * 100)
+
+    # homogeneity
+    columnDf = originDf[column].dropna()
+    columnDf = pd.DataFrame(pd.to_numeric(columnDf, errors = 'coerce'))
+    conIdxList = list(columnDf[columnDf[column].isnull()].index)
+    inc = len(conIdxList)
+    incRate = round((inc/totalNum) * 100)
+
+    comList.append(misRate)
+    outList.append(outRate)
+    homList.append(incRate)
+
+  inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
+  inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
+  allCorrDf = inconsNaNDf.corr()
+  corrThreshold = 0.8
+
+  # correlation
+  corrColumnList = []
+  for column in columnList:
+    columnCorrDf = abs(allCorrDf[column])
+    highCorrDf = columnCorrDf[columnCorrDf > corrThreshold]
+    
+    if len(highCorrDf) > 1:
+      corrColumnList.append(list(highCorrDf.index))
+
+  corrColumnList = sum(corrColumnList, [])
+  corrColumnList = list(set(corrColumnList))
+  corList = [0 for i in range(len(columnList))]
+  for i in range(len(columnList)):
+    if columnList[i] in corrColumnList:
+      corList[i] = 100
+
+  # relevence
+  allCorrDf = allCorrDf.reindex(sorted(allCorrDf.columns), axis = 1)
+  columnCorrDf = allCorrDf[targetColumn]
+
+  seriesDataList = []
+  columnCorrColumnList = []
+  for row in columnList:
+    if row == targetColumn: continue
+    if columnCorrDf[row] > 0.8 or columnCorrDf[row] < -0.8:
+      columnCorrColumnList.append(row)
+
+  relList = [0 for i in range(len(columnList))]
+  for i in range(len(columnList)):
+    if columnList[i] in columnCorrColumnList:
+      relList[i] = 100
+
+  columnSummaryData = [comList, outList, homList, corList, relList]
+  seriesData = []
+  for i in range(0, 5):
+    seriesData.append({'name': 'r' + str(i + 1), 'data': columnSummaryData[i]})
+  
   response = {}
-  response['seriesData'] = exampleData
+  response['seriesData'] = seriesData
+  response['categoryData'] = columnList
 
   return json.dumps(response)
 
@@ -527,11 +583,15 @@ def columnSummary():
 def rowSummary():
   # req = eval(request.get_data().decode('utf-8'))
   # fileName = req["fileName"]
+  fileName = 0
 
-  exampleData = [1, 2, 3, 4, 5]
+  originDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
+  originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
+  dupDf = originDf[originDf.duplicated(keep = False)]
+  dupList = list(dupDf.index)
 
   response = {}
-  response['rowIndex'] = exampleData
+  response['rowIndex'] = dupList
 
   return json.dumps(response)
 

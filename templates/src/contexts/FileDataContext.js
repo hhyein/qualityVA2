@@ -214,6 +214,8 @@ export const FileDataProvider = ({ children }) => {
     const tableData = await postData('/new', option);
   }
 
+  postData('/columnSummary')
+
   return (
     <FileDataContext.Provider
       value={{
