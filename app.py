@@ -278,7 +278,8 @@ def checkVisualization():
       issueList = []
       for i in outlierIndex:
         outlier = columnDf.iloc[i]
-        issueList.append('row index: ' + str(i) + ' value: ' + str(round(outlier, 3)))
+        issueList.append([str(i), str(round(outlier, 3))])
+        #issueList.append('row index: ' + str(i) + ' value: ' + str(round(outlier, 3)))
       
       print(issueList)
       response['issueList'] = issueList
@@ -303,6 +304,7 @@ def checkVisualization():
       for i in outlierIndex:
         outlier = columnDf.iloc[i]
         outlierValue.append(outlier)
+        issueList.append([str(i), str(outlier)])
         issueList.append('row index: ' + str(i) + ' value: ' + str(outlier))
       
       response['threshold'] = min(outlierValue)
