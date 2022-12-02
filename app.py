@@ -807,13 +807,13 @@ def new():
   selectDetail = req["selectDetail"]
   action = req["action"]
 
-  originDf = pd.read_csv('static/dataset/' + str(int(fileName) - 1) + '.csv')
+  originDf = pd.read_csv('static/dataset/' + str(fileName - 1) + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
   columnList = list(originDf.columns)
 
   global combination, combinationDetail, targetColumn
-  customIssue = combination[int(fileName) - 1]
-  originAction = combinationDetail[int(fileName) - 1]
+  customIssue = combination[fileName - 1]
+  originAction = combinationDetail[fileName - 1]
 
   # customization
   if select == 'column':
@@ -969,12 +969,12 @@ def new():
   if select == 'row':
     originDf = originDf.drop([int(selectDetail)])
 
-  originDf.to_csv('static/dataset/' + fileName + '.csv', index = False)
+  originDf.to_csv('static/dataset/' + str(fileName) + '.csv', index = False)
 
   # customization after dataset
   beforeDf = originDf
 
-  for i in range(int(fileName), len(combination)):
+  for i in range(fileName, len(combination)):
     issue = combination[i]
     action = combinationDetail[i]
 
