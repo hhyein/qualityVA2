@@ -11,7 +11,9 @@ export default function Table() {
     actionRadioValue,
     checkTableData,
     setCheckTableData,
-    tableData
+    tableData,
+    setCustomValues,
+    customValues
   } = useFileData()
 
   const [rColorData, setrColorData] = React.useState({});
@@ -28,13 +30,23 @@ export default function Table() {
         key: key,
         data: idx
       });
-
-      postData('/new', checkTableData);
+      setCustomValues({
+        ...customValues,
+        'select': key === 'row' ? 'row' : 'column',
+        'selectDetail': key === 'row' ? idx-1 : columnDatas[0][idx],
+      })
     }
   }
 
   React.useEffect(() => {
-    if(!tablePointData) {
+    if (columnDatas.length === 0) {
+      return;
+    }
+    handleTableClick('row', 1)
+  }, [columnDatas])
+
+  React.useEffect(() => {
+    if (!tablePointData) {
       return;
     }
     setPointData({
@@ -72,7 +84,7 @@ export default function Table() {
   }, [tablePointData]);
 
   React.useEffect(() => {
-    if(!pointData) {
+    if (!pointData) {
       return;
     }
     const rColorData = {};
@@ -87,15 +99,15 @@ export default function Table() {
       for (let point of pointData[key]['points']) {
         if (rColorData[point.x] === undefined)
           rColorData[point.x] = {};
-        rColorData[point.x][point.y+1] = rColor;
+        rColorData[point.x][point.y + 1] = rColor;
 
         if (gColorData[point.x] === undefined)
           gColorData[point.x] = {};
-        gColorData[point.x][point.y+1] = gColor;
+        gColorData[point.x][point.y + 1] = gColor;
 
         if (bColorData[point.x] === undefined)
           bColorData[point.x] = {};
-        bColorData[point.x][point.y+1] = bColor;
+        bColorData[point.x][point.y + 1] = bColor;
       }
     }
 
@@ -107,24 +119,27 @@ export default function Table() {
   React.useEffect(() => {
     if (tableData) {
       const codeData = [...tableData.tableData];
-        codeData[0].unshift('idx');
-        for(let i=1;i<codeData.length;i++) {
-          codeData[i].unshift(`${i}`);
-        }
-        const columnWidth = 740/(codeData[0].length);
-        setGridData(Array.from({length: codeData[0].length }, () => `${columnWidth}px`).join(" "));
-        setcolumnDatas(codeData);
+      if (codeData[0][0] === 'idx') {
+        return;
+      }
+      codeData[0].unshift('idx');
+      for (let i = 1; i < codeData.length; i++) {
+        codeData[i].unshift(`${i}`);
+      }
+      const columnWidth = 740 / (codeData[0].length);
+      setGridData(Array.from({ length: codeData[0].length }, () => `${columnWidth}px`).join(" "));
+      setcolumnDatas(codeData);
     }
   }, [tableData]);
 
   const getBgColor = (rowNumber, columnNumber) => {
-    if((checkTableData.key === 'row' && checkTableData.data === rowNumber) || (checkTableData.key === 'col' && checkTableData.data === columnNumber)) {
-      if(columnNumber > 0 && rColorData[rowNumber] && rColorData[rowNumber][columnNumber]) {
+    if ((checkTableData.key === 'row' && checkTableData.data === rowNumber) || (checkTableData.key === 'col' && checkTableData.data === columnNumber)) {
+      if (columnNumber > 0 && rColorData[rowNumber] && rColorData[rowNumber][columnNumber]) {
         return `rgba(${rColorData[rowNumber][columnNumber]}, ${gColorData[rowNumber][columnNumber]}, ${bColorData[rowNumber][columnNumber]}, 0.7)`;
       }
       return '#eee';
     }
-    if(columnNumber > 0 && rColorData[rowNumber] && rColorData[rowNumber][columnNumber]) {
+    if (columnNumber > 0 && rColorData[rowNumber] && rColorData[rowNumber][columnNumber]) {
       return `rgba(${rColorData[rowNumber][columnNumber]}, ${gColorData[rowNumber][columnNumber]}, ${bColorData[rowNumber][columnNumber]}, 0.5)`;
     }
     return undefined;
@@ -175,9 +190,9 @@ export default function Table() {
                                   fontWeight: 'bold',
                                   borderRight: columnNumber === columnData.length - 1 && 'none',
                                 }}
-                                >
-                                  {data.toString().slice(0, 5)}
-                                </div>
+                              >
+                                {data.toString().slice(0, 5)}
+                              </div>
                               : <div
                                 className="grid-td"
                                 onClick={idx === 0 ? onClickRow : undefined}

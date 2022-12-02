@@ -8,90 +8,121 @@ import RowScatterChart from '../../charts/RowScatterChart'
 
 export default function Action() {
   const {
-    checkTableData
+    checkTableData,
+    customValues,
+    treeChartData,
+    setCustomValues,
+    treeChartNode,
+    updateCustomData
   } = useFileData()
 
-  const actionList = ['remove', 'missing', 'outlier', 'inconsistent', 'transformation', 'none'].map((item, idx) => {
-    return {
-      label: item,
-      value: idx
-    }
-  });
-
+  const [actionList, setActionList] = React.useState([]);
   const [actionValues, setActionValues] = React.useState();
-
-  const [actionDetailList, setActionDetailList] = React.useState();
-  const [actionDetailValues, setActionDetailValues] = React.useState();
+  const [buttonActive, setButtonActive] = React.useState(false);
 
   React.useEffect(() => {
-    if(actionValues?.label === 'transformation') {
-      setActionDetailValues();
-      setActionDetailList(['log', 'mbs', 'mm', 'rob', 'sqt', 'std'].map((item, idx) => {
+    if (treeChartNode === 0) {
+      setActionValues();
+      setActionList([]);
+      return;
+    }
+    if (customValues.select === 'column') {
+      setActionValues();
+      const node = treeChartData[treeChartNode - 1][0];
+      if (node === 'm') setActionList(['none', 'remove', 'min', 'max', 'mean', 'median'].map((item, idx) => {
         return {
           label: item,
           value: idx
         }
       }));
-    } else {
-      setActionDetailValues();
-      setActionDetailList(['em', 'lof', 'max', 'med', 'men', 'min', 'mod', 'rem'].map((item, idx) => {
+      else if (node === 'o') setActionList(['none', 'iqr', 'zscore'].map((item, idx) => {
+        return {
+          label: item,
+          value: idx
+        }
+      }));
+      else if (node === 'i') setActionList(['deletion'].map((item, idx) => {
+        return {
+          label: item,
+          value: idx
+        }
+      }));
+      else if (node === 'c' || node === 'r') setActionList(['deletion'].map((item, idx) => {
+        return {
+          label: item,
+          value: idx
+        }
+      }));
+    } else if (customValues.select === 'row') {
+      setActionValues();
+      setActionList(['deletion'].map((item, idx) => {
         return {
           label: item,
           value: idx
         }
       }));
     }
-  }, [actionValues])
+  }, [customValues, treeChartData, treeChartNode])
+
+  React.useEffect(() => {
+    if (
+      customValues?.select &&
+      customValues?.selectDetail >= 0 &&
+      customValues?.action) {
+      setButtonActive(true);
+    } else {
+      setButtonActive(false);
+    }
+  }, [customValues])
 
   const handleChange = (key, value) => {
     if (key === 'action') {
       setActionValues(value);
-    } else {
-      setActionDetailValues(value);
+      setCustomValues({
+        ...customValues,
+        action: value?.label
+      })
     }
   }
 
+  const submitSetting = () => {
+    updateCustomData(treeChartNode);
+  }
+
   return (
-      <React.Fragment>
-        {checkTableData.key === 'col' ?
-          <React.Fragment>
-            <ColumnBoxplotChart />
-            <ColumnHistogramChart />
-          </React.Fragment>
-          :
-          <RowScatterChart />
-        }
-        <div style={{ display: 'flex', position: 'relative', bottom: (checkTableData.key === 'col' ? 80 : 20) }}>
-          <div style={{
-            width: '47.5%',
-            margin: '0 5%'
-          }}>
-            <Title title="action" />
-            <Select className="select"
-              options={actionList}
-              placeholder={<div>select</div>}
-              defaultValue={actionValues}
-              onChange={v => {
-                handleChange('action', v)
-              }}
-            />
-          </div>
-          <div style={{ width: '47.5%' }} >
-            {actionValues && actionValues?.label !== 'remove' && actionValues?.label !== 'none' &&
-              <React.Fragment>
-              <Title title="actionDetail" />
-              <Select className="select"
-                options={actionDetailList}
-                placeholder={<div>select</div>}
-                defaultValue={actionDetailValues}
-                onChange={v => {
-                  handleChange('actionDetail', v)
-                }}
-              />
-            </React.Fragment>
-            }
-          </div>
+    <React.Fragment>
+      {checkTableData.key === 'col' ?
+        <React.Fragment>
+          <ColumnBoxplotChart />
+          <ColumnHistogramChart />
+        </React.Fragment>
+        :
+        <RowScatterChart />
+      }
+      <div style={{ display: 'flex', position: 'relative', bottom: (checkTableData.key === 'col' ? 80 : 20) }}>
+        <div style={{
+          width: '47.5%',
+          margin: '0 5%'
+        }}>
+          <Title title="action" />
+          <Select className="select"
+            options={actionList}
+            placeholder={<div>select</div>}
+            defaultValue={actionValues}
+            onChange={v => {
+              handleChange('action', v)
+            }}
+          />
         </div>
-      </React.Fragment>
+        <div style={{ width: '47.5%' }} >
+          <React.Fragment>
+            <button
+              disabled={buttonActive ? false : true}
+              style={{ width: '50%', height: 30, marginLeft: '25%', marginTop: 20 }}
+              onClick={submitSetting}>submit</button>
+          </React.Fragment>
+        </div>
+      </div>
+    </React.Fragment>
   )
 }

@@ -52,11 +52,16 @@ export const FileDataProvider = ({ children }) => {
   const [changeCntData, setChangeCntData] = useState();
   const [changeDistortData, setChangeDistort] = useState();
   const [checkTableData, setCheckTableData] = useState({
-    key: 'col',
+    key: 'row',
     data: 1
   });
   const [treeChartNode, setTreeChartNode] = useState(0);
   const [tableData, setTableData] = useState();
+  const [customValues, setCustomValues] = useState({
+    select: 'row',
+    selectDetail: 1,
+    action: undefined
+  })
 
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
@@ -185,6 +190,16 @@ export const FileDataProvider = ({ children }) => {
     setTableData(tableData);
   }
 
+  const updateCustomData = async (fileName) => {
+    const option = {
+      ...customValues,
+      fileName: fileName 
+    }
+    const tableData = await postData('/new', option);
+    console.log(tableData);
+    // setTableData(tableData);
+  }
+
   return (
     <FileDataContext.Provider
       value={{
@@ -218,7 +233,10 @@ export const FileDataProvider = ({ children }) => {
         setCheckTableData,
         treeChartNode,
         setTreeChartNode,
-        tableData
+        tableData,
+        setCustomValues,
+        customValues,
+        updateCustomData
       }}
     >
       {children}
