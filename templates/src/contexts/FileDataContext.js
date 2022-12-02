@@ -137,6 +137,7 @@ export const FileDataProvider = ({ children }) => {
       return
     }
     updateRecommendData()
+    // updateVisualizationData(treeChartNode, 'heatmapChart', 'completeness', {rowIdx: 0, columnIdx: 0})
   }, [selectedCombinationTableData])
 
   const updateRecommendData = async () => {
