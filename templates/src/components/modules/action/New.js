@@ -26,8 +26,12 @@ export default function Action() {
       setActionList([]);
       return;
     }
+    setActionValues();
+    setCustomValues({
+      ...customValues,
+      action: undefined
+    })
     if (customValues.select === 'column') {
-      setActionValues();
       const node = treeChartData[treeChartNode - 1][0];
       if (node === 'm') setActionList(['none', 'remove', 'min', 'max', 'mean', 'median'].map((item, idx) => {
         return {
@@ -54,7 +58,6 @@ export default function Action() {
         }
       }));
     } else if (customValues.select === 'row') {
-      setActionValues();
       setActionList(['deletion'].map((item, idx) => {
         return {
           label: item,
@@ -66,8 +69,8 @@ export default function Action() {
 
   React.useEffect(() => {
     if (
-      customValues?.select &&
-      customValues?.selectDetail >= 0 &&
+      // customValues?.select &&
+      // customValues?.selectDetail &
       customValues?.action) {
       setButtonActive(true);
     } else {
@@ -86,7 +89,9 @@ export default function Action() {
   }
 
   const submitSetting = () => {
-    updateCustomData(treeChartNode);
+    if (treeChartNode) {
+      updateCustomData(treeChartNode);
+    }
   }
 
   return (
