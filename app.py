@@ -544,9 +544,8 @@ def combinationTable():
 
 @app.route('/recommend', methods=['GET', 'POST'])
 def recommend():
-  # req = request.get_data().decode('utf-8')
-  ##### for test
-  req = {'combination': ['completeness', 'outlier'], 'combinationDetail': ['min', 'iqr']}
+  req = request.get_data().decode('utf-8')
+  req = eval(req)
 
   global uploadFileName, combination, combinationDetail
   combination = req["combination"]
@@ -555,6 +554,9 @@ def recommend():
   originDf = pd.read_csv('static/' + uploadFileName + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
   columnList = list(originDf.columns)
+
+  for file in os.scandir('static/dataset/'):
+    os.remove(file.path)
 
   beforeDf = originDf
   beforeDf.to_csv('static/dataset/0.csv', index = False)
@@ -594,8 +596,8 @@ def recommend():
           actionColumnDfList.append(columnDf)
 
         columnConcatDf = actionColumnDfList[0]
-        for k in range(len(actionColumnDfList) - 1):
-          columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
+        for j in range(len(actionColumnDfList) - 1):
+          columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[j + 1]], axis = 1, join = 'inner')
           columnConcatDf = columnConcatDf.reset_index(drop = True)
 
       beforeDf = columnConcatDf
@@ -624,12 +626,12 @@ def recommend():
 
           outlierIndex = []
           zscoreThreshold = 3
-          for i in range(len(inconsNaNDf)):
-              value = inconsNaNDf.iloc[i].values[0]
+          for j in range(len(inconsNaNDf)):
+              value = inconsNaNDf.iloc[j].values[0]
               zscore = ((value - meanValue)/stdValue).values[0]
 
               if zscore > zscoreThreshold:
-                outlierIndex.append(i)
+                outlierIndex.append(j)
       
         for idx in missingIndex:
           columnDf.loc[idx, column] = np.nan
@@ -641,8 +643,8 @@ def recommend():
         actionColumnDfList.append(columnDf)
 
       columnConcatDf = actionColumnDfList[0]
-      for k in range(len(actionColumnDfList) - 1):
-        columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
+      for j in range(len(actionColumnDfList) - 1):
+        columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[j + 1]], axis = 1, join = 'inner')
         columnConcatDf = columnConcatDf.reset_index(drop = True)
 
       beforeDf = columnConcatDf
@@ -662,8 +664,8 @@ def recommend():
         actionColumnDfList.append(columnDf)
 
       columnConcatDf = actionColumnDfList[0]
-      for k in range(len(actionColumnDfList) - 1):
-        columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
+      for j in range(len(actionColumnDfList) - 1):
+        columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[j + 1]], axis = 1, join = 'inner')
         columnConcatDf = columnConcatDf.reset_index(drop = True)
 
       beforeDf = columnConcatDf
@@ -687,10 +689,10 @@ def recommend():
             if allCorrDf.loc[row][column] > corrThreshold:
               highCorrList.append([row, column])
 
-        for i in range(len(highCorrList)):
-          dropColumnName = highCorrList[i][0]
+        for j in range(len(highCorrList)):
+          dropColumnName = highCorrList[j][0]
           if dropColumnName == targetColumn:
-            dropColumnName = highCorrList[i][1]
+            dropColumnName = highCorrList[j][1]
           
           beforeDf = beforeDf.drop([dropColumnName], axis = 1)
 
@@ -701,29 +703,27 @@ def recommend():
           if columnCorrDf[row] > corrThreshold:
             highCorrList.append(row)
 
-        for i in range(len(highCorrList)):
-          dropColumnName = highCorrList[i]
+        for j in range(len(highCorrList)):
+          dropColumnName = highCorrList[j]
           beforeDf = beforeDf.drop([dropColumnName], axis = 1)
 
       beforeDf = allCorrDf
+
     beforeDf.to_csv('static/dataset/' + str(i + 1) + '.csv', index = False)
 
   return json.dumps({'recommend': 'success'})
 
 @app.route('/new', methods=['GET', 'POST'])
 def new():
-  # req = request.get_data().decode('utf-8')
-  ##### for test
-  req = {'fileName': '1', 'select': 'column', 'selectDetail': 'pH', 'action': 'max'}
+  req = request.get_data().decode('utf-8')
+  req = eval(req)
+  
   fileName = req["fileName"]
   select = req["select"]
   selectDetail = req["selectDetail"]
   action = req["action"]
 
   global combination, combinationDetail
-  ##### for test
-  combination = ['completeness', 'outlier']
-  combinationDetail = ['min', 'iqr']
   customIssue = combination[int(fileName) - 1]
   originAction = combinationDetail[int(fileName) - 1]
 
@@ -754,8 +754,8 @@ def new():
         actionColumnDfList.append(columnDf)
 
       columnConcatDf = actionColumnDfList[0]
-      for k in range(len(actionColumnDfList) - 1):
-        columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
+      for i in range(len(actionColumnDfList) - 1):
+        columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[i + 1]], axis = 1, join = 'inner')
         columnConcatDf = columnConcatDf.reset_index(drop = True)
 
       originDf = columnConcatDf
@@ -804,8 +804,8 @@ def new():
           actionColumnDfList.append(columnDf)
 
         columnConcatDf = actionColumnDfList[0]
-        for k in range(len(actionColumnDfList) - 1):
-          columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
+        for i in range(len(actionColumnDfList) - 1):
+          columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[i + 1]], axis = 1, join = 'inner')
           columnConcatDf = columnConcatDf.reset_index(drop = True)
 
       originDf = columnConcatDf
@@ -876,8 +876,8 @@ def new():
         actionColumnDfList.append(columnDf)
 
       columnConcatDf = actionColumnDfList[0]
-      for k in range(len(actionColumnDfList) - 1):
-        columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
+      for i in range(len(actionColumnDfList) - 1):
+        columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[i + 1]], axis = 1, join = 'inner')
         columnConcatDf = columnConcatDf.reset_index(drop = True)
 
       originDf = columnConcatDf
@@ -925,8 +925,8 @@ def new():
           actionColumnDfList.append(columnDf)
 
         columnConcatDf = actionColumnDfList[0]
-        for k in range(len(actionColumnDfList) - 1):
-          columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
+        for j in range(len(actionColumnDfList) - 1):
+          columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[j + 1]], axis = 1, join = 'inner')
           columnConcatDf = columnConcatDf.reset_index(drop = True)
 
       beforeDf = columnConcatDf
@@ -955,12 +955,12 @@ def new():
 
           outlierIndex = []
           zscoreThreshold = 3
-          for i in range(len(inconsNaNDf)):
-              value = inconsNaNDf.iloc[i].values[0]
+          for j in range(len(inconsNaNDf)):
+              value = inconsNaNDf.iloc[j].values[0]
               zscore = ((value - meanValue)/stdValue).values[0]
 
               if zscore > zscoreThreshold:
-                outlierIndex.append(i)
+                outlierIndex.append(j)
       
         for idx in missingIndex:
           columnDf.loc[idx, column] = np.nan
@@ -972,8 +972,8 @@ def new():
         actionColumnDfList.append(columnDf)
 
       columnConcatDf = actionColumnDfList[0]
-      for k in range(len(actionColumnDfList) - 1):
-        columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
+      for j in range(len(actionColumnDfList) - 1):
+        columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[j + 1]], axis = 1, join = 'inner')
         columnConcatDf = columnConcatDf.reset_index(drop = True)
 
       beforeDf = columnConcatDf
@@ -993,8 +993,8 @@ def new():
         actionColumnDfList.append(columnDf)
 
       columnConcatDf = actionColumnDfList[0]
-      for k in range(len(actionColumnDfList) - 1):
-        columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
+      for j in range(len(actionColumnDfList) - 1):
+        columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[j + 1]], axis = 1, join = 'inner')
         columnConcatDf = columnConcatDf.reset_index(drop = True)
 
       beforeDf = columnConcatDf
@@ -1018,10 +1018,10 @@ def new():
             if allCorrDf.loc[row][column] > corrThreshold:
               highCorrList.append([row, column])
 
-        for i in range(len(highCorrList)):
-          dropColumnName = highCorrList[i][0]
+        for j in range(len(highCorrList)):
+          dropColumnName = highCorrList[j][0]
           if dropColumnName == targetColumn:
-            dropColumnName = highCorrList[i][1]
+            dropColumnName = highCorrList[j][1]
           beforeDf = beforeDf.drop([dropColumnName], axis = 1)
 
       if issue == 'relevance':
@@ -1031,8 +1031,8 @@ def new():
           if columnCorrDf[row] > corrThreshold:
             highCorrList.append(row)
 
-        for i in range(len(highCorrList)):
-          dropColumnName = highCorrList[i]
+        for j in range(len(highCorrList)):
+          dropColumnName = highCorrList[j]
           beforeDf = beforeDf.drop([dropColumnName], axis = 1)
 
     beforeDf.to_csv('static/dataset/' + str(i + 1) + '.csv', index = False)

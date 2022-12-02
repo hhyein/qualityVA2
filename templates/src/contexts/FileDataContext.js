@@ -139,6 +139,13 @@ export const FileDataProvider = ({ children }) => {
     updateRecommendData()
   }, [selectedCombinationTableData])
 
+  const updateRecommendData = async () => {
+    const option = {
+      ...selectedCombinationTableData,
+    }
+    const tableData = await postData('/recommend', option);
+  }
+
   const updateDonutChartData = async (fileName) => {
     const option = {
       fileName: fileName 
@@ -204,17 +211,6 @@ export const FileDataProvider = ({ children }) => {
       fileName: fileName 
     }
     const tableData = await postData('/new', option);
-    // console.log(tableData);
-    // setTableData(tableData);
-  }
-
-  const updateRecommendData = async () => {
-    const option = {
-      ...selectedCombinationTableData,
-    }
-    const tableData = await postData('/recommend', option);
-    // console.log(tableData);
-    // setTableData(tableData);
   }
 
   return (
