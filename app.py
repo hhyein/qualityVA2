@@ -723,12 +723,79 @@ def new():
   selectDetail = req["selectDetail"]
   action = req["action"]
 
-  global combination, combinationDetail
+  global combination, combinationDetail, targetColumn
   customIssue = combination[int(fileName) - 1]
   originAction = combinationDetail[int(fileName) - 1]
 
   originDf = pd.read_csv('static/dataset/' + str(int(fileName) - 1) + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
+
+  # visualization
+  if select == 'column':
+    columnDf = originDf.loc[:, [targetColumn]]
+    columnDf = columnDf.apply(pd.to_numeric, errors = 'coerce')
+
+    # box plot
+    columnSeries = columnDf.dropna()
+    q1 = np.quantile(columnSeries, 0.25)
+    q3 = np.quantile(columnSeries, 0.75)
+    iqr = q3 - q1
+    q2 = np.quantile(columnSeries, 0.5)
+    q4 = np.quantile(columnSeries, 1)    
+
+    data = {}
+    data['x'] = selectDetail
+    data['y'] = [q1, q2, iqr, q3, q4]
+
+    response = {}
+    response['boxplotSeriesData'] = [data]
+
+    # histogram
+    columnList = columnDf.values.tolist()
+    minValue = columnDf.min()
+    maxValue = columnDf.max()
+
+    sliceCnt = 20
+    sliceSize = (maxValue - minValue)/sliceCnt
+    columnCntList = [0 for i in range(sliceCnt)]
+
+    seriesDataList = []
+    categoryDataList = []
+
+    for i in range(sliceCnt):
+      minRange = float(minValue + (sliceSize * i))
+      maxRange = float(minValue + (sliceSize * (i + 1)))
+      categoryDataList.append(maxRange)
+
+      for j in range(len(columnList)):
+        if math.isnan(columnList[j]) == False:
+          if columnList[j] >= minRange and columnList[j] <= maxRange:
+            columnCntList[i] = columnCntList[i] + 1
+
+    seriesDataList.append({'name': columnName, 'data': columnCntList})
+
+    response = {}
+    response['histogramSeriesData'] = seriesDataList
+    response['histogramCategoryData'] = categoryDataList
+
+  if select == 'row':
+    # scatter plot
+    scatterDf = originDf.dropna()
+    scatterDf = scatterDf.reset_index(drop = True)
+
+    from sklearn.manifold import TSNE
+    dataMatrix = scatterDf.values
+
+    tsneDf = TSNE(n_components = 2, random_state = 0).fit_transform(dataMatrix)
+    tsneDf = pd.DataFrame(tsneDf, columns = ['value1', 'value2'])
+    tsneList = list(tsneDf.transpose().to_dict().values())
+    print(tsneList)
+
+
+
+
+
+
   columnList = list(originDf.columns)
 
   # customization
