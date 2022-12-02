@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 
 export default function TreeChart(props) {
-  const { treeData, setDataIndex, actionRadioValue, onNodeClick, treeChartNode } = props;
+  const { treeData, setDataIndex, onNodeClick, treeChartNode } = props;
   const svgRef = useRef()
   const d3 = window.d3v3
   const nodeGap = 90
@@ -49,6 +49,7 @@ export default function TreeChart(props) {
       }
       setData(temp);
     }
+    onNodeClick(0)
   }, [treeData])
 
   useEffect(() => {
@@ -110,18 +111,11 @@ export default function TreeChart(props) {
       nodeEnter
         .append('circle')
         .attr('r', 10)
-        // .style('fill', function (d) {
-        //   if (d.state === 'current') {
-        //     return '#999999'
-        //   } else {
-        //     return '#cccccc'
-        //   }
-        // })
         .style('fill', function (d) {
           if (d.index === treeChartNode) {
             return '#999999'
           } else {
-            return '#cccccc'
+            return '#cccccc';
           }
         })
 
@@ -141,7 +135,7 @@ export default function TreeChart(props) {
         .attr('class', 'link')
         .attr('d', diagonal)
     }
-  }, [data, svgRef, treeChartNode])
+  }, [d3, data, onNodeClick, setDataIndex, svgRef, treeChartNode, treeData])
 
   return (
     <>
