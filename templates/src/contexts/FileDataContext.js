@@ -52,11 +52,17 @@ export const FileDataProvider = ({ children }) => {
   const [changeCntData, setChangeCntData] = useState();
   const [changeDistortData, setChangeDistort] = useState();
   const [checkTableData, setCheckTableData] = useState({
-    key: 'col',
+    key: 'row',
     data: 1
   });
   const [treeChartNode, setTreeChartNode] = useState(0);
   const [tableData, setTableData] = useState();
+  const [customValues, setCustomValues] = useState({
+    fileName: 0,
+    select: 'row',
+    selectDetail: 1,
+    action: undefined
+  })
 
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
@@ -218,7 +224,9 @@ export const FileDataProvider = ({ children }) => {
         setCheckTableData,
         treeChartNode,
         setTreeChartNode,
-        tableData
+        tableData,
+        setCustomValues,
+        customValues
       }}
     >
       {children}

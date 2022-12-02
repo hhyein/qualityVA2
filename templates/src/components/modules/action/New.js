@@ -8,46 +8,78 @@ import RowScatterChart from '../../charts/RowScatterChart'
 
 export default function Action() {
   const {
-    checkTableData
+    checkTableData,
+    customValues,
+    setCustomValues,
+    treeChartNode
   } = useFileData()
 
-  const actionList = ['remove', 'missing', 'outlier', 'inconsistent', 'transformation', 'none'].map((item, idx) => {
-    return {
-      label: item,
-      value: idx
-    }
-  });
+  // const actionList = ['remove', 'missing', 'outlier', 'inconsistent', 'transformation', 'none'].map((item, idx) => {
+  //   return {
+  //     label: item,
+  //     value: idx
+  //   }
+  // });
 
+  // console.log(customValues);
+
+  const [actionList, setActionList] = React.useState();
   const [actionValues, setActionValues] = React.useState();
 
-  const [actionDetailList, setActionDetailList] = React.useState();
-  const [actionDetailValues, setActionDetailValues] = React.useState();
+  // React.useEffect(() => {
+  //   if(actionValues?.label === 'transformation') {
+  //     setActionDetailValues();
+  //     setActionDetailList(['log', 'mbs', 'mm', 'rob', 'sqt', 'std'].map((item, idx) => {
+  //       return {
+  //         label: item,
+  //         value: idx
+  //       }
+  //     }));
+  //   } else {
+  //     setActionDetailValues();
+  //     setActionDetailList(['em', 'lof', 'max', 'med', 'men', 'min', 'mod', 'rem'].map((item, idx) => {
+  //       return {
+  //         label: item,
+  //         value: idx
+  //       }
+  //     }));
+  //   }
+  // }, [actionValues])
 
   React.useEffect(() => {
-    if(actionValues?.label === 'transformation') {
-      setActionDetailValues();
-      setActionDetailList(['log', 'mbs', 'mm', 'rob', 'sqt', 'std'].map((item, idx) => {
+    if(customValues.select === 'column') {
+
+    } else if(customValues.selct === 'row') {
+      setActionValues();
+      setActionList(['deletion'].map((item, idx) => {
         return {
           label: item,
           value: idx
         }
-      }));
-    } else {
-      setActionDetailValues();
-      setActionDetailList(['em', 'lof', 'max', 'med', 'men', 'min', 'mod', 'rem'].map((item, idx) => {
-        return {
-          label: item,
-          value: idx
-        }
-      }));
-    }
-  }, [actionValues])
+    }));
+  }
+    // if(actionValues?.label === 'transformation') {
+    //   setActionDetailValues();
+    //   setActionDetailList(['log', 'mbs', 'mm', 'rob', 'sqt', 'std'].map((item, idx) => {
+    //     return {
+    //       label: item,
+    //       value: idx
+    //     }
+    //   }));
+    // } else {
+    //   setActionDetailValues();
+    //   setActionDetailList(['em', 'lof', 'max', 'med', 'men', 'min', 'mod', 'rem'].map((item, idx) => {
+    //     return {
+    //       label: item,
+    //       value: idx
+    //     }
+    //   }));
+    // }
+  }, [customValues])
 
   const handleChange = (key, value) => {
     if (key === 'action') {
       setActionValues(value);
-    } else {
-      setActionDetailValues(value);
     }
   }
 
@@ -76,7 +108,7 @@ export default function Action() {
               }}
             />
           </div>
-          <div style={{ width: '47.5%' }} >
+          {/* <div style={{ width: '47.5%' }} >
             {actionValues && actionValues?.label !== 'remove' && actionValues?.label !== 'none' &&
               <React.Fragment>
               <Title title="actionDetail" />
@@ -90,7 +122,7 @@ export default function Action() {
               />
             </React.Fragment>
             }
-          </div>
+          </div> */}
         </div>
       </React.Fragment>
   )
