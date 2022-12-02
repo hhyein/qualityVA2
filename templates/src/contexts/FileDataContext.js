@@ -62,6 +62,7 @@ export const FileDataProvider = ({ children }) => {
     selectDetail: 1,
     action: undefined
   })
+  const [selectedCombinationTableData, setSelectedCombinationTableData] = useState();
 
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
@@ -131,6 +132,13 @@ export const FileDataProvider = ({ children }) => {
     updateTableData(treeChartNode)
   }, [file, treeChartNode])
 
+  useEffect(() => {
+    if (!selectedCombinationTableData) {
+      return
+    }
+    updateRecommendData()
+  }, [selectedCombinationTableData])
+
   const updateDonutChartData = async (fileName) => {
     const option = {
       fileName: fileName 
@@ -196,7 +204,16 @@ export const FileDataProvider = ({ children }) => {
       fileName: fileName 
     }
     const tableData = await postData('/new', option);
-    console.log(tableData);
+    // console.log(tableData);
+    // setTableData(tableData);
+  }
+
+  const updateRecommendData = async () => {
+    const option = {
+      ...selectedCombinationTableData,
+    }
+    const tableData = await postData('/recommend', option);
+    // console.log(tableData);
     // setTableData(tableData);
   }
 
@@ -236,7 +253,9 @@ export const FileDataProvider = ({ children }) => {
         tableData,
         setCustomValues,
         customValues,
-        updateCustomData
+        updateCustomData,
+        setSelectedCombinationTableData,
+        selectedCombinationTableData
       }}
     >
       {children}

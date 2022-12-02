@@ -10,7 +10,8 @@ export default function Combination() {
     combinationTableSortingInfo,
     setCombinationTableSortingInfo,
     selectedCombinationTableRow,
-    setSelectedCombinationTableRow
+    setSelectedCombinationTableRow,
+    setSelectedCombinationTableData
   } = useFileData()
   const { combinationData } = combinationTableData
 
@@ -19,6 +20,22 @@ export default function Combination() {
   const [actionList, setActionList] = React.useState();
   const [checkedList, setCheckList] = React.useState();
   const imgNameList = ['', 'c', 'o', 'i', 'd', 'm', 'r'];
+
+  React.useEffect(() => {
+    if(selectedCombinationTableRow?.key && combinationData) {
+      setSelectedCombinationTableData({
+        combination: selectedCombinationTableRow.combination.map((com) => {
+          if(com === 'c') return 'correlation';
+          else if(com === 'o') return 'outlier';
+          else if(com === 'i') return 'homogeneity';
+          else if(com === 'd') return 'duplicate';
+          else if(com === 'm') return 'completeness';
+          else if(com === 'r') return 'relevance';
+        }),
+        combinationDetail: combinationData.combinationDetailIconList[selectedCombinationTableRow.key]
+      })
+    }
+  }, [selectedCombinationTableRow]);
   
 
   React.useEffect(() => {
