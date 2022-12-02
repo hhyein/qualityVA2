@@ -314,7 +314,7 @@ export default function Check() {
                 <div style={{ marginTop: 10 }}>
                   <p><strong>high correlation column cnt</strong> {visualizationData.cnt}</p>
                   {visualizationData.issueList.length > 0 &&
-                    <p><strong>high correlation column name</strong> {visualizationData.issueList[0].join(', ')}</p>
+                    <p><strong>high correlation column name</strong> {visualizationData.issueList.join(', ')}</p>
                   }
                 </div>
               </div>
