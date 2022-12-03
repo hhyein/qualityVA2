@@ -63,6 +63,7 @@ export const FileDataProvider = ({ children }) => {
     action: undefined
   })
   const [selectedCombinationTableData, setSelectedCombinationTableData] = useState();
+  const [columnSummary, setColumnSummary] = useState();
   const [rowSummary, setRowSummary] = useState();
 
   const isEmptyData = data => {
@@ -131,6 +132,7 @@ export const FileDataProvider = ({ children }) => {
     updateVisualizationData(treeChartNode, 'heatmapChart', 'completeness', {rowIdx: 0, columnIdx: 0})
     updateChangeCntData(treeChartNode)
     updateTableData(treeChartNode)
+    updateColumnSummary(treeChartNode)
     updateRowSummaryData(treeChartNode)
   }, [file, treeChartNode])
 
@@ -216,6 +218,14 @@ export const FileDataProvider = ({ children }) => {
     const tableData = await postData('/new', option);
   }
 
+  const updateColumnSummary = async (fileName) => {
+    const option = {
+      fileName: fileName
+    }
+    const columnSummaryData = await postData('/columnSummary', option)
+    setColumnSummary(columnSummaryData)
+  }
+
   const updateRowSummaryData = async (fileName) => {
     const option = {
       fileName: fileName
@@ -223,8 +233,6 @@ export const FileDataProvider = ({ children }) => {
     const rowSummaryData = await postData('/rowSummary', option);
     setRowSummary(rowSummaryData);
   }
-
-  postData('/columnSummary')
 
   return (
     <FileDataContext.Provider
@@ -265,6 +273,8 @@ export const FileDataProvider = ({ children }) => {
         updateCustomData,
         setSelectedCombinationTableData,
         selectedCombinationTableData,
+        columnSummary,
+        setColumnSummary,
         rowSummary,
         setRowSummary
       }}

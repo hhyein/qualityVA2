@@ -14,6 +14,7 @@ export default function Table() {
     tableData,
     setCustomValues,
     customValues,
+    columnSummary,
     rowSummary
   } = useFileData()
 
@@ -157,7 +158,7 @@ export default function Table() {
         <div style={{ display: 'flex', marginTop: -30, marginLeft: -25 }}>
           <div>
             <div style={{ marginLeft: 65 }}>
-              <ColumnSummaryChart />
+              <ColumnSummaryChart data={columnSummary} />
             </div>
             <div style={{
               display: 'flex',
