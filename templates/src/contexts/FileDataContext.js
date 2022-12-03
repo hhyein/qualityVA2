@@ -147,7 +147,6 @@ export const FileDataProvider = ({ children }) => {
 
   useEffect(() => {
     updateQualityImpactData()
-    console.log("SDF")
   }, [])
 
   const updateRecommendData = async () => {
