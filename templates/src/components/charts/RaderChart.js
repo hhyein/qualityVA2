@@ -33,7 +33,7 @@ export default function RaderChart(props) {
         width: 200,
         height: 35
       },
-      colors: ['#FF6347', '#9370DB', '#2E8B57', '#B22222', '#FF69B4'],
+      colors: ['#B22222', '#87CEFA', '#C71585', '#2E8B57', '#B8860B'],
     };
 
     var chart = new ApexCharts(document.querySelector(".radar-wrapper"), options);

@@ -3,7 +3,7 @@ import React from 'react'
 export default function checkTable(props) {
 
   const { checkTableData, setCheckTableData, data, renderChartData, setRenderChartData } = props
-  const colors = ['#FF6347', '#9370DB', '#2E8B57', '#B22222', '#FF69B4'];
+  const colors = ['#B22222', '#87CEFA', '#C71585', '#2E8B57', '#B8860B'];
 
   const handleTableClick = (idx) => {
     if(checkTableData.includes(idx)) {

@@ -555,11 +555,10 @@ def columnSummary():
   allCorrDf = allCorrDf.reindex(sorted(allCorrDf.columns), axis = 1)
   columnCorrDf = allCorrDf[targetColumn]
 
-  seriesDataList = []
   columnCorrColumnList = []
   for row in columnList:
     if row == targetColumn: continue
-    if columnCorrDf[row] > 0.8 or columnCorrDf[row] < -0.8:
+    if columnCorrDf[row] > corrThreshold or columnCorrDf[row] < -corrThreshold:
       columnCorrColumnList.append(row)
 
   relList = [0 for i in range(len(columnList))]
@@ -567,8 +566,8 @@ def columnSummary():
     if columnList[i] in columnCorrColumnList:
       relList[i] = 100
 
-  columnSummaryData = [relList, corList, homList, outList, comList]
   seriesData = []
+  columnSummaryData = [relList, corList, homList, outList, comList]
   for i in range(0, 5):
     seriesData.append({'name': 'r' + str(i + 1), 'data': columnSummaryData[i]})
   
