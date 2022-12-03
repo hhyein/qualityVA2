@@ -22,12 +22,35 @@ export default function RangeChart(props) {
         animations: {
           enabled: false
         },
-        type: 'rangeBar',
+        type: 'bar',
         height: 135
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        show: true,
+        width: 1,
+        colors: ['#fff']
+      },
+      tooltip: {
+        shared: true,
+        intersect: false
+      },
+      xaxis: {
+        categories: ['com', 'out', 'hom', 'dup', 'cor', 'rel']
+      },
+      yaxis: {
+        labels: {
+          show: false
+        }
+      },
+      legend: {
+        show: false
       },
       plotOptions: {
         bar: {
-          columnWidth: '30%'
+          columnWidth: '40%'
         }
       },
       colors: ["#6C757D"]

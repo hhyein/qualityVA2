@@ -567,7 +567,7 @@ def columnSummary():
     if columnList[i] in columnCorrColumnList:
       relList[i] = 100
 
-  columnSummaryData = [comList, outList, homList, corList, relList]
+  columnSummaryData = [relList, corList, homList, outList, comList]
   seriesData = []
   for i in range(0, 5):
     seriesData.append({'name': 'r' + str(i + 1), 'data': columnSummaryData[i]})
@@ -1182,27 +1182,66 @@ def new():
 
 @app.route('/impact', methods=['GET', 'POST'])
 def impact():
-  exampleData = [
-    {
-      'x': 'missing',
-      'y': [1, 5]
-    }, {
-      'x': 'outlier',
-      'y': [4, 6]
-    }, {
-      'x': 'incons',
-      'y': [5, 8]
-    }, {
-      'x': 'scaling',
-      'y': [7, 11]
-    }, {
-      'x': 'selection',
-      'y': [3, 11]
-    }
-  ]
+  with open('static/example_after.json') as f: afterData = json.load(f)
+  with open('static/example_before.json') as f: beforeData = json.load(f)
+
+  ##### for test
+  global inputModelList, inputEvalList
+  inputModelList = ['lr', 'svm', 'gbr']
+  inputEvalList = ['MAE', 'MSE', 'RMSE']
+
+  # missing
+  missingList = []
+  for i in range(0, 5):
+    after = afterData[i][inputEvalList[0]][inputModelList[0]]
+    before = beforeData[0][inputEvalList[0]][inputModelList[0]]
+    impact = after - before
+
+    missingList.append(impact)
+  missing = sum(missingList)/len(missingList)
+
+  # outlier
+  outlierList = []
+  for i in range(5, 7):
+    after = afterData[i][inputEvalList[0]][inputModelList[0]]
+    before = beforeData[0][inputEvalList[0]][inputModelList[0]]
+    impact = after - before
+
+    outlierList.append(impact)
+  outlier = sum(outlierList)/len(outlierList)
+
+  # incons
+  after = afterData[7][inputEvalList[0]][inputModelList[0]]
+  before = beforeData[0][inputEvalList[0]][inputModelList[0]]
+  incons = after - before
+
+  # duplicate
+  after = afterData[8][inputEvalList[0]][inputModelList[0]]
+  before = beforeData[0][inputEvalList[0]][inputModelList[0]]
+  duplicate = after - before
+
+  # correlation
+  corrList = []
+  for i in range(9, 12):
+    after = afterData[i][inputEvalList[0]][inputModelList[0]]
+    before = beforeData[0][inputEvalList[0]][inputModelList[0]]
+    impact = after - before
+
+    corrList.append(impact)
+  corr = sum(corrList)/len(corrList)
+
+  # relevance
+  relList = []
+  for i in range(12, 15):
+    after = afterData[i][inputEvalList[0]][inputModelList[0]]
+    before = beforeData[0][inputEvalList[0]][inputModelList[0]]
+    impact = after - before
+
+    relList.append(impact)
+  rel = sum(relList)/len(relList)
 
   response = {}
-  response['seriesData'] = exampleData
+  response['seriesData'] = [missing, outlier, incons, duplicate, corr, rel]
 
   return json.dumps(response)
 

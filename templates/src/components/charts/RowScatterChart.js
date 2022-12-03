@@ -45,6 +45,12 @@ export default function ScatterChart(props) {
         size: [5, 5]
       },
       xaxis: {
+        axisBorder: {
+          show: false
+        },
+        axisTicks: {
+          show: false
+        },
         labels: {
           show: false
         }
@@ -53,7 +59,8 @@ export default function ScatterChart(props) {
         labels: {
           show: false
         }
-      }
+      },
+      colors: ['#6C757D', '#D91212']
     };
 
     var chart = new ApexCharts(document.querySelector(".rowScatter-wrapper"), options);
