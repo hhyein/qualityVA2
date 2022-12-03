@@ -780,7 +780,7 @@ def newVisualization():
   select = req["select"]
   selectDetail = req["selectDetail"]
 
-  originDf = pd.read_csv('static/dataset/' + fileName + '.csv')
+  originDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
 
   # visualization
@@ -830,7 +830,6 @@ def newVisualization():
 
     seriesDataList.append({'name': selectDetail, 'data': columnCntList})
 
-    response = {}
     response['histogramSeriesData'] = seriesDataList
     response['histogramCategoryData'] = categoryDataList
 

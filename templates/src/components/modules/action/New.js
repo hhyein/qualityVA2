@@ -13,7 +13,9 @@ export default function Action() {
     treeChartData,
     setCustomValues,
     treeChartNode,
-    updateCustomData
+    updateCustomData,
+    newVisualizationChartData,
+    updateNewVisualizationChartData
   } = useFileData()
 
   const [actionList, setActionList] = React.useState([]);
@@ -21,6 +23,8 @@ export default function Action() {
   const [buttonActive, setButtonActive] = React.useState(false);
 
   React.useEffect(() => {
+    updateNewVisualizationChartData(treeChartNode, customValues.select, customValues.selectDetail)
+
     if (treeChartNode === 0) {
       setActionValues();
       setActionList([]);
@@ -95,11 +99,11 @@ export default function Action() {
     <React.Fragment>
       {checkTableData.key === 'col' ?
         <React.Fragment>
-          <ColumnBoxplotChart />
-          <ColumnHistogramChart />
+          <ColumnBoxplotChart data={newVisualizationChartData} />
+          <ColumnHistogramChart data={newVisualizationChartData} />
         </React.Fragment>
         :
-        <RowScatterChart />
+        <RowScatterChart data={newVisualizationChartData} />
       }
       <div style={{ display: 'flex', position: 'relative', bottom: (checkTableData.key === 'col' ? 80 : 20) }}>
         <div style={{

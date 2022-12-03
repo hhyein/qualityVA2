@@ -66,6 +66,7 @@ export const FileDataProvider = ({ children }) => {
   const [columnSummary, setColumnSummary] = useState();
   const [rowSummary, setRowSummary] = useState();
   const [qualityImpact, setQualityImpact] = useState();
+  const [newVisualizationChartData, setNewVisualizationChartData] = useState();
 
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
@@ -135,6 +136,7 @@ export const FileDataProvider = ({ children }) => {
     updateTableData(treeChartNode)
     updateColumnSummaryData(treeChartNode)
     updateRowSummaryData(treeChartNode)
+    updateNewVisualizationChartData(treeChartNode, customValues.select, customValues.selectDetail)
   }, [file, treeChartNode])
 
   useEffect(() => {
@@ -244,6 +246,16 @@ export const FileDataProvider = ({ children }) => {
     setQualityImpact(qualityImpactData);
   }
 
+  const updateNewVisualizationChartData = async (fileName, select, selectDetail) => {
+    const option = {
+      fileName: fileName,
+      select: select,
+      selectDetail: selectDetail
+    }
+    const newVisualizationChartData = await postData('/newVisualization', option)
+    setNewVisualizationChartData(newVisualizationChartData)
+  }
+
   return (
     <FileDataContext.Provider
       value={{
@@ -288,7 +300,10 @@ export const FileDataProvider = ({ children }) => {
         rowSummary,
         setRowSummary,
         qualityImpact,
-        setQualityImpact
+        setQualityImpact,
+        newVisualizationChartData,
+        setNewVisualizationChartData,
+        updateNewVisualizationChartData
       }}
     >
       {children}

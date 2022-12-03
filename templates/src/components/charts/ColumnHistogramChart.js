@@ -6,13 +6,13 @@ export default function ColumnHistogramChart(props) {
   const d3 = window.d3v4
 
   useEffect(() => {
+    if (!data || !data.histogramSeriesData || !data.histogramCategoryData)
+      return
+
     d3.select('.columnHistogram-wrapper').selectAll('*').remove()
 
     var options = {
-      series: [{
-      name: 'Inflation',
-      data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2]
-    }],
+      series: data.histogramSeriesData,
       chart: {
         toolbar: {
           show: false
@@ -27,7 +27,7 @@ export default function ColumnHistogramChart(props) {
         enabled: false,
       },
       xaxis: {
-        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        categories: data.histogramCategoryData,
       },
       colors: ["#6c757d"]
     };

@@ -6,17 +6,15 @@ export default function BoxplotChart(props) {
   const d3 = window.d3v4
 
   useEffect(() => {
+    if (!data || !data.boxplotSeriesData)
+      return
+
     d3.select('.boxplot-wrapper').selectAll('*').remove()
 
     var options = {
       series: [
       {
-        data: [
-          {
-            x: 'alcohol',
-            y: [54, 66, 69, 75, 88]
-          }
-        ]
+        data: data.boxplotSeriesData
       }
     ],
       chart: {
