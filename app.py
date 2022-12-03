@@ -581,9 +581,8 @@ def columnSummary():
 
 @app.route('/rowSummary', methods=['GET', 'POST'])
 def rowSummary():
-  # req = eval(request.get_data().decode('utf-8'))
-  # fileName = req["fileName"]
-  fileName = 0
+  req = eval(request.get_data().decode('utf-8'))
+  fileName = req["fileName"]
 
   originDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)

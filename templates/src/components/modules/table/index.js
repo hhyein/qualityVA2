@@ -13,7 +13,8 @@ export default function Table() {
     setCheckTableData,
     tableData,
     setCustomValues,
-    customValues
+    customValues,
+    rowSummary
   } = useFileData()
 
   const [rColorData, setrColorData] = React.useState({});
@@ -133,6 +134,9 @@ export default function Table() {
   }, [tableData]);
 
   const getBgColor = (rowNumber, columnNumber) => {
+    if (rowSummary && rowSummary.rowIndex && columnNumber == 0 && rowSummary.rowIndex.includes(rowNumber-1) && rowNumber > 0) {
+      return 'rgba(240, 128, 128, 0.5)'
+    }
     if ((checkTableData.key === 'row' && checkTableData.data === rowNumber) || (checkTableData.key === 'col' && checkTableData.data === columnNumber)) {
       if (columnNumber > 0 && rColorData[rowNumber] && rColorData[rowNumber][columnNumber]) {
         return `rgba(${rColorData[rowNumber][columnNumber]}, ${gColorData[rowNumber][columnNumber]}, ${bColorData[rowNumber][columnNumber]}, 0.7)`;

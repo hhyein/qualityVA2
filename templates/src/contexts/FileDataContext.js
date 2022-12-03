@@ -63,6 +63,7 @@ export const FileDataProvider = ({ children }) => {
     action: undefined
   })
   const [selectedCombinationTableData, setSelectedCombinationTableData] = useState();
+  const [rowSummary, setRowSummary] = useState();
 
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
@@ -130,6 +131,7 @@ export const FileDataProvider = ({ children }) => {
     updateVisualizationData(treeChartNode, 'heatmapChart', 'completeness', {rowIdx: 0, columnIdx: 0})
     updateChangeCntData(treeChartNode)
     updateTableData(treeChartNode)
+    updateRowSummaryData(treeChartNode)
   }, [file, treeChartNode])
 
   useEffect(() => {
@@ -214,6 +216,14 @@ export const FileDataProvider = ({ children }) => {
     const tableData = await postData('/new', option);
   }
 
+  const updateRowSummaryData = async (fileName) => {
+    const option = {
+      fileName: fileName
+    }
+    const rowSummaryData = await postData('/rowSummary', option);
+    setRowSummary(rowSummaryData);
+  }
+
   postData('/columnSummary')
 
   return (
@@ -254,7 +264,9 @@ export const FileDataProvider = ({ children }) => {
         customValues,
         updateCustomData,
         setSelectedCombinationTableData,
-        selectedCombinationTableData
+        selectedCombinationTableData,
+        rowSummary,
+        setRowSummary
       }}
     >
       {children}
