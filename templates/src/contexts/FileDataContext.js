@@ -135,7 +135,6 @@ export const FileDataProvider = ({ children }) => {
     updateTableData(treeChartNode)
     updateColumnSummaryData(treeChartNode)
     updateRowSummaryData(treeChartNode)
-    updateQualityImpactData()
   }, [file, treeChartNode])
 
   useEffect(() => {
@@ -145,6 +144,11 @@ export const FileDataProvider = ({ children }) => {
     updateRecommendData()
     // updateVisualizationData(treeChartNode, 'heatmapChart', 'completeness', {rowIdx: 0, columnIdx: 0})
   }, [selectedCombinationTableData])
+
+  useEffect(() => {
+    updateQualityImpactData()
+    console.log("SDF")
+  }, [])
 
   const updateRecommendData = async () => {
     const option = {
