@@ -1183,22 +1183,24 @@ def new():
 
 @app.route('/impact', methods=['GET', 'POST'])
 def impact():
-  exampleData = [{
-          x: 'missing',
-          y: [1, 5]
-        }, {
-          x: 'outlier',
-          y: [4, 6]
-        }, {
-          x: 'incons',
-          y: [5, 8]
-        }, {
-          x: 'scaling',
-          y: [7, 11]
-        },  {
-          x: 'selection',
-          y: [3, 11]
-        }]
+  exampleData = [
+    {
+      'x': 'missing',
+      'y': [1, 5]
+    }, {
+      'x': 'outlier',
+      'y': [4, 6]
+    }, {
+      'x': 'incons',
+      'y': [5, 8]
+    }, {
+      'x': 'scaling',
+      'y': [7, 11]
+    }, {
+      'x': 'selection',
+      'y': [3, 11]
+    }
+  ]
 
   response = {}
   response['seriesData'] = exampleData

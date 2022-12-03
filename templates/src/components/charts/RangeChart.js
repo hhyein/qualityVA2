@@ -6,26 +6,14 @@ export default function RangeChart(props) {
   const d3 = window.d3v4
 
   useEffect(() => {
+    if (!data)
+      return
+
     d3.select('.range-wrapper').selectAll('*').remove()
 
     var options = {
       series: [{
-        data: [{
-          x: 'missing',
-          y: [1, 5]
-        }, {
-          x: 'outlier',
-          y: [4, 6]
-        }, {
-          x: 'incons',
-          y: [5, 8]
-        }, {
-          x: 'scaling',
-          y: [7, 11]
-        },  {
-          x: 'selection',
-          y: [3, 11]
-        }]
+        data: data.seriesData
       }],
       chart: {
         toolbar: {

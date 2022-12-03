@@ -7,6 +7,7 @@ export default function Effect() {
   const {
     isEmptyData,
     settingValues,
+    qualityImpact
   } = useFileData()
 
   return (
@@ -14,7 +15,7 @@ export default function Effect() {
       {!isEmptyData({
         settingValues
       }) && settingValues.model && <>
-        <RangeChart />
+        <RangeChart data={qualityImpact} />
       </>}
     </Box>
   )

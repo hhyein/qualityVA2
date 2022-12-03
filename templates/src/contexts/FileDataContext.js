@@ -65,6 +65,7 @@ export const FileDataProvider = ({ children }) => {
   const [selectedCombinationTableData, setSelectedCombinationTableData] = useState();
   const [columnSummary, setColumnSummary] = useState();
   const [rowSummary, setRowSummary] = useState();
+  const [qualityImpact, setQualityImpact] = useState();
 
   const isEmptyData = data => {
     return Object.values(data).some(value => value === undefined)
@@ -132,8 +133,9 @@ export const FileDataProvider = ({ children }) => {
     updateVisualizationData(treeChartNode, 'heatmapChart', 'completeness', {rowIdx: 0, columnIdx: 0})
     updateChangeCntData(treeChartNode)
     updateTableData(treeChartNode)
-    updateColumnSummary(treeChartNode)
+    updateColumnSummaryData(treeChartNode)
     updateRowSummaryData(treeChartNode)
+    updateQualityImpactData()
   }, [file, treeChartNode])
 
   useEffect(() => {
@@ -218,7 +220,7 @@ export const FileDataProvider = ({ children }) => {
     const tableData = await postData('/new', option);
   }
 
-  const updateColumnSummary = async (fileName) => {
+  const updateColumnSummaryData = async (fileName) => {
     const option = {
       fileName: fileName
     }
@@ -232,6 +234,11 @@ export const FileDataProvider = ({ children }) => {
     }
     const rowSummaryData = await postData('/rowSummary', option);
     setRowSummary(rowSummaryData);
+  }
+
+  const updateQualityImpactData = async () => {
+    const qualityImpactData = await postData('/impact');
+    setQualityImpact(qualityImpactData);
   }
 
   return (
@@ -276,7 +283,9 @@ export const FileDataProvider = ({ children }) => {
         columnSummary,
         setColumnSummary,
         rowSummary,
-        setRowSummary
+        setRowSummary,
+        qualityImpact,
+        setQualityImpact
       }}
     >
       {children}
