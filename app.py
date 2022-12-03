@@ -492,9 +492,8 @@ def tablePoint():
 
 @app.route('/columnSummary', methods=['GET', 'POST'])
 def columnSummary():
-  # req = eval(request.get_data().decode('utf-8'))
-  # fileName = req["fileName"]
-  fileName = 0
+  req = eval(request.get_data().decode('utf-8'))
+  fileName = req["fileName"]
 
   originDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
