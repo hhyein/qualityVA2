@@ -30,8 +30,6 @@ export default function checkTable(props) {
     }
   }
 
-  console.log(data);
-
   return data.length > 0 && (
     <div style={{
       overflowY: 'auto',

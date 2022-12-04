@@ -73,14 +73,20 @@ export default function Check() {
     top: 0
   });
   const [checkTableData, setCheckTableData] = React.useState([1]);
-  const [renderChartData, setRenderChartData] = React.useState([{
-    key: 1,
-    name: 'et',
-    data: [0.461, 0.351, 0.571, 0.548, 0.042, 0.036],
-  }]);
+  const [renderChartData, setRenderChartData] = React.useState();
   const [columnData, setColumnData] = React.useState();
   const [outlierData, setOutlierData] = React.useState();
   const [corrData, setCorrData] = React.useState();
+
+  React.useEffect(() => {
+    if (modelTableData) {
+      setRenderChartData([{
+        key: 1,
+        name: modelTableData[1][0],
+        data: modelTableData[1].slice(1)
+      }])
+    }
+  }, [modelTableData])
 
   React.useEffect(() => {
     if (columnList) {
@@ -383,7 +389,7 @@ export default function Check() {
 
             <div style={{ display: 'flex' }}>
               <div style={{ position: 'relative', top: 10, left: 2 }}>
-                <RaderChart data={renderChartData} />
+                {renderChartData && <RaderChart data={renderChartData} />}
               </div>
               <div style={{ overflowY: 'auto', zIndex: 100, marginLeft: -2 }}>
                 <TreeChart
