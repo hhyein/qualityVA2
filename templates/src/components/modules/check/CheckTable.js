@@ -30,6 +30,8 @@ export default function checkTable(props) {
     }
   }
 
+  console.log(data);
+
   return data.length > 0 && (
     <div style={{
       overflowY: 'auto',
@@ -61,7 +63,7 @@ export default function checkTable(props) {
                           height: '20px',
                         }}
                       >
-                        {data}
+                        {data.slice(0, 5)}
                       </div>
                       : <div
                         className="grid-td"
@@ -81,8 +83,8 @@ export default function checkTable(props) {
                               padding: '2px 8px',
                               borderRadius: '3px',
                               color: 'white'
-                            }}>{data}</div>
-                          : data
+                            }}>{data.slice(0, 5)}</div>
+                          : data.toString().slice(0, 5)
                         }
                       </div>
                     }
