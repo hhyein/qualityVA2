@@ -410,10 +410,10 @@ def modelTable():
   # arrangeColumnList = firstColumnList + remainColumnList
 
   # modelResultDf = modelResultDf[arrangeColumnList]
-  # modelResultDf.to_csv('example_modelTable.csv', index = False)
+  # modelResultDf = modelResultDf.round(3)
 
+  # modelResultDf.to_csv('example_modelTable.csv', index = False)
   modelResultDf = pd.read_csv('static/example_modelTable.csv')
-  modelResultDf = modelResultDf.round(3)
 
   modelResultList = [list(modelResultDf.columns)]
   for i in range(len(modelResultDf)):
@@ -737,6 +737,7 @@ def recommend():
       inconsNaNSeries = beforeDf.apply(pd.to_numeric, errors = 'coerce')
       inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
       allCorrDf = inconsNaNDf.corr(method = action)
+      corrThreshold = 0.8
 
       highCorrList = []
       if issue == 'correlation':
