@@ -388,10 +388,10 @@ export default function Check() {
               setRenderChartData={setRenderChartData} />}
 
             <div style={{ display: 'flex' }}>
-              <div style={{ position: 'relative', top: 10, left: 2 }}>
+              <div style={{ position: 'relative', top: 10, left: 10 }}>
                 {renderChartData && <RaderChart data={renderChartData} />}
               </div>
-              <div style={{ overflowY: 'auto', zIndex: 100, marginLeft: -2 }}>
+              <div style={{ overflowY: 'auto', zIndex: 100, marginLeft: 10 }}>
                 <TreeChart
                   treeData={dataList}
                   setDataIndex={setDataIndex}

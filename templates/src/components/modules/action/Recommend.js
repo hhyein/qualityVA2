@@ -229,7 +229,7 @@ export default function Combination() {
                       <img
                         src={require(`../../icons/${imgName}.png`)}
                         alt={''}
-                        style={{ height: '25px', width: '25px' }}
+                        style={{ height: 20, width: 20 }}
                       />
                     ))}
                   </div>

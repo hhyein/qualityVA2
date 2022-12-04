@@ -37,7 +37,7 @@ export default function CombinationTable({
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: `auto auto auto auto`,
+        gridTemplateColumns: `auto auto auto auto`
       }}
     >
       {columnKeys.map((key, i) => {
@@ -80,6 +80,7 @@ export default function CombinationTable({
               <div
                 className="grid-td"
                 style={{
+                  padding: '6px 3px',
                   fontWeight: 'bold',
                   borderBottom: isLastRow ? 'none' : undefined,
                   backgroundColor: selectedKey === key ? '#eee' : undefined,
@@ -95,6 +96,7 @@ export default function CombinationTable({
                   key={`${key}${colIdx}`}
                   onClick={onClick}
                   style={{
+                    padding: '6px 3px',
                     borderRight: colIdx === columnKeys.length - 2 && 'none',
                     borderBottom: isLastRow ? 'none' : undefined,
                     backgroundColor: selectedKey === key ? '#eee' : undefined,
