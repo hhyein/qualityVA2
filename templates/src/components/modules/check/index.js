@@ -167,8 +167,8 @@ export default function Check() {
             <div style={{ width: 193, height: 85, border: '1px solid #999999', marginTop: 30 }}>
               <div style={{ position: 'absolute', top: 20, left: 10, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
               <div style={{ marginTop: 10 }}>
-                <p><strong>row index</strong> {visualizationData.rowIndex}</p>
-                <p><strong>column name</strong> {visualizationData.columnName}</p>
+                <p><strong>record index</strong> {visualizationData.rowIndex}</p>
+                <p><strong>feature name</strong> {visualizationData.columnName}</p>
                 <p><strong>quality issue cnt</strong> {completenessQualityIssueCnt}</p>
               </div>
             </div>
@@ -177,8 +177,8 @@ export default function Check() {
               <div style={{ marginTop: 10 }}>
                 {visualizationData.issueList.map(issue =>
                   <p>
-                    <strong>row</strong>&nbsp;{issue[0]}&nbsp;
-                    <strong>value</strong>&nbsp;{issue[1]}
+                    <strong>record idx&nbsp;{issue[0]}</strong>
+                    &nbsp;{issue[1]}
                   </p>
                 )}
               </div>
@@ -194,6 +194,17 @@ export default function Check() {
                 width: '45%',
                 margin: '0 5%'
               }}>
+                <Title title="feature" />
+                <Select className="select"
+                  options={columnList}
+                  placeholder={<div>{columnData}</div>}
+                  defaultValue={columnData}
+                  onChange={v => {
+                    setColumnData(v.label)
+                  }}
+                />
+              </div>
+              <div style={{ width: '45%' }}>
                 <Title title="method" />
                 <Select className="select"
                   options={outlierList}
@@ -201,17 +212,6 @@ export default function Check() {
                   defaultValue={outlierData}
                   onChange={v => {
                     setOutlierData(v.label)
-                  }}
-                />
-              </div>
-              <div style={{ width: '45%' }}>
-                <Title title="column" />
-                <Select className="select"
-                  options={columnList}
-                  placeholder={<div>{columnData}</div>}
-                  defaultValue={columnData}
-                  onChange={v => {
-                    setColumnData(v.label)
                   }}
                 />
               </div>
@@ -228,7 +228,7 @@ export default function Check() {
             <div style={{ width: 168, height: 85, border: '1px solid #999999', marginTop: 30, overflowY: 'auto' }}>
               <div style={{ position: 'absolute', top: 20, left: 270, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information</div>
               <div style={{ marginTop: 10 }}>
-                <p><strong>outlier standard</strong> {visualizationData.standard}</p>
+                <p><strong>outlier</strong> {visualizationData.standard}</p>
                 <p><strong>quality issue cnt</strong> {visualizationData.cnt}</p>
               </div>
             </div>
@@ -237,8 +237,8 @@ export default function Check() {
               <div style={{ marginTop: 10 }}>
                 {visualizationData.issueList.map(issue =>
                   <p>
-                    <strong>row</strong>&nbsp;{issue[0]}&nbsp;
-                    <strong>value</strong>&nbsp;{issue[1]}
+                    <strong>record idx&nbsp;{issue[0]}</strong>
+                    &nbsp;{issue[1]}
                   </p>
                 )}
               </div>
@@ -251,9 +251,9 @@ export default function Check() {
           <div style={{ position: 'relative', height: 172, left: 10, marginTop: 30, border: '1px solid #999999', width: 418 }}>
             <div style={{ position: 'absolute', top: -10, left: 10, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
             <div style={{ marginTop: 10 }}>
-              <p><strong>duplicate cnt</strong> {visualizationData.cnt}</p>
+              <p><strong>duplicate record cnt</strong> {visualizationData.cnt}</p>
               {visualizationData.issueList &&
-                <p><strong>row</strong> {visualizationData.issueList}</p>
+                <p><strong>record idx</strong> {visualizationData.issueList}</p>
               }
             </div>
           </div>
@@ -285,9 +285,9 @@ export default function Check() {
               <div style={{ position: 'relative', height: 112, marginTop: 10, border: '1px solid #999999' }}>
                 <div style={{ position: 'absolute', top: -10, left: 2, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
                 <div style={{ marginTop: 10 }}>
-                  <p><strong>high correlation column cnt</strong> {visualizationData.cnt}</p>
+                  <p><strong>high correlation feature cnt</strong> {visualizationData.cnt}</p>
                   {visualizationData.issueList.length > 0 &&
-                    <p><strong>high correlation column name</strong> {visualizationData.issueList[0].join(', ')}</p>
+                    <p><strong>high correlation feature name</strong> {visualizationData.issueList[0].join(', ')}</p>
                   }
                 </div>
               </div>
@@ -298,7 +298,7 @@ export default function Check() {
       case "relevanceChart":
         return <>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '60px auto', marginTop: 20, marginRight: 10 }}>
-            <div style={{ gridRow: '1 / 3' }}>
+            <div style={{ gridRow: '1 / 3', marginTop: -10, marginLeft: -10 }}>
               <PNBarChart
                 chartName='relevanceChart'
                 data={visualizationData}
@@ -321,9 +321,9 @@ export default function Check() {
               <div style={{ position: 'relative', height: 112, marginTop: 10, border: '1px solid #999999' }}>
                 <div style={{ position: 'absolute', top: -10, left: 2, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
                 <div style={{ marginTop: 10 }}>
-                  <p><strong>high correlation column cnt</strong> {visualizationData.cnt}</p>
+                  <p><strong>high correlation feature cnt</strong> {visualizationData.cnt}</p>
                   {visualizationData.issueList.length > 0 &&
-                    <p><strong>high correlation column name</strong> {visualizationData.issueList.join(', ')}</p>
+                    <p><strong>high correlation feature name</strong> {visualizationData.issueList.join(', ')}</p>
                   }
                 </div>
               </div>

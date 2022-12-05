@@ -206,7 +206,7 @@ def checkVisualization():
       seriesDataList.append({'name': 'r' + str(i), 'data': columnCntList})
       categoryDataList = []
       for i in range(len(columnList)):
-        categoryDataList.append('c' + str(i))
+        categoryDataList.append('f' + str(i))
 
     response['seriesData'] = seriesDataList
     response['categoryData'] = categoryDataList
@@ -273,7 +273,7 @@ def checkVisualization():
       response['cnt'] = len(outlierIndex)
       response['lower'] = round(lower, 3)
       response['upper'] = round(upper, 3)
-      response['standard'] = 'less than ' + str(round(lower, 3)) + ', greater than ' + str(round(upper, 3))
+      response['standard'] = 'lower than ' + str(round(lower, 3)) + ', higher than ' + str(round(upper, 3))
 
       issueList = []
       for i in outlierIndex:
@@ -345,14 +345,14 @@ def checkVisualization():
 
       for j in range(i + 1):
         columnCnt = allCorrDf.iloc[i][j]
-        columnCntList.append(float(columnCnt))
+        columnCntList.append(abs(float(columnCnt)))
 
-      seriesDataList.append({'name': 'r' + str(i), 'data': columnCntList})
+      seriesDataList.append({'name': 'f' + str(i), 'data': columnCntList})
 
       targetColumnIndex = columnList.index(targetColumn)
       categoryDataList = []
-      for column in columnList:
-        categoryDataList.append('c' + str(targetColumnIndex))
+      for i in range(len(columnList)):
+        categoryDataList.append('f' + str(i))
 
     response['seriesData'] = seriesDataList
     response['categoryData'] = categoryDataList
@@ -379,6 +379,7 @@ def checkVisualization():
     response['issueList'] = highCorrColumnList
     response['seriesData'] = seriesDataList
     response['categoryData'] = columnList
+    print(seriesDataList)
 
   return json.dumps(response)
 

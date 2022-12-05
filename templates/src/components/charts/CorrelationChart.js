@@ -49,7 +49,7 @@ export default function HeatmapChart(props) {
                 from: -1.0,
                 to: -0.8,
                 name: 'negative high',
-                color: '#128FD9'
+                color: '#D91212'
               }, {
                 from: -0.8,
                 to: 0.8,

@@ -34,6 +34,7 @@ export default function HistogramChart(props) {
       },
       xaxis: {
         categories: data.categoryData,
+        tickAmount: 10
       },
       colors: [({ value, seriesIndex, dataPointIndex }) => {
         if (data.categoryData[dataPointIndex] <= data.lower || data.categoryData[dataPointIndex] >= data.upper)
