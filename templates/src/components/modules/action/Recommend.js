@@ -174,11 +174,10 @@ export default function Combination() {
           width: '30%',
           margin: '0 2%'
         }}>
-          <Title title="action" />
+          <Title title="action"/>
           <div class="dropdown">
             <button class="dropbtn">select</button>
             <div class="dropdown-content">
-
               {actionList && actionList.map((item, idx) => (
                 <div style={{ display: 'flex', height: '25px' }} >
                   {item.label}
