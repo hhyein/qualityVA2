@@ -174,19 +174,6 @@ export default function Combination() {
           width: '30%',
           margin: '0 2%'
         }}>
-          <Title title="sort" />
-          <Select className="select"
-            options={sortList}
-            placeholder={<div>select</div>}
-            onChange={v => {
-              handleChange('sort', v)
-            }}
-          />
-        </div>
-        <div style={{
-          width: '30%',
-          margin: '0 2%'
-        }}>
           <Title title="action" />
           <div class="dropdown">
             <button class="dropbtn">select</button>
@@ -200,6 +187,19 @@ export default function Combination() {
               ))}
             </div>
           </div>
+        </div>
+        <div style={{
+          width: '30%',
+          margin: '0 2%'
+        }}>
+          <Title title="sort" />
+          <Select className="select"
+            options={sortList}
+            placeholder={<div>select</div>}
+            onChange={v => {
+              handleChange('sort', v)
+            }}
+          />
         </div>
       </div>
       <div style={{ overflow: 'auto', height: 260 }}>

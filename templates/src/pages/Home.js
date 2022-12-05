@@ -3,7 +3,6 @@ import { mainLayoutStyle } from '../const'
 import Dataset from '../components/modules/dataset'
 import Setting from '../components/modules/setting'
 import Check from '../components/modules/check'
-import Effect from '../components/modules/effect'
 import Action from '../components/modules/action'
 import Change from '../components/modules/change'
 import Table from '../components/modules/table'
@@ -16,7 +15,6 @@ const Home = () => {
         <Dataset />
         <Setting />
         <Check />
-        {/* <Effect /> */}
         <Table />
         <Action />
         <Change />

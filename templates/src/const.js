@@ -18,7 +18,6 @@ export const boxTitles = {
   'dataset': 'data upload',
   'setting': 'system setting',
   'check': 'data quality assessment',
-  // 'effect': 'quality impact by action',
   'table': 'table',
   'action': 'data quality improvement',
   'change': 'data change'
