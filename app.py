@@ -378,8 +378,7 @@ def checkVisualization():
     response['cnt'] = len(highCorrColumnList)
     response['issueList'] = highCorrColumnList
     response['seriesData'] = seriesDataList
-    response['categoryData'] = columnList
-    print(seriesDataList)
+    response['categoryData'] = columnLists
 
   return json.dumps(response)
 
