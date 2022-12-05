@@ -3,6 +3,7 @@ import { Box } from "../../Box"
 import { useFileData } from '../../../contexts/FileDataContext'
 import Recommend from './Recommend'
 import New from './New'
+import RangeChart from '../../charts/RangeChart'
 
 export default function Action() {
   const {
@@ -11,7 +12,9 @@ export default function Action() {
     selectedCombinationTableRow,
     setTreeChartData,
     actionRadioValue,
-    setActionRadioValue
+    setActionRadioValue,
+    settingValues,
+    qualityImpact
   } = useFileData();
 
   const { combinationData } = combinationTableData
@@ -42,12 +45,18 @@ export default function Action() {
 
   return (
     <Box title="action">
+      {!isEmptyData({
+        settingValues
+      }) && settingValues.model && <>
+        <RangeChart data={qualityImpact} />
+      </>}
       {!isEmptyData({ combinationData }) && (
         <React.Fragment>
           <div style={{
             display: 'flex',
             height: '20px',
             marginBottom: '5px',
+            marginTop: -30,
           }}>
             {['recommend', 'custom'].map((item) => (
               <div key={item} style={{ display: 'flex', fontSize: 13, alignItems: 'center', width: '50%' }}>

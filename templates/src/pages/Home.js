@@ -16,7 +16,7 @@ const Home = () => {
         <Dataset />
         <Setting />
         <Check />
-        <Effect />
+        {/* <Effect /> */}
         <Table />
         <Action />
         <Change />

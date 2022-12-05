@@ -202,7 +202,7 @@ export default function Combination() {
           </div>
         </div>
       </div>
-      <div style={{ overflow: 'auto', height: '75%' }}>
+      <div style={{ overflow: 'auto', height: 260 }}>
         <CombinationTable
           canSortColumns={combinationData.inputEvalList}
           selectedColumn={combinationTableSortingInfo.column}

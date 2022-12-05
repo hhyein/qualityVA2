@@ -15,7 +15,7 @@ export default function Effect() {
       {!isEmptyData({
         settingValues
       }) && settingValues.model && <>
-        <RangeChart data={qualityImpact} />
+        {/* <RangeChart data={qualityImpact} /> */}
       </>}
     </Box>
   )
