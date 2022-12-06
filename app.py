@@ -48,8 +48,9 @@ def setting():
       columnList.append({'label': tmpList[i], 'value': i})
 
     modelList = []
-    tmpList = ['et', 'rf', 'gbr', 'br', 'lasso', 'en', 'huber', 'ridge', 'lr', 'lar',
-                'knn', 'light', 'dt', 'omp', 'par', 'llar', 'ada', 'dummy']
+    ##### to fix
+    tmpList = ['lr', 'knn', 'nb', 'dt', 'svm', 'rbfsvm', 'gbr', 'mlp', 'ridge', 'rf',
+              'qda', 'ada', 'gbc', 'lda', 'et', 'xgboost', 'lightgbm', 'catboost']
     for i in range(len(tmpList)):
       modelList.append({'label': tmpList[i], 'value': i})
 
