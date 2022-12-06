@@ -70,8 +70,6 @@ export default function Action() {
 
   React.useEffect(() => {
     if (
-      // customValues?.select &&
-      // customValues?.selectDetail &
       customValues?.action) {
       setButtonActive(true);
     } else {
@@ -110,7 +108,7 @@ export default function Action() {
           width: '47.5%',
           margin: '0 5%'
         }}>
-          <Title title="action" />
+          <Title title="method" />
           <Select className="select"
             options={actionList}
             placeholder={<div>select</div>}
