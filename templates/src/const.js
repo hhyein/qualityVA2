@@ -16,7 +16,7 @@ export const mainLayoutStyle = {
 
 export const boxTitles = {
   'dataset': 'data upload',
-  'setting': 'system setting',
+  'setting': 'setting panel',
   'check': 'data quality assessment',
   'table': 'table',
   'action': 'data quality improvement',

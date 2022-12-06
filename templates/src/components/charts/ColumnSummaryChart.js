@@ -21,13 +21,13 @@ export default function ColumnSummaryChart(props) {
           enabled: false
         },
         width: 725,
-        height: 100,
+        height: 80,
         type: 'heatmap',
       },
       dataLabels: {
         enabled: false
       },
-      colors: ['#5F9EA0', '#F08080', '#94CD32', '#4682B4', '#FF8C00'],
+      colors: ['#9370DB', '#5F9EA0'],
       xaxis: {
         type: 'category',
         categories: data.categoryData,
@@ -48,11 +48,6 @@ export default function ColumnSummaryChart(props) {
       },
       tooltip: {
         enabled: false
-      },
-      grid: {
-        padding: {
-          right: 20
-        }
       }
     };
 

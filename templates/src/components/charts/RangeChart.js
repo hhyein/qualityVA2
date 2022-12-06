@@ -38,7 +38,7 @@ export default function RangeChart(props) {
         intersect: false
       },
       xaxis: {
-        categories: ['com', 'out', 'hom', 'dup', 'cor', 'rel']
+        categories: ['mis', 'out', 'inc', 'dup', 'hig', 'low']
       },
       yaxis: {
         labels: {

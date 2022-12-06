@@ -63,7 +63,7 @@ export default function Setting() {
                 gridGap: '5px',
               }}
             >
-                <Title title="column" />
+                <Title title="target feature" />
                 <Select className="select"
                   options={columnList}
                   value={settingValues.column}
@@ -73,7 +73,7 @@ export default function Setting() {
                     handleChange('column', v)
                   }}
                 />
-                <Title title="model" />
+                <Title title="machine learning model" />
                 <Select className="select"
                   isMulti
                   options={modelList}
@@ -81,7 +81,7 @@ export default function Setting() {
                   defaultValue={values?.model ? values.model : undefined}
                   onChange={v => handleChange('model', v)}
                 />
-                <Title title="eval" />
+                <Title title="evaluation metric" />
                 <Select className="select"
                   isMulti
                   options={evalList}

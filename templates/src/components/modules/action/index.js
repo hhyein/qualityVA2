@@ -58,7 +58,7 @@ export default function Action() {
             marginBottom: '5px',
             marginTop: -30,
           }}>
-            {['recommend', 'custom'].map((item) => (
+            {['selection', 'customization'].map((item) => (
               <div key={item} style={{ display: 'flex', fontSize: 13, alignItems: 'center', width: '50%' }}>
                 <input
                   type='radio'
@@ -72,8 +72,8 @@ export default function Action() {
               </div>
             ))}
           </div>
-          {actionRadioValue === 'recommend' && <Recommend />}
-          {actionRadioValue === 'custom' && <New />}
+          {actionRadioValue === 'selection' && <Recommend />}
+          {actionRadioValue === 'customization' && <New />}
         </React.Fragment>
       )}
     </Box>

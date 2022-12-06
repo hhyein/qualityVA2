@@ -174,7 +174,7 @@ export default function Combination() {
           width: '30%',
           margin: '0 2%'
         }}>
-          <Title title="action"/>
+          <Title title="method"/>
           <div class="dropdown">
             <button class="dropbtn">select</button>
             <div class="dropdown-content">

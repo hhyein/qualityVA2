@@ -69,18 +69,6 @@ export default function Table() {
         gColor: 205,
         bColor: 50,
         points: tablePointData.conPointList,
-      },
-      sim: {
-        rColor: 240,
-        gColor: 128,
-        bColor: 128,
-        points: [],
-      },
-      dep: {
-        rColor: 95,
-        gColor: 158,
-        bColor: 160,
-        points: [],
       }
     })
   }, [tablePointData]);
@@ -165,10 +153,10 @@ export default function Table() {
             <div style={{
               display: 'flex',
               overflowY: 'scroll',
-              marginTop: -20,
+              marginTop: -30,
               paddingRight: 10,
               width: '792px',
-              height: '440px',
+              height: '470px',
             }}>
               <div style={{
                 display: 'grid',

@@ -48,13 +48,13 @@ def setting():
       columnList.append({'label': tmpList[i], 'value': i})
 
     modelList = []
-    tmpList = ['lr', 'knn', 'nb', 'dt', 'svm', 'rbfsvm', 'gpc', 'mlp', 'ridge', 'rf',
-                'qda', 'ada', 'gbc', 'lda', 'et', 'xgboost', 'lightgbm', 'catboost']
+    tmpList = ['et', 'rf', 'gbr', 'br', 'lasso', 'en', 'huber', 'ridge', 'lr', 'lar',
+                'knn', 'light', 'dt', 'omp', 'par', 'llar', 'ada', 'dummy']
     for i in range(len(tmpList)):
       modelList.append({'label': tmpList[i], 'value': i})
 
     evalList = []
-    tmpList = ['MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE', 'TT']
+    tmpList = ['MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE']
     for i in range(len(tmpList)):
       evalList.append({'label': tmpList[i], 'value': i})
 
@@ -93,7 +93,7 @@ def donutChart():
 
   # completeness
   mis = sum(list(originDf.isnull().sum().values))
-  misRate = round((mis/totalNum) * 100)
+  misRate = 100 - round((mis/totalNum) * 100)
   
   # outlier
   tmpList = []
@@ -106,7 +106,7 @@ def donutChart():
     upperIdxList = list(df[df[column] < lower].index.values)
     tmpList.append(len(lowerIdxList + upperIdxList))
   out = sum(tmpList)
-  outRate = round((out/totalNum) * 100)
+  outRate = 100 - round((out/totalNum) * 100)
 
   # homogeneity
   tmpList = []
@@ -116,11 +116,11 @@ def donutChart():
     conIdxList = list(df[df[column].isnull()].index)
     tmpList.append(len(conIdxList))
   inc = sum(tmpList)
-  incRate = round((inc/totalNum) * 100)
+  incRate = 100 - round((inc/totalNum) * 100)
 
   # duplicate
   dupCnt = len(originDf[originDf.duplicated(keep = False)])
-  dupRate = round(dupCnt/len(originDf) * 100)
+  dupRate = 100 - round(dupCnt/len(originDf) * 100)
 
   inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
   inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
@@ -140,7 +140,7 @@ def donutChart():
 
   highCorrColumnList = list(set([tuple(set(item)) for item in highCorrColumnList]))
   highCorr = len(highCorrColumnList) * 2
-  corRate = round(highCorr/len(columnList) * 100)
+  corRate = 100 - round(highCorr/len(columnList) * 100)
 
   # relevance
   global targetColumn
@@ -149,11 +149,11 @@ def donutChart():
   highCorrColumnList = []
   for row in columnList:
     if row == targetColumn: continue
-    if columnCorrDf[row] > 0.8 or columnCorrDf[row] < -0.8:
+    if columnCorrDf[row] < 0.8 and columnCorrDf[row] > -0.8:
       highCorrColumnList.append(row)
   
   highColumnCorr = len(highCorrColumnList)
-  relRate = round(highColumnCorr/len(columnList) * 100)
+  relRate = 100 - round(highColumnCorr/(len(columnList) - 1) * 100)
 
   rateList = [misRate, outRate, incRate, dupRate, corRate, relRate]
   colorList = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue', 'mediumpurple']
@@ -378,7 +378,7 @@ def checkVisualization():
     response['cnt'] = len(highCorrColumnList)
     response['issueList'] = highCorrColumnList
     response['seriesData'] = seriesDataList
-    response['categoryData'] = columnLists
+    response['categoryData'] = columnList
 
   return json.dumps(response)
 
@@ -500,36 +500,6 @@ def columnSummary():
   columnList = list(originDf.columns)
   totalNum = len(originDf)
 
-  comList = []
-  outList = []
-  homList = []
-  for column in columnList:
-    # completeness
-    columnDf = originDf.loc[:, [column]]
-    mis = sum(list(columnDf.isnull().sum()))
-    misRate = round((mis/totalNum) * 100)
-
-    # outlier
-    columnDf = pd.DataFrame(pd.to_numeric(columnDf.squeeze(), errors = 'coerce'))
-    columnDf = columnDf.dropna()
-
-    lower, upper = main.lower_upper(columnDf[column])
-    lowerIdxList = list(columnDf[columnDf[column] > upper].index.values)
-    upperIdxList = list(columnDf[columnDf[column] < lower].index.values)
-    out = len(lowerIdxList + upperIdxList)
-    outRate = round((out/totalNum) * 100)
-
-    # homogeneity
-    columnDf = originDf[column].dropna()
-    columnDf = pd.DataFrame(pd.to_numeric(columnDf, errors = 'coerce'))
-    conIdxList = list(columnDf[columnDf[column].isnull()].index)
-    inc = len(conIdxList)
-    incRate = round((inc/totalNum) * 100)
-
-    comList.append(misRate)
-    outList.append(outRate)
-    homList.append(incRate)
-
   inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
   inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
   allCorrDf = inconsNaNDf.corr()
@@ -558,7 +528,7 @@ def columnSummary():
   columnCorrColumnList = []
   for row in columnList:
     if row == targetColumn: continue
-    if columnCorrDf[row] > corrThreshold or columnCorrDf[row] < -corrThreshold:
+    if columnCorrDf[row] < corrThreshold and columnCorrDf[row] > -corrThreshold:
       columnCorrColumnList.append(row)
 
   relList = [0 for i in range(len(columnList))]
@@ -567,8 +537,8 @@ def columnSummary():
       relList[i] = 100
 
   seriesData = []
-  columnSummaryData = [relList, corList, homList, outList, comList]
-  for i in range(0, 5):
+  columnSummaryData = [relList, corList]
+  for i in range(0, 2):
     seriesData.append({'name': 'r' + str(i + 1), 'data': columnSummaryData[i]})
   
   response = {}

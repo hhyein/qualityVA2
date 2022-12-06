@@ -33,7 +33,7 @@ export default function BarChart(props) {
         intersect: false
       },
       xaxis: {
-        categories: ['row', 'column', 'instance']
+        categories: ['record', 'feature', 'instance']
       },
       yaxis: {
         labels: {
