@@ -46,7 +46,7 @@ export const FileDataProvider = ({ children }) => {
   const [treeChartData, setTreeChartData] = useState(0);
   const [donutChartData, setDonutChartData] = useState();
   const [tablePointData, setTablePointData] = useState();
-  const [actionRadioValue, setActionRadioValue] = useState('recommend');
+  const [actionRadioValue, setActionRadioValue] = useState('selection');
   const [visualizationData, setVisualizationData] = useState();
   const [modelTableData, setModelTableData] = useState();
   const [changeCntData, setChangeCntData] = useState();
