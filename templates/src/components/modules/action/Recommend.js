@@ -55,7 +55,7 @@ export default function Combination() {
   
 
   React.useEffect(() => {
-    setLengthList(Array.from({ length: 11 }, (_, i) => ({ label: i, value: i })));
+    setLengthList(Array.from({ length: 6 }, (_, i) => ({ label: i, value: i })));
     setCheckList(imgNameList);
     const imgList = imgNameList.reduce(
       (acc, cur) => ({
