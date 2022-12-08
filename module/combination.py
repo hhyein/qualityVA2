@@ -60,7 +60,7 @@ for column in columnList:
     highCorrDf = columnCorrDf[columnCorrDf > corrThreshold]
     
     if len(highCorrDf) > 1:
-    highCorrColumnList.append(list(highCorrDf.index))
+        highCorrColumnList.append(list(highCorrDf.index))
 
 highCorrColumnList = list(set([tuple(set(item)) for item in highCorrColumnList]))
 highCorr = len(highCorrColumnList) * 2

@@ -13,7 +13,7 @@ import pandas as pd
 from io import StringIO
 from scipy import stats
 from collections import Counter
-# from pycaret.regression import *
+from pycaret.regression import *
 
 import module.main as main
 import module.tree as tree
@@ -23,9 +23,13 @@ CORS(app)
 
 uploadFileName = 'bike'
 targetColumn = 'cnt'
+regModelList = ['lr', 'lasso', 'ridge', 'en', 'lar', 'llar', 'omp', 'br', 'ard', 'par',
+                'ransac', 'tr', 'huber', 'kr', 'svm', 'knn', 'dt', 'rf', 'et', 'ada',
+                'gbr', 'mlp', 'lightgbm']
+regEvalList = ['MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE']
+
 inputModelList = []
 inputEvalList = []
-
 combination = []
 combinationDetail = []
 
@@ -36,7 +40,7 @@ def fileUpload():
 
 @app.route('/setting', methods=['GET', 'POST'])
 def setting():
-  global uploadFileName, targetColumn, inputModelList, inputEvalList
+  global uploadFileName, regModelList, targetColumn, inputModelList, inputEvalList
 
   originDf = pd.read_csv('static/' + uploadFileName + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
@@ -48,16 +52,12 @@ def setting():
       columnList.append({'label': tmpList[i], 'value': i})
 
     modelList = []
-    ##### to fix
-    tmpList = ['lr', 'knn', 'nb', 'dt', 'svm', 'rbfsvm', 'gbr', 'mlp', 'ridge', 'rf',
-              'qda', 'ada', 'gbc', 'lda', 'et', 'xgboost', 'lightgbm', 'catboost']
-    for i in range(len(tmpList)):
-      modelList.append({'label': tmpList[i], 'value': i})
+    for i in range(len(regModelList)):
+      modelList.append({'label': regModelList[i], 'value': i})
 
     evalList = []
-    tmpList = ['MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE']
-    for i in range(len(tmpList)):
-      evalList.append({'label': tmpList[i], 'value': i})
+    for i in range(len(regEvalList)):
+      evalList.append({'label': regEvalList[i], 'value': i})
 
     response = {}
     response['columnList'] = columnList
@@ -397,9 +397,9 @@ def modelTable():
   # df = pd.DataFrame(df, columns = columnList)
   # df = df.dropna()
 
-  # global targetColumn
+  # global targetColumn, regModelList
   # clf = setup(data = df, target = targetColumn, preprocess = False, session_id = 42, use_gpu = True, silent = True)
-  # model = compare_models()
+  # model = compare_models(include = regModelList)
   # modelResultDf = pull()
 
   # modelResultDf = modelResultDf.drop(['Model'], axis = 1)
