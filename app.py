@@ -361,6 +361,7 @@ def checkVisualization():
   # relevance
   if vis == 'relevanceChart':
     method = req["method"]
+    corrThreshold = 0.8
 
     inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
     inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
@@ -372,7 +373,7 @@ def checkVisualization():
     highCorrColumnList = []
     for row in columnList:
       if row == targetColumn: continue
-      if columnCorrDf[row] > 0.8 or columnCorrDf[row] < -0.8:
+      if columnCorrDf[row] < corrThreshold and columnCorrDf[row] > -corrThreshold:
         highCorrColumnList.append(row)
       seriesDataList.append(columnCorrDf[row])
 
@@ -413,7 +414,7 @@ def modelTable():
   # modelResultDf = modelResultDf[arrangeColumnList]
   # modelResultDf = modelResultDf.round(3)
 
-  # modelResultDf.to_csv('example_modelTable.csv', index = False)
+  # modelResultDf.to_csv('static/example_modelTable.csv', index = False)
   modelResultDf = pd.read_csv('static/example_modelTable.csv')
 
   modelResultList = [list(modelResultDf.columns)]
@@ -581,7 +582,6 @@ def recommend():
 
   originDf = pd.read_csv('static/' + uploadFileName + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
-  columnList = list(originDf.columns)
 
   for file in os.scandir('static/dataset/'):
     os.remove(file.path)
@@ -590,6 +590,8 @@ def recommend():
   beforeDf.to_csv('static/dataset/0.csv', index = False)
 
   for i in range(len(combination)):
+    columnList = list(beforeDf.columns)
+
     issue = combination[i]
     action = combinationDetail[i]
 
@@ -729,14 +731,13 @@ def recommend():
         columnCorrDf = allCorrDf[targetColumn]
         
         for row in columnList:
+          ##### to check
           if columnCorrDf[row] > corrThreshold:
             highCorrList.append(row)
 
         for j in range(len(highCorrList)):
           dropColumnName = highCorrList[j]
           beforeDf = beforeDf.drop([dropColumnName], axis = 1)
-
-      beforeDf = allCorrDf
 
     beforeDf.to_csv('static/dataset/' + str(i + 1) + '.csv', index = False)
 
@@ -1121,6 +1122,7 @@ def new():
       inconsNaNSeries = beforeDf.apply(pd.to_numeric, errors = 'coerce')
       inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
       allCorrDf = inconsNaNDf.corr(method = action)
+      corrThreshold = 0.8
 
       highCorrList = []
       if issue == 'correlation':
@@ -1140,6 +1142,7 @@ def new():
         columnCorrDf = allCorrDf[targetColumn]
         
         for row in columnList:
+          ##### to check
           if columnCorrDf[row] > corrThreshold:
             highCorrList.append(row)
 

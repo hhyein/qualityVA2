@@ -20,7 +20,7 @@ export default function ColumnHistogramChart(props) {
         animations: {
           enabled: false
         },
-        height: 175,
+        height: 210,
         type: 'bar',
       },
       dataLabels: {

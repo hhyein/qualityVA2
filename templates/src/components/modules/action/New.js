@@ -104,10 +104,7 @@ export default function Action() {
         <RowScatterChart data={newVisualizationChartData} />
       }
       <div style={{ display: 'flex', position: 'relative', bottom: (checkTableData.key === 'col' ? 80 : 20) }}>
-        <div style={{
-          width: '47.5%',
-          margin: '0 5%'
-        }}>
+        <div style={{ width: '47.5%', margin: '0 5%', marginTop: 10 }}>
           <Title title="method" />
           <Select className="select"
             options={actionList}
@@ -122,7 +119,7 @@ export default function Action() {
           <React.Fragment>
             <button
               disabled={buttonActive ? false : true}
-              style={{ width: '50%', height: 30, marginLeft: '25%', marginTop: 20 }}
+              style={{ width: '50%', height: 30, marginLeft: '25%', marginTop: 30 }}
               onClick={submitSetting}>submit</button>
           </React.Fragment>
         </div>

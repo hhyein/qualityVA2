@@ -321,9 +321,9 @@ export default function Check() {
               <div style={{ position: 'relative', height: 112, marginTop: 10, border: '1px solid #999999' }}>
                 <div style={{ position: 'absolute', top: -10, left: 2, fontSize: 13, backgroundColor: '#fff', paddingLeft: 5, paddingRight: 5 }}>information &amp; quality issue</div>
                 <div style={{ marginTop: 10 }}>
-                  <p><strong>high correlation feature cnt</strong> {visualizationData.cnt}</p>
+                  <p><strong>low correlation feature cnt</strong> {visualizationData.cnt}</p>
                   {visualizationData.issueList.length > 0 &&
-                    <p><strong>high correlation feature name</strong> {visualizationData.issueList.join(', ')}</p>
+                    <p><strong>low correlation feature name</strong> {visualizationData.issueList.join(', ')}</p>
                   }
                 </div>
               </div>
