@@ -12,7 +12,9 @@ export default function PNBarChart(props) {
     d3.select('.PNbar-wrapper').selectAll('*').remove()
 
     var options = {
-      series: [{
+      series: [
+        {
+        name: 'correlation',
         data: data.seriesData
       }],
       chart: {
@@ -49,9 +51,11 @@ export default function PNBarChart(props) {
         enabled: false,
       },
       yaxis: {
+        type: 'category',
+        categories: data.categoryData,
         labels: {
           formatter: function (y) {
-            return y.toFixed(2) + "%";
+            return y.toFixed(1) + "%";
           }
         },
         min: -1,

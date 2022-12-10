@@ -4,6 +4,7 @@ import ApexCharts from 'apexcharts'
 export default function HeatmapChart(props) {
   const { chartName, data } = props
   const d3 = window.d3v4
+  console.log(data.seriesData)
 
   useEffect(() => {
     if (!data || data.visualization != chartName)

@@ -313,6 +313,7 @@ def checkVisualization():
   if vis == 'duplicate':
     dupDf = originDf[originDf.duplicated(keep = False)]
     dupList = list(dupDf.index)
+    dupList = list(map(str, dupList))
     issueList = ', '.join(dupList)
 
     response['issueList'] = issueList
@@ -346,7 +347,7 @@ def checkVisualization():
 
       for j in range(i + 1):
         columnCnt = allCorrDf.iloc[i][j]
-        columnCntList.append(abs(float(columnCnt)))
+        columnCntList.append(float(columnCnt))
 
       seriesDataList.append({'name': 'f' + str(i), 'data': columnCntList})
 
@@ -731,7 +732,6 @@ def recommend():
         columnCorrDf = allCorrDf[targetColumn]
         
         for row in columnList:
-          ##### to check
           if columnCorrDf[row] > corrThreshold:
             highCorrList.append(row)
 
@@ -1142,7 +1142,6 @@ def new():
         columnCorrDf = allCorrDf[targetColumn]
         
         for row in columnList:
-          ##### to check
           if columnCorrDf[row] > corrThreshold:
             highCorrList.append(row)
 
