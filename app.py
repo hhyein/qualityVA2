@@ -150,7 +150,7 @@ def donutChart():
   highCorrColumnList = []
   for row in columnList:
     if row == targetColumn: continue
-    if columnCorrDf[row] < 0.8 and columnCorrDf[row] > -0.8:
+    if columnCorrDf[row] < corrThreshold:
       highCorrColumnList.append(row)
   
   highColumnCorr = len(highCorrColumnList)
@@ -346,15 +346,12 @@ def checkVisualization():
       columnCntList = []
 
       for j in range(i + 1):
-        columnCnt = allCorrDf.iloc[i][j]
-        columnCntList.append(float(columnCnt))
-
+        columnCntList.append(float(allCorrDf.iloc[i][j]))
       seriesDataList.append({'name': 'f' + str(i), 'data': columnCntList})
 
-      targetColumnIndex = columnList.index(targetColumn)
-      categoryDataList = []
-      for i in range(len(columnList)):
-        categoryDataList.append('f' + str(i))
+    categoryDataList = []
+    for i in range(len(columnList)):
+      categoryDataList.append('f' + str(i))
 
     response['seriesData'] = seriesDataList
     response['categoryData'] = categoryDataList
@@ -718,7 +715,7 @@ def recommend():
         for row in columnList:
           for column in columnList:
             if row == column: break
-            if allCorrDf.loc[row][column] > corrThreshold:
+            if allCorrDf.loc[row][column] > corrThreshold or allCorrDf.loc[row][column] < -corrThreshold:
               highCorrList.append([row, column])
 
         for j in range(len(highCorrList)):
@@ -732,7 +729,7 @@ def recommend():
         columnCorrDf = allCorrDf[targetColumn]
         
         for row in columnList:
-          if columnCorrDf[row] > corrThreshold:
+          if columnCorrDf[row] < corrThreshold and columnCorrDf[row] > -corrThreshold:
             highCorrList.append(row)
 
         for j in range(len(highCorrList)):
@@ -1129,7 +1126,7 @@ def new():
         for row in columnList:
           for column in columnList:
             if row == column: break
-            if allCorrDf.loc[row][column] > corrThreshold:
+            if allCorrDf.loc[row][column] > corrThreshold or allCorrDf.loc[row][column] < -corrThreshold:
               highCorrList.append([row, column])
 
         for j in range(len(highCorrList)):
@@ -1142,7 +1139,7 @@ def new():
         columnCorrDf = allCorrDf[targetColumn]
         
         for row in columnList:
-          if columnCorrDf[row] > corrThreshold:
+          if columnCorrDf[row] < corrThreshold and columnCorrDf[row] > -corrThreshold:
             highCorrList.append(row)
 
         for j in range(len(highCorrList)):
