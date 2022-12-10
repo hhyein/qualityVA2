@@ -13,6 +13,7 @@ export default function RangeChart(props) {
 
     var options = {
       series: [{
+        name: 'effect',
         data: data.seriesData
       }],
       chart: {
