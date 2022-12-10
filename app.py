@@ -13,7 +13,7 @@ import pandas as pd
 from io import StringIO
 from scipy import stats
 from collections import Counter
-from pycaret.regression import *
+# from pycaret.regression import *
 
 import module.main as main
 import module.tree as tree
