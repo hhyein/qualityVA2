@@ -71,11 +71,10 @@ columnCorrDf = abs(allCorrDf[targetColumn])
 highCorrColumnList = []
 for row in columnList:
     if row == targetColumn: continue
-    if columnCorrDf[row] > 0.8 or columnCorrDf[row] < -0.8:
+    if columnCorrDf[row] < corrThreshold:
         highCorrColumnList.append(row)
 
 highColumnCorr = len(highCorrColumnList)
-
 print(missing, outlier, incons, duplicate, highCorr, highColumnCorr)
 
 # to do action
@@ -196,6 +195,7 @@ for permutation in permutationList:
                             columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
                             columnConcatDf = columnConcatDf.reset_index(drop = True)
 
+                    columnConcatDf = columnConcatDf.reset_index(drop = True)
                     actionDfList.append(columnConcatDf)
 
         if alphabet == 'o':
@@ -261,6 +261,7 @@ for permutation in permutationList:
                         columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
                         columnConcatDf = columnConcatDf.reset_index(drop = True)
 
+                    columnConcatDf = columnConcatDf.reset_index(drop = True)
                     actionDfList.append(columnConcatDf)
 
         if alphabet == 'i':
@@ -280,9 +281,8 @@ for permutation in permutationList:
                         tmpList.append(beforeAction[i])
                     tmpList.append("remove")
                     actionList.append(tmpList)
-                
-                actionColumnDfList = []
 
+                actionColumnDfList = []
                 for column in columnList:
                     columnDf = df.loc[:, [column]]
                     missingIndex = [index for index, row in columnDf.iterrows() if row.isnull().any()]
@@ -299,6 +299,7 @@ for permutation in permutationList:
                     columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[k + 1]], axis = 1, join = 'inner')
                     columnConcatDf = columnConcatDf.reset_index(drop = True)
 
+                columnConcatDf = columnConcatDf.reset_index(drop = True)
                 actionDfList.append(columnConcatDf)
 
         if alphabet == 'd':
@@ -317,9 +318,9 @@ for permutation in permutationList:
                     actionList.append(tmpList)
 
                 df = beforeActionDfList[j]
-                df = df.drop_duplicates()
-                df = df.reset_index(drop = True)
-                actionDfList.append(df)
+                columnConcatDf = df.drop_duplicates()
+                columnConcatDf = columnConcatDf.reset_index(drop = True)
+                actionDfList.append(columnConcatDf)
 
         if alphabet == 'c' or alphabet == 'r':
             actionList = []
@@ -332,12 +333,12 @@ for permutation in permutationList:
 
                 for action in corrList:
                     if beforeAction == "init":
-                        actionList.append(["remove"])
+                        actionList.append([action])
                     else:
                         tmpList = []
                         for i in range(len(beforeAction)):
                             tmpList.append(beforeAction[i])
-                        tmpList.append("remove")
+                        tmpList.append(action)
                         actionList.append(tmpList)
 
                     inconsNaNSeries = df.apply(pd.to_numeric, errors = 'coerce')
@@ -349,29 +350,21 @@ for permutation in permutationList:
                         for row in columnList:
                             for column in columnList:
                                 if row == column: break
-                                if allCorrDf.loc[row][column] > corrThreshold:
+                                if allCorrDf.loc[row][column] > corrThreshold or allCorrDf.loc[row][column] < -corrThreshold:
                                     highCorrList.append([row, column])
 
-                        for i in range(len(highCorrList)):
-                            dropColumnName = highCorrList[i][0]
-                            if dropColumnName == targetColumn:
-                                dropColumnName = highCorrList[i][1]
-
-                            df = df.drop([dropColumnName], axis = 1)
+                        highCorrList = list(set(sum(highCorrList, [])))
 
                     if alphabet == 'r':
                         columnCorrDf = allCorrDf[targetColumn]
                         
                         for row in columnList:
-                            if columnCorrDf[row] > corrThreshold:
+                            if columnCorrDf[row] < corrThreshold and columnCorrDf[row] > -corrThreshold:
                                 highCorrList.append(row)
 
-                        for i in range(len(highCorrList)):
-                            dropColumnName = highCorrList[i]
-                            if dropColumnName == targetColumn: continue
-                            df = df.drop([dropColumnName], axis = 1)
-
-                    actionDfList.append(df)
+                    if targetColumn in highCorrList: highCorrList.remove(targetColumn)
+                    columnConcatDf = df.drop(highCorrList, axis = 1)
+                    actionDfList.append(columnConcatDf)
         
         beforeActionList = actionList
         beforeActionDfList = actionDfList
@@ -410,19 +403,20 @@ for i in range(0, len(dfList)):
     afterDf = dfList[i][targetColumn].dropna()
     kstest = abs(stats.ks_2samp(beforeDf, afterDf).pvalue)
 
-    # if kstest > 0.05: continue
+    # distort
+    if kstest > 0.05: continue
 
     # autoML
     clf = setup(data = dfList[i], target = targetColumn, preprocess = False, session_id = 42, use_gpu = True, silent = True)
     model = compare_models(include = inputModelList)
     resultDf = pull()
 
+    # autoML result dataframe to dict
+    if len(resultDf) < len(inputModelList): continue
+
     for evalMetric in totalEvalList:
         if evalMetric not in inputEvalList:
             resultDf = resultDf.drop([evalMetric], axis = 1)
-
-    # autoML result dataframe to dict
-    if len(resultDf) < len(inputModelList): continue
 
     resultDict = resultDf.to_dict()
     resultDict['issue'] = totalIssueList[i]

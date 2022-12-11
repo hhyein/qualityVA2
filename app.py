@@ -143,8 +143,9 @@ def donutChart():
   highCorr = len(highCorrColumnList) * 2
   corRate = 100 - round(highCorr/len(columnList) * 100)
 
-  # relevance
   global targetColumn
+
+  # relevance
   columnCorrDf = abs(allCorrDf[targetColumn])
 
   highCorrColumnList = []
@@ -521,6 +522,8 @@ def columnSummary():
     if columnList[i] in corrColumnList:
       corList[i] = 100
 
+  global targetColumn
+
   # relevence
   allCorrDf = allCorrDf.reindex(sorted(allCorrDf.columns), axis = 1)
   columnCorrDf = allCorrDf[targetColumn]
@@ -574,7 +577,7 @@ def recommend():
   req = request.get_data().decode('utf-8')
   req = eval(req)
 
-  global uploadFileName, combination, combinationDetail
+  global uploadFileName, combination, combinationDetail, targetColumn
   combination = req["combination"]
   combinationDetail = req["combinationDetail"]
 
@@ -718,12 +721,7 @@ def recommend():
             if allCorrDf.loc[row][column] > corrThreshold or allCorrDf.loc[row][column] < -corrThreshold:
               highCorrList.append([row, column])
 
-        for j in range(len(highCorrList)):
-          dropColumnName = highCorrList[j][0]
-          if dropColumnName == targetColumn:
-            dropColumnName = highCorrList[j][1]
-          
-          beforeDf = beforeDf.drop([dropColumnName], axis = 1)
+        highCorrList = list(set(sum(highCorrList, [])))
 
       if issue == 'relevance':
         columnCorrDf = allCorrDf[targetColumn]
@@ -732,9 +730,8 @@ def recommend():
           if columnCorrDf[row] < corrThreshold and columnCorrDf[row] > -corrThreshold:
             highCorrList.append(row)
 
-        for j in range(len(highCorrList)):
-          dropColumnName = highCorrList[j]
-          beforeDf = beforeDf.drop([dropColumnName], axis = 1)
+      if targetColumn in highCorrList: highCorrList.remove(targetColumn)
+      beforeDf = beforeDf.drop(highCorrList, axis = 1)
 
     beforeDf.to_csv('static/dataset/' + str(i + 1) + '.csv', index = False)
 
@@ -1129,11 +1126,9 @@ def new():
             if allCorrDf.loc[row][column] > corrThreshold or allCorrDf.loc[row][column] < -corrThreshold:
               highCorrList.append([row, column])
 
-        for j in range(len(highCorrList)):
-          dropColumnName = highCorrList[j][0]
-          if dropColumnName == targetColumn:
-            dropColumnName = highCorrList[j][1]
-          beforeDf = beforeDf.drop([dropColumnName], axis = 1)
+        highCorrList = list(set(sum(highCorrList, [])))
+        if targetColumn in highCorrList: highCorrList.remove(targetColumn)
+        beforeDf = beforeDf.drop(highCorrList, axis = 1)
 
       if issue == 'relevance':
         columnCorrDf = allCorrDf[targetColumn]
@@ -1142,9 +1137,8 @@ def new():
           if columnCorrDf[row] < corrThreshold and columnCorrDf[row] > -corrThreshold:
             highCorrList.append(row)
 
-        for j in range(len(highCorrList)):
-          dropColumnName = highCorrList[j]
-          beforeDf = beforeDf.drop([dropColumnName], axis = 1)
+        if targetColumn in highCorrList: highCorrList.remove(targetColumn)
+        beforeDf = beforeDf.drop(highCorrList, axis = 1)
 
     beforeDf.to_csv('static/dataset/' + str(i + 1) + '.csv', index = False)
 

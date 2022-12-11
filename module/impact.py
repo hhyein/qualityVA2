@@ -62,6 +62,7 @@ for issue in issueList:
                     columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[i + 1]], axis = 1, join = 'inner')
                     columnConcatDf = columnConcatDf.reset_index(drop = True)
 
+            columnConcatDf = columnConcatDf.reset_index(drop = True)
             actionDfList.append(columnConcatDf)
     
     if issue == 'o':
@@ -110,6 +111,7 @@ for issue in issueList:
                 columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[i + 1]], axis = 1, join = 'inner')
                 columnConcatDf = columnConcatDf.reset_index(drop = True)
 
+            columnConcatDf = columnConcatDf.reset_index(drop = True)
             actionDfList.append(columnConcatDf)
 
     if issue == 'i':
@@ -131,6 +133,7 @@ for issue in issueList:
             columnConcatDf = pd.concat([columnConcatDf, actionColumnDfList[i + 1]], axis = 1, join = 'inner')
             columnConcatDf = columnConcatDf.reset_index(drop = True)
 
+        columnConcatDf = columnConcatDf.reset_index(drop = True)
         actionDfList.append(columnConcatDf)
     
     if issue == 'd':
@@ -152,12 +155,9 @@ for issue in issueList:
                         if allCorrDf.loc[row][column] > corrThreshold:
                             highCorrList.append([row, column])
 
-                for i in range(len(highCorrList)):
-                    dropColumnName = highCorrList[i][0]
-                    if dropColumnName == targetColumn:
-                        dropColumnName = highCorrList[i][1]
-
-                    df = df.drop([dropColumnName], axis = 1)
+                highCorrList = list(set(sum(highCorrList, [])))
+                if targetColumn in highCorrList: highCorrList.remove(targetColumn)
+                df = df.drop(highCorrList, axis = 1)
 
             if issue == 'r':
                 columnCorrDf = allCorrDf[targetColumn]
@@ -166,10 +166,8 @@ for issue in issueList:
                     if columnCorrDf[row] > corrThreshold:
                         highCorrList.append(row)
 
-                for i in range(len(highCorrList)):
-                    dropColumnName = highCorrList[i]
-                    if dropColumnName == targetColumn: continue
-                    df = df.drop([dropColumnName], axis = 1)
+                if targetColumn in highCorrList: highCorrList.remove(targetColumn)
+                df = df.drop(highCorrList, axis = 1)
 
             actionDfList.append(df)
 
