@@ -25,7 +25,6 @@ export default function Table() {
   const [gridData, setGridData] = React.useState('');
   const [pointData, setPointData] = React.useState();
 
-
   const handleTableClick = (key, idx) => {
     if (actionRadioValue === 'customization') {
       setCheckTableData({
@@ -124,18 +123,18 @@ export default function Table() {
 
   const getBgColor = (rowNumber, columnNumber) => {
     if (rowSummary && rowSummary.rowIndex && columnNumber == 0 && rowSummary.rowIndex.includes(rowNumber-1) && rowNumber > 0) {
-      return 'rgba(240, 128, 128, 0.5)'
+      return 'rgba(240, 128, 128, 1)'
     }
     if (actionRadioValue === 'customization') {
       if ((checkTableData.key === 'row' && checkTableData.data === rowNumber) || (checkTableData.key === 'col' && checkTableData.data === columnNumber)) {
         if (columnNumber > 0 && rColorData[rowNumber] && rColorData[rowNumber][columnNumber]) {
-          return `rgba(${rColorData[rowNumber][columnNumber]}, ${gColorData[rowNumber][columnNumber]}, ${bColorData[rowNumber][columnNumber]}, 0.7)`;
+          return `rgba(${rColorData[rowNumber][columnNumber]}, ${gColorData[rowNumber][columnNumber]}, ${bColorData[rowNumber][columnNumber]}, 1)`;
         }
         return '#eee';
       }
     }
     if (columnNumber > 0 && rColorData[rowNumber] && rColorData[rowNumber][columnNumber]) {
-      return `rgba(${rColorData[rowNumber][columnNumber]}, ${gColorData[rowNumber][columnNumber]}, ${bColorData[rowNumber][columnNumber]}, 0.5)`;
+      return `rgba(${rColorData[rowNumber][columnNumber]}, ${gColorData[rowNumber][columnNumber]}, ${bColorData[rowNumber][columnNumber]}, 1)`;
     }
     return undefined;
   }
