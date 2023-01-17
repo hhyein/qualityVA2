@@ -120,7 +120,9 @@ for permutation in permutationList:
         multipleCnt = multipleCnt * len(missingList)
     if 'o' in permutation:
         multipleCnt = multipleCnt * len(outlierList)
-    if 'c' in permutation or 'r' in permutation:
+    if 'c' in permutation:
+        multipleCnt = multipleCnt * len(corrList)
+    if 'r' in permutation:
         multipleCnt = multipleCnt * len(corrList)
 
     for i in range(0, multipleCnt):

@@ -1284,6 +1284,59 @@ def changeDistort():
 
   return json.dumps(response)
 
+@app.route('/changePerformance', methods=['GET', 'POST'])
+def changePerformance():
+  # req = eval(request.get_data().decode('utf-8'))
+  # fileName = req["fileName"]
+  # modelName = req["modelName"]
+
+  # global uploadFileName, targetColumn, regModelList
+  # beforeDf = pd.read_csv('static/' + uploadFileName + '.csv')
+  # columnList = list(beforeDf.columns)
+
+  # df = beforeDf.apply(pd.to_numeric, errors = 'coerce')
+  # df = pd.DataFrame(df, columns = columnList)
+  # df = df.dropna()
+
+  # clf = setup(data = df, target = targetColumn, preprocess = False, session_id = 42, use_gpu = True, silent = True)
+  # model = compare_models(include = [modelName])
+  # modelResultDf = pull()
+
+  # modelResultDf = modelResultDf.drop(['Model'], axis = 1)
+  # modelResultDf = modelResultDf.drop(['TT (Sec)'], axis = 1)
+  # modelResultDf = modelResultDf.round(3)
+  # beforeList = modelResultDf.loc[[modelName], :].values.tolist()[0]
+
+  # afterDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
+  # columnList = list(beforeDf.columns)
+
+  # df = beforeDf.apply(pd.to_numeric, errors = 'coerce')
+  # df = pd.DataFrame(df, columns = columnList)
+  # df = df.dropna()
+
+  # clf = setup(data = df, target = targetColumn, preprocess = False, session_id = 42, use_gpu = True, silent = True)
+  # model = compare_models(include = [modelName])
+  # modelResultDf = pull()
+
+  # modelResultDf = modelResultDf.drop(['Model'], axis = 1)
+  # modelResultDf = modelResultDf.drop(['TT (Sec)'], axis = 1)
+  # modelResultDf = modelResultDf.round(3)
+  # afterList = modelResultDf.loc[[modelName], :].values.tolist()[0]
+
+  # beforeList = [59.338, 6612.771, 80.798, -0.009, 1.423, 6.235]
+  # afterList = [13.981, 919.706, 28.253, 0.796, 0.626, 0.669]
+  beforeList = [59.338, 66.127, 80.798, 0.009, 1.423, 6.235]
+  afterList = [13.981, 9.197, 28.253, 0.796, 0.626, 0.669]
+
+  seriesDataList = []
+  seriesDataList.append({'name': 'before', 'data': beforeList})
+  seriesDataList.append({'name': 'after', 'data': afterList})
+
+  response = {}
+  response['seriesData'] = seriesDataList
+
+  return json.dumps(response)
+
 if __name__ == '__main__':
   app.jinja_env.auto_reload = True
   app.config['TEMPLATES_AUTO_RELOAD'] = True
