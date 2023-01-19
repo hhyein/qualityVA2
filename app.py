@@ -181,9 +181,7 @@ def checkVisualization():
   columnList = list(originDf.columns)
 
   global targetColumn
-  response = {
-    'visualization': vis
-  }
+  response = {'visualization': vis}
   
   # completeness, homogeneity
   if vis == 'heatmapChart':
@@ -383,7 +381,6 @@ def checkVisualization():
 
   return json.dumps(response)
 
-# 모델 성능 계산할 시에는 mis, inc drop 처리
 @app.route('/modelTable', methods=['GET', 'POST'])
 def modelTable():
   req = eval(request.get_data().decode('utf-8'))
@@ -1323,8 +1320,6 @@ def changePerformance():
   # modelResultDf = modelResultDf.round(3)
   # afterList = modelResultDf.loc[[modelName], :].values.tolist()[0]
 
-  # beforeList = [59.338, 6612.771, 80.798, -0.009, 1.423, 6.235]
-  # afterList = [13.981, 919.706, 28.253, 0.796, 0.626, 0.669]
   beforeList = [59.338, 66.127, 80.798, 0.009, 1.423, 6.235]
   afterList = [13.981, 9.197, 28.253, 0.796, 0.626, 0.669]
 

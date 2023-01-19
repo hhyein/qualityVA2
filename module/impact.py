@@ -210,3 +210,18 @@ for i in range(0, 15):
 # autoML result to file
 with open('dataset/after.json', 'w') as file:
     file.write(json.dumps(resultList, indent = 4))
+
+df = pd.read_csv(uploadFileName + '.csv')
+clf = setup(data = df, target = targetColumn, preprocess = False, session_id = 42, use_gpu = True, silent = True)
+model = compare_models(include = inputModelList)
+resultDf = pull()
+
+for evalMetric in totalEvalList:
+    if evalMetric not in inputEvalList:
+        resultDf = resultDf.drop([evalMetric], axis = 1)
+
+resultDict = resultDf.to_dict()
+resultList.append(resultDict)
+
+with open('dataset/before.json', 'w') as file:
+    file.write(json.dumps(resultList, indent = 4))
