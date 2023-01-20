@@ -158,7 +158,7 @@ def donutChart():
   relRate = 100 - round(highColumnCorr/(len(columnList) - 1) * 100)
 
   rateList = [misRate, outRate, incRate, dupRate, corRate, relRate]
-  colorList = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue', 'mediumpurple']
+  colorList = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'darkslategray', 'mediumpurple']
 
   donutChartList = []
   for i in range(0, 6):
