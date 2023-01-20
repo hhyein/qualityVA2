@@ -107,8 +107,8 @@ export default function Combination() {
     }
     const sortedChartTableData = data.sort((a, b) =>
       isAscending
-        ? a[column] - b[column]
-        : b[column] - a[column]
+        ? b[column] - a[column]
+        : a[column] - b[column]
     )
 
     if (

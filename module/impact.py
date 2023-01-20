@@ -12,7 +12,7 @@ targetColumn = 'cnt'
 inputModelList = ['lr', 'svm', 'gbr']
 inputEvalList = ['MAE', 'MSE', 'RMSE']
 
-df = pd.read_csv('bike.csv')
+df = pd.read_csv(uploadFileName + '.csv')
 df = df.reindex(sorted(df.columns), axis = 1)
 columnList = list(df.columns)
 

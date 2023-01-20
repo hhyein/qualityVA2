@@ -1149,7 +1149,9 @@ def impact():
   ##### for test
   global inputModelList, inputEvalList
   inputModelList = ['lr', 'svm', 'gbr']
-  inputEvalList = ['MAE', 'MSE', 'RMSE']
+  inputEvalList = ['MAE', 'RMSE', 'R2']
+  # inputModelList = ['lr', 'dt', 'rf']
+  # inputEvalList = ['RMSE']
 
   # missing
   missingList = []
