@@ -56,7 +56,8 @@ export default function Check() {
     modelTableData,
     actionRadioValue,
     setTreeChartNode,
-    treeChartNode
+    treeChartNode,
+    newVisualizationChartData
   } = useFileData()
 
   const [metricValues, setMetricValues] = React.useState({
@@ -115,6 +116,10 @@ export default function Check() {
   React.useEffect(() => {
     setMetricValues(metricList[selectedLegendIdx])
   }, [selectedLegendIdx])
+
+  React.useEffect(() => {
+    setCheckTableData([1]);
+  }, [newVisualizationChartData])
 
   React.useEffect(() => {
     if (metricValues?.label) {
