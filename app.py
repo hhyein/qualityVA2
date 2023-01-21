@@ -158,7 +158,7 @@ def donutChart():
   relRate = 100 - round(highColumnCorr/(len(columnList) - 1) * 100)
 
   rateList = [misRate, outRate, incRate, dupRate, corRate, relRate]
-  colorList = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'cadetblue', 'mediumpurple']
+  colorList = ['darkorange', 'steelblue', 'yellowgreen', 'lightcoral', 'darkslategray', 'mediumpurple']
 
   donutChartList = []
   for i in range(0, 6):
@@ -181,9 +181,7 @@ def checkVisualization():
   columnList = list(originDf.columns)
 
   global targetColumn
-  response = {
-    'visualization': vis
-  }
+  response = {'visualization': vis}
   
   # completeness, homogeneity
   if vis == 'heatmapChart':
@@ -383,7 +381,6 @@ def checkVisualization():
 
   return json.dumps(response)
 
-# 모델 성능 계산할 시에는 mis, inc drop 처리
 @app.route('/modelTable', methods=['GET', 'POST'])
 def modelTable():
   req = eval(request.get_data().decode('utf-8'))
@@ -1152,7 +1149,9 @@ def impact():
   ##### for test
   global inputModelList, inputEvalList
   inputModelList = ['lr', 'svm', 'gbr']
-  inputEvalList = ['MAE', 'MSE', 'RMSE']
+  inputEvalList = ['MAE', 'RMSE', 'R2']
+  # inputModelList = ['lr', 'dt', 'rf']
+  # inputEvalList = ['RMSE']
 
   # missing
   missingList = []
@@ -1281,6 +1280,57 @@ def changeDistort():
   response = {}
   response['seriesData'] = seriesDataList
   response['categoryData'] = categoryDataList
+
+  return json.dumps(response)
+
+@app.route('/changePerformance', methods=['GET', 'POST'])
+def changePerformance():
+  # req = eval(request.get_data().decode('utf-8'))
+  # fileName = req["fileName"]
+  # modelName = req["modelName"]
+
+  # global uploadFileName, targetColumn, regModelList
+  # beforeDf = pd.read_csv('static/' + uploadFileName + '.csv')
+  # columnList = list(beforeDf.columns)
+
+  # df = beforeDf.apply(pd.to_numeric, errors = 'coerce')
+  # df = pd.DataFrame(df, columns = columnList)
+  # df = df.dropna()
+
+  # clf = setup(data = df, target = targetColumn, preprocess = False, session_id = 42, use_gpu = True, silent = True)
+  # model = compare_models(include = [modelName])
+  # modelResultDf = pull()
+
+  # modelResultDf = modelResultDf.drop(['Model'], axis = 1)
+  # modelResultDf = modelResultDf.drop(['TT (Sec)'], axis = 1)
+  # modelResultDf = modelResultDf.round(3)
+  # beforeList = modelResultDf.loc[[modelName], :].values.tolist()[0]
+
+  # afterDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
+  # columnList = list(beforeDf.columns)
+
+  # df = beforeDf.apply(pd.to_numeric, errors = 'coerce')
+  # df = pd.DataFrame(df, columns = columnList)
+  # df = df.dropna()
+
+  # clf = setup(data = df, target = targetColumn, preprocess = False, session_id = 42, use_gpu = True, silent = True)
+  # model = compare_models(include = [modelName])
+  # modelResultDf = pull()
+
+  # modelResultDf = modelResultDf.drop(['Model'], axis = 1)
+  # modelResultDf = modelResultDf.drop(['TT (Sec)'], axis = 1)
+  # modelResultDf = modelResultDf.round(3)
+  # afterList = modelResultDf.loc[[modelName], :].values.tolist()[0]
+
+  beforeList = [59.338, 66.127, 80.798, 0.009, 1.423, 6.235]
+  afterList = [13.981, 9.197, 28.253, 0.796, 0.626, 0.669]
+
+  seriesDataList = []
+  seriesDataList.append({'name': 'before', 'data': beforeList})
+  seriesDataList.append({'name': 'after', 'data': afterList})
+
+  response = {}
+  response['seriesData'] = seriesDataList
 
   return json.dumps(response)
 

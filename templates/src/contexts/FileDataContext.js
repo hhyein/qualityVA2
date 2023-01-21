@@ -50,7 +50,8 @@ export const FileDataProvider = ({ children }) => {
   const [visualizationData, setVisualizationData] = useState();
   const [modelTableData, setModelTableData] = useState();
   const [changeCntData, setChangeCntData] = useState();
-  const [changeDistortData, setChangeDistort] = useState();
+  const [changeDistortData, setChangeDistortData] = useState();
+  const [changePerformanceData, setChangePerformanceData] = useState();
   const [checkTableData, setCheckTableData] = useState({
     key: 'row',
     data: 1
@@ -121,7 +122,6 @@ export const FileDataProvider = ({ children }) => {
       return
     }
     updateCombinationTable()
-    updateChangeDistortData(treeChartNode)
   }, [file, updateCombinationTable, settingValues, treeChartNode])
 
   useEffect(() => {
@@ -133,6 +133,8 @@ export const FileDataProvider = ({ children }) => {
     updateModelTableData(treeChartNode)
     updateVisualizationData(treeChartNode, 'heatmapChart', 'completeness', {rowIdx: 0, columnIdx: 0})
     updateChangeCntData(treeChartNode)
+    updateChangeDistortData(treeChartNode)
+    updateChangePerformanceData(treeChartNode)
     updateTableData(treeChartNode)
     updateColumnSummaryData(treeChartNode)
     updateRowSummaryData(treeChartNode)
@@ -206,7 +208,15 @@ export const FileDataProvider = ({ children }) => {
       fileName: fileName 
     }
     const changeDistortData = await postData('/changeDistort', option);
-    setChangeDistort(changeDistortData);
+    setChangeDistortData(changeDistortData);
+  }
+
+  const updateChangePerformanceData = async (fileName) => {
+    const option = {
+      fileName: fileName 
+    }
+    const changePerformanceData = await postData('/changePerformance', option);
+    setChangePerformanceData(changePerformanceData);
   }
 
   const updateTableData = async (fileName) => {
@@ -285,6 +295,7 @@ export const FileDataProvider = ({ children }) => {
         modelTableData,
         changeCntData,
         changeDistortData,
+        changePerformanceData,
         checkTableData,
         setCheckTableData,
         treeChartNode,

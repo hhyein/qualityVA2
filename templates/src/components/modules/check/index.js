@@ -18,7 +18,7 @@ const legendData = [
   { label: 1, text: 'outlier', color: 'steelblue' },
   { label: 2, text: 'homogeneity', color: 'yellowgreen' },
   { label: 3, text: 'duplicate', color: 'lightcoral' },
-  { label: 4, text: 'correlation', color: 'cadetblue' },
+  { label: 4, text: 'correlation', color: 'darkslategray' },
   { label: 5, text: 'relevance', color: 'mediumpurple' },
 ]
 

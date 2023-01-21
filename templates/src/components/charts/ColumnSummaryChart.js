@@ -27,7 +27,7 @@ export default function ColumnSummaryChart(props) {
       dataLabels: {
         enabled: false
       },
-      colors: ['#9370DB', '#5F9EA0'],
+      colors: ['#9370DB', '#2F4F4F'],
       xaxis: {
         type: 'category',
         categories: data.categoryData,
