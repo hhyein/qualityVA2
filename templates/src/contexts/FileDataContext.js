@@ -41,7 +41,7 @@ export const FileDataProvider = ({ children }) => {
   const [combinationTableData, setCombinationTableData] = useState({})
   const [combinationTableSortingInfo, setCombinationTableSortingInfo] = useState({})
   const [selectedCombinationTableRow, setSelectedCombinationTableRow] = useState()
-  const [myCombinationRadioValue, setMyCombinationRadioValue] = React.useState('knn');
+  const [myCombinationRadioValue, setMyCombinationRadioValue] = React.useState('');
   const [selectedLegendIdx, setSelectedLegendIdx] = useState(0);
   const [treeChartData, setTreeChartData] = useState(0);
   const [donutChartData, setDonutChartData] = useState();
@@ -125,7 +125,7 @@ export const FileDataProvider = ({ children }) => {
   }, [file, updateCombinationTable, settingValues, treeChartNode])
 
   useEffect(() => {
-    if (!file) {
+    if (!file || !settingValues) {
       return
     }
     updateDonutChartData(treeChartNode)
@@ -134,19 +134,18 @@ export const FileDataProvider = ({ children }) => {
     updateVisualizationData(treeChartNode, 'heatmapChart', 'completeness', {rowIdx: 0, columnIdx: 0})
     updateChangeCntData(treeChartNode)
     updateChangeDistortData(treeChartNode)
-    updateChangePerformanceData(treeChartNode)
+    updateChangePerformanceData(treeChartNode, settingValues?.model?.[0].label)
     updateTableData(treeChartNode)
     updateColumnSummaryData(treeChartNode)
     updateRowSummaryData(treeChartNode)
     updateNewVisualizationChartData(treeChartNode, customValues.select, customValues.selectDetail)
-  }, [file, treeChartNode])
+  }, [file, treeChartNode, settingValues])
 
   useEffect(() => {
     if (!selectedCombinationTableData) {
       return
     }
     updateRecommendData()
-    // updateVisualizationData(treeChartNode, 'heatmapChart', 'completeness', {rowIdx: 0, columnIdx: 0})
   }, [selectedCombinationTableData])
 
   useEffect(() => {
@@ -211,9 +210,10 @@ export const FileDataProvider = ({ children }) => {
     setChangeDistortData(changeDistortData);
   }
 
-  const updateChangePerformanceData = async (fileName) => {
+  const updateChangePerformanceData = async (fileName, modelName) => {
     const option = {
-      fileName: fileName 
+      fileName: fileName,
+      modelName: modelName
     }
     const changePerformanceData = await postData('/changePerformance', option);
     setChangePerformanceData(changePerformanceData);

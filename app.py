@@ -13,7 +13,7 @@ import pandas as pd
 from io import StringIO
 from scipy import stats
 from collections import Counter
-from pycaret.regression import *
+# from pycaret.regression import *
 
 import module.main as main
 import module.tree as tree
@@ -1147,17 +1147,13 @@ def impact():
   with open('static/example_before.json') as f: beforeData = json.load(f)
 
   global inputModelList, inputEvalList
-  # bike sharing dataset
-  # inputModelList = ['lr', 'svm', 'gbr']
-  # inputEvalList = ['MAE', 'RMSE', 'R2']
-
   # house pricing dataset
   inputModelList = ['lr', 'dt', 'rf']
   inputEvalList = ['RMSE']
 
   # beijing dataset
-  inputModelList = ['lr', 'dt', 'rf', 'mlp']
-  inputEvalList = ['RMSE', 'R2']
+  # inputModelList = ['lr', 'dt', 'rf', 'mlp']
+  # inputEvalList = ['RMSE', 'R2']
 
   # missing
   missingList = []
@@ -1295,41 +1291,42 @@ def changePerformance():
   fileName = req["fileName"]
   modelName = req["modelName"]
 
-  global uploadFileName, targetColumn, regModelList
-  beforeDf = pd.read_csv('static/' + uploadFileName + '.csv')
-  columnList = list(beforeDf.columns)
+  # global uploadFileName, targetColumn, regModelList
+  # beforeDf = pd.read_csv('static/' + uploadFileName + '.csv')
+  # columnList = list(beforeDf.columns)
 
-  df = beforeDf.apply(pd.to_numeric, errors = 'coerce')
-  df = pd.DataFrame(df, columns = columnList)
-  df = df.dropna()
+  # df = beforeDf.apply(pd.to_numeric, errors = 'coerce')
+  # df = pd.DataFrame(df, columns = columnList)
+  # df = df.dropna()
 
-  clf = setup(data = df, target = targetColumn, preprocess = False, session_id = 42, use_gpu = True, silent = True)
-  model = compare_models(include = [modelName])
-  modelResultDf = pull()
+  # clf = setup(data = df, target = targetColumn, preprocess = False, session_id = 42, use_gpu = True, silent = True)
+  # model = compare_models(include = [modelName])
+  # modelResultDf = pull()
 
-  modelResultDf = modelResultDf.drop(['Model'], axis = 1)
-  modelResultDf = modelResultDf.drop(['TT (Sec)'], axis = 1)
-  modelResultDf = modelResultDf.round(3)
-  beforeList = modelResultDf.loc[[modelName], :].values.tolist()[0]
+  # modelResultDf = modelResultDf.drop(['Model'], axis = 1)
+  # modelResultDf = modelResultDf.drop(['TT (Sec)'], axis = 1)
+  # modelResultDf = modelResultDf.round(3)
+  # beforeList = modelResultDf.loc[[modelName], :].values.tolist()[0]
 
-  afterDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
-  columnList = list(beforeDf.columns)
+  # afterDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
+  # columnList = list(beforeDf.columns)
 
-  df = beforeDf.apply(pd.to_numeric, errors = 'coerce')
-  df = pd.DataFrame(df, columns = columnList)
-  df = df.dropna()
+  # df = beforeDf.apply(pd.to_numeric, errors = 'coerce')
+  # df = pd.DataFrame(df, columns = columnList)
+  # df = df.dropna()
 
-  clf = setup(data = df, target = targetColumn, preprocess = False, session_id = 42, use_gpu = True, silent = True)
-  model = compare_models(include = [modelName])
-  modelResultDf = pull()
+  # clf = setup(data = df, target = targetColumn, preprocess = False, session_id = 42, use_gpu = True, silent = True)
+  # model = compare_models(include = [modelName])
+  # modelResultDf = pull()
 
-  modelResultDf = modelResultDf.drop(['Model'], axis = 1)
-  modelResultDf = modelResultDf.drop(['TT (Sec)'], axis = 1)
-  modelResultDf = modelResultDf.round(3)
-  afterList = modelResultDf.loc[[modelName], :].values.tolist()[0]
+  # modelResultDf = modelResultDf.drop(['Model'], axis = 1)
+  # modelResultDf = modelResultDf.drop(['TT (Sec)'], axis = 1)
+  # modelResultDf = modelResultDf.round(3)
+  # afterList = modelResultDf.loc[[modelName], :].values.tolist()[0]
 
-  # beforeList = [59.338, 66.127, 80.798, 0.009, 1.423, 6.235]
-  # afterList = [13.981, 9.197, 28.253, 0.796, 0.626, 0.669]
+  # house pricing dataset - step 0
+  beforeList = [2.484, 14.35, 3.616, 0.82, 0.154, 0.123]
+  afterList = [2.484, 14.35, 3.616, 0.82, 0.154, 0.123]
 
   seriesDataList = []
   seriesDataList.append({'name': 'before', 'data': beforeList})

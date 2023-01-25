@@ -1571,3 +1571,2083 @@ AssertionError
                     n_estimators=100, n_jobs=-1, oob_score=False,
                     random_state=42, verbose=0, warm_start=False)
 2023-01-25 14:25:10,830:INFO:compare_models() succesfully completed......................................
+2023-01-25 14:38:58,963:INFO:PyCaret Supervised Module
+2023-01-25 14:38:58,964:INFO:ML Usecase: regression
+2023-01-25 14:38:58,964:INFO:version 2.3.10
+2023-01-25 14:38:58,964:INFO:Initializing setup()
+2023-01-25 14:38:58,964:INFO:setup(target=PRICE, ml_usecase=regression, available_plots={'parameter': 'Hyperparameters', 'residuals': 'Residuals', 'error': 'Prediction Error', 'cooks': 'Cooks Distance', 'rfe': 'Feature Selection', 'learning': 'Learning Curve', 'manifold': 'Manifold Learning', 'vc': 'Validation Curve', 'feature': 'Feature Importance', 'feature_all': 'Feature Importance (All)', 'tree': 'Decision Tree', 'residuals_interactive': 'Interactive Residuals'}, train_size=0.7, test_data=None, preprocess=False, imputation_type=simple, iterative_imputation_iters=5, categorical_features=None, categorical_imputation=constant, categorical_iterative_imputer=lightgbm, ordinal_features=None, high_cardinality_features=None, high_cardinality_method=frequency, numeric_features=None, numeric_imputation=mean, numeric_iterative_imputer=lightgbm, date_features=None, ignore_features=None, normalize=False, normalize_method=zscore, transformation=False, transformation_method=yeo-johnson, handle_unknown_categorical=True, unknown_categorical_method=least_frequent, pca=False, pca_method=linear, pca_components=None, ignore_low_variance=False, combine_rare_levels=False, rare_level_threshold=0.1, bin_numeric_features=None, remove_outliers=False, outliers_threshold=0.05, remove_multicollinearity=False, multicollinearity_threshold=0.9, remove_perfect_collinearity=True, create_clusters=False, cluster_iter=20, polynomial_features=False, polynomial_degree=2, trigonometry_features=False, polynomial_threshold=0.1, group_features=None, group_names=None, feature_selection=False, feature_selection_threshold=0.8, feature_selection_method=classic, feature_interaction=False, feature_ratio=False, interaction_threshold=0.01, fix_imbalance=False, fix_imbalance_method=None, transform_target=False, transform_target_method=box-cox, data_split_shuffle=True, data_split_stratify=False, fold_strategy=kfold, fold=10, fold_shuffle=False, fold_groups=None, n_jobs=-1, use_gpu=True, custom_pipeline=None, html=True, session_id=42, log_experiment=False, experiment_name=None, experiment_custom_tags=None, log_plots=False, log_profile=False, log_data=False, silent=True, verbose=True, profile=False, profile_kwargs=None, display=None)
+2023-01-25 14:38:58,964:INFO:Checking environment
+2023-01-25 14:38:58,964:INFO:python_version: 3.8.10
+2023-01-25 14:38:58,965:INFO:python_build: ('default', 'May 19 2021 13:12:57')
+2023-01-25 14:38:58,965:INFO:machine: AMD64
+2023-01-25 14:38:58,987:INFO:platform: Windows-10-10.0.19045-SP0
+2023-01-25 14:38:58,988:WARNING:cannot find psutil installation. memory not traceable. Install psutil using pip to enable memory logging.
+2023-01-25 14:38:58,988:INFO:Checking libraries
+2023-01-25 14:38:58,988:INFO:pd==1.3.0
+2023-01-25 14:38:58,988:INFO:numpy==1.19.5
+2023-01-25 14:38:58,988:INFO:sklearn==0.23.2
+2023-01-25 14:38:58,989:INFO:lightgbm==3.3.2
+2023-01-25 14:38:58,990:WARNING:catboost not found
+2023-01-25 14:38:58,991:WARNING:xgboost not found
+2023-01-25 14:38:58,991:INFO:mlflow==1.25.1
+2023-01-25 14:38:58,991:INFO:Checking Exceptions
+2023-01-25 14:38:58,991:INFO:Declaring global variables
+2023-01-25 14:38:58,991:INFO:USI: 70a5
+2023-01-25 14:38:58,991:INFO:pycaret_globals: {'_gpu_n_jobs_param', 'fold_param', 'fix_imbalance_method_param', 'transform_target_method_param', 'transform_target_param', 'log_plots_param', 'fold_groups_param', 'imputation_classifier', 'pycaret_globals', 'logging_param', '_all_models_internal', 'y_train', 'y', 'gpu_param', 'display_container', 'imputation_regressor', 'X', 'exp_name_log', '_ml_usecase', 'fold_groups_param_full', 'fold_shuffle_param', 'data_before_preprocess', 'seed', 'stratify_param', 'USI', 'fold_generator', 'fix_imbalance_param', 'master_model_container', 'dashboard_logger', 'X_test', 'experiment__', '_available_plots', 'prep_pipe', 'target_param', 'y_test', 'create_model_container', '_all_metrics', '_internal_pipeline', '_all_models', 'X_train', 'n_jobs_param', 'html_param', 'iterative_imputation_iters_param'}
+2023-01-25 14:38:58,991:INFO:Preparing display monitor
+2023-01-25 14:38:58,992:INFO:Preparing display monitor
+2023-01-25 14:38:59,003:INFO:Importing libraries
+2023-01-25 14:38:59,003:INFO:Copying data for preprocessing
+2023-01-25 14:38:59,012:INFO:Declaring preprocessing parameters
+2023-01-25 14:38:59,013:WARNING:cuML not found
+2023-01-25 14:38:59,013:WARNING:cuML is outdated or not found. Required version is >=0.15, got 3.3.2
+2023-01-25 14:38:59,014:INFO:Creating preprocessing pipeline
+2023-01-25 14:38:59,022:INFO:Preprocessing pipeline created successfully
+2023-01-25 14:38:59,023:ERROR:(Process Exit): setup has been interupted with user command 'quit'. setup must rerun.
+2023-01-25 14:38:59,023:INFO:Creating global containers
+2023-01-25 14:38:59,025:INFO:Internal pipeline: Pipeline(memory=None, steps=[('empty_step', 'passthrough')], verbose=False)
+2023-01-25 14:38:59,098:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:38:59,099:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:38:59,105:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:38:59,112:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:38:59,183:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:38:59,235:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:38:59,240:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:38:59,251:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:39:01,912:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:39:02,185:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:39:02,519:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:39:02,670:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:39:02,811:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:39:02,895:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:39:02,965:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:39:02,974:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:39:02,983:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:39:03,160:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:39:03,160:INFO:Creating grid variables
+2023-01-25 14:39:03,164:INFO:create_model_container: 0
+2023-01-25 14:39:03,164:INFO:master_model_container: 0
+2023-01-25 14:39:03,164:INFO:display_container: 1
+2023-01-25 14:39:03,165:INFO:Pipeline(memory=None,
+         steps=[('dtypes',
+                 DataTypes_Auto_infer(categorical_features=[],
+                                      display_types=False, features_todrop=[],
+                                      id_columns=[], ml_usecase='regression',
+                                      numerical_features=[], target='PRICE',
+                                      time_features=[]))],
+         verbose=False)
+2023-01-25 14:39:03,165:INFO:setup() succesfully completed......................................
+2023-01-25 14:39:03,250:INFO:Initializing compare_models()
+2023-01-25 14:39:03,250:INFO:compare_models(include=['lr'], fold=None, round=4, cross_validation=True, sort=R2, n_select=1, budget_time=None, turbo=True, errors=ignore, fit_kwargs=None, groups=None, experiment_custom_tags=None, probability_threshold=None, verbose=True, display=None, exclude=None)
+2023-01-25 14:39:03,250:INFO:Checking exceptions
+2023-01-25 14:39:03,250:INFO:Preparing display monitor
+2023-01-25 14:39:03,250:INFO:Preparing display monitor
+2023-01-25 14:39:03,267:INFO:Initializing Linear Regression
+2023-01-25 14:39:03,267:INFO:Total runtime is 0.0 minutes
+2023-01-25 14:39:03,272:INFO:SubProcess create_model() called ==================================
+2023-01-25 14:39:03,272:INFO:Initializing create_model()
+2023-01-25 14:39:03,273:INFO:create_model(estimator=lr, fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=<pycaret.internal.Display.Display object at 0x00000157831FCA60>, return_train_score=False, kwargs={})
+2023-01-25 14:39:03,273:INFO:Checking exceptions
+2023-01-25 14:39:03,273:INFO:Importing libraries
+2023-01-25 14:39:03,273:INFO:Copying training dataset
+2023-01-25 14:39:03,273:INFO:Defining folds
+2023-01-25 14:39:03,274:INFO:Declaring metric variables
+2023-01-25 14:39:03,279:INFO:Importing untrained model
+2023-01-25 14:39:03,286:INFO:Linear Regression Imported succesfully
+2023-01-25 14:39:03,296:INFO:Starting cross validation
+2023-01-25 14:39:03,305:INFO:Cross validating with KFold(n_splits=10, random_state=None, shuffle=False), n_jobs=1
+2023-01-25 14:39:03,369:INFO:Calculating mean and std
+2023-01-25 14:39:03,369:INFO:Creating metrics dataframe
+2023-01-25 14:39:03,373:INFO:Uploading results into container
+2023-01-25 14:39:03,373:INFO:Uploading model into container now
+2023-01-25 14:39:03,374:INFO:create_model_container: 1
+2023-01-25 14:39:03,374:INFO:master_model_container: 1
+2023-01-25 14:39:03,374:INFO:display_container: 2
+2023-01-25 14:39:03,374:INFO:LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False)
+2023-01-25 14:39:03,374:INFO:create_model() succesfully completed......................................
+2023-01-25 14:39:03,443:INFO:SubProcess create_model() end ==================================
+2023-01-25 14:39:03,443:INFO:Creating metrics dataframe
+2023-01-25 14:39:03,461:INFO:Initializing create_model()
+2023-01-25 14:39:03,461:INFO:create_model(estimator=LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False), fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=False, predict=False, fit_kwargs={}, groups=None, refit=True, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=None, return_train_score=False, kwargs={})
+2023-01-25 14:39:03,461:INFO:Checking exceptions
+2023-01-25 14:39:03,461:INFO:Importing libraries
+2023-01-25 14:39:03,462:INFO:Copying training dataset
+2023-01-25 14:39:03,462:INFO:Defining folds
+2023-01-25 14:39:03,462:INFO:Declaring metric variables
+2023-01-25 14:39:03,462:INFO:Importing untrained model
+2023-01-25 14:39:03,462:INFO:Declaring custom model
+2023-01-25 14:39:03,463:INFO:Linear Regression Imported succesfully
+2023-01-25 14:39:03,463:INFO:Cross validation set to False
+2023-01-25 14:39:03,463:INFO:Fitting Model
+2023-01-25 14:39:03,466:INFO:LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False)
+2023-01-25 14:39:03,467:INFO:create_models() succesfully completed......................................
+2023-01-25 14:39:03,537:INFO:create_model_container: 1
+2023-01-25 14:39:03,537:INFO:master_model_container: 1
+2023-01-25 14:39:03,537:INFO:display_container: 2
+2023-01-25 14:39:03,538:INFO:LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False)
+2023-01-25 14:39:03,538:INFO:compare_models() succesfully completed......................................
+2023-01-25 14:39:03,560:INFO:PyCaret Supervised Module
+2023-01-25 14:39:03,560:INFO:ML Usecase: regression
+2023-01-25 14:39:03,560:INFO:version 2.3.10
+2023-01-25 14:39:03,560:INFO:Initializing setup()
+2023-01-25 14:39:03,560:INFO:setup(target=PRICE, ml_usecase=regression, available_plots={'parameter': 'Hyperparameters', 'residuals': 'Residuals', 'error': 'Prediction Error', 'cooks': 'Cooks Distance', 'rfe': 'Feature Selection', 'learning': 'Learning Curve', 'manifold': 'Manifold Learning', 'vc': 'Validation Curve', 'feature': 'Feature Importance', 'feature_all': 'Feature Importance (All)', 'tree': 'Decision Tree', 'residuals_interactive': 'Interactive Residuals'}, train_size=0.7, test_data=None, preprocess=False, imputation_type=simple, iterative_imputation_iters=5, categorical_features=None, categorical_imputation=constant, categorical_iterative_imputer=lightgbm, ordinal_features=None, high_cardinality_features=None, high_cardinality_method=frequency, numeric_features=None, numeric_imputation=mean, numeric_iterative_imputer=lightgbm, date_features=None, ignore_features=None, normalize=False, normalize_method=zscore, transformation=False, transformation_method=yeo-johnson, handle_unknown_categorical=True, unknown_categorical_method=least_frequent, pca=False, pca_method=linear, pca_components=None, ignore_low_variance=False, combine_rare_levels=False, rare_level_threshold=0.1, bin_numeric_features=None, remove_outliers=False, outliers_threshold=0.05, remove_multicollinearity=False, multicollinearity_threshold=0.9, remove_perfect_collinearity=True, create_clusters=False, cluster_iter=20, polynomial_features=False, polynomial_degree=2, trigonometry_features=False, polynomial_threshold=0.1, group_features=None, group_names=None, feature_selection=False, feature_selection_threshold=0.8, feature_selection_method=classic, feature_interaction=False, feature_ratio=False, interaction_threshold=0.01, fix_imbalance=False, fix_imbalance_method=None, transform_target=False, transform_target_method=box-cox, data_split_shuffle=True, data_split_stratify=False, fold_strategy=kfold, fold=10, fold_shuffle=False, fold_groups=None, n_jobs=-1, use_gpu=True, custom_pipeline=None, html=True, session_id=42, log_experiment=False, experiment_name=None, experiment_custom_tags=None, log_plots=False, log_profile=False, log_data=False, silent=True, verbose=True, profile=False, profile_kwargs=None, display=None)
+2023-01-25 14:39:03,560:INFO:Checking environment
+2023-01-25 14:39:03,560:INFO:python_version: 3.8.10
+2023-01-25 14:39:03,560:INFO:python_build: ('default', 'May 19 2021 13:12:57')
+2023-01-25 14:39:03,560:INFO:machine: AMD64
+2023-01-25 14:39:03,561:INFO:platform: Windows-10-10.0.19045-SP0
+2023-01-25 14:39:03,563:WARNING:cannot find psutil installation. memory not traceable. Install psutil using pip to enable memory logging.
+2023-01-25 14:39:03,563:INFO:Checking libraries
+2023-01-25 14:39:03,563:INFO:pd==1.3.0
+2023-01-25 14:39:03,563:INFO:numpy==1.19.5
+2023-01-25 14:39:03,563:INFO:sklearn==0.23.2
+2023-01-25 14:39:03,563:INFO:lightgbm==3.3.2
+2023-01-25 14:39:03,565:WARNING:catboost not found
+2023-01-25 14:39:03,567:WARNING:xgboost not found
+2023-01-25 14:39:03,567:INFO:mlflow==1.25.1
+2023-01-25 14:39:03,567:INFO:Checking Exceptions
+2023-01-25 14:39:03,567:INFO:Declaring global variables
+2023-01-25 14:39:03,567:INFO:USI: 54ee
+2023-01-25 14:39:03,567:INFO:pycaret_globals: {'_gpu_n_jobs_param', 'fold_param', 'fix_imbalance_method_param', 'transform_target_method_param', 'transform_target_param', 'log_plots_param', 'fold_groups_param', 'imputation_classifier', 'pycaret_globals', 'logging_param', '_all_models_internal', 'y_train', 'y', 'gpu_param', 'display_container', 'imputation_regressor', 'X', 'exp_name_log', '_ml_usecase', 'fold_groups_param_full', 'fold_shuffle_param', 'data_before_preprocess', 'seed', 'stratify_param', 'USI', 'fold_generator', 'fix_imbalance_param', 'master_model_container', 'dashboard_logger', 'X_test', 'experiment__', '_available_plots', 'prep_pipe', 'target_param', 'y_test', 'create_model_container', '_all_metrics', '_internal_pipeline', '_all_models', 'X_train', 'n_jobs_param', 'html_param', 'iterative_imputation_iters_param'}
+2023-01-25 14:39:03,567:INFO:Preparing display monitor
+2023-01-25 14:39:03,568:INFO:Preparing display monitor
+2023-01-25 14:39:03,575:INFO:Importing libraries
+2023-01-25 14:39:03,576:INFO:Copying data for preprocessing
+2023-01-25 14:39:03,581:INFO:Declaring preprocessing parameters
+2023-01-25 14:39:03,583:WARNING:cuML not found
+2023-01-25 14:39:03,583:WARNING:cuML is outdated or not found. Required version is >=0.15, got 3.3.2
+2023-01-25 14:39:03,584:INFO:Creating preprocessing pipeline
+2023-01-25 14:39:03,591:INFO:Preprocessing pipeline created successfully
+2023-01-25 14:39:03,591:ERROR:(Process Exit): setup has been interupted with user command 'quit'. setup must rerun.
+2023-01-25 14:39:03,591:INFO:Creating global containers
+2023-01-25 14:39:03,591:INFO:Internal pipeline: Pipeline(memory=None, steps=[('empty_step', 'passthrough')], verbose=False)
+2023-01-25 14:39:03,662:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:39:03,663:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:39:03,670:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:39:03,678:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:39:03,751:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:39:03,811:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:39:03,813:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:39:03,815:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:39:03,962:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:39:03,964:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:39:03,966:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:39:03,974:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:39:03,981:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:39:04,052:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:39:04,112:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:39:04,114:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:39:04,116:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:39:04,265:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:39:04,266:INFO:Creating grid variables
+2023-01-25 14:39:04,269:INFO:create_model_container: 0
+2023-01-25 14:39:04,269:INFO:master_model_container: 0
+2023-01-25 14:39:04,269:INFO:display_container: 1
+2023-01-25 14:39:04,271:INFO:Pipeline(memory=None,
+         steps=[('dtypes',
+                 DataTypes_Auto_infer(categorical_features=[],
+                                      display_types=False, features_todrop=[],
+                                      id_columns=[], ml_usecase='regression',
+                                      numerical_features=[], target='PRICE',
+                                      time_features=[]))],
+         verbose=False)
+2023-01-25 14:39:04,271:INFO:setup() succesfully completed......................................
+2023-01-25 14:39:04,353:INFO:Initializing compare_models()
+2023-01-25 14:39:04,353:INFO:compare_models(include=['lr'], fold=None, round=4, cross_validation=True, sort=R2, n_select=1, budget_time=None, turbo=True, errors=ignore, fit_kwargs=None, groups=None, experiment_custom_tags=None, probability_threshold=None, verbose=True, display=None, exclude=None)
+2023-01-25 14:39:04,353:INFO:Checking exceptions
+2023-01-25 14:39:04,354:INFO:Preparing display monitor
+2023-01-25 14:39:04,354:INFO:Preparing display monitor
+2023-01-25 14:39:04,370:INFO:Initializing Linear Regression
+2023-01-25 14:39:04,371:INFO:Total runtime is 1.6673405965169272e-05 minutes
+2023-01-25 14:39:04,376:INFO:SubProcess create_model() called ==================================
+2023-01-25 14:39:04,376:INFO:Initializing create_model()
+2023-01-25 14:39:04,376:INFO:create_model(estimator=lr, fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=<pycaret.internal.Display.Display object at 0x0000015783170D00>, return_train_score=False, kwargs={})
+2023-01-25 14:39:04,376:INFO:Checking exceptions
+2023-01-25 14:39:04,377:INFO:Importing libraries
+2023-01-25 14:39:04,377:INFO:Copying training dataset
+2023-01-25 14:39:04,377:INFO:Defining folds
+2023-01-25 14:39:04,377:INFO:Declaring metric variables
+2023-01-25 14:39:04,383:INFO:Importing untrained model
+2023-01-25 14:39:04,388:INFO:Linear Regression Imported succesfully
+2023-01-25 14:39:04,399:INFO:Starting cross validation
+2023-01-25 14:39:04,399:INFO:Cross validating with KFold(n_splits=10, random_state=None, shuffle=False), n_jobs=1
+2023-01-25 14:39:04,466:INFO:Calculating mean and std
+2023-01-25 14:39:04,466:INFO:Creating metrics dataframe
+2023-01-25 14:39:04,470:INFO:Uploading results into container
+2023-01-25 14:39:04,471:INFO:Uploading model into container now
+2023-01-25 14:39:04,471:INFO:create_model_container: 1
+2023-01-25 14:39:04,471:INFO:master_model_container: 1
+2023-01-25 14:39:04,471:INFO:display_container: 2
+2023-01-25 14:39:04,472:INFO:LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False)
+2023-01-25 14:39:04,472:INFO:create_model() succesfully completed......................................
+2023-01-25 14:39:04,547:INFO:SubProcess create_model() end ==================================
+2023-01-25 14:39:04,547:INFO:Creating metrics dataframe
+2023-01-25 14:39:04,566:INFO:Initializing create_model()
+2023-01-25 14:39:04,566:INFO:create_model(estimator=LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False), fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=False, predict=False, fit_kwargs={}, groups=None, refit=True, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=None, return_train_score=False, kwargs={})
+2023-01-25 14:39:04,566:INFO:Checking exceptions
+2023-01-25 14:39:04,566:INFO:Importing libraries
+2023-01-25 14:39:04,567:INFO:Copying training dataset
+2023-01-25 14:39:04,567:INFO:Defining folds
+2023-01-25 14:39:04,567:INFO:Declaring metric variables
+2023-01-25 14:39:04,568:INFO:Importing untrained model
+2023-01-25 14:39:04,568:INFO:Declaring custom model
+2023-01-25 14:39:04,568:INFO:Linear Regression Imported succesfully
+2023-01-25 14:39:04,569:INFO:Cross validation set to False
+2023-01-25 14:39:04,569:INFO:Fitting Model
+2023-01-25 14:39:04,572:INFO:LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False)
+2023-01-25 14:39:04,572:INFO:create_models() succesfully completed......................................
+2023-01-25 14:39:04,644:INFO:create_model_container: 1
+2023-01-25 14:39:04,644:INFO:master_model_container: 1
+2023-01-25 14:39:04,645:INFO:display_container: 2
+2023-01-25 14:39:04,645:INFO:LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False)
+2023-01-25 14:39:04,645:INFO:compare_models() succesfully completed......................................
+2023-01-25 14:40:40,237:INFO:PyCaret Supervised Module
+2023-01-25 14:40:40,239:INFO:ML Usecase: regression
+2023-01-25 14:40:40,239:INFO:version 2.3.10
+2023-01-25 14:40:40,239:INFO:Initializing setup()
+2023-01-25 14:40:40,239:INFO:setup(target=PRICE, ml_usecase=regression, available_plots={'parameter': 'Hyperparameters', 'residuals': 'Residuals', 'error': 'Prediction Error', 'cooks': 'Cooks Distance', 'rfe': 'Feature Selection', 'learning': 'Learning Curve', 'manifold': 'Manifold Learning', 'vc': 'Validation Curve', 'feature': 'Feature Importance', 'feature_all': 'Feature Importance (All)', 'tree': 'Decision Tree', 'residuals_interactive': 'Interactive Residuals'}, train_size=0.7, test_data=None, preprocess=False, imputation_type=simple, iterative_imputation_iters=5, categorical_features=None, categorical_imputation=constant, categorical_iterative_imputer=lightgbm, ordinal_features=None, high_cardinality_features=None, high_cardinality_method=frequency, numeric_features=None, numeric_imputation=mean, numeric_iterative_imputer=lightgbm, date_features=None, ignore_features=None, normalize=False, normalize_method=zscore, transformation=False, transformation_method=yeo-johnson, handle_unknown_categorical=True, unknown_categorical_method=least_frequent, pca=False, pca_method=linear, pca_components=None, ignore_low_variance=False, combine_rare_levels=False, rare_level_threshold=0.1, bin_numeric_features=None, remove_outliers=False, outliers_threshold=0.05, remove_multicollinearity=False, multicollinearity_threshold=0.9, remove_perfect_collinearity=True, create_clusters=False, cluster_iter=20, polynomial_features=False, polynomial_degree=2, trigonometry_features=False, polynomial_threshold=0.1, group_features=None, group_names=None, feature_selection=False, feature_selection_threshold=0.8, feature_selection_method=classic, feature_interaction=False, feature_ratio=False, interaction_threshold=0.01, fix_imbalance=False, fix_imbalance_method=None, transform_target=False, transform_target_method=box-cox, data_split_shuffle=True, data_split_stratify=False, fold_strategy=kfold, fold=10, fold_shuffle=False, fold_groups=None, n_jobs=-1, use_gpu=True, custom_pipeline=None, html=True, session_id=42, log_experiment=False, experiment_name=None, experiment_custom_tags=None, log_plots=False, log_profile=False, log_data=False, silent=True, verbose=True, profile=False, profile_kwargs=None, display=None)
+2023-01-25 14:40:40,239:INFO:Checking environment
+2023-01-25 14:40:40,240:INFO:python_version: 3.8.10
+2023-01-25 14:40:40,241:INFO:python_build: ('default', 'May 19 2021 13:12:57')
+2023-01-25 14:40:40,241:INFO:machine: AMD64
+2023-01-25 14:40:40,259:INFO:platform: Windows-10-10.0.19045-SP0
+2023-01-25 14:40:40,260:WARNING:cannot find psutil installation. memory not traceable. Install psutil using pip to enable memory logging.
+2023-01-25 14:40:40,260:INFO:Checking libraries
+2023-01-25 14:40:40,260:INFO:pd==1.3.0
+2023-01-25 14:40:40,260:INFO:numpy==1.19.5
+2023-01-25 14:40:40,261:INFO:sklearn==0.23.2
+2023-01-25 14:40:40,261:INFO:lightgbm==3.3.2
+2023-01-25 14:40:40,261:WARNING:catboost not found
+2023-01-25 14:40:40,262:WARNING:xgboost not found
+2023-01-25 14:40:40,263:INFO:mlflow==1.25.1
+2023-01-25 14:40:40,263:INFO:Checking Exceptions
+2023-01-25 14:40:40,263:INFO:Declaring global variables
+2023-01-25 14:40:40,263:INFO:USI: 2d7f
+2023-01-25 14:40:40,263:INFO:pycaret_globals: {'y_test', 'transform_target_param', 'fold_param', 'stratify_param', 'create_model_container', 'imputation_regressor', 'y_train', 'fold_groups_param_full', 'display_container', 'transform_target_method_param', 'imputation_classifier', 'master_model_container', 'y', 'target_param', 'fix_imbalance_method_param', 'fix_imbalance_param', 'html_param', '_all_models', 'pycaret_globals', 'X', 'n_jobs_param', 'seed', 'data_before_preprocess', 'USI', 'gpu_param', '_ml_usecase', 'prep_pipe', 'logging_param', 'X_test', '_gpu_n_jobs_param', 'log_plots_param', '_available_plots', 'fold_generator', '_all_models_internal', 'fold_groups_param', 'exp_name_log', 'iterative_imputation_iters_param', '_internal_pipeline', 'fold_shuffle_param', 'dashboard_logger', '_all_metrics', 'X_train', 'experiment__'}
+2023-01-25 14:40:40,263:INFO:Preparing display monitor
+2023-01-25 14:40:40,263:INFO:Preparing display monitor
+2023-01-25 14:40:40,270:INFO:Importing libraries
+2023-01-25 14:40:40,270:INFO:Copying data for preprocessing
+2023-01-25 14:40:40,273:INFO:Declaring preprocessing parameters
+2023-01-25 14:40:40,274:WARNING:cuML not found
+2023-01-25 14:40:40,274:WARNING:cuML is outdated or not found. Required version is >=0.15, got 3.3.2
+2023-01-25 14:40:40,275:INFO:Creating preprocessing pipeline
+2023-01-25 14:40:40,279:INFO:Preprocessing pipeline created successfully
+2023-01-25 14:40:40,280:ERROR:(Process Exit): setup has been interupted with user command 'quit'. setup must rerun.
+2023-01-25 14:40:40,280:INFO:Creating global containers
+2023-01-25 14:40:40,281:INFO:Internal pipeline: Pipeline(memory=None, steps=[('empty_step', 'passthrough')], verbose=False)
+2023-01-25 14:40:40,364:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:40:40,366:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:40:40,373:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:40:40,380:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:40:40,453:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:40:40,513:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:40:40,515:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:40:40,517:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:40:40,802:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:40:40,804:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:40:40,805:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:40:40,813:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:40:40,820:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:40:40,897:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:40:40,984:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:40:40,986:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:40:40,987:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:40:41,129:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:40:41,129:INFO:Creating grid variables
+2023-01-25 14:40:41,132:INFO:create_model_container: 0
+2023-01-25 14:40:41,132:INFO:master_model_container: 0
+2023-01-25 14:40:41,132:INFO:display_container: 1
+2023-01-25 14:40:41,133:INFO:Pipeline(memory=None,
+         steps=[('dtypes',
+                 DataTypes_Auto_infer(categorical_features=[],
+                                      display_types=False, features_todrop=[],
+                                      id_columns=[], ml_usecase='regression',
+                                      numerical_features=[], target='PRICE',
+                                      time_features=[]))],
+         verbose=False)
+2023-01-25 14:40:41,134:INFO:setup() succesfully completed......................................
+2023-01-25 14:40:41,207:INFO:Initializing compare_models()
+2023-01-25 14:40:41,207:INFO:compare_models(include=['lr'], fold=None, round=4, cross_validation=True, sort=R2, n_select=1, budget_time=None, turbo=True, errors=ignore, fit_kwargs=None, groups=None, experiment_custom_tags=None, probability_threshold=None, verbose=True, display=None, exclude=None)
+2023-01-25 14:40:41,207:INFO:Checking exceptions
+2023-01-25 14:40:41,207:INFO:Preparing display monitor
+2023-01-25 14:40:41,208:INFO:Preparing display monitor
+2023-01-25 14:40:41,223:INFO:Initializing Linear Regression
+2023-01-25 14:40:41,223:INFO:Total runtime is 0.0 minutes
+2023-01-25 14:40:41,228:INFO:SubProcess create_model() called ==================================
+2023-01-25 14:40:41,228:INFO:Initializing create_model()
+2023-01-25 14:40:41,228:INFO:create_model(estimator=lr, fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=<pycaret.internal.Display.Display object at 0x000001EA81E2B760>, return_train_score=False, kwargs={})
+2023-01-25 14:40:41,228:INFO:Checking exceptions
+2023-01-25 14:40:41,228:INFO:Importing libraries
+2023-01-25 14:40:41,228:INFO:Copying training dataset
+2023-01-25 14:40:41,228:INFO:Defining folds
+2023-01-25 14:40:41,229:INFO:Declaring metric variables
+2023-01-25 14:40:41,234:INFO:Importing untrained model
+2023-01-25 14:40:41,239:INFO:Linear Regression Imported succesfully
+2023-01-25 14:40:41,249:INFO:Starting cross validation
+2023-01-25 14:40:41,256:INFO:Cross validating with KFold(n_splits=10, random_state=None, shuffle=False), n_jobs=1
+2023-01-25 14:40:41,321:INFO:Calculating mean and std
+2023-01-25 14:40:41,322:INFO:Creating metrics dataframe
+2023-01-25 14:40:41,326:INFO:Uploading results into container
+2023-01-25 14:40:41,326:INFO:Uploading model into container now
+2023-01-25 14:40:41,326:INFO:create_model_container: 1
+2023-01-25 14:40:41,326:INFO:master_model_container: 1
+2023-01-25 14:40:41,326:INFO:display_container: 2
+2023-01-25 14:40:41,327:INFO:LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False)
+2023-01-25 14:40:41,327:INFO:create_model() succesfully completed......................................
+2023-01-25 14:40:41,400:INFO:SubProcess create_model() end ==================================
+2023-01-25 14:40:41,400:INFO:Creating metrics dataframe
+2023-01-25 14:40:41,416:INFO:Initializing create_model()
+2023-01-25 14:40:41,416:INFO:create_model(estimator=LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False), fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=False, predict=False, fit_kwargs={}, groups=None, refit=True, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=None, return_train_score=False, kwargs={})
+2023-01-25 14:40:41,416:INFO:Checking exceptions
+2023-01-25 14:40:41,416:INFO:Importing libraries
+2023-01-25 14:40:41,416:INFO:Copying training dataset
+2023-01-25 14:40:41,417:INFO:Defining folds
+2023-01-25 14:40:41,417:INFO:Declaring metric variables
+2023-01-25 14:40:41,417:INFO:Importing untrained model
+2023-01-25 14:40:41,417:INFO:Declaring custom model
+2023-01-25 14:40:41,417:INFO:Linear Regression Imported succesfully
+2023-01-25 14:40:41,418:INFO:Cross validation set to False
+2023-01-25 14:40:41,418:INFO:Fitting Model
+2023-01-25 14:40:41,421:INFO:LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False)
+2023-01-25 14:40:41,421:INFO:create_models() succesfully completed......................................
+2023-01-25 14:40:41,496:INFO:create_model_container: 1
+2023-01-25 14:40:41,496:INFO:master_model_container: 1
+2023-01-25 14:40:41,497:INFO:display_container: 2
+2023-01-25 14:40:41,497:INFO:LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False)
+2023-01-25 14:40:41,497:INFO:compare_models() succesfully completed......................................
+2023-01-25 14:40:41,507:INFO:PyCaret Supervised Module
+2023-01-25 14:40:41,507:INFO:ML Usecase: regression
+2023-01-25 14:40:41,507:INFO:version 2.3.10
+2023-01-25 14:40:41,508:INFO:Initializing setup()
+2023-01-25 14:40:41,508:INFO:setup(target=PRICE, ml_usecase=regression, available_plots={'parameter': 'Hyperparameters', 'residuals': 'Residuals', 'error': 'Prediction Error', 'cooks': 'Cooks Distance', 'rfe': 'Feature Selection', 'learning': 'Learning Curve', 'manifold': 'Manifold Learning', 'vc': 'Validation Curve', 'feature': 'Feature Importance', 'feature_all': 'Feature Importance (All)', 'tree': 'Decision Tree', 'residuals_interactive': 'Interactive Residuals'}, train_size=0.7, test_data=None, preprocess=False, imputation_type=simple, iterative_imputation_iters=5, categorical_features=None, categorical_imputation=constant, categorical_iterative_imputer=lightgbm, ordinal_features=None, high_cardinality_features=None, high_cardinality_method=frequency, numeric_features=None, numeric_imputation=mean, numeric_iterative_imputer=lightgbm, date_features=None, ignore_features=None, normalize=False, normalize_method=zscore, transformation=False, transformation_method=yeo-johnson, handle_unknown_categorical=True, unknown_categorical_method=least_frequent, pca=False, pca_method=linear, pca_components=None, ignore_low_variance=False, combine_rare_levels=False, rare_level_threshold=0.1, bin_numeric_features=None, remove_outliers=False, outliers_threshold=0.05, remove_multicollinearity=False, multicollinearity_threshold=0.9, remove_perfect_collinearity=True, create_clusters=False, cluster_iter=20, polynomial_features=False, polynomial_degree=2, trigonometry_features=False, polynomial_threshold=0.1, group_features=None, group_names=None, feature_selection=False, feature_selection_threshold=0.8, feature_selection_method=classic, feature_interaction=False, feature_ratio=False, interaction_threshold=0.01, fix_imbalance=False, fix_imbalance_method=None, transform_target=False, transform_target_method=box-cox, data_split_shuffle=True, data_split_stratify=False, fold_strategy=kfold, fold=10, fold_shuffle=False, fold_groups=None, n_jobs=-1, use_gpu=True, custom_pipeline=None, html=True, session_id=42, log_experiment=False, experiment_name=None, experiment_custom_tags=None, log_plots=False, log_profile=False, log_data=False, silent=True, verbose=True, profile=False, profile_kwargs=None, display=None)
+2023-01-25 14:40:41,508:INFO:Checking environment
+2023-01-25 14:40:41,508:INFO:python_version: 3.8.10
+2023-01-25 14:40:41,508:INFO:python_build: ('default', 'May 19 2021 13:12:57')
+2023-01-25 14:40:41,508:INFO:machine: AMD64
+2023-01-25 14:40:41,508:INFO:platform: Windows-10-10.0.19045-SP0
+2023-01-25 14:40:41,510:WARNING:cannot find psutil installation. memory not traceable. Install psutil using pip to enable memory logging.
+2023-01-25 14:40:41,510:INFO:Checking libraries
+2023-01-25 14:40:41,510:INFO:pd==1.3.0
+2023-01-25 14:40:41,510:INFO:numpy==1.19.5
+2023-01-25 14:40:41,510:INFO:sklearn==0.23.2
+2023-01-25 14:40:41,510:INFO:lightgbm==3.3.2
+2023-01-25 14:40:41,512:WARNING:catboost not found
+2023-01-25 14:40:41,513:WARNING:xgboost not found
+2023-01-25 14:40:41,513:INFO:mlflow==1.25.1
+2023-01-25 14:40:41,514:INFO:Checking Exceptions
+2023-01-25 14:40:41,514:INFO:Declaring global variables
+2023-01-25 14:40:41,514:INFO:USI: a626
+2023-01-25 14:40:41,514:INFO:pycaret_globals: {'y_test', 'transform_target_param', 'fold_param', 'stratify_param', 'create_model_container', 'imputation_regressor', 'y_train', 'fold_groups_param_full', 'display_container', 'transform_target_method_param', 'imputation_classifier', 'master_model_container', 'y', 'target_param', 'fix_imbalance_method_param', 'fix_imbalance_param', 'html_param', '_all_models', 'pycaret_globals', 'X', 'n_jobs_param', 'seed', 'data_before_preprocess', 'USI', 'gpu_param', '_ml_usecase', 'prep_pipe', 'logging_param', 'X_test', '_gpu_n_jobs_param', 'log_plots_param', '_available_plots', 'fold_generator', '_all_models_internal', 'fold_groups_param', 'exp_name_log', 'iterative_imputation_iters_param', '_internal_pipeline', 'fold_shuffle_param', 'dashboard_logger', '_all_metrics', 'X_train', 'experiment__'}
+2023-01-25 14:40:41,514:INFO:Preparing display monitor
+2023-01-25 14:40:41,514:INFO:Preparing display monitor
+2023-01-25 14:40:41,522:INFO:Importing libraries
+2023-01-25 14:40:41,522:INFO:Copying data for preprocessing
+2023-01-25 14:40:41,527:INFO:Declaring preprocessing parameters
+2023-01-25 14:40:41,529:WARNING:cuML not found
+2023-01-25 14:40:41,529:WARNING:cuML is outdated or not found. Required version is >=0.15, got 3.3.2
+2023-01-25 14:40:41,530:INFO:Creating preprocessing pipeline
+2023-01-25 14:40:41,537:INFO:Preprocessing pipeline created successfully
+2023-01-25 14:40:41,537:ERROR:(Process Exit): setup has been interupted with user command 'quit'. setup must rerun.
+2023-01-25 14:40:41,537:INFO:Creating global containers
+2023-01-25 14:40:41,537:INFO:Internal pipeline: Pipeline(memory=None, steps=[('empty_step', 'passthrough')], verbose=False)
+2023-01-25 14:40:41,601:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:40:41,603:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:40:41,610:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:40:41,618:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:40:41,690:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:40:41,748:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:40:41,750:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:40:41,752:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:40:41,892:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:40:41,894:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:40:41,896:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:40:41,904:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:40:41,911:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:40:41,988:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:40:42,048:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:40:42,049:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:40:42,051:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:40:42,185:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:40:42,186:INFO:Creating grid variables
+2023-01-25 14:40:42,189:INFO:create_model_container: 0
+2023-01-25 14:40:42,189:INFO:master_model_container: 0
+2023-01-25 14:40:42,189:INFO:display_container: 1
+2023-01-25 14:40:42,191:INFO:Pipeline(memory=None,
+         steps=[('dtypes',
+                 DataTypes_Auto_infer(categorical_features=[],
+                                      display_types=False, features_todrop=[],
+                                      id_columns=[], ml_usecase='regression',
+                                      numerical_features=[], target='PRICE',
+                                      time_features=[]))],
+         verbose=False)
+2023-01-25 14:40:42,191:INFO:setup() succesfully completed......................................
+2023-01-25 14:40:42,266:INFO:Initializing compare_models()
+2023-01-25 14:40:42,266:INFO:compare_models(include=['lr'], fold=None, round=4, cross_validation=True, sort=R2, n_select=1, budget_time=None, turbo=True, errors=ignore, fit_kwargs=None, groups=None, experiment_custom_tags=None, probability_threshold=None, verbose=True, display=None, exclude=None)
+2023-01-25 14:40:42,266:INFO:Checking exceptions
+2023-01-25 14:40:42,266:INFO:Preparing display monitor
+2023-01-25 14:40:42,267:INFO:Preparing display monitor
+2023-01-25 14:40:42,282:INFO:Initializing Linear Regression
+2023-01-25 14:40:42,282:INFO:Total runtime is 0.0 minutes
+2023-01-25 14:40:42,286:INFO:SubProcess create_model() called ==================================
+2023-01-25 14:40:42,287:INFO:Initializing create_model()
+2023-01-25 14:40:42,287:INFO:create_model(estimator=lr, fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=<pycaret.internal.Display.Display object at 0x000001EA82FC27C0>, return_train_score=False, kwargs={})
+2023-01-25 14:40:42,287:INFO:Checking exceptions
+2023-01-25 14:40:42,287:INFO:Importing libraries
+2023-01-25 14:40:42,287:INFO:Copying training dataset
+2023-01-25 14:40:42,287:INFO:Defining folds
+2023-01-25 14:40:42,287:INFO:Declaring metric variables
+2023-01-25 14:40:42,292:INFO:Importing untrained model
+2023-01-25 14:40:42,297:INFO:Linear Regression Imported succesfully
+2023-01-25 14:40:42,306:INFO:Starting cross validation
+2023-01-25 14:40:42,306:INFO:Cross validating with KFold(n_splits=10, random_state=None, shuffle=False), n_jobs=1
+2023-01-25 14:40:42,364:INFO:Calculating mean and std
+2023-01-25 14:40:42,364:INFO:Creating metrics dataframe
+2023-01-25 14:40:42,368:INFO:Uploading results into container
+2023-01-25 14:40:42,368:INFO:Uploading model into container now
+2023-01-25 14:40:42,368:INFO:create_model_container: 1
+2023-01-25 14:40:42,368:INFO:master_model_container: 1
+2023-01-25 14:40:42,368:INFO:display_container: 2
+2023-01-25 14:40:42,369:INFO:LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False)
+2023-01-25 14:40:42,369:INFO:create_model() succesfully completed......................................
+2023-01-25 14:40:42,437:INFO:SubProcess create_model() end ==================================
+2023-01-25 14:40:42,437:INFO:Creating metrics dataframe
+2023-01-25 14:40:42,453:INFO:Initializing create_model()
+2023-01-25 14:40:42,454:INFO:create_model(estimator=LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False), fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=False, predict=False, fit_kwargs={}, groups=None, refit=True, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=None, return_train_score=False, kwargs={})
+2023-01-25 14:40:42,454:INFO:Checking exceptions
+2023-01-25 14:40:42,454:INFO:Importing libraries
+2023-01-25 14:40:42,454:INFO:Copying training dataset
+2023-01-25 14:40:42,454:INFO:Defining folds
+2023-01-25 14:40:42,454:INFO:Declaring metric variables
+2023-01-25 14:40:42,455:INFO:Importing untrained model
+2023-01-25 14:40:42,455:INFO:Declaring custom model
+2023-01-25 14:40:42,455:INFO:Linear Regression Imported succesfully
+2023-01-25 14:40:42,455:INFO:Cross validation set to False
+2023-01-25 14:40:42,456:INFO:Fitting Model
+2023-01-25 14:40:42,459:INFO:LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False)
+2023-01-25 14:40:42,459:INFO:create_models() succesfully completed......................................
+2023-01-25 14:40:42,532:INFO:create_model_container: 1
+2023-01-25 14:40:42,533:INFO:master_model_container: 1
+2023-01-25 14:40:42,533:INFO:display_container: 2
+2023-01-25 14:40:42,533:INFO:LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False)
+2023-01-25 14:40:42,533:INFO:compare_models() succesfully completed......................................
+2023-01-25 14:49:17,268:INFO:PyCaret Supervised Module
+2023-01-25 14:49:17,269:INFO:ML Usecase: regression
+2023-01-25 14:49:17,269:INFO:version 2.3.10
+2023-01-25 14:49:17,269:INFO:Initializing setup()
+2023-01-25 14:49:17,269:INFO:setup(target=PRICE, ml_usecase=regression, available_plots={'parameter': 'Hyperparameters', 'residuals': 'Residuals', 'error': 'Prediction Error', 'cooks': 'Cooks Distance', 'rfe': 'Feature Selection', 'learning': 'Learning Curve', 'manifold': 'Manifold Learning', 'vc': 'Validation Curve', 'feature': 'Feature Importance', 'feature_all': 'Feature Importance (All)', 'tree': 'Decision Tree', 'residuals_interactive': 'Interactive Residuals'}, train_size=0.7, test_data=None, preprocess=False, imputation_type=simple, iterative_imputation_iters=5, categorical_features=None, categorical_imputation=constant, categorical_iterative_imputer=lightgbm, ordinal_features=None, high_cardinality_features=None, high_cardinality_method=frequency, numeric_features=None, numeric_imputation=mean, numeric_iterative_imputer=lightgbm, date_features=None, ignore_features=None, normalize=False, normalize_method=zscore, transformation=False, transformation_method=yeo-johnson, handle_unknown_categorical=True, unknown_categorical_method=least_frequent, pca=False, pca_method=linear, pca_components=None, ignore_low_variance=False, combine_rare_levels=False, rare_level_threshold=0.1, bin_numeric_features=None, remove_outliers=False, outliers_threshold=0.05, remove_multicollinearity=False, multicollinearity_threshold=0.9, remove_perfect_collinearity=True, create_clusters=False, cluster_iter=20, polynomial_features=False, polynomial_degree=2, trigonometry_features=False, polynomial_threshold=0.1, group_features=None, group_names=None, feature_selection=False, feature_selection_threshold=0.8, feature_selection_method=classic, feature_interaction=False, feature_ratio=False, interaction_threshold=0.01, fix_imbalance=False, fix_imbalance_method=None, transform_target=False, transform_target_method=box-cox, data_split_shuffle=True, data_split_stratify=False, fold_strategy=kfold, fold=10, fold_shuffle=False, fold_groups=None, n_jobs=-1, use_gpu=True, custom_pipeline=None, html=True, session_id=42, log_experiment=False, experiment_name=None, experiment_custom_tags=None, log_plots=False, log_profile=False, log_data=False, silent=True, verbose=True, profile=False, profile_kwargs=None, display=None)
+2023-01-25 14:49:17,269:INFO:Checking environment
+2023-01-25 14:49:17,269:INFO:python_version: 3.8.10
+2023-01-25 14:49:17,269:INFO:python_build: ('default', 'May 19 2021 13:12:57')
+2023-01-25 14:49:17,269:INFO:machine: AMD64
+2023-01-25 14:49:17,288:INFO:platform: Windows-10-10.0.19045-SP0
+2023-01-25 14:49:17,289:WARNING:cannot find psutil installation. memory not traceable. Install psutil using pip to enable memory logging.
+2023-01-25 14:49:17,289:INFO:Checking libraries
+2023-01-25 14:49:17,289:INFO:pd==1.3.0
+2023-01-25 14:49:17,289:INFO:numpy==1.19.5
+2023-01-25 14:49:17,289:INFO:sklearn==0.23.2
+2023-01-25 14:49:17,289:INFO:lightgbm==3.3.2
+2023-01-25 14:49:17,290:WARNING:catboost not found
+2023-01-25 14:49:17,291:WARNING:xgboost not found
+2023-01-25 14:49:17,291:INFO:mlflow==1.25.1
+2023-01-25 14:49:17,291:INFO:Checking Exceptions
+2023-01-25 14:49:17,291:INFO:Declaring global variables
+2023-01-25 14:49:17,291:INFO:USI: d057
+2023-01-25 14:49:17,291:INFO:pycaret_globals: {'exp_name_log', 'logging_param', 'experiment__', 'master_model_container', '_all_models_internal', 'transform_target_param', 'data_before_preprocess', 'y', 'fold_groups_param', 'y_test', 'log_plots_param', 'iterative_imputation_iters_param', 'USI', 'fold_groups_param_full', 'imputation_classifier', 'pycaret_globals', 'gpu_param', 'fold_shuffle_param', '_gpu_n_jobs_param', 'html_param', '_available_plots', 'target_param', '_all_models', 'X_train', 'stratify_param', 'transform_target_method_param', '_internal_pipeline', 'fix_imbalance_method_param', 'display_container', 'prep_pipe', 'n_jobs_param', 'X', 'fold_generator', 'X_test', '_ml_usecase', 'seed', 'create_model_container', 'imputation_regressor', '_all_metrics', 'fix_imbalance_param', 'fold_param', 'dashboard_logger', 'y_train'}
+2023-01-25 14:49:17,291:INFO:Preparing display monitor
+2023-01-25 14:49:17,292:INFO:Preparing display monitor
+2023-01-25 14:49:17,301:INFO:Importing libraries
+2023-01-25 14:49:17,304:INFO:Copying data for preprocessing
+2023-01-25 14:49:17,308:INFO:Declaring preprocessing parameters
+2023-01-25 14:49:17,309:WARNING:cuML not found
+2023-01-25 14:49:17,309:WARNING:cuML is outdated or not found. Required version is >=0.15, got 3.3.2
+2023-01-25 14:49:17,310:INFO:Creating preprocessing pipeline
+2023-01-25 14:49:17,315:INFO:Preprocessing pipeline created successfully
+2023-01-25 14:49:17,315:ERROR:(Process Exit): setup has been interupted with user command 'quit'. setup must rerun.
+2023-01-25 14:49:17,315:INFO:Creating global containers
+2023-01-25 14:49:17,317:INFO:Internal pipeline: Pipeline(memory=None, steps=[('empty_step', 'passthrough')], verbose=False)
+2023-01-25 14:49:17,393:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:49:17,394:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:49:17,402:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:49:17,408:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:49:17,485:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:49:17,544:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:49:17,546:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:49:17,548:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:49:17,818:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:49:17,819:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:49:17,821:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:49:17,829:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:49:17,837:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:49:17,913:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:49:17,974:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:49:17,976:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:49:17,978:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:49:18,119:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:49:18,120:INFO:Creating grid variables
+2023-01-25 14:49:18,124:INFO:create_model_container: 0
+2023-01-25 14:49:18,124:INFO:master_model_container: 0
+2023-01-25 14:49:18,124:INFO:display_container: 1
+2023-01-25 14:49:18,125:INFO:Pipeline(memory=None,
+         steps=[('dtypes',
+                 DataTypes_Auto_infer(categorical_features=[],
+                                      display_types=False, features_todrop=[],
+                                      id_columns=[], ml_usecase='regression',
+                                      numerical_features=[], target='PRICE',
+                                      time_features=[]))],
+         verbose=False)
+2023-01-25 14:49:18,125:INFO:setup() succesfully completed......................................
+2023-01-25 14:49:18,198:INFO:Initializing compare_models()
+2023-01-25 14:49:18,198:INFO:compare_models(include=['lr'], fold=None, round=4, cross_validation=True, sort=R2, n_select=1, budget_time=None, turbo=True, errors=ignore, fit_kwargs=None, groups=None, experiment_custom_tags=None, probability_threshold=None, verbose=True, display=None, exclude=None)
+2023-01-25 14:49:18,198:INFO:Checking exceptions
+2023-01-25 14:49:18,198:INFO:Preparing display monitor
+2023-01-25 14:49:18,199:INFO:Preparing display monitor
+2023-01-25 14:49:18,214:INFO:Initializing Linear Regression
+2023-01-25 14:49:18,214:INFO:Total runtime is 0.0 minutes
+2023-01-25 14:49:18,220:INFO:SubProcess create_model() called ==================================
+2023-01-25 14:49:18,220:INFO:Initializing create_model()
+2023-01-25 14:49:18,220:INFO:create_model(estimator=lr, fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=<pycaret.internal.Display.Display object at 0x000002B6031D58E0>, return_train_score=False, kwargs={})
+2023-01-25 14:49:18,220:INFO:Checking exceptions
+2023-01-25 14:49:18,220:INFO:Importing libraries
+2023-01-25 14:49:18,221:INFO:Copying training dataset
+2023-01-25 14:49:18,221:INFO:Defining folds
+2023-01-25 14:49:18,221:INFO:Declaring metric variables
+2023-01-25 14:49:18,226:INFO:Importing untrained model
+2023-01-25 14:49:18,231:INFO:Linear Regression Imported succesfully
+2023-01-25 14:49:18,241:INFO:Starting cross validation
+2023-01-25 14:49:18,247:INFO:Cross validating with KFold(n_splits=10, random_state=None, shuffle=False), n_jobs=1
+2023-01-25 14:49:18,308:INFO:Calculating mean and std
+2023-01-25 14:49:18,309:INFO:Creating metrics dataframe
+2023-01-25 14:49:18,312:INFO:Uploading results into container
+2023-01-25 14:49:18,312:INFO:Uploading model into container now
+2023-01-25 14:49:18,313:INFO:create_model_container: 1
+2023-01-25 14:49:18,313:INFO:master_model_container: 1
+2023-01-25 14:49:18,313:INFO:display_container: 2
+2023-01-25 14:49:18,313:INFO:LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False)
+2023-01-25 14:49:18,313:INFO:create_model() succesfully completed......................................
+2023-01-25 14:49:18,390:INFO:SubProcess create_model() end ==================================
+2023-01-25 14:49:18,390:INFO:Creating metrics dataframe
+2023-01-25 14:49:18,408:INFO:Initializing create_model()
+2023-01-25 14:49:18,408:INFO:create_model(estimator=LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False), fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=False, predict=False, fit_kwargs={}, groups=None, refit=True, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=None, return_train_score=False, kwargs={})
+2023-01-25 14:49:18,408:INFO:Checking exceptions
+2023-01-25 14:49:18,409:INFO:Importing libraries
+2023-01-25 14:49:18,409:INFO:Copying training dataset
+2023-01-25 14:49:18,409:INFO:Defining folds
+2023-01-25 14:49:18,409:INFO:Declaring metric variables
+2023-01-25 14:49:18,409:INFO:Importing untrained model
+2023-01-25 14:49:18,409:INFO:Declaring custom model
+2023-01-25 14:49:18,410:INFO:Linear Regression Imported succesfully
+2023-01-25 14:49:18,410:INFO:Cross validation set to False
+2023-01-25 14:49:18,410:INFO:Fitting Model
+2023-01-25 14:49:18,414:INFO:LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False)
+2023-01-25 14:49:18,414:INFO:create_models() succesfully completed......................................
+2023-01-25 14:49:18,491:INFO:create_model_container: 1
+2023-01-25 14:49:18,491:INFO:master_model_container: 1
+2023-01-25 14:49:18,491:INFO:display_container: 2
+2023-01-25 14:49:18,491:INFO:LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False)
+2023-01-25 14:49:18,492:INFO:compare_models() succesfully completed......................................
+2023-01-25 14:49:18,502:INFO:PyCaret Supervised Module
+2023-01-25 14:49:18,502:INFO:ML Usecase: regression
+2023-01-25 14:49:18,502:INFO:version 2.3.10
+2023-01-25 14:49:18,502:INFO:Initializing setup()
+2023-01-25 14:49:18,502:INFO:setup(target=PRICE, ml_usecase=regression, available_plots={'parameter': 'Hyperparameters', 'residuals': 'Residuals', 'error': 'Prediction Error', 'cooks': 'Cooks Distance', 'rfe': 'Feature Selection', 'learning': 'Learning Curve', 'manifold': 'Manifold Learning', 'vc': 'Validation Curve', 'feature': 'Feature Importance', 'feature_all': 'Feature Importance (All)', 'tree': 'Decision Tree', 'residuals_interactive': 'Interactive Residuals'}, train_size=0.7, test_data=None, preprocess=False, imputation_type=simple, iterative_imputation_iters=5, categorical_features=None, categorical_imputation=constant, categorical_iterative_imputer=lightgbm, ordinal_features=None, high_cardinality_features=None, high_cardinality_method=frequency, numeric_features=None, numeric_imputation=mean, numeric_iterative_imputer=lightgbm, date_features=None, ignore_features=None, normalize=False, normalize_method=zscore, transformation=False, transformation_method=yeo-johnson, handle_unknown_categorical=True, unknown_categorical_method=least_frequent, pca=False, pca_method=linear, pca_components=None, ignore_low_variance=False, combine_rare_levels=False, rare_level_threshold=0.1, bin_numeric_features=None, remove_outliers=False, outliers_threshold=0.05, remove_multicollinearity=False, multicollinearity_threshold=0.9, remove_perfect_collinearity=True, create_clusters=False, cluster_iter=20, polynomial_features=False, polynomial_degree=2, trigonometry_features=False, polynomial_threshold=0.1, group_features=None, group_names=None, feature_selection=False, feature_selection_threshold=0.8, feature_selection_method=classic, feature_interaction=False, feature_ratio=False, interaction_threshold=0.01, fix_imbalance=False, fix_imbalance_method=None, transform_target=False, transform_target_method=box-cox, data_split_shuffle=True, data_split_stratify=False, fold_strategy=kfold, fold=10, fold_shuffle=False, fold_groups=None, n_jobs=-1, use_gpu=True, custom_pipeline=None, html=True, session_id=42, log_experiment=False, experiment_name=None, experiment_custom_tags=None, log_plots=False, log_profile=False, log_data=False, silent=True, verbose=True, profile=False, profile_kwargs=None, display=None)
+2023-01-25 14:49:18,502:INFO:Checking environment
+2023-01-25 14:49:18,502:INFO:python_version: 3.8.10
+2023-01-25 14:49:18,502:INFO:python_build: ('default', 'May 19 2021 13:12:57')
+2023-01-25 14:49:18,503:INFO:machine: AMD64
+2023-01-25 14:49:18,503:INFO:platform: Windows-10-10.0.19045-SP0
+2023-01-25 14:49:18,504:WARNING:cannot find psutil installation. memory not traceable. Install psutil using pip to enable memory logging.
+2023-01-25 14:49:18,504:INFO:Checking libraries
+2023-01-25 14:49:18,504:INFO:pd==1.3.0
+2023-01-25 14:49:18,505:INFO:numpy==1.19.5
+2023-01-25 14:49:18,505:INFO:sklearn==0.23.2
+2023-01-25 14:49:18,505:INFO:lightgbm==3.3.2
+2023-01-25 14:49:18,506:WARNING:catboost not found
+2023-01-25 14:49:18,508:WARNING:xgboost not found
+2023-01-25 14:49:18,508:INFO:mlflow==1.25.1
+2023-01-25 14:49:18,508:INFO:Checking Exceptions
+2023-01-25 14:49:18,508:INFO:Declaring global variables
+2023-01-25 14:49:18,508:INFO:USI: e87b
+2023-01-25 14:49:18,508:INFO:pycaret_globals: {'exp_name_log', 'logging_param', 'experiment__', 'master_model_container', '_all_models_internal', 'transform_target_param', 'data_before_preprocess', 'y', 'fold_groups_param', 'y_test', 'log_plots_param', 'iterative_imputation_iters_param', 'USI', 'fold_groups_param_full', 'imputation_classifier', 'pycaret_globals', 'gpu_param', 'fold_shuffle_param', '_gpu_n_jobs_param', 'html_param', '_available_plots', 'target_param', '_all_models', 'X_train', 'stratify_param', 'transform_target_method_param', '_internal_pipeline', 'fix_imbalance_method_param', 'display_container', 'prep_pipe', 'n_jobs_param', 'X', 'fold_generator', 'X_test', '_ml_usecase', 'seed', 'create_model_container', 'imputation_regressor', '_all_metrics', 'fix_imbalance_param', 'fold_param', 'dashboard_logger', 'y_train'}
+2023-01-25 14:49:18,508:INFO:Preparing display monitor
+2023-01-25 14:49:18,509:INFO:Preparing display monitor
+2023-01-25 14:49:18,516:INFO:Importing libraries
+2023-01-25 14:49:18,517:INFO:Copying data for preprocessing
+2023-01-25 14:49:18,521:INFO:Declaring preprocessing parameters
+2023-01-25 14:49:18,523:WARNING:cuML not found
+2023-01-25 14:49:18,523:WARNING:cuML is outdated or not found. Required version is >=0.15, got 3.3.2
+2023-01-25 14:49:18,524:INFO:Creating preprocessing pipeline
+2023-01-25 14:49:18,531:INFO:Preprocessing pipeline created successfully
+2023-01-25 14:49:18,531:ERROR:(Process Exit): setup has been interupted with user command 'quit'. setup must rerun.
+2023-01-25 14:49:18,531:INFO:Creating global containers
+2023-01-25 14:49:18,531:INFO:Internal pipeline: Pipeline(memory=None, steps=[('empty_step', 'passthrough')], verbose=False)
+2023-01-25 14:49:18,599:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:49:18,601:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:49:18,609:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:49:18,616:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:49:18,690:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:49:18,750:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:49:18,752:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:49:18,754:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:49:18,889:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:49:18,891:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:49:18,893:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:49:18,901:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:49:18,908:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:49:18,985:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:49:19,046:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:49:19,047:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:49:19,049:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:49:19,185:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:49:19,186:INFO:Creating grid variables
+2023-01-25 14:49:19,189:INFO:create_model_container: 0
+2023-01-25 14:49:19,190:INFO:master_model_container: 0
+2023-01-25 14:49:19,190:INFO:display_container: 1
+2023-01-25 14:49:19,191:INFO:Pipeline(memory=None,
+         steps=[('dtypes',
+                 DataTypes_Auto_infer(categorical_features=[],
+                                      display_types=False, features_todrop=[],
+                                      id_columns=[], ml_usecase='regression',
+                                      numerical_features=[], target='PRICE',
+                                      time_features=[]))],
+         verbose=False)
+2023-01-25 14:49:19,191:INFO:setup() succesfully completed......................................
+2023-01-25 14:49:19,267:INFO:Initializing compare_models()
+2023-01-25 14:49:19,267:INFO:compare_models(include=['lr'], fold=None, round=4, cross_validation=True, sort=R2, n_select=1, budget_time=None, turbo=True, errors=ignore, fit_kwargs=None, groups=None, experiment_custom_tags=None, probability_threshold=None, verbose=True, display=None, exclude=None)
+2023-01-25 14:49:19,268:INFO:Checking exceptions
+2023-01-25 14:49:19,268:INFO:Preparing display monitor
+2023-01-25 14:49:19,268:INFO:Preparing display monitor
+2023-01-25 14:49:19,283:INFO:Initializing Linear Regression
+2023-01-25 14:49:19,283:INFO:Total runtime is 0.0 minutes
+2023-01-25 14:49:19,288:INFO:SubProcess create_model() called ==================================
+2023-01-25 14:49:19,288:INFO:Initializing create_model()
+2023-01-25 14:49:19,288:INFO:create_model(estimator=lr, fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=<pycaret.internal.Display.Display object at 0x000002B603281EB0>, return_train_score=False, kwargs={})
+2023-01-25 14:49:19,289:INFO:Checking exceptions
+2023-01-25 14:49:19,289:INFO:Importing libraries
+2023-01-25 14:49:19,289:INFO:Copying training dataset
+2023-01-25 14:49:19,289:INFO:Defining folds
+2023-01-25 14:49:19,289:INFO:Declaring metric variables
+2023-01-25 14:49:19,294:INFO:Importing untrained model
+2023-01-25 14:49:19,299:INFO:Linear Regression Imported succesfully
+2023-01-25 14:49:19,308:INFO:Starting cross validation
+2023-01-25 14:49:19,309:INFO:Cross validating with KFold(n_splits=10, random_state=None, shuffle=False), n_jobs=1
+2023-01-25 14:49:19,370:INFO:Calculating mean and std
+2023-01-25 14:49:19,370:INFO:Creating metrics dataframe
+2023-01-25 14:49:19,375:INFO:Uploading results into container
+2023-01-25 14:49:19,375:INFO:Uploading model into container now
+2023-01-25 14:49:19,375:INFO:create_model_container: 1
+2023-01-25 14:49:19,375:INFO:master_model_container: 1
+2023-01-25 14:49:19,375:INFO:display_container: 2
+2023-01-25 14:49:19,375:INFO:LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False)
+2023-01-25 14:49:19,375:INFO:create_model() succesfully completed......................................
+2023-01-25 14:49:19,444:INFO:SubProcess create_model() end ==================================
+2023-01-25 14:49:19,445:INFO:Creating metrics dataframe
+2023-01-25 14:49:19,461:INFO:Initializing create_model()
+2023-01-25 14:49:19,461:INFO:create_model(estimator=LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False), fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=False, predict=False, fit_kwargs={}, groups=None, refit=True, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=None, return_train_score=False, kwargs={})
+2023-01-25 14:49:19,461:INFO:Checking exceptions
+2023-01-25 14:49:19,461:INFO:Importing libraries
+2023-01-25 14:49:19,461:INFO:Copying training dataset
+2023-01-25 14:49:19,462:INFO:Defining folds
+2023-01-25 14:49:19,462:INFO:Declaring metric variables
+2023-01-25 14:49:19,462:INFO:Importing untrained model
+2023-01-25 14:49:19,462:INFO:Declaring custom model
+2023-01-25 14:49:19,462:INFO:Linear Regression Imported succesfully
+2023-01-25 14:49:19,463:INFO:Cross validation set to False
+2023-01-25 14:49:19,463:INFO:Fitting Model
+2023-01-25 14:49:19,466:INFO:LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False)
+2023-01-25 14:49:19,466:INFO:create_models() succesfully completed......................................
+2023-01-25 14:49:19,534:INFO:create_model_container: 1
+2023-01-25 14:49:19,534:INFO:master_model_container: 1
+2023-01-25 14:49:19,534:INFO:display_container: 2
+2023-01-25 14:49:19,534:INFO:LinearRegression(copy_X=True, fit_intercept=True, n_jobs=-1, normalize=False)
+2023-01-25 14:49:19,534:INFO:compare_models() succesfully completed......................................
+2023-01-25 14:50:13,417:INFO:PyCaret Supervised Module
+2023-01-25 14:50:13,417:INFO:ML Usecase: regression
+2023-01-25 14:50:13,417:INFO:version 2.3.10
+2023-01-25 14:50:13,417:INFO:Initializing setup()
+2023-01-25 14:50:13,417:INFO:setup(target=PRICE, ml_usecase=regression, available_plots={'parameter': 'Hyperparameters', 'residuals': 'Residuals', 'error': 'Prediction Error', 'cooks': 'Cooks Distance', 'rfe': 'Feature Selection', 'learning': 'Learning Curve', 'manifold': 'Manifold Learning', 'vc': 'Validation Curve', 'feature': 'Feature Importance', 'feature_all': 'Feature Importance (All)', 'tree': 'Decision Tree', 'residuals_interactive': 'Interactive Residuals'}, train_size=0.7, test_data=None, preprocess=False, imputation_type=simple, iterative_imputation_iters=5, categorical_features=None, categorical_imputation=constant, categorical_iterative_imputer=lightgbm, ordinal_features=None, high_cardinality_features=None, high_cardinality_method=frequency, numeric_features=None, numeric_imputation=mean, numeric_iterative_imputer=lightgbm, date_features=None, ignore_features=None, normalize=False, normalize_method=zscore, transformation=False, transformation_method=yeo-johnson, handle_unknown_categorical=True, unknown_categorical_method=least_frequent, pca=False, pca_method=linear, pca_components=None, ignore_low_variance=False, combine_rare_levels=False, rare_level_threshold=0.1, bin_numeric_features=None, remove_outliers=False, outliers_threshold=0.05, remove_multicollinearity=False, multicollinearity_threshold=0.9, remove_perfect_collinearity=True, create_clusters=False, cluster_iter=20, polynomial_features=False, polynomial_degree=2, trigonometry_features=False, polynomial_threshold=0.1, group_features=None, group_names=None, feature_selection=False, feature_selection_threshold=0.8, feature_selection_method=classic, feature_interaction=False, feature_ratio=False, interaction_threshold=0.01, fix_imbalance=False, fix_imbalance_method=None, transform_target=False, transform_target_method=box-cox, data_split_shuffle=True, data_split_stratify=False, fold_strategy=kfold, fold=10, fold_shuffle=False, fold_groups=None, n_jobs=-1, use_gpu=True, custom_pipeline=None, html=True, session_id=42, log_experiment=False, experiment_name=None, experiment_custom_tags=None, log_plots=False, log_profile=False, log_data=False, silent=True, verbose=True, profile=False, profile_kwargs=None, display=None)
+2023-01-25 14:50:13,418:INFO:Checking environment
+2023-01-25 14:50:13,418:INFO:python_version: 3.8.10
+2023-01-25 14:50:13,418:INFO:python_build: ('default', 'May 19 2021 13:12:57')
+2023-01-25 14:50:13,418:INFO:machine: AMD64
+2023-01-25 14:50:13,418:INFO:platform: Windows-10-10.0.19045-SP0
+2023-01-25 14:50:13,419:WARNING:cannot find psutil installation. memory not traceable. Install psutil using pip to enable memory logging.
+2023-01-25 14:50:13,419:INFO:Checking libraries
+2023-01-25 14:50:13,419:INFO:pd==1.3.0
+2023-01-25 14:50:13,419:INFO:numpy==1.19.5
+2023-01-25 14:50:13,419:INFO:sklearn==0.23.2
+2023-01-25 14:50:13,419:INFO:lightgbm==3.3.2
+2023-01-25 14:50:13,420:WARNING:catboost not found
+2023-01-25 14:50:13,420:WARNING:xgboost not found
+2023-01-25 14:50:13,420:INFO:mlflow==1.25.1
+2023-01-25 14:50:13,420:INFO:Checking Exceptions
+2023-01-25 14:50:13,420:INFO:Declaring global variables
+2023-01-25 14:50:13,420:INFO:USI: 38eb
+2023-01-25 14:50:13,421:INFO:pycaret_globals: {'exp_name_log', 'logging_param', 'experiment__', 'master_model_container', '_all_models_internal', 'transform_target_param', 'data_before_preprocess', 'y', 'fold_groups_param', 'y_test', 'log_plots_param', 'iterative_imputation_iters_param', 'USI', 'fold_groups_param_full', 'imputation_classifier', 'pycaret_globals', 'gpu_param', 'fold_shuffle_param', '_gpu_n_jobs_param', 'html_param', '_available_plots', 'target_param', '_all_models', 'X_train', 'stratify_param', 'transform_target_method_param', '_internal_pipeline', 'fix_imbalance_method_param', 'display_container', 'prep_pipe', 'n_jobs_param', 'X', 'fold_generator', 'X_test', '_ml_usecase', 'seed', 'create_model_container', 'imputation_regressor', '_all_metrics', 'fix_imbalance_param', 'fold_param', 'dashboard_logger', 'y_train'}
+2023-01-25 14:50:13,421:INFO:Preparing display monitor
+2023-01-25 14:50:13,421:INFO:Preparing display monitor
+2023-01-25 14:50:13,427:INFO:Importing libraries
+2023-01-25 14:50:13,427:INFO:Copying data for preprocessing
+2023-01-25 14:50:13,431:INFO:Declaring preprocessing parameters
+2023-01-25 14:50:13,432:WARNING:cuML not found
+2023-01-25 14:50:13,432:WARNING:cuML is outdated or not found. Required version is >=0.15, got 3.3.2
+2023-01-25 14:50:13,434:INFO:Creating preprocessing pipeline
+2023-01-25 14:50:13,442:INFO:Preprocessing pipeline created successfully
+2023-01-25 14:50:13,442:ERROR:(Process Exit): setup has been interupted with user command 'quit'. setup must rerun.
+2023-01-25 14:50:13,442:INFO:Creating global containers
+2023-01-25 14:50:13,443:INFO:Internal pipeline: Pipeline(memory=None, steps=[('empty_step', 'passthrough')], verbose=False)
+2023-01-25 14:50:13,519:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:50:13,520:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:50:13,527:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:50:13,533:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:50:13,609:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:50:13,656:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:50:13,657:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:50:13,659:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:50:13,809:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:50:13,811:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:50:13,813:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:50:13,820:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:50:13,828:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:50:13,904:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:50:13,963:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:50:13,965:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:50:13,967:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:50:14,098:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:50:14,098:INFO:Creating grid variables
+2023-01-25 14:50:14,101:INFO:create_model_container: 0
+2023-01-25 14:50:14,101:INFO:master_model_container: 0
+2023-01-25 14:50:14,101:INFO:display_container: 1
+2023-01-25 14:50:14,103:INFO:Pipeline(memory=None,
+         steps=[('dtypes',
+                 DataTypes_Auto_infer(categorical_features=[],
+                                      display_types=False, features_todrop=[],
+                                      id_columns=[], ml_usecase='regression',
+                                      numerical_features=[], target='PRICE',
+                                      time_features=[]))],
+         verbose=False)
+2023-01-25 14:50:14,103:INFO:setup() succesfully completed......................................
+2023-01-25 14:50:14,178:INFO:Initializing compare_models()
+2023-01-25 14:50:14,179:INFO:compare_models(include=['rf'], fold=None, round=4, cross_validation=True, sort=R2, n_select=1, budget_time=None, turbo=True, errors=ignore, fit_kwargs=None, groups=None, experiment_custom_tags=None, probability_threshold=None, verbose=True, display=None, exclude=None)
+2023-01-25 14:50:14,179:INFO:Checking exceptions
+2023-01-25 14:50:14,179:INFO:Preparing display monitor
+2023-01-25 14:50:14,179:INFO:Preparing display monitor
+2023-01-25 14:50:14,194:INFO:Initializing Random Forest Regressor
+2023-01-25 14:50:14,194:INFO:Total runtime is 0.0 minutes
+2023-01-25 14:50:14,199:INFO:SubProcess create_model() called ==================================
+2023-01-25 14:50:14,199:INFO:Initializing create_model()
+2023-01-25 14:50:14,199:INFO:create_model(estimator=rf, fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=<pycaret.internal.Display.Display object at 0x000002B6031C9FA0>, return_train_score=False, kwargs={})
+2023-01-25 14:50:14,199:INFO:Checking exceptions
+2023-01-25 14:50:14,199:INFO:Importing libraries
+2023-01-25 14:50:14,199:INFO:Copying training dataset
+2023-01-25 14:50:14,200:INFO:Defining folds
+2023-01-25 14:50:14,200:INFO:Declaring metric variables
+2023-01-25 14:50:14,204:INFO:Importing untrained model
+2023-01-25 14:50:14,210:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:50:14,219:INFO:Starting cross validation
+2023-01-25 14:50:14,219:INFO:Cross validating with KFold(n_splits=10, random_state=None, shuffle=False), n_jobs=1
+2023-01-25 14:50:24,006:INFO:Calculating mean and std
+2023-01-25 14:50:24,007:INFO:Creating metrics dataframe
+2023-01-25 14:50:24,010:INFO:Uploading results into container
+2023-01-25 14:50:24,010:INFO:Uploading model into container now
+2023-01-25 14:50:24,010:INFO:create_model_container: 1
+2023-01-25 14:50:24,010:INFO:master_model_container: 1
+2023-01-25 14:50:24,010:INFO:display_container: 2
+2023-01-25 14:50:24,010:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:50:24,010:INFO:create_model() succesfully completed......................................
+2023-01-25 14:50:24,070:INFO:SubProcess create_model() end ==================================
+2023-01-25 14:50:24,070:INFO:Creating metrics dataframe
+2023-01-25 14:50:24,082:INFO:Initializing create_model()
+2023-01-25 14:50:24,082:INFO:create_model(estimator=RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False), fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=False, predict=False, fit_kwargs={}, groups=None, refit=True, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=None, return_train_score=False, kwargs={})
+2023-01-25 14:50:24,082:INFO:Checking exceptions
+2023-01-25 14:50:24,082:INFO:Importing libraries
+2023-01-25 14:50:24,082:INFO:Copying training dataset
+2023-01-25 14:50:24,082:INFO:Defining folds
+2023-01-25 14:50:24,083:INFO:Declaring metric variables
+2023-01-25 14:50:24,083:INFO:Importing untrained model
+2023-01-25 14:50:24,083:INFO:Declaring custom model
+2023-01-25 14:50:24,083:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:50:24,083:INFO:Cross validation set to False
+2023-01-25 14:50:24,083:INFO:Fitting Model
+2023-01-25 14:50:24,249:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:50:24,249:INFO:create_models() succesfully completed......................................
+2023-01-25 14:50:24,306:INFO:create_model_container: 1
+2023-01-25 14:50:24,306:INFO:master_model_container: 1
+2023-01-25 14:50:24,306:INFO:display_container: 2
+2023-01-25 14:50:24,306:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:50:24,306:INFO:compare_models() succesfully completed......................................
+2023-01-25 14:50:24,322:INFO:PyCaret Supervised Module
+2023-01-25 14:50:24,322:INFO:ML Usecase: regression
+2023-01-25 14:50:24,323:INFO:version 2.3.10
+2023-01-25 14:50:24,323:INFO:Initializing setup()
+2023-01-25 14:50:24,323:INFO:setup(target=PRICE, ml_usecase=regression, available_plots={'parameter': 'Hyperparameters', 'residuals': 'Residuals', 'error': 'Prediction Error', 'cooks': 'Cooks Distance', 'rfe': 'Feature Selection', 'learning': 'Learning Curve', 'manifold': 'Manifold Learning', 'vc': 'Validation Curve', 'feature': 'Feature Importance', 'feature_all': 'Feature Importance (All)', 'tree': 'Decision Tree', 'residuals_interactive': 'Interactive Residuals'}, train_size=0.7, test_data=None, preprocess=False, imputation_type=simple, iterative_imputation_iters=5, categorical_features=None, categorical_imputation=constant, categorical_iterative_imputer=lightgbm, ordinal_features=None, high_cardinality_features=None, high_cardinality_method=frequency, numeric_features=None, numeric_imputation=mean, numeric_iterative_imputer=lightgbm, date_features=None, ignore_features=None, normalize=False, normalize_method=zscore, transformation=False, transformation_method=yeo-johnson, handle_unknown_categorical=True, unknown_categorical_method=least_frequent, pca=False, pca_method=linear, pca_components=None, ignore_low_variance=False, combine_rare_levels=False, rare_level_threshold=0.1, bin_numeric_features=None, remove_outliers=False, outliers_threshold=0.05, remove_multicollinearity=False, multicollinearity_threshold=0.9, remove_perfect_collinearity=True, create_clusters=False, cluster_iter=20, polynomial_features=False, polynomial_degree=2, trigonometry_features=False, polynomial_threshold=0.1, group_features=None, group_names=None, feature_selection=False, feature_selection_threshold=0.8, feature_selection_method=classic, feature_interaction=False, feature_ratio=False, interaction_threshold=0.01, fix_imbalance=False, fix_imbalance_method=None, transform_target=False, transform_target_method=box-cox, data_split_shuffle=True, data_split_stratify=False, fold_strategy=kfold, fold=10, fold_shuffle=False, fold_groups=None, n_jobs=-1, use_gpu=True, custom_pipeline=None, html=True, session_id=42, log_experiment=False, experiment_name=None, experiment_custom_tags=None, log_plots=False, log_profile=False, log_data=False, silent=True, verbose=True, profile=False, profile_kwargs=None, display=None)
+2023-01-25 14:50:24,323:INFO:Checking environment
+2023-01-25 14:50:24,323:INFO:python_version: 3.8.10
+2023-01-25 14:50:24,323:INFO:python_build: ('default', 'May 19 2021 13:12:57')
+2023-01-25 14:50:24,323:INFO:machine: AMD64
+2023-01-25 14:50:24,323:INFO:platform: Windows-10-10.0.19045-SP0
+2023-01-25 14:50:24,324:WARNING:cannot find psutil installation. memory not traceable. Install psutil using pip to enable memory logging.
+2023-01-25 14:50:24,324:INFO:Checking libraries
+2023-01-25 14:50:24,324:INFO:pd==1.3.0
+2023-01-25 14:50:24,324:INFO:numpy==1.19.5
+2023-01-25 14:50:24,324:INFO:sklearn==0.23.2
+2023-01-25 14:50:24,324:INFO:lightgbm==3.3.2
+2023-01-25 14:50:24,325:WARNING:catboost not found
+2023-01-25 14:50:24,326:WARNING:xgboost not found
+2023-01-25 14:50:24,326:INFO:mlflow==1.25.1
+2023-01-25 14:50:24,326:INFO:Checking Exceptions
+2023-01-25 14:50:24,326:INFO:Declaring global variables
+2023-01-25 14:50:24,326:INFO:USI: 85d8
+2023-01-25 14:50:24,326:INFO:pycaret_globals: {'exp_name_log', 'logging_param', 'experiment__', 'master_model_container', '_all_models_internal', 'transform_target_param', 'data_before_preprocess', 'y', 'fold_groups_param', 'y_test', 'log_plots_param', 'iterative_imputation_iters_param', 'USI', 'fold_groups_param_full', 'imputation_classifier', 'pycaret_globals', 'gpu_param', 'fold_shuffle_param', '_gpu_n_jobs_param', 'html_param', '_available_plots', 'target_param', '_all_models', 'X_train', 'stratify_param', 'transform_target_method_param', '_internal_pipeline', 'fix_imbalance_method_param', 'display_container', 'prep_pipe', 'n_jobs_param', 'X', 'fold_generator', 'X_test', '_ml_usecase', 'seed', 'create_model_container', 'imputation_regressor', '_all_metrics', 'fix_imbalance_param', 'fold_param', 'dashboard_logger', 'y_train'}
+2023-01-25 14:50:24,327:INFO:Preparing display monitor
+2023-01-25 14:50:24,327:INFO:Preparing display monitor
+2023-01-25 14:50:24,333:INFO:Importing libraries
+2023-01-25 14:50:24,333:INFO:Copying data for preprocessing
+2023-01-25 14:50:24,336:INFO:Declaring preprocessing parameters
+2023-01-25 14:50:24,337:WARNING:cuML not found
+2023-01-25 14:50:24,337:WARNING:cuML is outdated or not found. Required version is >=0.15, got 3.3.2
+2023-01-25 14:50:24,337:INFO:Creating preprocessing pipeline
+2023-01-25 14:50:24,342:INFO:Preprocessing pipeline created successfully
+2023-01-25 14:50:24,342:ERROR:(Process Exit): setup has been interupted with user command 'quit'. setup must rerun.
+2023-01-25 14:50:24,342:INFO:Creating global containers
+2023-01-25 14:50:24,342:INFO:Internal pipeline: Pipeline(memory=None, steps=[('empty_step', 'passthrough')], verbose=False)
+2023-01-25 14:50:24,387:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:50:24,388:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:50:24,393:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:50:24,399:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:50:24,454:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:50:24,500:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:50:24,501:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:50:24,503:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:50:24,652:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:50:24,653:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:50:24,654:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:50:24,662:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:50:24,668:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:50:24,740:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:50:24,790:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:50:24,791:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:50:24,794:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:50:24,974:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:50:24,975:INFO:Creating grid variables
+2023-01-25 14:50:24,978:INFO:create_model_container: 0
+2023-01-25 14:50:24,978:INFO:master_model_container: 0
+2023-01-25 14:50:24,978:INFO:display_container: 1
+2023-01-25 14:50:24,979:INFO:Pipeline(memory=None,
+         steps=[('dtypes',
+                 DataTypes_Auto_infer(categorical_features=[],
+                                      display_types=False, features_todrop=[],
+                                      id_columns=[], ml_usecase='regression',
+                                      numerical_features=[], target='PRICE',
+                                      time_features=[]))],
+         verbose=False)
+2023-01-25 14:50:24,979:INFO:setup() succesfully completed......................................
+2023-01-25 14:50:25,055:INFO:Initializing compare_models()
+2023-01-25 14:50:25,055:INFO:compare_models(include=['rf'], fold=None, round=4, cross_validation=True, sort=R2, n_select=1, budget_time=None, turbo=True, errors=ignore, fit_kwargs=None, groups=None, experiment_custom_tags=None, probability_threshold=None, verbose=True, display=None, exclude=None)
+2023-01-25 14:50:25,055:INFO:Checking exceptions
+2023-01-25 14:50:25,056:INFO:Preparing display monitor
+2023-01-25 14:50:25,056:INFO:Preparing display monitor
+2023-01-25 14:50:25,069:INFO:Initializing Random Forest Regressor
+2023-01-25 14:50:25,069:INFO:Total runtime is 0.0 minutes
+2023-01-25 14:50:25,075:INFO:SubProcess create_model() called ==================================
+2023-01-25 14:50:25,075:INFO:Initializing create_model()
+2023-01-25 14:50:25,075:INFO:create_model(estimator=rf, fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=<pycaret.internal.Display.Display object at 0x000002B60311D400>, return_train_score=False, kwargs={})
+2023-01-25 14:50:25,075:INFO:Checking exceptions
+2023-01-25 14:50:25,075:INFO:Importing libraries
+2023-01-25 14:50:25,075:INFO:Copying training dataset
+2023-01-25 14:50:25,076:INFO:Defining folds
+2023-01-25 14:50:25,076:INFO:Declaring metric variables
+2023-01-25 14:50:25,080:INFO:Importing untrained model
+2023-01-25 14:50:25,083:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:50:25,091:INFO:Starting cross validation
+2023-01-25 14:50:25,091:INFO:Cross validating with KFold(n_splits=10, random_state=None, shuffle=False), n_jobs=1
+2023-01-25 14:50:28,832:INFO:Calculating mean and std
+2023-01-25 14:50:28,833:INFO:Creating metrics dataframe
+2023-01-25 14:50:28,836:INFO:Uploading results into container
+2023-01-25 14:50:28,836:INFO:Uploading model into container now
+2023-01-25 14:50:28,836:INFO:create_model_container: 1
+2023-01-25 14:50:28,836:INFO:master_model_container: 1
+2023-01-25 14:50:28,836:INFO:display_container: 2
+2023-01-25 14:50:28,836:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:50:28,837:INFO:create_model() succesfully completed......................................
+2023-01-25 14:50:28,899:INFO:SubProcess create_model() end ==================================
+2023-01-25 14:50:28,899:INFO:Creating metrics dataframe
+2023-01-25 14:50:28,912:INFO:Initializing create_model()
+2023-01-25 14:50:28,912:INFO:create_model(estimator=RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False), fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=False, predict=False, fit_kwargs={}, groups=None, refit=True, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=None, return_train_score=False, kwargs={})
+2023-01-25 14:50:28,912:INFO:Checking exceptions
+2023-01-25 14:50:28,913:INFO:Importing libraries
+2023-01-25 14:50:28,913:INFO:Copying training dataset
+2023-01-25 14:50:28,913:INFO:Defining folds
+2023-01-25 14:50:28,913:INFO:Declaring metric variables
+2023-01-25 14:50:28,913:INFO:Importing untrained model
+2023-01-25 14:50:28,913:INFO:Declaring custom model
+2023-01-25 14:50:28,914:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:50:28,914:INFO:Cross validation set to False
+2023-01-25 14:50:28,914:INFO:Fitting Model
+2023-01-25 14:50:29,088:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:50:29,088:INFO:create_models() succesfully completed......................................
+2023-01-25 14:50:29,147:INFO:create_model_container: 1
+2023-01-25 14:50:29,147:INFO:master_model_container: 1
+2023-01-25 14:50:29,147:INFO:display_container: 2
+2023-01-25 14:50:29,148:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:50:29,148:INFO:compare_models() succesfully completed......................................
+2023-01-25 14:51:39,333:INFO:PyCaret Supervised Module
+2023-01-25 14:51:39,333:INFO:ML Usecase: regression
+2023-01-25 14:51:39,333:INFO:version 2.3.10
+2023-01-25 14:51:39,333:INFO:Initializing setup()
+2023-01-25 14:51:39,333:INFO:setup(target=PRICE, ml_usecase=regression, available_plots={'parameter': 'Hyperparameters', 'residuals': 'Residuals', 'error': 'Prediction Error', 'cooks': 'Cooks Distance', 'rfe': 'Feature Selection', 'learning': 'Learning Curve', 'manifold': 'Manifold Learning', 'vc': 'Validation Curve', 'feature': 'Feature Importance', 'feature_all': 'Feature Importance (All)', 'tree': 'Decision Tree', 'residuals_interactive': 'Interactive Residuals'}, train_size=0.7, test_data=None, preprocess=False, imputation_type=simple, iterative_imputation_iters=5, categorical_features=None, categorical_imputation=constant, categorical_iterative_imputer=lightgbm, ordinal_features=None, high_cardinality_features=None, high_cardinality_method=frequency, numeric_features=None, numeric_imputation=mean, numeric_iterative_imputer=lightgbm, date_features=None, ignore_features=None, normalize=False, normalize_method=zscore, transformation=False, transformation_method=yeo-johnson, handle_unknown_categorical=True, unknown_categorical_method=least_frequent, pca=False, pca_method=linear, pca_components=None, ignore_low_variance=False, combine_rare_levels=False, rare_level_threshold=0.1, bin_numeric_features=None, remove_outliers=False, outliers_threshold=0.05, remove_multicollinearity=False, multicollinearity_threshold=0.9, remove_perfect_collinearity=True, create_clusters=False, cluster_iter=20, polynomial_features=False, polynomial_degree=2, trigonometry_features=False, polynomial_threshold=0.1, group_features=None, group_names=None, feature_selection=False, feature_selection_threshold=0.8, feature_selection_method=classic, feature_interaction=False, feature_ratio=False, interaction_threshold=0.01, fix_imbalance=False, fix_imbalance_method=None, transform_target=False, transform_target_method=box-cox, data_split_shuffle=True, data_split_stratify=False, fold_strategy=kfold, fold=10, fold_shuffle=False, fold_groups=None, n_jobs=-1, use_gpu=True, custom_pipeline=None, html=True, session_id=42, log_experiment=False, experiment_name=None, experiment_custom_tags=None, log_plots=False, log_profile=False, log_data=False, silent=True, verbose=True, profile=False, profile_kwargs=None, display=None)
+2023-01-25 14:51:39,333:INFO:Checking environment
+2023-01-25 14:51:39,333:INFO:python_version: 3.8.10
+2023-01-25 14:51:39,333:INFO:python_build: ('default', 'May 19 2021 13:12:57')
+2023-01-25 14:51:39,333:INFO:machine: AMD64
+2023-01-25 14:51:39,350:INFO:platform: Windows-10-10.0.19045-SP0
+2023-01-25 14:51:39,351:WARNING:cannot find psutil installation. memory not traceable. Install psutil using pip to enable memory logging.
+2023-01-25 14:51:39,351:INFO:Checking libraries
+2023-01-25 14:51:39,351:INFO:pd==1.3.0
+2023-01-25 14:51:39,351:INFO:numpy==1.19.5
+2023-01-25 14:51:39,351:INFO:sklearn==0.23.2
+2023-01-25 14:51:39,351:INFO:lightgbm==3.3.2
+2023-01-25 14:51:39,352:WARNING:catboost not found
+2023-01-25 14:51:39,353:WARNING:xgboost not found
+2023-01-25 14:51:39,353:INFO:mlflow==1.25.1
+2023-01-25 14:51:39,353:INFO:Checking Exceptions
+2023-01-25 14:51:39,353:INFO:Declaring global variables
+2023-01-25 14:51:39,353:INFO:USI: 0727
+2023-01-25 14:51:39,353:INFO:pycaret_globals: {'create_model_container', 'html_param', 'n_jobs_param', 'master_model_container', 'y', 'prep_pipe', '_all_models_internal', 'logging_param', '_internal_pipeline', 'y_test', 'fold_shuffle_param', 'USI', 'log_plots_param', 'X_test', 'data_before_preprocess', 'X', 'display_container', 'pycaret_globals', 'transform_target_method_param', 'imputation_classifier', '_all_models', 'fold_param', 'transform_target_param', 'seed', 'fold_generator', 'y_train', 'iterative_imputation_iters_param', 'X_train', 'exp_name_log', '_ml_usecase', 'target_param', 'stratify_param', '_available_plots', 'dashboard_logger', 'imputation_regressor', '_gpu_n_jobs_param', 'fold_groups_param', 'fix_imbalance_method_param', 'fold_groups_param_full', '_all_metrics', 'gpu_param', 'experiment__', 'fix_imbalance_param'}
+2023-01-25 14:51:39,353:INFO:Preparing display monitor
+2023-01-25 14:51:39,353:INFO:Preparing display monitor
+2023-01-25 14:51:39,360:INFO:Importing libraries
+2023-01-25 14:51:39,360:INFO:Copying data for preprocessing
+2023-01-25 14:51:39,364:INFO:Declaring preprocessing parameters
+2023-01-25 14:51:39,365:WARNING:cuML not found
+2023-01-25 14:51:39,365:WARNING:cuML is outdated or not found. Required version is >=0.15, got 3.3.2
+2023-01-25 14:51:39,366:INFO:Creating preprocessing pipeline
+2023-01-25 14:51:39,370:INFO:Preprocessing pipeline created successfully
+2023-01-25 14:51:39,370:ERROR:(Process Exit): setup has been interupted with user command 'quit'. setup must rerun.
+2023-01-25 14:51:39,370:INFO:Creating global containers
+2023-01-25 14:51:39,371:INFO:Internal pipeline: Pipeline(memory=None, steps=[('empty_step', 'passthrough')], verbose=False)
+2023-01-25 14:51:39,415:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:51:39,415:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:51:39,421:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:51:39,426:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:51:39,483:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:51:39,535:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:51:39,540:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:51:39,548:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:51:39,811:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:51:39,813:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:51:39,814:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:51:39,822:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:51:39,829:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:51:39,906:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:51:39,966:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:51:39,968:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:51:39,984:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:51:40,158:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:51:40,159:INFO:Creating grid variables
+2023-01-25 14:51:40,162:INFO:create_model_container: 0
+2023-01-25 14:51:40,162:INFO:master_model_container: 0
+2023-01-25 14:51:40,162:INFO:display_container: 1
+2023-01-25 14:51:40,164:INFO:Pipeline(memory=None,
+         steps=[('dtypes',
+                 DataTypes_Auto_infer(categorical_features=[],
+                                      display_types=False, features_todrop=[],
+                                      id_columns=[], ml_usecase='regression',
+                                      numerical_features=[], target='PRICE',
+                                      time_features=[]))],
+         verbose=False)
+2023-01-25 14:51:40,164:INFO:setup() succesfully completed......................................
+2023-01-25 14:51:40,243:INFO:Initializing compare_models()
+2023-01-25 14:51:40,243:INFO:compare_models(include=['rf'], fold=None, round=4, cross_validation=True, sort=R2, n_select=1, budget_time=None, turbo=True, errors=ignore, fit_kwargs=None, groups=None, experiment_custom_tags=None, probability_threshold=None, verbose=True, display=None, exclude=None)
+2023-01-25 14:51:40,244:INFO:Checking exceptions
+2023-01-25 14:51:40,244:INFO:Preparing display monitor
+2023-01-25 14:51:40,244:INFO:Preparing display monitor
+2023-01-25 14:51:40,261:INFO:Initializing Random Forest Regressor
+2023-01-25 14:51:40,261:INFO:Total runtime is 0.0 minutes
+2023-01-25 14:51:40,267:INFO:SubProcess create_model() called ==================================
+2023-01-25 14:51:40,267:INFO:Initializing create_model()
+2023-01-25 14:51:40,267:INFO:create_model(estimator=rf, fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=<pycaret.internal.Display.Display object at 0x000002958322BF70>, return_train_score=False, kwargs={})
+2023-01-25 14:51:40,267:INFO:Checking exceptions
+2023-01-25 14:51:40,267:INFO:Importing libraries
+2023-01-25 14:51:40,267:INFO:Copying training dataset
+2023-01-25 14:51:40,268:INFO:Defining folds
+2023-01-25 14:51:40,268:INFO:Declaring metric variables
+2023-01-25 14:51:40,273:INFO:Importing untrained model
+2023-01-25 14:51:40,278:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:51:40,287:INFO:Starting cross validation
+2023-01-25 14:51:40,294:INFO:Cross validating with KFold(n_splits=10, random_state=None, shuffle=False), n_jobs=1
+2023-01-25 14:51:47,822:INFO:Calculating mean and std
+2023-01-25 14:51:47,822:INFO:Creating metrics dataframe
+2023-01-25 14:51:47,825:INFO:Uploading results into container
+2023-01-25 14:51:47,825:INFO:Uploading model into container now
+2023-01-25 14:51:47,826:INFO:create_model_container: 1
+2023-01-25 14:51:47,826:INFO:master_model_container: 1
+2023-01-25 14:51:47,826:INFO:display_container: 2
+2023-01-25 14:51:47,826:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:51:47,826:INFO:create_model() succesfully completed......................................
+2023-01-25 14:51:47,886:INFO:SubProcess create_model() end ==================================
+2023-01-25 14:51:47,887:INFO:Creating metrics dataframe
+2023-01-25 14:51:47,904:INFO:Initializing create_model()
+2023-01-25 14:51:47,904:INFO:create_model(estimator=RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False), fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=False, predict=False, fit_kwargs={}, groups=None, refit=True, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=None, return_train_score=False, kwargs={})
+2023-01-25 14:51:47,905:INFO:Checking exceptions
+2023-01-25 14:51:47,905:INFO:Importing libraries
+2023-01-25 14:51:47,905:INFO:Copying training dataset
+2023-01-25 14:51:47,906:INFO:Defining folds
+2023-01-25 14:51:47,906:INFO:Declaring metric variables
+2023-01-25 14:51:47,906:INFO:Importing untrained model
+2023-01-25 14:51:47,906:INFO:Declaring custom model
+2023-01-25 14:51:47,907:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:51:47,927:INFO:Cross validation set to False
+2023-01-25 14:51:47,943:INFO:Fitting Model
+2023-01-25 14:51:49,384:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:51:49,384:INFO:create_models() succesfully completed......................................
+2023-01-25 14:51:49,459:INFO:create_model_container: 1
+2023-01-25 14:51:49,459:INFO:master_model_container: 1
+2023-01-25 14:51:49,459:INFO:display_container: 2
+2023-01-25 14:51:49,460:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:51:49,460:INFO:compare_models() succesfully completed......................................
+2023-01-25 14:51:49,478:INFO:PyCaret Supervised Module
+2023-01-25 14:51:49,479:INFO:ML Usecase: regression
+2023-01-25 14:51:49,479:INFO:version 2.3.10
+2023-01-25 14:51:49,479:INFO:Initializing setup()
+2023-01-25 14:51:49,479:INFO:setup(target=PRICE, ml_usecase=regression, available_plots={'parameter': 'Hyperparameters', 'residuals': 'Residuals', 'error': 'Prediction Error', 'cooks': 'Cooks Distance', 'rfe': 'Feature Selection', 'learning': 'Learning Curve', 'manifold': 'Manifold Learning', 'vc': 'Validation Curve', 'feature': 'Feature Importance', 'feature_all': 'Feature Importance (All)', 'tree': 'Decision Tree', 'residuals_interactive': 'Interactive Residuals'}, train_size=0.7, test_data=None, preprocess=False, imputation_type=simple, iterative_imputation_iters=5, categorical_features=None, categorical_imputation=constant, categorical_iterative_imputer=lightgbm, ordinal_features=None, high_cardinality_features=None, high_cardinality_method=frequency, numeric_features=None, numeric_imputation=mean, numeric_iterative_imputer=lightgbm, date_features=None, ignore_features=None, normalize=False, normalize_method=zscore, transformation=False, transformation_method=yeo-johnson, handle_unknown_categorical=True, unknown_categorical_method=least_frequent, pca=False, pca_method=linear, pca_components=None, ignore_low_variance=False, combine_rare_levels=False, rare_level_threshold=0.1, bin_numeric_features=None, remove_outliers=False, outliers_threshold=0.05, remove_multicollinearity=False, multicollinearity_threshold=0.9, remove_perfect_collinearity=True, create_clusters=False, cluster_iter=20, polynomial_features=False, polynomial_degree=2, trigonometry_features=False, polynomial_threshold=0.1, group_features=None, group_names=None, feature_selection=False, feature_selection_threshold=0.8, feature_selection_method=classic, feature_interaction=False, feature_ratio=False, interaction_threshold=0.01, fix_imbalance=False, fix_imbalance_method=None, transform_target=False, transform_target_method=box-cox, data_split_shuffle=True, data_split_stratify=False, fold_strategy=kfold, fold=10, fold_shuffle=False, fold_groups=None, n_jobs=-1, use_gpu=True, custom_pipeline=None, html=True, session_id=42, log_experiment=False, experiment_name=None, experiment_custom_tags=None, log_plots=False, log_profile=False, log_data=False, silent=True, verbose=True, profile=False, profile_kwargs=None, display=None)
+2023-01-25 14:51:49,479:INFO:Checking environment
+2023-01-25 14:51:49,479:INFO:python_version: 3.8.10
+2023-01-25 14:51:49,479:INFO:python_build: ('default', 'May 19 2021 13:12:57')
+2023-01-25 14:51:49,479:INFO:machine: AMD64
+2023-01-25 14:51:49,479:INFO:platform: Windows-10-10.0.19045-SP0
+2023-01-25 14:51:49,480:WARNING:cannot find psutil installation. memory not traceable. Install psutil using pip to enable memory logging.
+2023-01-25 14:51:49,480:INFO:Checking libraries
+2023-01-25 14:51:49,480:INFO:pd==1.3.0
+2023-01-25 14:51:49,480:INFO:numpy==1.19.5
+2023-01-25 14:51:49,480:INFO:sklearn==0.23.2
+2023-01-25 14:51:49,481:INFO:lightgbm==3.3.2
+2023-01-25 14:51:49,482:WARNING:catboost not found
+2023-01-25 14:51:49,482:WARNING:xgboost not found
+2023-01-25 14:51:49,483:INFO:mlflow==1.25.1
+2023-01-25 14:51:49,483:INFO:Checking Exceptions
+2023-01-25 14:51:49,483:INFO:Declaring global variables
+2023-01-25 14:51:49,483:INFO:USI: 8d36
+2023-01-25 14:51:49,483:INFO:pycaret_globals: {'create_model_container', 'html_param', 'n_jobs_param', 'master_model_container', 'y', 'prep_pipe', '_all_models_internal', 'logging_param', '_internal_pipeline', 'y_test', 'fold_shuffle_param', 'USI', 'log_plots_param', 'X_test', 'data_before_preprocess', 'X', 'display_container', 'pycaret_globals', 'transform_target_method_param', 'imputation_classifier', '_all_models', 'fold_param', 'transform_target_param', 'seed', 'fold_generator', 'y_train', 'iterative_imputation_iters_param', 'X_train', 'exp_name_log', '_ml_usecase', 'target_param', 'stratify_param', '_available_plots', 'dashboard_logger', 'imputation_regressor', '_gpu_n_jobs_param', 'fold_groups_param', 'fix_imbalance_method_param', 'fold_groups_param_full', '_all_metrics', 'gpu_param', 'experiment__', 'fix_imbalance_param'}
+2023-01-25 14:51:49,483:INFO:Preparing display monitor
+2023-01-25 14:51:49,483:INFO:Preparing display monitor
+2023-01-25 14:51:49,489:INFO:Importing libraries
+2023-01-25 14:51:49,489:INFO:Copying data for preprocessing
+2023-01-25 14:51:49,495:INFO:Declaring preprocessing parameters
+2023-01-25 14:51:49,496:WARNING:cuML not found
+2023-01-25 14:51:49,496:WARNING:cuML is outdated or not found. Required version is >=0.15, got 3.3.2
+2023-01-25 14:51:49,496:INFO:Creating preprocessing pipeline
+2023-01-25 14:51:49,502:INFO:Preprocessing pipeline created successfully
+2023-01-25 14:51:49,502:ERROR:(Process Exit): setup has been interupted with user command 'quit'. setup must rerun.
+2023-01-25 14:51:49,502:INFO:Creating global containers
+2023-01-25 14:51:49,502:INFO:Internal pipeline: Pipeline(memory=None, steps=[('empty_step', 'passthrough')], verbose=False)
+2023-01-25 14:51:49,563:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:51:49,564:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:51:49,570:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:51:49,576:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:51:49,633:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:51:49,679:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:51:49,680:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:51:49,682:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:51:49,837:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:51:49,839:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:51:49,840:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:51:49,847:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:51:49,854:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:51:49,926:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:51:49,974:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:51:49,975:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:51:49,976:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:51:50,113:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:51:50,113:INFO:Creating grid variables
+2023-01-25 14:51:50,116:INFO:create_model_container: 0
+2023-01-25 14:51:50,116:INFO:master_model_container: 0
+2023-01-25 14:51:50,116:INFO:display_container: 1
+2023-01-25 14:51:50,117:INFO:Pipeline(memory=None,
+         steps=[('dtypes',
+                 DataTypes_Auto_infer(categorical_features=[],
+                                      display_types=False, features_todrop=[],
+                                      id_columns=[], ml_usecase='regression',
+                                      numerical_features=[], target='PRICE',
+                                      time_features=[]))],
+         verbose=False)
+2023-01-25 14:51:50,118:INFO:setup() succesfully completed......................................
+2023-01-25 14:51:50,186:INFO:Initializing compare_models()
+2023-01-25 14:51:50,186:INFO:compare_models(include=['rf'], fold=None, round=4, cross_validation=True, sort=R2, n_select=1, budget_time=None, turbo=True, errors=ignore, fit_kwargs=None, groups=None, experiment_custom_tags=None, probability_threshold=None, verbose=True, display=None, exclude=None)
+2023-01-25 14:51:50,186:INFO:Checking exceptions
+2023-01-25 14:51:50,186:INFO:Preparing display monitor
+2023-01-25 14:51:50,186:INFO:Preparing display monitor
+2023-01-25 14:51:50,202:INFO:Initializing Random Forest Regressor
+2023-01-25 14:51:50,202:INFO:Total runtime is 0.0 minutes
+2023-01-25 14:51:50,207:INFO:SubProcess create_model() called ==================================
+2023-01-25 14:51:50,207:INFO:Initializing create_model()
+2023-01-25 14:51:50,207:INFO:create_model(estimator=rf, fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=<pycaret.internal.Display.Display object at 0x00000295834F5FA0>, return_train_score=False, kwargs={})
+2023-01-25 14:51:50,207:INFO:Checking exceptions
+2023-01-25 14:51:50,207:INFO:Importing libraries
+2023-01-25 14:51:50,208:INFO:Copying training dataset
+2023-01-25 14:51:50,208:INFO:Defining folds
+2023-01-25 14:51:50,208:INFO:Declaring metric variables
+2023-01-25 14:51:50,215:INFO:Importing untrained model
+2023-01-25 14:51:50,221:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:51:50,231:INFO:Starting cross validation
+2023-01-25 14:51:50,232:INFO:Cross validating with KFold(n_splits=10, random_state=None, shuffle=False), n_jobs=1
+2023-01-25 14:51:54,035:INFO:Calculating mean and std
+2023-01-25 14:51:54,035:INFO:Creating metrics dataframe
+2023-01-25 14:51:54,038:INFO:Uploading results into container
+2023-01-25 14:51:54,038:INFO:Uploading model into container now
+2023-01-25 14:51:54,038:INFO:create_model_container: 1
+2023-01-25 14:51:54,038:INFO:master_model_container: 1
+2023-01-25 14:51:54,038:INFO:display_container: 2
+2023-01-25 14:51:54,039:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:51:54,039:INFO:create_model() succesfully completed......................................
+2023-01-25 14:51:54,100:INFO:SubProcess create_model() end ==================================
+2023-01-25 14:51:54,100:INFO:Creating metrics dataframe
+2023-01-25 14:51:54,113:INFO:Initializing create_model()
+2023-01-25 14:51:54,113:INFO:create_model(estimator=RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False), fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=False, predict=False, fit_kwargs={}, groups=None, refit=True, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=None, return_train_score=False, kwargs={})
+2023-01-25 14:51:54,113:INFO:Checking exceptions
+2023-01-25 14:51:54,113:INFO:Importing libraries
+2023-01-25 14:51:54,113:INFO:Copying training dataset
+2023-01-25 14:51:54,114:INFO:Defining folds
+2023-01-25 14:51:54,114:INFO:Declaring metric variables
+2023-01-25 14:51:54,114:INFO:Importing untrained model
+2023-01-25 14:51:54,114:INFO:Declaring custom model
+2023-01-25 14:51:54,114:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:51:54,115:INFO:Cross validation set to False
+2023-01-25 14:51:54,115:INFO:Fitting Model
+2023-01-25 14:51:54,286:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:51:54,286:INFO:create_models() succesfully completed......................................
+2023-01-25 14:51:54,345:INFO:create_model_container: 1
+2023-01-25 14:51:54,345:INFO:master_model_container: 1
+2023-01-25 14:51:54,346:INFO:display_container: 2
+2023-01-25 14:51:54,346:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:51:54,346:INFO:compare_models() succesfully completed......................................
+2023-01-25 14:52:37,836:INFO:PyCaret Supervised Module
+2023-01-25 14:52:37,836:INFO:ML Usecase: regression
+2023-01-25 14:52:37,836:INFO:version 2.3.10
+2023-01-25 14:52:37,836:INFO:Initializing setup()
+2023-01-25 14:52:37,836:INFO:setup(target=PRICE, ml_usecase=regression, available_plots={'parameter': 'Hyperparameters', 'residuals': 'Residuals', 'error': 'Prediction Error', 'cooks': 'Cooks Distance', 'rfe': 'Feature Selection', 'learning': 'Learning Curve', 'manifold': 'Manifold Learning', 'vc': 'Validation Curve', 'feature': 'Feature Importance', 'feature_all': 'Feature Importance (All)', 'tree': 'Decision Tree', 'residuals_interactive': 'Interactive Residuals'}, train_size=0.7, test_data=None, preprocess=False, imputation_type=simple, iterative_imputation_iters=5, categorical_features=None, categorical_imputation=constant, categorical_iterative_imputer=lightgbm, ordinal_features=None, high_cardinality_features=None, high_cardinality_method=frequency, numeric_features=None, numeric_imputation=mean, numeric_iterative_imputer=lightgbm, date_features=None, ignore_features=None, normalize=False, normalize_method=zscore, transformation=False, transformation_method=yeo-johnson, handle_unknown_categorical=True, unknown_categorical_method=least_frequent, pca=False, pca_method=linear, pca_components=None, ignore_low_variance=False, combine_rare_levels=False, rare_level_threshold=0.1, bin_numeric_features=None, remove_outliers=False, outliers_threshold=0.05, remove_multicollinearity=False, multicollinearity_threshold=0.9, remove_perfect_collinearity=True, create_clusters=False, cluster_iter=20, polynomial_features=False, polynomial_degree=2, trigonometry_features=False, polynomial_threshold=0.1, group_features=None, group_names=None, feature_selection=False, feature_selection_threshold=0.8, feature_selection_method=classic, feature_interaction=False, feature_ratio=False, interaction_threshold=0.01, fix_imbalance=False, fix_imbalance_method=None, transform_target=False, transform_target_method=box-cox, data_split_shuffle=True, data_split_stratify=False, fold_strategy=kfold, fold=10, fold_shuffle=False, fold_groups=None, n_jobs=-1, use_gpu=True, custom_pipeline=None, html=True, session_id=42, log_experiment=False, experiment_name=None, experiment_custom_tags=None, log_plots=False, log_profile=False, log_data=False, silent=True, verbose=True, profile=False, profile_kwargs=None, display=None)
+2023-01-25 14:52:37,836:INFO:Checking environment
+2023-01-25 14:52:37,836:INFO:python_version: 3.8.10
+2023-01-25 14:52:37,836:INFO:python_build: ('default', 'May 19 2021 13:12:57')
+2023-01-25 14:52:37,837:INFO:machine: AMD64
+2023-01-25 14:52:37,837:INFO:platform: Windows-10-10.0.19045-SP0
+2023-01-25 14:52:37,837:WARNING:cannot find psutil installation. memory not traceable. Install psutil using pip to enable memory logging.
+2023-01-25 14:52:37,838:INFO:Checking libraries
+2023-01-25 14:52:37,838:INFO:pd==1.3.0
+2023-01-25 14:52:37,838:INFO:numpy==1.19.5
+2023-01-25 14:52:37,838:INFO:sklearn==0.23.2
+2023-01-25 14:52:37,838:INFO:lightgbm==3.3.2
+2023-01-25 14:52:37,839:WARNING:catboost not found
+2023-01-25 14:52:37,840:WARNING:xgboost not found
+2023-01-25 14:52:37,840:INFO:mlflow==1.25.1
+2023-01-25 14:52:37,840:INFO:Checking Exceptions
+2023-01-25 14:52:37,840:INFO:Declaring global variables
+2023-01-25 14:52:37,840:INFO:USI: ac54
+2023-01-25 14:52:37,840:INFO:pycaret_globals: {'create_model_container', 'html_param', 'n_jobs_param', 'master_model_container', 'y', 'prep_pipe', '_all_models_internal', 'logging_param', '_internal_pipeline', 'y_test', 'fold_shuffle_param', 'USI', 'log_plots_param', 'X_test', 'data_before_preprocess', 'X', 'display_container', 'pycaret_globals', 'transform_target_method_param', 'imputation_classifier', '_all_models', 'fold_param', 'transform_target_param', 'seed', 'fold_generator', 'y_train', 'iterative_imputation_iters_param', 'X_train', 'exp_name_log', '_ml_usecase', 'target_param', 'stratify_param', '_available_plots', 'dashboard_logger', 'imputation_regressor', '_gpu_n_jobs_param', 'fold_groups_param', 'fix_imbalance_method_param', 'fold_groups_param_full', '_all_metrics', 'gpu_param', 'experiment__', 'fix_imbalance_param'}
+2023-01-25 14:52:37,840:INFO:Preparing display monitor
+2023-01-25 14:52:37,840:INFO:Preparing display monitor
+2023-01-25 14:52:37,846:INFO:Importing libraries
+2023-01-25 14:52:37,846:INFO:Copying data for preprocessing
+2023-01-25 14:52:37,850:INFO:Declaring preprocessing parameters
+2023-01-25 14:52:37,851:WARNING:cuML not found
+2023-01-25 14:52:37,851:WARNING:cuML is outdated or not found. Required version is >=0.15, got 3.3.2
+2023-01-25 14:52:37,851:INFO:Creating preprocessing pipeline
+2023-01-25 14:52:37,856:INFO:Preprocessing pipeline created successfully
+2023-01-25 14:52:37,856:ERROR:(Process Exit): setup has been interupted with user command 'quit'. setup must rerun.
+2023-01-25 14:52:37,856:INFO:Creating global containers
+2023-01-25 14:52:37,857:INFO:Internal pipeline: Pipeline(memory=None, steps=[('empty_step', 'passthrough')], verbose=False)
+2023-01-25 14:52:37,909:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:52:37,911:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:52:37,919:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:52:37,938:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:52:37,998:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:52:38,053:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:52:38,055:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:52:38,056:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:52:38,218:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:52:38,220:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:52:38,221:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:52:38,229:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:52:38,236:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:52:38,308:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:52:38,367:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:52:38,369:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:52:38,371:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:52:38,522:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:52:38,522:INFO:Creating grid variables
+2023-01-25 14:52:38,526:INFO:create_model_container: 0
+2023-01-25 14:52:38,526:INFO:master_model_container: 0
+2023-01-25 14:52:38,526:INFO:display_container: 1
+2023-01-25 14:52:38,527:INFO:Pipeline(memory=None,
+         steps=[('dtypes',
+                 DataTypes_Auto_infer(categorical_features=[],
+                                      display_types=False, features_todrop=[],
+                                      id_columns=[], ml_usecase='regression',
+                                      numerical_features=[], target='PRICE',
+                                      time_features=[]))],
+         verbose=False)
+2023-01-25 14:52:38,527:INFO:setup() succesfully completed......................................
+2023-01-25 14:52:38,609:INFO:Initializing compare_models()
+2023-01-25 14:52:38,610:INFO:compare_models(include=['rf'], fold=None, round=4, cross_validation=True, sort=R2, n_select=1, budget_time=None, turbo=True, errors=ignore, fit_kwargs=None, groups=None, experiment_custom_tags=None, probability_threshold=None, verbose=True, display=None, exclude=None)
+2023-01-25 14:52:38,610:INFO:Checking exceptions
+2023-01-25 14:52:38,610:INFO:Preparing display monitor
+2023-01-25 14:52:38,610:INFO:Preparing display monitor
+2023-01-25 14:52:38,625:INFO:Initializing Random Forest Regressor
+2023-01-25 14:52:38,625:INFO:Total runtime is 0.0 minutes
+2023-01-25 14:52:38,629:INFO:SubProcess create_model() called ==================================
+2023-01-25 14:52:38,630:INFO:Initializing create_model()
+2023-01-25 14:52:38,630:INFO:create_model(estimator=rf, fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=<pycaret.internal.Display.Display object at 0x00000295820CA820>, return_train_score=False, kwargs={})
+2023-01-25 14:52:38,630:INFO:Checking exceptions
+2023-01-25 14:52:38,630:INFO:Importing libraries
+2023-01-25 14:52:38,631:INFO:Copying training dataset
+2023-01-25 14:52:38,631:INFO:Defining folds
+2023-01-25 14:52:38,631:INFO:Declaring metric variables
+2023-01-25 14:52:38,635:INFO:Importing untrained model
+2023-01-25 14:52:38,640:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:52:38,650:INFO:Starting cross validation
+2023-01-25 14:52:38,651:INFO:Cross validating with KFold(n_splits=10, random_state=None, shuffle=False), n_jobs=1
+2023-01-25 14:52:42,970:INFO:Calculating mean and std
+2023-01-25 14:52:42,970:INFO:Creating metrics dataframe
+2023-01-25 14:52:42,973:INFO:Uploading results into container
+2023-01-25 14:52:42,973:INFO:Uploading model into container now
+2023-01-25 14:52:42,973:INFO:create_model_container: 1
+2023-01-25 14:52:42,973:INFO:master_model_container: 1
+2023-01-25 14:52:42,973:INFO:display_container: 2
+2023-01-25 14:52:42,974:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:52:42,974:INFO:create_model() succesfully completed......................................
+2023-01-25 14:52:43,032:INFO:SubProcess create_model() end ==================================
+2023-01-25 14:52:43,032:INFO:Creating metrics dataframe
+2023-01-25 14:52:43,045:INFO:Initializing create_model()
+2023-01-25 14:52:43,045:INFO:create_model(estimator=RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False), fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=False, predict=False, fit_kwargs={}, groups=None, refit=True, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=None, return_train_score=False, kwargs={})
+2023-01-25 14:52:43,045:INFO:Checking exceptions
+2023-01-25 14:52:43,045:INFO:Importing libraries
+2023-01-25 14:52:43,045:INFO:Copying training dataset
+2023-01-25 14:52:43,045:INFO:Defining folds
+2023-01-25 14:52:43,045:INFO:Declaring metric variables
+2023-01-25 14:52:43,045:INFO:Importing untrained model
+2023-01-25 14:52:43,045:INFO:Declaring custom model
+2023-01-25 14:52:43,046:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:52:43,046:INFO:Cross validation set to False
+2023-01-25 14:52:43,046:INFO:Fitting Model
+2023-01-25 14:52:43,211:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:52:43,211:INFO:create_models() succesfully completed......................................
+2023-01-25 14:52:43,269:INFO:create_model_container: 1
+2023-01-25 14:52:43,269:INFO:master_model_container: 1
+2023-01-25 14:52:43,269:INFO:display_container: 2
+2023-01-25 14:52:43,270:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:52:43,270:INFO:compare_models() succesfully completed......................................
+2023-01-25 14:52:43,276:INFO:PyCaret Supervised Module
+2023-01-25 14:52:43,276:INFO:ML Usecase: regression
+2023-01-25 14:52:43,276:INFO:version 2.3.10
+2023-01-25 14:52:43,276:INFO:Initializing setup()
+2023-01-25 14:52:43,276:INFO:setup(target=PRICE, ml_usecase=regression, available_plots={'parameter': 'Hyperparameters', 'residuals': 'Residuals', 'error': 'Prediction Error', 'cooks': 'Cooks Distance', 'rfe': 'Feature Selection', 'learning': 'Learning Curve', 'manifold': 'Manifold Learning', 'vc': 'Validation Curve', 'feature': 'Feature Importance', 'feature_all': 'Feature Importance (All)', 'tree': 'Decision Tree', 'residuals_interactive': 'Interactive Residuals'}, train_size=0.7, test_data=None, preprocess=False, imputation_type=simple, iterative_imputation_iters=5, categorical_features=None, categorical_imputation=constant, categorical_iterative_imputer=lightgbm, ordinal_features=None, high_cardinality_features=None, high_cardinality_method=frequency, numeric_features=None, numeric_imputation=mean, numeric_iterative_imputer=lightgbm, date_features=None, ignore_features=None, normalize=False, normalize_method=zscore, transformation=False, transformation_method=yeo-johnson, handle_unknown_categorical=True, unknown_categorical_method=least_frequent, pca=False, pca_method=linear, pca_components=None, ignore_low_variance=False, combine_rare_levels=False, rare_level_threshold=0.1, bin_numeric_features=None, remove_outliers=False, outliers_threshold=0.05, remove_multicollinearity=False, multicollinearity_threshold=0.9, remove_perfect_collinearity=True, create_clusters=False, cluster_iter=20, polynomial_features=False, polynomial_degree=2, trigonometry_features=False, polynomial_threshold=0.1, group_features=None, group_names=None, feature_selection=False, feature_selection_threshold=0.8, feature_selection_method=classic, feature_interaction=False, feature_ratio=False, interaction_threshold=0.01, fix_imbalance=False, fix_imbalance_method=None, transform_target=False, transform_target_method=box-cox, data_split_shuffle=True, data_split_stratify=False, fold_strategy=kfold, fold=10, fold_shuffle=False, fold_groups=None, n_jobs=-1, use_gpu=True, custom_pipeline=None, html=True, session_id=42, log_experiment=False, experiment_name=None, experiment_custom_tags=None, log_plots=False, log_profile=False, log_data=False, silent=True, verbose=True, profile=False, profile_kwargs=None, display=None)
+2023-01-25 14:52:43,276:INFO:Checking environment
+2023-01-25 14:52:43,276:INFO:python_version: 3.8.10
+2023-01-25 14:52:43,277:INFO:python_build: ('default', 'May 19 2021 13:12:57')
+2023-01-25 14:52:43,277:INFO:machine: AMD64
+2023-01-25 14:52:43,277:INFO:platform: Windows-10-10.0.19045-SP0
+2023-01-25 14:52:43,278:WARNING:cannot find psutil installation. memory not traceable. Install psutil using pip to enable memory logging.
+2023-01-25 14:52:43,278:INFO:Checking libraries
+2023-01-25 14:52:43,278:INFO:pd==1.3.0
+2023-01-25 14:52:43,278:INFO:numpy==1.19.5
+2023-01-25 14:52:43,278:INFO:sklearn==0.23.2
+2023-01-25 14:52:43,278:INFO:lightgbm==3.3.2
+2023-01-25 14:52:43,279:WARNING:catboost not found
+2023-01-25 14:52:43,279:WARNING:xgboost not found
+2023-01-25 14:52:43,280:INFO:mlflow==1.25.1
+2023-01-25 14:52:43,280:INFO:Checking Exceptions
+2023-01-25 14:52:43,280:INFO:Declaring global variables
+2023-01-25 14:52:43,280:INFO:USI: 76fb
+2023-01-25 14:52:43,280:INFO:pycaret_globals: {'create_model_container', 'html_param', 'n_jobs_param', 'master_model_container', 'y', 'prep_pipe', '_all_models_internal', 'logging_param', '_internal_pipeline', 'y_test', 'fold_shuffle_param', 'USI', 'log_plots_param', 'X_test', 'data_before_preprocess', 'X', 'display_container', 'pycaret_globals', 'transform_target_method_param', 'imputation_classifier', '_all_models', 'fold_param', 'transform_target_param', 'seed', 'fold_generator', 'y_train', 'iterative_imputation_iters_param', 'X_train', 'exp_name_log', '_ml_usecase', 'target_param', 'stratify_param', '_available_plots', 'dashboard_logger', 'imputation_regressor', '_gpu_n_jobs_param', 'fold_groups_param', 'fix_imbalance_method_param', 'fold_groups_param_full', '_all_metrics', 'gpu_param', 'experiment__', 'fix_imbalance_param'}
+2023-01-25 14:52:43,280:INFO:Preparing display monitor
+2023-01-25 14:52:43,280:INFO:Preparing display monitor
+2023-01-25 14:52:43,286:INFO:Importing libraries
+2023-01-25 14:52:43,286:INFO:Copying data for preprocessing
+2023-01-25 14:52:43,289:INFO:Declaring preprocessing parameters
+2023-01-25 14:52:43,290:WARNING:cuML not found
+2023-01-25 14:52:43,290:WARNING:cuML is outdated or not found. Required version is >=0.15, got 3.3.2
+2023-01-25 14:52:43,291:INFO:Creating preprocessing pipeline
+2023-01-25 14:52:43,295:INFO:Preprocessing pipeline created successfully
+2023-01-25 14:52:43,295:ERROR:(Process Exit): setup has been interupted with user command 'quit'. setup must rerun.
+2023-01-25 14:52:43,296:INFO:Creating global containers
+2023-01-25 14:52:43,296:INFO:Internal pipeline: Pipeline(memory=None, steps=[('empty_step', 'passthrough')], verbose=False)
+2023-01-25 14:52:43,341:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:52:43,342:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:52:43,348:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:52:43,353:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:52:43,409:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:52:43,454:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:52:43,455:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:52:43,456:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:52:43,594:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:52:43,595:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:52:43,596:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:52:43,603:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:52:43,609:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:52:43,681:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:52:43,728:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:52:43,729:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:52:43,731:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:52:43,851:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:52:43,852:INFO:Creating grid variables
+2023-01-25 14:52:43,855:INFO:create_model_container: 0
+2023-01-25 14:52:43,855:INFO:master_model_container: 0
+2023-01-25 14:52:43,855:INFO:display_container: 1
+2023-01-25 14:52:43,856:INFO:Pipeline(memory=None,
+         steps=[('dtypes',
+                 DataTypes_Auto_infer(categorical_features=[],
+                                      display_types=False, features_todrop=[],
+                                      id_columns=[], ml_usecase='regression',
+                                      numerical_features=[], target='PRICE',
+                                      time_features=[]))],
+         verbose=False)
+2023-01-25 14:52:43,856:INFO:setup() succesfully completed......................................
+2023-01-25 14:52:43,922:INFO:Initializing compare_models()
+2023-01-25 14:52:43,922:INFO:compare_models(include=['rf'], fold=None, round=4, cross_validation=True, sort=R2, n_select=1, budget_time=None, turbo=True, errors=ignore, fit_kwargs=None, groups=None, experiment_custom_tags=None, probability_threshold=None, verbose=True, display=None, exclude=None)
+2023-01-25 14:52:43,923:INFO:Checking exceptions
+2023-01-25 14:52:43,923:INFO:Preparing display monitor
+2023-01-25 14:52:43,923:INFO:Preparing display monitor
+2023-01-25 14:52:43,936:INFO:Initializing Random Forest Regressor
+2023-01-25 14:52:43,937:INFO:Total runtime is 1.6677379608154298e-05 minutes
+2023-01-25 14:52:43,941:INFO:SubProcess create_model() called ==================================
+2023-01-25 14:52:43,941:INFO:Initializing create_model()
+2023-01-25 14:52:43,941:INFO:create_model(estimator=rf, fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=<pycaret.internal.Display.Display object at 0x00000295834A4070>, return_train_score=False, kwargs={})
+2023-01-25 14:52:43,941:INFO:Checking exceptions
+2023-01-25 14:52:43,941:INFO:Importing libraries
+2023-01-25 14:52:43,941:INFO:Copying training dataset
+2023-01-25 14:52:43,942:INFO:Defining folds
+2023-01-25 14:52:43,942:INFO:Declaring metric variables
+2023-01-25 14:52:43,946:INFO:Importing untrained model
+2023-01-25 14:52:43,950:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:52:43,958:INFO:Starting cross validation
+2023-01-25 14:52:43,959:INFO:Cross validating with KFold(n_splits=10, random_state=None, shuffle=False), n_jobs=1
+2023-01-25 14:52:47,718:INFO:Calculating mean and std
+2023-01-25 14:52:47,719:INFO:Creating metrics dataframe
+2023-01-25 14:52:47,722:INFO:Uploading results into container
+2023-01-25 14:52:47,722:INFO:Uploading model into container now
+2023-01-25 14:52:47,722:INFO:create_model_container: 1
+2023-01-25 14:52:47,722:INFO:master_model_container: 1
+2023-01-25 14:52:47,722:INFO:display_container: 2
+2023-01-25 14:52:47,722:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:52:47,722:INFO:create_model() succesfully completed......................................
+2023-01-25 14:52:47,782:INFO:SubProcess create_model() end ==================================
+2023-01-25 14:52:47,782:INFO:Creating metrics dataframe
+2023-01-25 14:52:47,794:INFO:Initializing create_model()
+2023-01-25 14:52:47,794:INFO:create_model(estimator=RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False), fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=False, predict=False, fit_kwargs={}, groups=None, refit=True, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=None, return_train_score=False, kwargs={})
+2023-01-25 14:52:47,794:INFO:Checking exceptions
+2023-01-25 14:52:47,794:INFO:Importing libraries
+2023-01-25 14:52:47,794:INFO:Copying training dataset
+2023-01-25 14:52:47,794:INFO:Defining folds
+2023-01-25 14:52:47,794:INFO:Declaring metric variables
+2023-01-25 14:52:47,795:INFO:Importing untrained model
+2023-01-25 14:52:47,795:INFO:Declaring custom model
+2023-01-25 14:52:47,795:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:52:47,795:INFO:Cross validation set to False
+2023-01-25 14:52:47,795:INFO:Fitting Model
+2023-01-25 14:52:47,958:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:52:47,958:INFO:create_models() succesfully completed......................................
+2023-01-25 14:52:48,017:INFO:create_model_container: 1
+2023-01-25 14:52:48,017:INFO:master_model_container: 1
+2023-01-25 14:52:48,017:INFO:display_container: 2
+2023-01-25 14:52:48,017:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:52:48,017:INFO:compare_models() succesfully completed......................................
+2023-01-25 14:53:40,858:INFO:PyCaret Supervised Module
+2023-01-25 14:53:40,858:INFO:ML Usecase: regression
+2023-01-25 14:53:40,858:INFO:version 2.3.10
+2023-01-25 14:53:40,858:INFO:Initializing setup()
+2023-01-25 14:53:40,858:INFO:setup(target=PRICE, ml_usecase=regression, available_plots={'parameter': 'Hyperparameters', 'residuals': 'Residuals', 'error': 'Prediction Error', 'cooks': 'Cooks Distance', 'rfe': 'Feature Selection', 'learning': 'Learning Curve', 'manifold': 'Manifold Learning', 'vc': 'Validation Curve', 'feature': 'Feature Importance', 'feature_all': 'Feature Importance (All)', 'tree': 'Decision Tree', 'residuals_interactive': 'Interactive Residuals'}, train_size=0.7, test_data=None, preprocess=False, imputation_type=simple, iterative_imputation_iters=5, categorical_features=None, categorical_imputation=constant, categorical_iterative_imputer=lightgbm, ordinal_features=None, high_cardinality_features=None, high_cardinality_method=frequency, numeric_features=None, numeric_imputation=mean, numeric_iterative_imputer=lightgbm, date_features=None, ignore_features=None, normalize=False, normalize_method=zscore, transformation=False, transformation_method=yeo-johnson, handle_unknown_categorical=True, unknown_categorical_method=least_frequent, pca=False, pca_method=linear, pca_components=None, ignore_low_variance=False, combine_rare_levels=False, rare_level_threshold=0.1, bin_numeric_features=None, remove_outliers=False, outliers_threshold=0.05, remove_multicollinearity=False, multicollinearity_threshold=0.9, remove_perfect_collinearity=True, create_clusters=False, cluster_iter=20, polynomial_features=False, polynomial_degree=2, trigonometry_features=False, polynomial_threshold=0.1, group_features=None, group_names=None, feature_selection=False, feature_selection_threshold=0.8, feature_selection_method=classic, feature_interaction=False, feature_ratio=False, interaction_threshold=0.01, fix_imbalance=False, fix_imbalance_method=None, transform_target=False, transform_target_method=box-cox, data_split_shuffle=True, data_split_stratify=False, fold_strategy=kfold, fold=10, fold_shuffle=False, fold_groups=None, n_jobs=-1, use_gpu=True, custom_pipeline=None, html=True, session_id=42, log_experiment=False, experiment_name=None, experiment_custom_tags=None, log_plots=False, log_profile=False, log_data=False, silent=True, verbose=True, profile=False, profile_kwargs=None, display=None)
+2023-01-25 14:53:40,859:INFO:Checking environment
+2023-01-25 14:53:40,859:INFO:python_version: 3.8.10
+2023-01-25 14:53:40,859:INFO:python_build: ('default', 'May 19 2021 13:12:57')
+2023-01-25 14:53:40,859:INFO:machine: AMD64
+2023-01-25 14:53:40,875:INFO:platform: Windows-10-10.0.19045-SP0
+2023-01-25 14:53:40,876:WARNING:cannot find psutil installation. memory not traceable. Install psutil using pip to enable memory logging.
+2023-01-25 14:53:40,876:INFO:Checking libraries
+2023-01-25 14:53:40,876:INFO:pd==1.3.0
+2023-01-25 14:53:40,876:INFO:numpy==1.19.5
+2023-01-25 14:53:40,876:INFO:sklearn==0.23.2
+2023-01-25 14:53:40,876:INFO:lightgbm==3.3.2
+2023-01-25 14:53:40,877:WARNING:catboost not found
+2023-01-25 14:53:40,878:WARNING:xgboost not found
+2023-01-25 14:53:40,878:INFO:mlflow==1.25.1
+2023-01-25 14:53:40,878:INFO:Checking Exceptions
+2023-01-25 14:53:40,878:INFO:Declaring global variables
+2023-01-25 14:53:40,878:INFO:USI: 7b55
+2023-01-25 14:53:40,878:INFO:pycaret_globals: {'stratify_param', 'imputation_regressor', 'y_train', '_gpu_n_jobs_param', 'fold_generator', 'y_test', 'data_before_preprocess', 'logging_param', 'transform_target_param', 'display_container', '_internal_pipeline', 'USI', '_ml_usecase', 'prep_pipe', 'fold_shuffle_param', 'pycaret_globals', 'y', 'master_model_container', 'log_plots_param', 'fix_imbalance_param', 'imputation_classifier', '_available_plots', '_all_models', 'iterative_imputation_iters_param', 'fold_param', 'experiment__', 'gpu_param', 'X', 'fold_groups_param', 'create_model_container', 'X_train', 'n_jobs_param', 'target_param', 'exp_name_log', 'transform_target_method_param', 'dashboard_logger', 'html_param', 'fold_groups_param_full', 'seed', '_all_models_internal', 'X_test', 'fix_imbalance_method_param', '_all_metrics'}
+2023-01-25 14:53:40,878:INFO:Preparing display monitor
+2023-01-25 14:53:40,878:INFO:Preparing display monitor
+2023-01-25 14:53:40,885:INFO:Importing libraries
+2023-01-25 14:53:40,885:INFO:Copying data for preprocessing
+2023-01-25 14:53:40,888:INFO:Declaring preprocessing parameters
+2023-01-25 14:53:40,889:WARNING:cuML not found
+2023-01-25 14:53:40,889:WARNING:cuML is outdated or not found. Required version is >=0.15, got 3.3.2
+2023-01-25 14:53:40,890:INFO:Creating preprocessing pipeline
+2023-01-25 14:53:40,894:INFO:Preprocessing pipeline created successfully
+2023-01-25 14:53:40,894:ERROR:(Process Exit): setup has been interupted with user command 'quit'. setup must rerun.
+2023-01-25 14:53:40,894:INFO:Creating global containers
+2023-01-25 14:53:40,896:INFO:Internal pipeline: Pipeline(memory=None, steps=[('empty_step', 'passthrough')], verbose=False)
+2023-01-25 14:53:40,962:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:53:40,965:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:53:40,973:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:53:40,983:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:53:41,041:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:53:41,107:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:53:41,108:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:53:41,110:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:53:41,368:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:53:41,370:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:53:41,372:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:53:41,379:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:53:41,387:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:53:41,460:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:53:41,523:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:53:41,525:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:53:41,528:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:53:41,676:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:53:41,677:INFO:Creating grid variables
+2023-01-25 14:53:41,680:INFO:create_model_container: 0
+2023-01-25 14:53:41,681:INFO:master_model_container: 0
+2023-01-25 14:53:41,681:INFO:display_container: 1
+2023-01-25 14:53:41,682:INFO:Pipeline(memory=None,
+         steps=[('dtypes',
+                 DataTypes_Auto_infer(categorical_features=[],
+                                      display_types=False, features_todrop=[],
+                                      id_columns=[], ml_usecase='regression',
+                                      numerical_features=[], target='PRICE',
+                                      time_features=[]))],
+         verbose=False)
+2023-01-25 14:53:41,682:INFO:setup() succesfully completed......................................
+2023-01-25 14:53:41,759:INFO:Initializing compare_models()
+2023-01-25 14:53:41,759:INFO:compare_models(include=['rf'], fold=None, round=4, cross_validation=True, sort=R2, n_select=1, budget_time=None, turbo=True, errors=ignore, fit_kwargs=None, groups=None, experiment_custom_tags=None, probability_threshold=None, verbose=True, display=None, exclude=None)
+2023-01-25 14:53:41,759:INFO:Checking exceptions
+2023-01-25 14:53:41,759:INFO:Preparing display monitor
+2023-01-25 14:53:41,759:INFO:Preparing display monitor
+2023-01-25 14:53:41,773:INFO:Initializing Random Forest Regressor
+2023-01-25 14:53:41,773:INFO:Total runtime is 1.6673405965169272e-05 minutes
+2023-01-25 14:53:41,777:INFO:SubProcess create_model() called ==================================
+2023-01-25 14:53:41,778:INFO:Initializing create_model()
+2023-01-25 14:53:41,778:INFO:create_model(estimator=rf, fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=<pycaret.internal.Display.Display object at 0x000001A8031066D0>, return_train_score=False, kwargs={})
+2023-01-25 14:53:41,778:INFO:Checking exceptions
+2023-01-25 14:53:41,778:INFO:Importing libraries
+2023-01-25 14:53:41,778:INFO:Copying training dataset
+2023-01-25 14:53:41,778:INFO:Defining folds
+2023-01-25 14:53:41,779:INFO:Declaring metric variables
+2023-01-25 14:53:41,783:INFO:Importing untrained model
+2023-01-25 14:53:41,788:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:53:41,799:INFO:Starting cross validation
+2023-01-25 14:53:41,806:INFO:Cross validating with KFold(n_splits=10, random_state=None, shuffle=False), n_jobs=1
+2023-01-25 14:53:50,758:INFO:Calculating mean and std
+2023-01-25 14:53:50,758:INFO:Creating metrics dataframe
+2023-01-25 14:53:50,761:INFO:Uploading results into container
+2023-01-25 14:53:50,761:INFO:Uploading model into container now
+2023-01-25 14:53:50,761:INFO:create_model_container: 1
+2023-01-25 14:53:50,761:INFO:master_model_container: 1
+2023-01-25 14:53:50,761:INFO:display_container: 2
+2023-01-25 14:53:50,762:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:53:50,762:INFO:create_model() succesfully completed......................................
+2023-01-25 14:53:50,823:INFO:SubProcess create_model() end ==================================
+2023-01-25 14:53:50,823:INFO:Creating metrics dataframe
+2023-01-25 14:53:50,833:INFO:Initializing create_model()
+2023-01-25 14:53:50,833:INFO:create_model(estimator=RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False), fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=False, predict=False, fit_kwargs={}, groups=None, refit=True, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=None, return_train_score=False, kwargs={})
+2023-01-25 14:53:50,833:INFO:Checking exceptions
+2023-01-25 14:53:50,833:INFO:Importing libraries
+2023-01-25 14:53:50,833:INFO:Copying training dataset
+2023-01-25 14:53:50,834:INFO:Defining folds
+2023-01-25 14:53:50,834:INFO:Declaring metric variables
+2023-01-25 14:53:50,834:INFO:Importing untrained model
+2023-01-25 14:53:50,834:INFO:Declaring custom model
+2023-01-25 14:53:50,834:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:53:50,835:INFO:Cross validation set to False
+2023-01-25 14:53:50,835:INFO:Fitting Model
+2023-01-25 14:53:50,996:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:53:50,996:INFO:create_models() succesfully completed......................................
+2023-01-25 14:53:51,054:INFO:create_model_container: 1
+2023-01-25 14:53:51,054:INFO:master_model_container: 1
+2023-01-25 14:53:51,054:INFO:display_container: 2
+2023-01-25 14:53:51,055:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:53:51,055:INFO:compare_models() succesfully completed......................................
+2023-01-25 14:53:51,071:INFO:PyCaret Supervised Module
+2023-01-25 14:53:51,071:INFO:ML Usecase: regression
+2023-01-25 14:53:51,072:INFO:version 2.3.10
+2023-01-25 14:53:51,072:INFO:Initializing setup()
+2023-01-25 14:53:51,072:INFO:setup(target=PRICE, ml_usecase=regression, available_plots={'parameter': 'Hyperparameters', 'residuals': 'Residuals', 'error': 'Prediction Error', 'cooks': 'Cooks Distance', 'rfe': 'Feature Selection', 'learning': 'Learning Curve', 'manifold': 'Manifold Learning', 'vc': 'Validation Curve', 'feature': 'Feature Importance', 'feature_all': 'Feature Importance (All)', 'tree': 'Decision Tree', 'residuals_interactive': 'Interactive Residuals'}, train_size=0.7, test_data=None, preprocess=False, imputation_type=simple, iterative_imputation_iters=5, categorical_features=None, categorical_imputation=constant, categorical_iterative_imputer=lightgbm, ordinal_features=None, high_cardinality_features=None, high_cardinality_method=frequency, numeric_features=None, numeric_imputation=mean, numeric_iterative_imputer=lightgbm, date_features=None, ignore_features=None, normalize=False, normalize_method=zscore, transformation=False, transformation_method=yeo-johnson, handle_unknown_categorical=True, unknown_categorical_method=least_frequent, pca=False, pca_method=linear, pca_components=None, ignore_low_variance=False, combine_rare_levels=False, rare_level_threshold=0.1, bin_numeric_features=None, remove_outliers=False, outliers_threshold=0.05, remove_multicollinearity=False, multicollinearity_threshold=0.9, remove_perfect_collinearity=True, create_clusters=False, cluster_iter=20, polynomial_features=False, polynomial_degree=2, trigonometry_features=False, polynomial_threshold=0.1, group_features=None, group_names=None, feature_selection=False, feature_selection_threshold=0.8, feature_selection_method=classic, feature_interaction=False, feature_ratio=False, interaction_threshold=0.01, fix_imbalance=False, fix_imbalance_method=None, transform_target=False, transform_target_method=box-cox, data_split_shuffle=True, data_split_stratify=False, fold_strategy=kfold, fold=10, fold_shuffle=False, fold_groups=None, n_jobs=-1, use_gpu=True, custom_pipeline=None, html=True, session_id=42, log_experiment=False, experiment_name=None, experiment_custom_tags=None, log_plots=False, log_profile=False, log_data=False, silent=True, verbose=True, profile=False, profile_kwargs=None, display=None)
+2023-01-25 14:53:51,072:INFO:Checking environment
+2023-01-25 14:53:51,072:INFO:python_version: 3.8.10
+2023-01-25 14:53:51,072:INFO:python_build: ('default', 'May 19 2021 13:12:57')
+2023-01-25 14:53:51,072:INFO:machine: AMD64
+2023-01-25 14:53:51,072:INFO:platform: Windows-10-10.0.19045-SP0
+2023-01-25 14:53:51,073:WARNING:cannot find psutil installation. memory not traceable. Install psutil using pip to enable memory logging.
+2023-01-25 14:53:51,073:INFO:Checking libraries
+2023-01-25 14:53:51,073:INFO:pd==1.3.0
+2023-01-25 14:53:51,073:INFO:numpy==1.19.5
+2023-01-25 14:53:51,073:INFO:sklearn==0.23.2
+2023-01-25 14:53:51,073:INFO:lightgbm==3.3.2
+2023-01-25 14:53:51,074:WARNING:catboost not found
+2023-01-25 14:53:51,075:WARNING:xgboost not found
+2023-01-25 14:53:51,075:INFO:mlflow==1.25.1
+2023-01-25 14:53:51,075:INFO:Checking Exceptions
+2023-01-25 14:53:51,075:INFO:Declaring global variables
+2023-01-25 14:53:51,075:INFO:USI: 5890
+2023-01-25 14:53:51,075:INFO:pycaret_globals: {'stratify_param', 'imputation_regressor', 'y_train', '_gpu_n_jobs_param', 'fold_generator', 'y_test', 'data_before_preprocess', 'logging_param', 'transform_target_param', 'display_container', '_internal_pipeline', 'USI', '_ml_usecase', 'prep_pipe', 'fold_shuffle_param', 'pycaret_globals', 'y', 'master_model_container', 'log_plots_param', 'fix_imbalance_param', 'imputation_classifier', '_available_plots', '_all_models', 'iterative_imputation_iters_param', 'fold_param', 'experiment__', 'gpu_param', 'X', 'fold_groups_param', 'create_model_container', 'X_train', 'n_jobs_param', 'target_param', 'exp_name_log', 'transform_target_method_param', 'dashboard_logger', 'html_param', 'fold_groups_param_full', 'seed', '_all_models_internal', 'X_test', 'fix_imbalance_method_param', '_all_metrics'}
+2023-01-25 14:53:51,075:INFO:Preparing display monitor
+2023-01-25 14:53:51,075:INFO:Preparing display monitor
+2023-01-25 14:53:51,080:INFO:Importing libraries
+2023-01-25 14:53:51,080:INFO:Copying data for preprocessing
+2023-01-25 14:53:51,083:INFO:Declaring preprocessing parameters
+2023-01-25 14:53:51,083:WARNING:cuML not found
+2023-01-25 14:53:51,083:WARNING:cuML is outdated or not found. Required version is >=0.15, got 3.3.2
+2023-01-25 14:53:51,084:INFO:Creating preprocessing pipeline
+2023-01-25 14:53:51,089:INFO:Preprocessing pipeline created successfully
+2023-01-25 14:53:51,089:ERROR:(Process Exit): setup has been interupted with user command 'quit'. setup must rerun.
+2023-01-25 14:53:51,089:INFO:Creating global containers
+2023-01-25 14:53:51,089:INFO:Internal pipeline: Pipeline(memory=None, steps=[('empty_step', 'passthrough')], verbose=False)
+2023-01-25 14:53:51,132:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:53:51,133:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:53:51,138:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:53:51,144:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:53:51,199:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:53:51,245:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:53:51,246:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:53:51,247:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:53:51,390:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:53:51,391:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:53:51,392:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:53:51,399:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:53:51,405:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:53:51,476:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:53:51,523:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:53:51,524:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:53:51,525:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:53:51,661:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:53:51,662:INFO:Creating grid variables
+2023-01-25 14:53:51,664:INFO:create_model_container: 0
+2023-01-25 14:53:51,664:INFO:master_model_container: 0
+2023-01-25 14:53:51,664:INFO:display_container: 1
+2023-01-25 14:53:51,665:INFO:Pipeline(memory=None,
+         steps=[('dtypes',
+                 DataTypes_Auto_infer(categorical_features=[],
+                                      display_types=False, features_todrop=[],
+                                      id_columns=[], ml_usecase='regression',
+                                      numerical_features=[], target='PRICE',
+                                      time_features=[]))],
+         verbose=False)
+2023-01-25 14:53:51,665:INFO:setup() succesfully completed......................................
+2023-01-25 14:53:51,731:INFO:Initializing compare_models()
+2023-01-25 14:53:51,732:INFO:compare_models(include=['rf'], fold=None, round=4, cross_validation=True, sort=R2, n_select=1, budget_time=None, turbo=True, errors=ignore, fit_kwargs=None, groups=None, experiment_custom_tags=None, probability_threshold=None, verbose=True, display=None, exclude=None)
+2023-01-25 14:53:51,732:INFO:Checking exceptions
+2023-01-25 14:53:51,732:INFO:Preparing display monitor
+2023-01-25 14:53:51,732:INFO:Preparing display monitor
+2023-01-25 14:53:51,743:INFO:Initializing Random Forest Regressor
+2023-01-25 14:53:51,743:INFO:Total runtime is 0.0 minutes
+2023-01-25 14:53:51,746:INFO:SubProcess create_model() called ==================================
+2023-01-25 14:53:51,746:INFO:Initializing create_model()
+2023-01-25 14:53:51,747:INFO:create_model(estimator=rf, fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=<pycaret.internal.Display.Display object at 0x000001A80331B460>, return_train_score=False, kwargs={})
+2023-01-25 14:53:51,747:INFO:Checking exceptions
+2023-01-25 14:53:51,747:INFO:Importing libraries
+2023-01-25 14:53:51,747:INFO:Copying training dataset
+2023-01-25 14:53:51,747:INFO:Defining folds
+2023-01-25 14:53:51,747:INFO:Declaring metric variables
+2023-01-25 14:53:51,750:INFO:Importing untrained model
+2023-01-25 14:53:51,753:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:53:51,759:INFO:Starting cross validation
+2023-01-25 14:53:51,759:INFO:Cross validating with KFold(n_splits=10, random_state=None, shuffle=False), n_jobs=1
+2023-01-25 14:53:55,357:INFO:Calculating mean and std
+2023-01-25 14:53:55,358:INFO:Creating metrics dataframe
+2023-01-25 14:53:55,360:INFO:Uploading results into container
+2023-01-25 14:53:55,361:INFO:Uploading model into container now
+2023-01-25 14:53:55,361:INFO:create_model_container: 1
+2023-01-25 14:53:55,361:INFO:master_model_container: 1
+2023-01-25 14:53:55,361:INFO:display_container: 2
+2023-01-25 14:53:55,361:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:53:55,361:INFO:create_model() succesfully completed......................................
+2023-01-25 14:53:55,421:INFO:SubProcess create_model() end ==================================
+2023-01-25 14:53:55,421:INFO:Creating metrics dataframe
+2023-01-25 14:53:55,432:INFO:Initializing create_model()
+2023-01-25 14:53:55,432:INFO:create_model(estimator=RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False), fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=False, predict=False, fit_kwargs={}, groups=None, refit=True, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=None, return_train_score=False, kwargs={})
+2023-01-25 14:53:55,432:INFO:Checking exceptions
+2023-01-25 14:53:55,432:INFO:Importing libraries
+2023-01-25 14:53:55,432:INFO:Copying training dataset
+2023-01-25 14:53:55,432:INFO:Defining folds
+2023-01-25 14:53:55,432:INFO:Declaring metric variables
+2023-01-25 14:53:55,432:INFO:Importing untrained model
+2023-01-25 14:53:55,432:INFO:Declaring custom model
+2023-01-25 14:53:55,433:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:53:55,433:INFO:Cross validation set to False
+2023-01-25 14:53:55,433:INFO:Fitting Model
+2023-01-25 14:53:55,590:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:53:55,590:INFO:create_models() succesfully completed......................................
+2023-01-25 14:53:55,648:INFO:create_model_container: 1
+2023-01-25 14:53:55,648:INFO:master_model_container: 1
+2023-01-25 14:53:55,648:INFO:display_container: 2
+2023-01-25 14:53:55,648:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:53:55,649:INFO:compare_models() succesfully completed......................................
+2023-01-25 14:54:15,813:INFO:PyCaret Supervised Module
+2023-01-25 14:54:15,813:INFO:ML Usecase: regression
+2023-01-25 14:54:15,813:INFO:version 2.3.10
+2023-01-25 14:54:15,814:INFO:Initializing setup()
+2023-01-25 14:54:15,814:INFO:setup(target=PRICE, ml_usecase=regression, available_plots={'parameter': 'Hyperparameters', 'residuals': 'Residuals', 'error': 'Prediction Error', 'cooks': 'Cooks Distance', 'rfe': 'Feature Selection', 'learning': 'Learning Curve', 'manifold': 'Manifold Learning', 'vc': 'Validation Curve', 'feature': 'Feature Importance', 'feature_all': 'Feature Importance (All)', 'tree': 'Decision Tree', 'residuals_interactive': 'Interactive Residuals'}, train_size=0.7, test_data=None, preprocess=False, imputation_type=simple, iterative_imputation_iters=5, categorical_features=None, categorical_imputation=constant, categorical_iterative_imputer=lightgbm, ordinal_features=None, high_cardinality_features=None, high_cardinality_method=frequency, numeric_features=None, numeric_imputation=mean, numeric_iterative_imputer=lightgbm, date_features=None, ignore_features=None, normalize=False, normalize_method=zscore, transformation=False, transformation_method=yeo-johnson, handle_unknown_categorical=True, unknown_categorical_method=least_frequent, pca=False, pca_method=linear, pca_components=None, ignore_low_variance=False, combine_rare_levels=False, rare_level_threshold=0.1, bin_numeric_features=None, remove_outliers=False, outliers_threshold=0.05, remove_multicollinearity=False, multicollinearity_threshold=0.9, remove_perfect_collinearity=True, create_clusters=False, cluster_iter=20, polynomial_features=False, polynomial_degree=2, trigonometry_features=False, polynomial_threshold=0.1, group_features=None, group_names=None, feature_selection=False, feature_selection_threshold=0.8, feature_selection_method=classic, feature_interaction=False, feature_ratio=False, interaction_threshold=0.01, fix_imbalance=False, fix_imbalance_method=None, transform_target=False, transform_target_method=box-cox, data_split_shuffle=True, data_split_stratify=False, fold_strategy=kfold, fold=10, fold_shuffle=False, fold_groups=None, n_jobs=-1, use_gpu=True, custom_pipeline=None, html=True, session_id=42, log_experiment=False, experiment_name=None, experiment_custom_tags=None, log_plots=False, log_profile=False, log_data=False, silent=True, verbose=True, profile=False, profile_kwargs=None, display=None)
+2023-01-25 14:54:15,814:INFO:Checking environment
+2023-01-25 14:54:15,814:INFO:python_version: 3.8.10
+2023-01-25 14:54:15,814:INFO:python_build: ('default', 'May 19 2021 13:12:57')
+2023-01-25 14:54:15,814:INFO:machine: AMD64
+2023-01-25 14:54:15,814:INFO:platform: Windows-10-10.0.19045-SP0
+2023-01-25 14:54:15,815:WARNING:cannot find psutil installation. memory not traceable. Install psutil using pip to enable memory logging.
+2023-01-25 14:54:15,815:INFO:Checking libraries
+2023-01-25 14:54:15,815:INFO:pd==1.3.0
+2023-01-25 14:54:15,815:INFO:numpy==1.19.5
+2023-01-25 14:54:15,815:INFO:sklearn==0.23.2
+2023-01-25 14:54:15,815:INFO:lightgbm==3.3.2
+2023-01-25 14:54:15,816:WARNING:catboost not found
+2023-01-25 14:54:15,816:WARNING:xgboost not found
+2023-01-25 14:54:15,816:INFO:mlflow==1.25.1
+2023-01-25 14:54:15,816:INFO:Checking Exceptions
+2023-01-25 14:54:15,817:INFO:Declaring global variables
+2023-01-25 14:54:15,817:INFO:USI: db13
+2023-01-25 14:54:15,817:INFO:pycaret_globals: {'stratify_param', 'imputation_regressor', 'y_train', '_gpu_n_jobs_param', 'fold_generator', 'y_test', 'data_before_preprocess', 'logging_param', 'transform_target_param', 'display_container', '_internal_pipeline', 'USI', '_ml_usecase', 'prep_pipe', 'fold_shuffle_param', 'pycaret_globals', 'y', 'master_model_container', 'log_plots_param', 'fix_imbalance_param', 'imputation_classifier', '_available_plots', '_all_models', 'iterative_imputation_iters_param', 'fold_param', 'experiment__', 'gpu_param', 'X', 'fold_groups_param', 'create_model_container', 'X_train', 'n_jobs_param', 'target_param', 'exp_name_log', 'transform_target_method_param', 'dashboard_logger', 'html_param', 'fold_groups_param_full', 'seed', '_all_models_internal', 'X_test', 'fix_imbalance_method_param', '_all_metrics'}
+2023-01-25 14:54:15,817:INFO:Preparing display monitor
+2023-01-25 14:54:15,817:INFO:Preparing display monitor
+2023-01-25 14:54:15,823:INFO:Importing libraries
+2023-01-25 14:54:15,823:INFO:Copying data for preprocessing
+2023-01-25 14:54:15,825:INFO:Declaring preprocessing parameters
+2023-01-25 14:54:15,826:WARNING:cuML not found
+2023-01-25 14:54:15,826:WARNING:cuML is outdated or not found. Required version is >=0.15, got 3.3.2
+2023-01-25 14:54:15,827:INFO:Creating preprocessing pipeline
+2023-01-25 14:54:15,831:INFO:Preprocessing pipeline created successfully
+2023-01-25 14:54:15,831:ERROR:(Process Exit): setup has been interupted with user command 'quit'. setup must rerun.
+2023-01-25 14:54:15,831:INFO:Creating global containers
+2023-01-25 14:54:15,831:INFO:Internal pipeline: Pipeline(memory=None, steps=[('empty_step', 'passthrough')], verbose=False)
+2023-01-25 14:54:15,889:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:54:15,892:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:54:15,904:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:54:15,911:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:54:15,977:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:54:16,025:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:54:16,026:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:54:16,029:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:54:16,203:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:54:16,205:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:54:16,206:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:54:16,214:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:54:16,221:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:54:16,298:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:54:16,358:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:54:16,360:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:54:16,362:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:54:16,531:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:54:16,532:INFO:Creating grid variables
+2023-01-25 14:54:16,535:INFO:create_model_container: 0
+2023-01-25 14:54:16,536:INFO:master_model_container: 0
+2023-01-25 14:54:16,536:INFO:display_container: 1
+2023-01-25 14:54:16,537:INFO:Pipeline(memory=None,
+         steps=[('dtypes',
+                 DataTypes_Auto_infer(categorical_features=[],
+                                      display_types=False, features_todrop=[],
+                                      id_columns=[], ml_usecase='regression',
+                                      numerical_features=[], target='PRICE',
+                                      time_features=[]))],
+         verbose=False)
+2023-01-25 14:54:16,537:INFO:setup() succesfully completed......................................
+2023-01-25 14:54:16,620:INFO:Initializing compare_models()
+2023-01-25 14:54:16,621:INFO:compare_models(include=['rf'], fold=None, round=4, cross_validation=True, sort=R2, n_select=1, budget_time=None, turbo=True, errors=ignore, fit_kwargs=None, groups=None, experiment_custom_tags=None, probability_threshold=None, verbose=True, display=None, exclude=None)
+2023-01-25 14:54:16,621:INFO:Checking exceptions
+2023-01-25 14:54:16,621:INFO:Preparing display monitor
+2023-01-25 14:54:16,621:INFO:Preparing display monitor
+2023-01-25 14:54:16,637:INFO:Initializing Random Forest Regressor
+2023-01-25 14:54:16,637:INFO:Total runtime is 0.0 minutes
+2023-01-25 14:54:16,641:INFO:SubProcess create_model() called ==================================
+2023-01-25 14:54:16,642:INFO:Initializing create_model()
+2023-01-25 14:54:16,642:INFO:create_model(estimator=rf, fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=<pycaret.internal.Display.Display object at 0x000001A80331B2E0>, return_train_score=False, kwargs={})
+2023-01-25 14:54:16,642:INFO:Checking exceptions
+2023-01-25 14:54:16,642:INFO:Importing libraries
+2023-01-25 14:54:16,642:INFO:Copying training dataset
+2023-01-25 14:54:16,643:INFO:Defining folds
+2023-01-25 14:54:16,643:INFO:Declaring metric variables
+2023-01-25 14:54:16,647:INFO:Importing untrained model
+2023-01-25 14:54:16,654:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:54:16,663:INFO:Starting cross validation
+2023-01-25 14:54:16,663:INFO:Cross validating with KFold(n_splits=10, random_state=None, shuffle=False), n_jobs=1
+2023-01-25 14:54:20,812:INFO:Calculating mean and std
+2023-01-25 14:54:20,813:INFO:Creating metrics dataframe
+2023-01-25 14:54:20,815:INFO:Uploading results into container
+2023-01-25 14:54:20,816:INFO:Uploading model into container now
+2023-01-25 14:54:20,816:INFO:create_model_container: 1
+2023-01-25 14:54:20,816:INFO:master_model_container: 1
+2023-01-25 14:54:20,816:INFO:display_container: 2
+2023-01-25 14:54:20,816:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:54:20,816:INFO:create_model() succesfully completed......................................
+2023-01-25 14:54:20,874:INFO:SubProcess create_model() end ==================================
+2023-01-25 14:54:20,874:INFO:Creating metrics dataframe
+2023-01-25 14:54:20,887:INFO:Initializing create_model()
+2023-01-25 14:54:20,887:INFO:create_model(estimator=RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False), fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=False, predict=False, fit_kwargs={}, groups=None, refit=True, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=None, return_train_score=False, kwargs={})
+2023-01-25 14:54:20,887:INFO:Checking exceptions
+2023-01-25 14:54:20,887:INFO:Importing libraries
+2023-01-25 14:54:20,887:INFO:Copying training dataset
+2023-01-25 14:54:20,887:INFO:Defining folds
+2023-01-25 14:54:20,887:INFO:Declaring metric variables
+2023-01-25 14:54:20,887:INFO:Importing untrained model
+2023-01-25 14:54:20,887:INFO:Declaring custom model
+2023-01-25 14:54:20,888:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:54:20,888:INFO:Cross validation set to False
+2023-01-25 14:54:20,888:INFO:Fitting Model
+2023-01-25 14:54:21,047:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:54:21,047:INFO:create_models() succesfully completed......................................
+2023-01-25 14:54:21,105:INFO:create_model_container: 1
+2023-01-25 14:54:21,105:INFO:master_model_container: 1
+2023-01-25 14:54:21,105:INFO:display_container: 2
+2023-01-25 14:54:21,105:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:54:21,105:INFO:compare_models() succesfully completed......................................
+2023-01-25 14:54:21,111:INFO:PyCaret Supervised Module
+2023-01-25 14:54:21,111:INFO:ML Usecase: regression
+2023-01-25 14:54:21,111:INFO:version 2.3.10
+2023-01-25 14:54:21,112:INFO:Initializing setup()
+2023-01-25 14:54:21,112:INFO:setup(target=PRICE, ml_usecase=regression, available_plots={'parameter': 'Hyperparameters', 'residuals': 'Residuals', 'error': 'Prediction Error', 'cooks': 'Cooks Distance', 'rfe': 'Feature Selection', 'learning': 'Learning Curve', 'manifold': 'Manifold Learning', 'vc': 'Validation Curve', 'feature': 'Feature Importance', 'feature_all': 'Feature Importance (All)', 'tree': 'Decision Tree', 'residuals_interactive': 'Interactive Residuals'}, train_size=0.7, test_data=None, preprocess=False, imputation_type=simple, iterative_imputation_iters=5, categorical_features=None, categorical_imputation=constant, categorical_iterative_imputer=lightgbm, ordinal_features=None, high_cardinality_features=None, high_cardinality_method=frequency, numeric_features=None, numeric_imputation=mean, numeric_iterative_imputer=lightgbm, date_features=None, ignore_features=None, normalize=False, normalize_method=zscore, transformation=False, transformation_method=yeo-johnson, handle_unknown_categorical=True, unknown_categorical_method=least_frequent, pca=False, pca_method=linear, pca_components=None, ignore_low_variance=False, combine_rare_levels=False, rare_level_threshold=0.1, bin_numeric_features=None, remove_outliers=False, outliers_threshold=0.05, remove_multicollinearity=False, multicollinearity_threshold=0.9, remove_perfect_collinearity=True, create_clusters=False, cluster_iter=20, polynomial_features=False, polynomial_degree=2, trigonometry_features=False, polynomial_threshold=0.1, group_features=None, group_names=None, feature_selection=False, feature_selection_threshold=0.8, feature_selection_method=classic, feature_interaction=False, feature_ratio=False, interaction_threshold=0.01, fix_imbalance=False, fix_imbalance_method=None, transform_target=False, transform_target_method=box-cox, data_split_shuffle=True, data_split_stratify=False, fold_strategy=kfold, fold=10, fold_shuffle=False, fold_groups=None, n_jobs=-1, use_gpu=True, custom_pipeline=None, html=True, session_id=42, log_experiment=False, experiment_name=None, experiment_custom_tags=None, log_plots=False, log_profile=False, log_data=False, silent=True, verbose=True, profile=False, profile_kwargs=None, display=None)
+2023-01-25 14:54:21,112:INFO:Checking environment
+2023-01-25 14:54:21,112:INFO:python_version: 3.8.10
+2023-01-25 14:54:21,112:INFO:python_build: ('default', 'May 19 2021 13:12:57')
+2023-01-25 14:54:21,112:INFO:machine: AMD64
+2023-01-25 14:54:21,112:INFO:platform: Windows-10-10.0.19045-SP0
+2023-01-25 14:54:21,113:WARNING:cannot find psutil installation. memory not traceable. Install psutil using pip to enable memory logging.
+2023-01-25 14:54:21,113:INFO:Checking libraries
+2023-01-25 14:54:21,113:INFO:pd==1.3.0
+2023-01-25 14:54:21,113:INFO:numpy==1.19.5
+2023-01-25 14:54:21,113:INFO:sklearn==0.23.2
+2023-01-25 14:54:21,113:INFO:lightgbm==3.3.2
+2023-01-25 14:54:21,114:WARNING:catboost not found
+2023-01-25 14:54:21,115:WARNING:xgboost not found
+2023-01-25 14:54:21,115:INFO:mlflow==1.25.1
+2023-01-25 14:54:21,115:INFO:Checking Exceptions
+2023-01-25 14:54:21,115:INFO:Declaring global variables
+2023-01-25 14:54:21,115:INFO:USI: 0257
+2023-01-25 14:54:21,115:INFO:pycaret_globals: {'stratify_param', 'imputation_regressor', 'y_train', '_gpu_n_jobs_param', 'fold_generator', 'y_test', 'data_before_preprocess', 'logging_param', 'transform_target_param', 'display_container', '_internal_pipeline', 'USI', '_ml_usecase', 'prep_pipe', 'fold_shuffle_param', 'pycaret_globals', 'y', 'master_model_container', 'log_plots_param', 'fix_imbalance_param', 'imputation_classifier', '_available_plots', '_all_models', 'iterative_imputation_iters_param', 'fold_param', 'experiment__', 'gpu_param', 'X', 'fold_groups_param', 'create_model_container', 'X_train', 'n_jobs_param', 'target_param', 'exp_name_log', 'transform_target_method_param', 'dashboard_logger', 'html_param', 'fold_groups_param_full', 'seed', '_all_models_internal', 'X_test', 'fix_imbalance_method_param', '_all_metrics'}
+2023-01-25 14:54:21,115:INFO:Preparing display monitor
+2023-01-25 14:54:21,115:INFO:Preparing display monitor
+2023-01-25 14:54:21,121:INFO:Importing libraries
+2023-01-25 14:54:21,121:INFO:Copying data for preprocessing
+2023-01-25 14:54:21,124:INFO:Declaring preprocessing parameters
+2023-01-25 14:54:21,125:WARNING:cuML not found
+2023-01-25 14:54:21,125:WARNING:cuML is outdated or not found. Required version is >=0.15, got 3.3.2
+2023-01-25 14:54:21,126:INFO:Creating preprocessing pipeline
+2023-01-25 14:54:21,130:INFO:Preprocessing pipeline created successfully
+2023-01-25 14:54:21,130:ERROR:(Process Exit): setup has been interupted with user command 'quit'. setup must rerun.
+2023-01-25 14:54:21,130:INFO:Creating global containers
+2023-01-25 14:54:21,130:INFO:Internal pipeline: Pipeline(memory=None, steps=[('empty_step', 'passthrough')], verbose=False)
+2023-01-25 14:54:21,175:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:54:21,176:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:54:21,181:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:54:21,186:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:54:21,242:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:54:21,287:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:54:21,288:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:54:21,290:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:54:21,442:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:54:21,443:WARNING:Couldn't import cuml.linear_model.LinearRegression
+2023-01-25 14:54:21,444:WARNING:Couldn't import cuml.linear_model.Lasso
+2023-01-25 14:54:21,451:WARNING:Couldn't import cuml.linear_model.Ridge
+2023-01-25 14:54:21,458:WARNING:Couldn't import cuml.linear_model.ElasticNet
+2023-01-25 14:54:21,529:WARNING:Couldn't import cuml.svm.SVR
+2023-01-25 14:54:21,579:WARNING:Couldn't import cuml.neighbors.KNeighborsRegressor
+2023-01-25 14:54:21,580:WARNING:Couldn't import cuml.ensemble
+2023-01-25 14:54:21,581:WARNING:Couldn't import xgboost.XGBRegressor
+2023-01-25 14:54:21,729:WARNING:Couldn't import catboost.CatBoostRegressor
+2023-01-25 14:54:21,729:INFO:Creating grid variables
+2023-01-25 14:54:21,732:INFO:create_model_container: 0
+2023-01-25 14:54:21,732:INFO:master_model_container: 0
+2023-01-25 14:54:21,732:INFO:display_container: 1
+2023-01-25 14:54:21,733:INFO:Pipeline(memory=None,
+         steps=[('dtypes',
+                 DataTypes_Auto_infer(categorical_features=[],
+                                      display_types=False, features_todrop=[],
+                                      id_columns=[], ml_usecase='regression',
+                                      numerical_features=[], target='PRICE',
+                                      time_features=[]))],
+         verbose=False)
+2023-01-25 14:54:21,733:INFO:setup() succesfully completed......................................
+2023-01-25 14:54:21,801:INFO:Initializing compare_models()
+2023-01-25 14:54:21,801:INFO:compare_models(include=['rf'], fold=None, round=4, cross_validation=True, sort=R2, n_select=1, budget_time=None, turbo=True, errors=ignore, fit_kwargs=None, groups=None, experiment_custom_tags=None, probability_threshold=None, verbose=True, display=None, exclude=None)
+2023-01-25 14:54:21,801:INFO:Checking exceptions
+2023-01-25 14:54:21,801:INFO:Preparing display monitor
+2023-01-25 14:54:21,801:INFO:Preparing display monitor
+2023-01-25 14:54:21,815:INFO:Initializing Random Forest Regressor
+2023-01-25 14:54:21,815:INFO:Total runtime is 0.0 minutes
+2023-01-25 14:54:21,819:INFO:SubProcess create_model() called ==================================
+2023-01-25 14:54:21,819:INFO:Initializing create_model()
+2023-01-25 14:54:21,819:INFO:create_model(estimator=rf, fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=True, predict=True, fit_kwargs={}, groups=None, refit=False, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=<pycaret.internal.Display.Display object at 0x000001A80311D790>, return_train_score=False, kwargs={})
+2023-01-25 14:54:21,819:INFO:Checking exceptions
+2023-01-25 14:54:21,819:INFO:Importing libraries
+2023-01-25 14:54:21,819:INFO:Copying training dataset
+2023-01-25 14:54:21,820:INFO:Defining folds
+2023-01-25 14:54:21,820:INFO:Declaring metric variables
+2023-01-25 14:54:21,823:INFO:Importing untrained model
+2023-01-25 14:54:21,828:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:54:21,835:INFO:Starting cross validation
+2023-01-25 14:54:21,835:INFO:Cross validating with KFold(n_splits=10, random_state=None, shuffle=False), n_jobs=1
+2023-01-25 14:54:25,383:INFO:Calculating mean and std
+2023-01-25 14:54:25,383:INFO:Creating metrics dataframe
+2023-01-25 14:54:25,387:INFO:Uploading results into container
+2023-01-25 14:54:25,387:INFO:Uploading model into container now
+2023-01-25 14:54:25,387:INFO:create_model_container: 1
+2023-01-25 14:54:25,387:INFO:master_model_container: 1
+2023-01-25 14:54:25,387:INFO:display_container: 2
+2023-01-25 14:54:25,387:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:54:25,387:INFO:create_model() succesfully completed......................................
+2023-01-25 14:54:25,454:INFO:SubProcess create_model() end ==================================
+2023-01-25 14:54:25,455:INFO:Creating metrics dataframe
+2023-01-25 14:54:25,468:INFO:Initializing create_model()
+2023-01-25 14:54:25,468:INFO:create_model(estimator=RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False), fold=KFold(n_splits=10, random_state=None, shuffle=False), round=4, cross_validation=False, predict=False, fit_kwargs={}, groups=None, refit=True, verbose=False, system=False, metrics=None, experiment_custom_tags=None, add_to_model_list=True, probability_threshold=None, display=None, return_train_score=False, kwargs={})
+2023-01-25 14:54:25,468:INFO:Checking exceptions
+2023-01-25 14:54:25,468:INFO:Importing libraries
+2023-01-25 14:54:25,468:INFO:Copying training dataset
+2023-01-25 14:54:25,469:INFO:Defining folds
+2023-01-25 14:54:25,469:INFO:Declaring metric variables
+2023-01-25 14:54:25,469:INFO:Importing untrained model
+2023-01-25 14:54:25,469:INFO:Declaring custom model
+2023-01-25 14:54:25,469:INFO:Random Forest Regressor Imported succesfully
+2023-01-25 14:54:25,470:INFO:Cross validation set to False
+2023-01-25 14:54:25,470:INFO:Fitting Model
+2023-01-25 14:54:25,639:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:54:25,639:INFO:create_models() succesfully completed......................................
+2023-01-25 14:54:25,703:INFO:create_model_container: 1
+2023-01-25 14:54:25,703:INFO:master_model_container: 1
+2023-01-25 14:54:25,703:INFO:display_container: 2
+2023-01-25 14:54:25,703:INFO:RandomForestRegressor(bootstrap=True, ccp_alpha=0.0, criterion='mse',
+                      max_depth=None, max_features='auto', max_leaf_nodes=None,
+                      max_samples=None, min_impurity_decrease=0.0,
+                      min_impurity_split=None, min_samples_leaf=1,
+                      min_samples_split=2, min_weight_fraction_leaf=0.0,
+                      n_estimators=100, n_jobs=-1, oob_score=False,
+                      random_state=42, verbose=0, warm_start=False)
+2023-01-25 14:54:25,703:INFO:compare_models() succesfully completed......................................
