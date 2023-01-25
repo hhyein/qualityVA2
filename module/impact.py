@@ -11,6 +11,7 @@ uploadFileName = 'bike'
 targetColumn = 'cnt'
 inputModelList = ['lr', 'svm', 'gbr']
 inputEvalList = ['MAE', 'MSE', 'RMSE']
+totalEvalList = ['Model', 'MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE', 'TT (Sec)']
 
 df = pd.read_csv(uploadFileName + '.csv')
 df = df.reindex(sorted(df.columns), axis = 1)
@@ -21,6 +22,37 @@ missingList = ["remove", "min", "max", "mean", "median"]
 outlierList = ["iqr", "zscore"]
 corrList = ["pearson", "spearman", "kendall"]
 corrThreshold = 0.8
+
+
+
+
+
+df = pd.read_csv(uploadFileName + '.csv')
+columnList = list(df.columns)
+
+# incons, missing drop for autoML
+df = df.apply(pd.to_numeric, errors = 'coerce')
+df = pd.DataFrame(df, columns = columnList)
+df = df.dropna()
+df = df.reset_index(drop = True)
+
+# autoML
+clf = setup(data = df, target = targetColumn, preprocess = False, session_id = 42, use_gpu = True, silent = True)
+model = compare_models(include = inputModelList)
+resultDf = pull()
+
+for evalMetric in totalEvalList:
+    if evalMetric not in inputEvalList:
+        resultDf = resultDf.drop([evalMetric], axis = 1)
+
+resultDict = resultDf.to_dict()
+
+with open('dataset/before.json', 'w') as file:
+    file.write(json.dumps(resultDict, indent = 4))
+
+
+
+
 
 actionDfList = []
 for issue in issueList:
@@ -190,9 +222,7 @@ for i in range(len(dfList)):
     df.to_csv('dataset/' + str(i) + '.csv', index = False)
 
 resultList = []
-totalEvalList = ['Model', 'MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE', 'TT (Sec)']
 for i in range(0, 15):
-    print(i)
     df = pd.read_csv('dataset/' + str(i) + '.csv')
 
     # autoML
@@ -209,19 +239,4 @@ for i in range(0, 15):
 
 # autoML result to file
 with open('dataset/after.json', 'w') as file:
-    file.write(json.dumps(resultList, indent = 4))
-
-df = pd.read_csv(uploadFileName + '.csv')
-clf = setup(data = df, target = targetColumn, preprocess = False, session_id = 42, use_gpu = True, silent = True)
-model = compare_models(include = inputModelList)
-resultDf = pull()
-
-for evalMetric in totalEvalList:
-    if evalMetric not in inputEvalList:
-        resultDf = resultDf.drop([evalMetric], axis = 1)
-
-resultDict = resultDf.to_dict()
-resultList.append(resultDict)
-
-with open('dataset/before.json', 'w') as file:
     file.write(json.dumps(resultList, indent = 4))
