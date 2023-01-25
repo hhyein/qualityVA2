@@ -13,7 +13,7 @@ import pandas as pd
 from io import StringIO
 from scipy import stats
 from collections import Counter
-# from pycaret.regression import *
+from pycaret.regression import *
 
 import module.main as main
 import module.tree as tree
@@ -21,8 +21,8 @@ import module.tree as tree
 app = Flask(__name__)
 CORS(app)
 
-uploadFileName = 'bike'
-targetColumn = 'cnt'
+uploadFileName = 'housing'
+targetColumn = 'PRICE'
 regModelList = ['lr', 'lasso', 'ridge', 'en', 'lar', 'llar', 'omp', 'br', 'ard', 'par',
                 'ransac', 'tr', 'huber', 'kr', 'svm', 'knn', 'dt', 'rf', 'et', 'ada',
                 'gbr', 'mlp', 'lightgbm']
@@ -1146,12 +1146,18 @@ def impact():
   with open('static/example_after.json') as f: afterData = json.load(f)
   with open('static/example_before.json') as f: beforeData = json.load(f)
 
-  ##### for test
   global inputModelList, inputEvalList
-  inputModelList = ['lr', 'svm', 'gbr']
-  inputEvalList = ['MAE', 'RMSE', 'R2']
-  # inputModelList = ['lr', 'dt', 'rf']
-  # inputEvalList = ['RMSE']
+  # bike sharing dataset
+  # inputModelList = ['lr', 'svm', 'gbr']
+  # inputEvalList = ['MAE', 'RMSE', 'R2']
+
+  # house pricing dataset
+  inputModelList = ['lr', 'dt', 'rf']
+  inputEvalList = ['RMSE']
+
+  # beijing dataset
+  inputModelList = ['lr', 'dt', 'rf', 'mlp']
+  inputEvalList = ['RMSE', 'R2']
 
   # missing
   missingList = []
@@ -1285,45 +1291,45 @@ def changeDistort():
 
 @app.route('/changePerformance', methods=['GET', 'POST'])
 def changePerformance():
-  # req = eval(request.get_data().decode('utf-8'))
-  # fileName = req["fileName"]
-  # modelName = req["modelName"]
+  req = eval(request.get_data().decode('utf-8'))
+  fileName = req["fileName"]
+  modelName = req["modelName"]
 
-  # global uploadFileName, targetColumn, regModelList
-  # beforeDf = pd.read_csv('static/' + uploadFileName + '.csv')
-  # columnList = list(beforeDf.columns)
+  global uploadFileName, targetColumn, regModelList
+  beforeDf = pd.read_csv('static/' + uploadFileName + '.csv')
+  columnList = list(beforeDf.columns)
 
-  # df = beforeDf.apply(pd.to_numeric, errors = 'coerce')
-  # df = pd.DataFrame(df, columns = columnList)
-  # df = df.dropna()
+  df = beforeDf.apply(pd.to_numeric, errors = 'coerce')
+  df = pd.DataFrame(df, columns = columnList)
+  df = df.dropna()
 
-  # clf = setup(data = df, target = targetColumn, preprocess = False, session_id = 42, use_gpu = True, silent = True)
-  # model = compare_models(include = [modelName])
-  # modelResultDf = pull()
+  clf = setup(data = df, target = targetColumn, preprocess = False, session_id = 42, use_gpu = True, silent = True)
+  model = compare_models(include = [modelName])
+  modelResultDf = pull()
 
-  # modelResultDf = modelResultDf.drop(['Model'], axis = 1)
-  # modelResultDf = modelResultDf.drop(['TT (Sec)'], axis = 1)
-  # modelResultDf = modelResultDf.round(3)
-  # beforeList = modelResultDf.loc[[modelName], :].values.tolist()[0]
+  modelResultDf = modelResultDf.drop(['Model'], axis = 1)
+  modelResultDf = modelResultDf.drop(['TT (Sec)'], axis = 1)
+  modelResultDf = modelResultDf.round(3)
+  beforeList = modelResultDf.loc[[modelName], :].values.tolist()[0]
 
-  # afterDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
-  # columnList = list(beforeDf.columns)
+  afterDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
+  columnList = list(beforeDf.columns)
 
-  # df = beforeDf.apply(pd.to_numeric, errors = 'coerce')
-  # df = pd.DataFrame(df, columns = columnList)
-  # df = df.dropna()
+  df = beforeDf.apply(pd.to_numeric, errors = 'coerce')
+  df = pd.DataFrame(df, columns = columnList)
+  df = df.dropna()
 
-  # clf = setup(data = df, target = targetColumn, preprocess = False, session_id = 42, use_gpu = True, silent = True)
-  # model = compare_models(include = [modelName])
-  # modelResultDf = pull()
+  clf = setup(data = df, target = targetColumn, preprocess = False, session_id = 42, use_gpu = True, silent = True)
+  model = compare_models(include = [modelName])
+  modelResultDf = pull()
 
-  # modelResultDf = modelResultDf.drop(['Model'], axis = 1)
-  # modelResultDf = modelResultDf.drop(['TT (Sec)'], axis = 1)
-  # modelResultDf = modelResultDf.round(3)
-  # afterList = modelResultDf.loc[[modelName], :].values.tolist()[0]
+  modelResultDf = modelResultDf.drop(['Model'], axis = 1)
+  modelResultDf = modelResultDf.drop(['TT (Sec)'], axis = 1)
+  modelResultDf = modelResultDf.round(3)
+  afterList = modelResultDf.loc[[modelName], :].values.tolist()[0]
 
-  beforeList = [59.338, 66.127, 80.798, 0.009, 1.423, 6.235]
-  afterList = [13.981, 9.197, 28.253, 0.796, 0.626, 0.669]
+  # beforeList = [59.338, 66.127, 80.798, 0.009, 1.423, 6.235]
+  # afterList = [13.981, 9.197, 28.253, 0.796, 0.626, 0.669]
 
   seriesDataList = []
   seriesDataList.append({'name': 'before', 'data': beforeList})
