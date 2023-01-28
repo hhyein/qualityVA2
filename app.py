@@ -26,7 +26,7 @@ targetColumn = 'PRICE'
 regModelList = ['lr', 'lasso', 'ridge', 'en', 'lar', 'llar', 'omp', 'br', 'ard', 'par',
                 'ransac', 'tr', 'huber', 'kr', 'svm', 'knn', 'dt', 'rf', 'et', 'ada',
                 'gbr', 'mlp', 'lightgbm']
-regEvalList = ['MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE']
+regEvalList = ['MAE', 'RMSE', 'R2', 'RMSLE', 'MAPE']
 
 inputModelList = []
 inputEvalList = []
@@ -408,6 +408,7 @@ def modelTable():
   # arrangeColumnList = firstColumnList + remainColumnList
 
   # modelResultDf = modelResultDf[arrangeColumnList]
+  # modelResultDf = modelResultDf.drop(['MSE'], axis = 1)
   # modelResultDf = modelResultDf.round(3)
 
   # modelResultDf.to_csv('static/example_modelTable.csv', index = False)
@@ -1325,8 +1326,16 @@ def changePerformance():
   # afterList = modelResultDf.loc[[modelName], :].values.tolist()[0]
 
   # house pricing dataset - step 0
-  beforeList = [2.484, 14.35, 3.616, 0.82, 0.154, 0.123]
-  afterList = [2.484, 14.35, 3.616, 0.82, 0.154, 0.123]
+  beforeList = [2.481, 14.098, 3.592, 0.824, 0.155, 0.123]
+  afterList = [2.481, 14.098, 3.592, 0.824, 0.155, 0.123]
+
+  # house pricing dataset - step 2
+  # beforeList = [2.481, 14.098, 3.592, 0.824, 0.155, 0.123]
+  # afterList = [2.341, 10.161, 3.124, 0.644, 0.122, 0.1]
+
+  # remove MSE
+  del beforeList[1]
+  del afterList[1]
 
   seriesDataList = []
   seriesDataList.append({'name': 'before', 'data': beforeList})

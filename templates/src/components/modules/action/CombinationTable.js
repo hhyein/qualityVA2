@@ -70,7 +70,7 @@ export default function CombinationTable({
           </div>
         )
       })}
-      {data.map(({ key, ...others }, rowIdx) => {
+      {data.slice(0, 50).map(({ key, ...others }, rowIdx) => {
         const isLastRow = rowIdx === data.length - 1
         const onClick = () =>
           onTableRowClick(filterList[rowIdx])

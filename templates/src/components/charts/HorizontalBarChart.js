@@ -41,7 +41,7 @@ export default function HorizontalBarChart(props) {
         intersect: false
       },
       xaxis: {
-        categories: ['MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE'],
+        categories: ['MAE', 'RMSE', 'R2', 'RMSLE', 'MAPE'],
         tickAmount: 4
       },
       legend: {

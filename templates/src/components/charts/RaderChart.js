@@ -19,18 +19,18 @@ export default function RaderChart(props) {
           enabled: false
         },
         width: 200,
-        height: 230,
+        height: 250,
         type: 'radar',
       },
       xaxis: {
-        categories: ['MAE', 'MSE', 'RMSE', 'R2', 'RMSLE', 'MAPE']
+        categories: ['MAE', 'RMSE', 'R2', 'RMSLE', 'MAPE']
       },
       yaxis: {
         show: false
       },
       legend: {
         showForSingleSeries: true,
-        width: 200,
+        width: 195,
         height: 35
       },
       colors: ['#B22222', '#87CEFA', '#C71585', '#2E8B57', '#B8860B'],

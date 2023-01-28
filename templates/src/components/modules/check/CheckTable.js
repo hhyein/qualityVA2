@@ -39,7 +39,7 @@ export default function checkTable(props) {
     }}>
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'auto auto auto auto auto auto auto'
+        gridTemplateColumns: 'auto auto auto auto auto auto'
       }}>
         {data.map((columnData, rowIdx) => {
           return (
