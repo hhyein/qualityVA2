@@ -399,8 +399,7 @@ def modelTable():
   # model = compare_models(include = regModelList)
   # modelResultDf = pull()
 
-  # modelResultDf = modelResultDf.drop(['Model'], axis = 1)
-  # modelResultDf = modelResultDf.drop(['TT (Sec)'], axis = 1)
+  # modelResultDf = modelResultDf.drop(['Model', 'MSE', 'TT (Sec)'], axis = 1)
   # modelResultDf['Model'] = modelResultDf.index
   
   # firstColumnList = list(modelResultDf.columns[-1:])
@@ -408,7 +407,6 @@ def modelTable():
   # arrangeColumnList = firstColumnList + remainColumnList
 
   # modelResultDf = modelResultDf[arrangeColumnList]
-  # modelResultDf = modelResultDf.drop(['MSE'], axis = 1)
   # modelResultDf = modelResultDf.round(3)
 
   # modelResultDf.to_csv('static/example_modelTable.csv', index = False)
@@ -1300,8 +1298,7 @@ def changePerformance():
   # model = compare_models(include = [modelName])
   # modelResultDf = pull()
 
-  # modelResultDf = modelResultDf.drop(['Model'], axis = 1)
-  # modelResultDf = modelResultDf.drop(['TT (Sec)'], axis = 1)
+  # modelResultDf = modelResultDf.drop(['Model', 'MSE', 'TT (Sec)'], axis = 1)
   # modelResultDf = modelResultDf.round(3)
   # beforeList = modelResultDf.loc[[modelName], :].values.tolist()[0]
 
@@ -1316,22 +1313,17 @@ def changePerformance():
   # model = compare_models(include = [modelName])
   # modelResultDf = pull()
 
-  # modelResultDf = modelResultDf.drop(['Model'], axis = 1)
-  # modelResultDf = modelResultDf.drop(['TT (Sec)'], axis = 1)
+  # modelResultDf = modelResultDf.drop(['Model', 'MSE', 'TT (Sec)'], axis = 1)
   # modelResultDf = modelResultDf.round(3)
   # afterList = modelResultDf.loc[[modelName], :].values.tolist()[0]
 
   # house pricing dataset - step 0
-  beforeList = [2.481, 14.098, 3.592, 0.824, 0.155, 0.123]
-  afterList = [2.481, 14.098, 3.592, 0.824, 0.155, 0.123]
+  beforeList = [2.481, 3.592, 0.824, 0.155, 0.123]
+  afterList = [2.481, 3.592, 0.824, 0.155, 0.123]
 
   # house pricing dataset - step 2
-  # beforeList = [2.481, 14.098, 3.592, 0.824, 0.155, 0.123]
-  # afterList = [2.341, 10.161, 3.124, 0.644, 0.122, 0.1]
-
-  # remove MSE
-  del beforeList[1]
-  del afterList[1]
+  # beforeList = [2.481, 3.592, 0.824, 0.155, 0.123]
+  # afterList = [2.341, 3.124, 0.644, 0.122, 0.1]
 
   seriesDataList = []
   seriesDataList.append({'name': 'before', 'data': beforeList})
