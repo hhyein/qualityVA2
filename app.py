@@ -1152,10 +1152,6 @@ def impact():
   inputModelList = ['lr', 'dt', 'rf']
   inputEvalList = ['RMSE']
 
-  # beijing dataset
-  # inputModelList = ['lr', 'dt', 'rf', 'mlp']
-  # inputEvalList = ['RMSE', 'R2']
-
   # missing
   missingList = []
   for i in range(0, 5):
