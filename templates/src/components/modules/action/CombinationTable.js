@@ -13,7 +13,7 @@ export default function CombinationTable({
   filterList
 }) {
   const { combinationTableSortingInfo } = useFileData()
-  const columnKeys = ['idx', ...Object.keys(data[0]).slice(1)];
+  const columnKeys = ['idx', 'model', 'DQ issue', 'DQI method'];
   
   const isVisibleLength = (idx) => {
     if(!lengthValues) {
