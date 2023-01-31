@@ -66,7 +66,6 @@ export const FileDataProvider = ({ children }) => {
   const [selectedCombinationTableData, setSelectedCombinationTableData] = useState();
   const [columnSummary, setColumnSummary] = useState();
   const [rowSummary, setRowSummary] = useState();
-  const [qualityImpact, setQualityImpact] = useState();
   const [newVisualizationChartData, setNewVisualizationChartData] = useState();
 
   const isEmptyData = data => {
@@ -147,10 +146,6 @@ export const FileDataProvider = ({ children }) => {
     }
     updateRecommendData()
   }, [selectedCombinationTableData])
-
-  useEffect(() => {
-    updateQualityImpactData()
-  }, [])
 
   const updateRecommendData = async () => {
     const option = {
@@ -251,11 +246,6 @@ export const FileDataProvider = ({ children }) => {
     setRowSummary(rowSummaryData);
   }
 
-  const updateQualityImpactData = async () => {
-    const qualityImpactData = await postData('/impact');
-    setQualityImpact(qualityImpactData);
-  }
-
   const updateNewVisualizationChartData = async (fileName, select, selectDetail) => {
     const option = {
       fileName: fileName,
@@ -310,8 +300,6 @@ export const FileDataProvider = ({ children }) => {
         setColumnSummary,
         rowSummary,
         setRowSummary,
-        qualityImpact,
-        setQualityImpact,
         newVisualizationChartData,
         setNewVisualizationChartData,
         updateNewVisualizationChartData

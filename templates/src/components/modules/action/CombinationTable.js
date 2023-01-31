@@ -13,7 +13,7 @@ export default function CombinationTable({
   filterList
 }) {
   const { combinationTableSortingInfo } = useFileData()
-  const columnKeys = ['idx', 'model', 'DQ issue', 'DQI method'];
+  const columnKeys = ['idx', 'model', 'DQ issue(s)', 'DQI method(s)'];
   
   const isVisibleLength = (idx) => {
     if(!lengthValues) {
@@ -81,7 +81,6 @@ export default function CombinationTable({
                 className="grid-td"
                 style={{
                   padding: '6px 3px',
-                  fontWeight: 'bold',
                   borderBottom: isLastRow ? 'none' : undefined,
                   backgroundColor: selectedKey === key ? '#eee' : undefined,
                   cursor: 'pointer'
