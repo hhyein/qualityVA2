@@ -24,13 +24,15 @@ export default function Change() {
         <div style={{ position: 'relative', bottom: '15px', height: '125px' }}>
           { changeCntData && <BarChart data={changeCntData} /> }
         </div>
-        <Title title="distort" />
-        <div style={{ position: 'relative', bottom: '15px', height: '115px', left: -5 }}>
-          { changeDistortData && <DensityChart data={changeDistortData} /> }
-        </div>
         <Title title="model performance" />
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: 'relative', bottom: '15px' }}>
           { changePerformanceData && <HorizontalBarChart data={changePerformanceData} /> }
+        </div>
+        <div style={{ position: 'relative', bottom: '35px' }}>
+          <Title title="distort" />
+          <div style={{ position: 'relative', bottom: '15px', height: '115px', left: -5 }}>
+            { changeDistortData && <DensityChart data={changeDistortData} /> }
+          </div>
         </div>
       </>}
     </Box>

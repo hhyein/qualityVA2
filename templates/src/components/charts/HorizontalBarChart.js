@@ -56,6 +56,6 @@ export default function HorizontalBarChart(props) {
     }, [data])
 
   return (
-    <div className="horizontalBar-wrapper" style={{ position: 'relative', bottom: 15 }} />
+    <div className="horizontalBar-wrapper" style={{ position: 'relative' }} />
   )
 }
