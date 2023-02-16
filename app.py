@@ -23,13 +23,13 @@ CORS(app)
 
 uploadFileName = 'housing'
 targetColumn = 'PRICE'
+inputModelList = ['rf', 'dt', 'lr']
+inputEvalList = ['RMSE']
+
 regModelList = ['lr', 'lasso', 'ridge', 'en', 'lar', 'llar', 'omp', 'br', 'ard', 'par',
                 'ransac', 'tr', 'huber', 'kr', 'svm', 'knn', 'dt', 'rf', 'et', 'ada',
                 'gbr', 'mlp', 'lightgbm']
 regEvalList = ['MAE', 'RMSE', 'R2', 'RMSLE', 'MAPE']
-
-inputModelList = []
-inputEvalList = []
 combination = []
 combinationDetail = []
 
@@ -40,7 +40,7 @@ def fileUpload():
 
 @app.route('/setting', methods=['GET', 'POST'])
 def setting():
-  global uploadFileName, regModelList, targetColumn, inputModelList, inputEvalList
+  global uploadFileName, regModelList, targetColumn # inputModelList, inputEvalList
 
   originDf = pd.read_csv('static/' + uploadFileName + '.csv')
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
@@ -126,6 +126,7 @@ def donutChart():
   inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
   inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
   allCorrDf = inconsNaNDf.corr()
+  allCorrDf = allCorrDf.fillna(0)
 
   highCorr = 0
   corrThreshold = 0.8
@@ -318,66 +319,61 @@ def checkVisualization():
     response['issueList'] = issueList
     response['cnt'] = len(dupList)
 
-  # correlation
-  if vis == 'correlationChart':
+  if vis == 'correlationChart' or vis == 'relevanceChart':
     method = req["method"]
     corrThreshold = 0.8
 
     inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
     inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
     allCorrDf = inconsNaNDf.corr(method = method)
+    allCorrDf = allCorrDf.fillna(0)
     allCorrDf = allCorrDf.reindex(sorted(allCorrDf.columns), axis = 1)
 
-    highCorrColumnList = []
-    for column in columnList:
-      columnCorrDf = abs(allCorrDf[column])
-      highCorrDf = columnCorrDf[columnCorrDf > corrThreshold]
-      
-      if len(highCorrDf) > 1:
-        highCorrColumnList.append(list(highCorrDf.index))
-    highCorrColumnList = list(set([tuple(set(item)) for item in highCorrColumnList]))
+    # correlation
+    if vis == 'correlationChart':
+      highCorrColumnList = []
+      for column in columnList:
+        columnCorrDf = abs(allCorrDf[column])
+        highCorrDf = columnCorrDf[columnCorrDf > corrThreshold]
+        
+        if len(highCorrDf) > 1:
+          highCorrColumnList.append(list(highCorrDf.index))
+      highCorrColumnList = list(set([tuple(set(item)) for item in highCorrColumnList]))
 
-    response['cnt'] = len(highCorrColumnList) * 2
-    response['issueList'] = highCorrColumnList
+      response['cnt'] = len(highCorrColumnList) * 2
+      response['issueList'] = highCorrColumnList
 
-    seriesDataList = []
-    for i in range(len(allCorrDf)):
-      columnCntList = []
+      seriesDataList = []
+      for i in range(len(allCorrDf)):
+        columnCntList = []
 
-      for j in range(i + 1):
-        columnCntList.append(float(allCorrDf.iloc[i][j]))
-      seriesDataList.append({'name': 'f' + str(i), 'data': columnCntList})
+        for j in range(i + 1):
+          columnCntList.append(float(allCorrDf.iloc[i][j]))
+        seriesDataList.append({'name': 'f' + str(i), 'data': columnCntList})
 
-    categoryDataList = []
-    for i in range(len(columnList)):
-      categoryDataList.append('f' + str(i))
+      categoryDataList = []
+      for i in range(len(columnList)):
+        categoryDataList.append('f' + str(i))
 
-    response['seriesData'] = seriesDataList
-    response['categoryData'] = categoryDataList
+      response['seriesData'] = seriesDataList
+      response['categoryData'] = categoryDataList
 
-  # relevance
-  if vis == 'relevanceChart':
-    method = req["method"]
-    corrThreshold = 0.8
+    # relevance
+    if vis == 'relevanceChart':
+      columnCorrDf = allCorrDf[targetColumn]
 
-    inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
-    inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
-    allCorrDf = inconsNaNDf.corr(method = method)
-    allCorrDf = allCorrDf.reindex(sorted(allCorrDf.columns), axis = 1)
-    columnCorrDf = allCorrDf[targetColumn]
+      seriesDataList = []
+      highCorrColumnList = []
+      for row in columnList:
+        if row == targetColumn: continue
+        if columnCorrDf[row] < corrThreshold and columnCorrDf[row] > -corrThreshold:
+          highCorrColumnList.append(row)
+        seriesDataList.append(columnCorrDf[row])
 
-    seriesDataList = []
-    highCorrColumnList = []
-    for row in columnList:
-      if row == targetColumn: continue
-      if columnCorrDf[row] < corrThreshold and columnCorrDf[row] > -corrThreshold:
-        highCorrColumnList.append(row)
-      seriesDataList.append(columnCorrDf[row])
-
-    response['cnt'] = len(highCorrColumnList)
-    response['issueList'] = highCorrColumnList
-    response['seriesData'] = seriesDataList
-    response['categoryData'] = columnList
+      response['cnt'] = len(highCorrColumnList)
+      response['issueList'] = highCorrColumnList
+      response['seriesData'] = seriesDataList
+      response['categoryData'] = columnList
 
   return json.dumps(response)
 
@@ -410,7 +406,7 @@ def modelTable():
   # modelResultDf = modelResultDf.round(3)
 
   # modelResultDf.to_csv('static/example_modelTable.csv', index = False)
-  modelResultDf = pd.read_csv('static/example_modelTable.csv')
+  modelResultDf = pd.read_csv('static/example_modelTable_step2.csv')
 
   modelResultList = [list(modelResultDf.columns)]
   for i in range(len(modelResultDf)):
@@ -499,7 +495,9 @@ def columnSummary():
 
   inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
   inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
-  allCorrDf = inconsNaNDf.corr()
+  allCorrDf = inconsNaNDf.corr(method = 'kendall')
+  allCorrDf = allCorrDf.fillna(0)
+  
   corrThreshold = 0.8
 
   # correlation
@@ -707,6 +705,7 @@ def recommend():
       inconsNaNSeries = beforeDf.apply(pd.to_numeric, errors = 'coerce')
       inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
       allCorrDf = inconsNaNDf.corr(method = action)
+      allCorrDf = allCorrDf.fillna(0)
       corrThreshold = 0.8
 
       highCorrList = []
@@ -1112,6 +1111,7 @@ def new():
       inconsNaNSeries = beforeDf.apply(pd.to_numeric, errors = 'coerce')
       inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
       allCorrDf = inconsNaNDf.corr(method = action)
+      allCorrDf = allCorrDf.fillna(0)
       corrThreshold = 0.8
 
       highCorrList = []
@@ -1140,6 +1140,68 @@ def new():
 
   return json.dumps({'new': 'success'})
 
+@app.route('/impact', methods=['GET', 'POST'])
+def impact():
+  with open('static/example_after.json') as f: afterData = json.load(f)
+  with open('static/example_before.json') as f: beforeData = json.load(f)
+
+  global inputModelList, inputEvalList
+
+  # missing
+  missingList = []
+  for i in range(0, 5):
+    after = afterData[i][inputEvalList[0]][inputModelList[0]]
+    before = beforeData[0][inputEvalList[0]][inputModelList[0]]
+    impact = after - before
+
+    missingList.append(impact)
+  missing = sum(missingList)/len(missingList)
+
+  # outlier
+  outlierList = []
+  for i in range(5, 7):
+    after = afterData[i][inputEvalList[0]][inputModelList[0]]
+    before = beforeData[0][inputEvalList[0]][inputModelList[0]]
+    impact = after - before
+
+    outlierList.append(impact)
+  outlier = sum(outlierList)/len(outlierList)
+
+  # incons
+  after = afterData[7][inputEvalList[0]][inputModelList[0]]
+  before = beforeData[0][inputEvalList[0]][inputModelList[0]]
+  incons = after - before
+
+  # duplicate
+  after = afterData[8][inputEvalList[0]][inputModelList[0]]
+  before = beforeData[0][inputEvalList[0]][inputModelList[0]]
+  duplicate = after - before
+
+  # correlation
+  corrList = []
+  for i in range(9, 12):
+    after = afterData[i][inputEvalList[0]][inputModelList[0]]
+    before = beforeData[0][inputEvalList[0]][inputModelList[0]]
+    impact = after - before
+
+    corrList.append(impact)
+  corr = sum(corrList)/len(corrList)
+
+  # relevance
+  relList = []
+  for i in range(12, 15):
+    after = afterData[i][inputEvalList[0]][inputModelList[0]]
+    before = beforeData[0][inputEvalList[0]][inputModelList[0]]
+    impact = after - before
+
+    relList.append(impact)
+  rel = sum(relList)/len(relList)
+
+  response = {}
+  response['seriesData'] = [missing, outlier, incons, duplicate, corr, rel]
+
+  return json.dumps(response)
+
 @app.route('/changeCnt', methods=['GET', 'POST'])
 def changeCnt():
   global uploadFileName
@@ -1161,57 +1223,6 @@ def changeCnt():
 
   response = {}
   response['seriesData'] = seriesDataList
-
-  return json.dumps(response)
-
-@app.route('/changeDistort', methods=['GET', 'POST'])
-def changeDistort():
-  global uploadFileName, targetColumn
-  beforeDf = pd.read_csv('static/' + uploadFileName + '.csv')
-  beforeDf = beforeDf.apply(pd.to_numeric, errors = 'coerce')
-  beforeColumnDf = beforeDf[targetColumn]
-  beforeColumnList = beforeColumnDf.values.tolist()
-
-  req = eval(request.get_data().decode('utf-8'))
-  fileName = req["fileName"]
-
-  afterDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
-  afterDf = afterDf.apply(pd.to_numeric, errors = 'coerce')
-  afterColumnDf = afterDf[targetColumn]
-  afterColumnList = afterColumnDf.values.tolist()
-
-  minValue = beforeColumnDf.min()
-  maxValue = beforeColumnDf.max()
-
-  sliceCnt = 20
-  sliceSize = (maxValue - minValue)/sliceCnt
-  beforeColumnCntList = [0 for i in range(sliceCnt)]
-  afterColumnCntList = [0 for i in range(sliceCnt)]
-
-  seriesDataList = []
-  categoryDataList = []
-
-  for i in range(sliceCnt):
-    minRange = float(minValue + (sliceSize * i))
-    maxRange = float(minValue + (sliceSize * (i + 1)))
-    categoryDataList.append(maxRange)
-
-    for j in range(len(beforeColumnList)):
-      if math.isnan(beforeColumnList[j]) == False:
-        if beforeColumnList[j] >= minRange and beforeColumnList[j] <= maxRange:
-          beforeColumnCntList[i] = beforeColumnCntList[i] + 1
-
-    for j in range(len(afterColumnList)):
-      if math.isnan(afterColumnList[j]) == False:
-        if afterColumnList[j] >= minRange and afterColumnList[j] <= maxRange:
-          afterColumnCntList[i] = afterColumnCntList[i] + 1
-
-  seriesDataList.append({'name': 'before', 'data': beforeColumnCntList})
-  seriesDataList.append({'name': 'after', 'data': afterColumnCntList})
-
-  response = {}
-  response['seriesData'] = seriesDataList
-  response['categoryData'] = categoryDataList
 
   return json.dumps(response)
 
@@ -1253,12 +1264,12 @@ def changePerformance():
   # afterList = modelResultDf.loc[[modelName], :].values.tolist()[0]
 
   # house pricing dataset - step 0
-  beforeList = [2.481, 3.592, 0.824, 0.155, 0.123]
-  afterList = [2.481, 3.592, 0.824, 0.155, 0.123]
+  # beforeList = [2.481, 3.592, 0.824, 0.155, 0.123]
+  # afterList = [2.481, 3.592, 0.824, 0.155, 0.123]
 
   # house pricing dataset - step 2
-  # beforeList = [2.481, 3.592, 0.824, 0.155, 0.123]
-  # afterList = [2.341, 3.124, 0.644, 0.122, 0.1]
+  beforeList = [2.481, 3.592, 0.824, 0.155, 0.123]
+  afterList = [2.341, 3.124, 0.644, 0.122, 0.1]
 
   seriesDataList = []
   seriesDataList.append({'name': 'before', 'data': beforeList})
@@ -1266,6 +1277,91 @@ def changePerformance():
 
   response = {}
   response['seriesData'] = seriesDataList
+
+  return json.dumps(response)
+
+# @app.route('/changeDistort', methods=['GET', 'POST'])
+# def changeDistort():
+#   req = eval(request.get_data().decode('utf-8'))
+#   fileName = req["fileName"]
+
+#   global uploadFileName, targetColumn
+#   beforeDf = pd.read_csv('static/' + uploadFileName + '.csv')
+#   beforeDf = beforeDf.apply(pd.to_numeric, errors = 'coerce')
+#   beforeColumnDf = beforeDf[targetColumn].dropna()
+
+#   afterDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
+#   afterDf = afterDf.apply(pd.to_numeric, errors = 'coerce')
+#   afterColumnDf = afterDf[targetColumn].dropna()
+
+#   beforeColumnCntList = []
+#   x = np.sort(beforeColumnDf)
+#   y = 1. * np.arange(len(x))/float(len(x) - 1)
+#   for i in range(0, len(x)): beforeColumnCntList.append(y[i])
+
+#   # afterColumnCntList = []
+#   # x = np.sort(afterColumnDf)
+#   # y = 1. * np.arange(len(x))/float(len(x) - 1)
+#   # for i in range(0, len(x)): afterColumnCntList.append(y[i])
+
+#   kstest = round(abs(stats.ks_2samp(beforeColumnDf, afterColumnDf).pvalue), 3)
+  
+#   seriesDataList = []
+#   seriesDataList.append({'name': 'before', 'data': beforeColumnCntList})
+#   # seriesDataList.append({'name': 'after', 'data': afterColumnCntList})
+#   categoryDataList = list(x)
+
+#   response = {}
+#   response['seriesData'] = seriesDataList
+#   response['categoryData'] = categoryDataList
+#   response['kstestData'] = kstest
+
+#   return json.dumps(response)
+
+
+
+
+@app.route('/changeDistort', methods=['GET', 'POST'])
+def changeDistort():
+  req = eval(request.get_data().decode('utf-8'))
+  fileName = req["fileName"]
+
+  indexList = []
+  xList = []
+  yList = []
+
+  global uploadFileName, targetColumn
+  beforeDf = pd.read_csv('static/' + uploadFileName + '.csv')
+  beforeDf = beforeDf.apply(pd.to_numeric, errors = 'coerce')
+  beforeColumnDf = beforeDf[targetColumn].dropna()
+
+  x = np.sort(beforeColumnDf)
+  y = 1. * np.arange(len(x))/float(len(x) - 1)
+  for i in range(0, len(x)):
+    indexList.append('before')
+    xList.append(list(x)[i])
+    yList.append(y[i])
+
+  afterDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
+  afterDf = afterDf.apply(pd.to_numeric, errors = 'coerce')
+  afterColumnDf = afterDf[targetColumn].dropna()
+
+  x = np.sort(afterColumnDf)
+  y = 1. * np.arange(len(x))/float(len(x) - 1)
+  for i in range(0, len(x)):
+    indexList.append('after')
+    xList.append(list(x)[i])
+    yList.append(y[i])
+
+  resultList = []
+  for i in range(0, len(indexList)):
+    resultList.append({'index': indexList[i], 'x': xList[i], 'y': yList[i]})
+
+  kstest = round(abs(stats.ks_2samp(beforeColumnDf, afterColumnDf).pvalue), 3)
+
+  response = {}
+  response['ECDFchartData'] = resultList
+  response['KStestValue'] = kstest
 
   return json.dumps(response)
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from '../../Box'
 import { useFileData } from '../../../contexts/FileDataContext'
 import BarChart from '../../charts/BarChart'
-import DensityChart from '../../charts/DensityChart'
+import ECDFChart from '../../charts/ECDFChart'
 import HorizontalBarChart from '../../charts/HorizontalBarChart'
 import Title from '../../Title'
 
@@ -30,8 +30,8 @@ export default function Change() {
         </div>
         <div style={{ position: 'relative', bottom: '35px' }}>
           <Title title="distort" />
-          <div style={{ position: 'relative', bottom: '15px', height: '115px', left: -5 }}>
-            { changeDistortData && <DensityChart data={changeDistortData} /> }
+          <div style={{ position: 'relative', bottom: '15px', height: '115px', left: -3 }}>
+            { changeDistortData && <ECDFChart data={changeDistortData} /> }
           </div>
         </div>
       </>}

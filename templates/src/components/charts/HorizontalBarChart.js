@@ -18,7 +18,7 @@ export default function HorizontalBarChart(props) {
           enabled: false
         },
         type: 'bar',
-        height: 200
+        height: 180
       },
       plotOptions: {
         bar: {
