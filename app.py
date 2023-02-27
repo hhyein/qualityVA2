@@ -1280,47 +1280,6 @@ def changePerformance():
 
   return json.dumps(response)
 
-# @app.route('/changeDistort', methods=['GET', 'POST'])
-# def changeDistort():
-#   req = eval(request.get_data().decode('utf-8'))
-#   fileName = req["fileName"]
-
-#   global uploadFileName, targetColumn
-#   beforeDf = pd.read_csv('static/' + uploadFileName + '.csv')
-#   beforeDf = beforeDf.apply(pd.to_numeric, errors = 'coerce')
-#   beforeColumnDf = beforeDf[targetColumn].dropna()
-
-#   afterDf = pd.read_csv('static/dataset/' + str(fileName) + '.csv')
-#   afterDf = afterDf.apply(pd.to_numeric, errors = 'coerce')
-#   afterColumnDf = afterDf[targetColumn].dropna()
-
-#   beforeColumnCntList = []
-#   x = np.sort(beforeColumnDf)
-#   y = 1. * np.arange(len(x))/float(len(x) - 1)
-#   for i in range(0, len(x)): beforeColumnCntList.append(y[i])
-
-#   # afterColumnCntList = []
-#   # x = np.sort(afterColumnDf)
-#   # y = 1. * np.arange(len(x))/float(len(x) - 1)
-#   # for i in range(0, len(x)): afterColumnCntList.append(y[i])
-
-#   kstest = round(abs(stats.ks_2samp(beforeColumnDf, afterColumnDf).pvalue), 3)
-  
-#   seriesDataList = []
-#   seriesDataList.append({'name': 'before', 'data': beforeColumnCntList})
-#   # seriesDataList.append({'name': 'after', 'data': afterColumnCntList})
-#   categoryDataList = list(x)
-
-#   response = {}
-#   response['seriesData'] = seriesDataList
-#   response['categoryData'] = categoryDataList
-#   response['kstestData'] = kstest
-
-#   return json.dumps(response)
-
-
-
-
 @app.route('/changeDistort', methods=['GET', 'POST'])
 def changeDistort():
   req = eval(request.get_data().decode('utf-8'))
@@ -1357,7 +1316,8 @@ def changeDistort():
   for i in range(0, len(indexList)):
     resultList.append({'index': indexList[i], 'x': xList[i], 'y': yList[i]})
 
-  kstest = round(abs(stats.ks_2samp(beforeColumnDf, afterColumnDf).pvalue), 3)
+  if fileName == '0': kstest = 0
+  else: kstest = round(abs(stats.ks_2samp(beforeColumnDf, afterColumnDf).pvalue), 3)
 
   response = {}
   response['ECDFchartData'] = resultList
