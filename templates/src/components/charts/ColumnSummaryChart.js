@@ -20,7 +20,7 @@ export default function ColumnSummaryChart(props) {
         animations: {
           enabled: false
         },
-        width: 723,
+        width: 734,
         height: 80,
         type: 'heatmap',
       },

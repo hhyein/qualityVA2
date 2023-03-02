@@ -146,7 +146,7 @@ export default function Table() {
       }) && settingValues.model && columnDatas.length > 0 && pointData ? (
         <div style={{ display: 'flex', marginTop: -30, marginLeft: -25 }}>
           <div>
-            <div style={{ marginLeft: 68 }}>
+            <div style={{ marginLeft: 57 }}>
               <ColumnSummaryChart data={columnSummary} />
             </div>
             <div style={{
