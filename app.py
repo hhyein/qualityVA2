@@ -717,6 +717,7 @@ def recommend():
               highCorrColumnList.append([row, column])
 
         highCorrColumnList = list(set(sum(highCorrColumnList, [])))
+        if targetColumn in highCorrColumnList: highCorrColumnList.remove(targetColumn)
         beforeDf = beforeDf.drop(highCorrColumnList, axis = 1)
 
       if issue == 'relevance':
@@ -734,6 +735,7 @@ def recommend():
             if allCorrDf[highCorrColumn][column] < (1 - corrThreshold) and allCorrDf[highCorrColumn][column] > -(1 - corrThreshold):
               problemColumnList.append(column)
 
+        if targetColumn in problemColumnList: problemColumnList.remove(targetColumn)  
         beforeDf = beforeDf.drop(problemColumnList, axis = 1)
     beforeDf.to_csv('static/dataset/' + str(i + 1) + '.csv', index = False)
 
@@ -1129,6 +1131,7 @@ def new():
               highCorrColumnList.append([row, column])
 
         highCorrColumnList = list(set(sum(highCorrColumnList, [])))
+        if targetColumn in highCorrColumnList: highCorrColumnList.remove(targetColumn)
         beforeDf = beforeDf.drop(highCorrColumnList, axis = 1)
 
       if issue == 'relevance':
@@ -1146,6 +1149,7 @@ def new():
             if allCorrDf[highCorrColumn][column] < (1 - corrThreshold) and allCorrDf[highCorrColumn][column] > -(1 - corrThreshold):
               problemColumnList.append(column)
 
+        if targetColumn in problemColumnList: problemColumnList.remove(targetColumn)
         beforeDf = beforeDf.drop(problemColumnList, axis = 1)
     beforeDf.to_csv('static/dataset/' + str(i + 1) + '.csv', index = False)
 
