@@ -128,7 +128,7 @@ def donutChart():
   global targetColumn, corrThreshold
   inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
   inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
-  allCorrDf = inconsNaNDf.corr(method = 'kendall') # for beijing PM2.5 dataset - kendall
+  allCorrDf = inconsNaNDf.corr(method = 'kendall') # for boston house price dataset - kendall
   allCorrDf = allCorrDf.fillna(0)
 
   # correlation
@@ -332,6 +332,7 @@ def checkVisualization():
     allCorrDf = allCorrDf.reindex(sorted(allCorrDf.columns), axis = 1)
 
     # correlation
+    ##### to fix
     if vis == 'correlationChart':
       highCorrColumnList = []
       for column in columnList:
@@ -361,6 +362,7 @@ def checkVisualization():
       response['categoryData'] = categoryDataList
 
     # relevance
+    ##### to fix
     if vis == 'relevanceChart':
       columnCorrDf = allCorrDf[targetColumn]
 
@@ -497,7 +499,7 @@ def columnSummary():
   global targetColumn, corrThreshold
   inconsNaNSeries = originDf.apply(pd.to_numeric, errors = 'coerce')
   inconsNaNDf = pd.DataFrame(inconsNaNSeries, columns = columnList)
-  allCorrDf = inconsNaNDf.corr(method = 'kendall') # for beijing PM2.5 dataset - kendall
+  allCorrDf = inconsNaNDf.corr(method = 'kendall') # for boston house price dataset - kendall
   allCorrDf = allCorrDf.fillna(0)
 
   # correlation
@@ -838,7 +840,7 @@ def new():
   originDf = originDf.reindex(sorted(originDf.columns), axis = 1)
   columnList = list(originDf.columns)
 
-  global combination, combinationDetail, targetColumn
+  global combination, combinationDetail, targetColumn, corrThreshold
   customIssue = combination[fileName - 1]
   originAction = combinationDetail[fileName - 1]
 
