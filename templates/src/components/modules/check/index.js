@@ -142,8 +142,14 @@ export default function Check() {
           break
 
         case "correlationChart":
+          params = {
+            method: corrData,
+          }
+          break
+
         case "relevanceChart":
           params = {
+            column: columnData,
             method: corrData,
           }
           break
@@ -309,8 +315,22 @@ export default function Check() {
                 data={visualizationData}
               />
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr' }}>
-              <div>
+            <div style={{ display: 'flex', marginLeft: -10 }}>
+              <div style={{
+                width: '45%',
+                margin: '0 5%'
+              }}>
+                <Title title="feature" />
+                <Select className="select"
+                  options={columnList}
+                  placeholder={<div>{columnData}</div>}
+                  defaultValue={columnData}
+                  onChange={v => {
+                    setColumnData(v.label)
+                  }}
+                />
+              </div>
+              <div style={{ width: '45%' }}>
                 <Title title="method" />
                 <Select className="select"
                   options={correlationList}
